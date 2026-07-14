@@ -1,0 +1,28 @@
+# --- Secrets / credentials — NEVER commit (Supabase keys, .env, etc.) ---
+.env
+.env.*
+*.key
+**/secrets*
+
+# --- OS cruft ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Python (ingestion scripts) ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# --- Obsidian (vault lives in-repo at /vault) ---
+# Keep plugin/appearance/hotkey config so the vault is portable;
+# ignore only the volatile workspace + cache files that churn constantly.
+vault/.obsidian/workspace.json
+vault/.obsidian/workspace-mobile.json
+vault/.obsidian/workspace.json.bak
+vault/.obsidian/cache/
+
+# --- Optional: keep large raw data dumps out of git (uncomment if needed) ---
+# data/raw/
