@@ -70,6 +70,7 @@ One statement was added to the dump by hand: `db dump --schema public` does not 
 - **Classification facet priority** — EWC-first assumed; confirm at phase 4.
 - **FoodWasteEXplorer export format** (CSV / XLSX) — confirm at phase-3 kickoff.
 - ~~**Baseline method** — Docker `db pull` vs `pg_dump --schema-only`~~ — resolved 2026-07-27: `db dump` (pg_dump), see the changelog note above.
+- **Commit raw source data?** — `database/data/raw/BioMobi_Biomass_RevA.xlsx` (60 KB) is untracked and *not* currently ignored; root `.gitignore` has `# data/raw/` commented out. Decide at phase-2 start: committing it at this size makes the ingestion reproducible (script + input versioned together), but sets a precedent for the much larger PDFs later.
 - **RLS with no policies** — all 11 tables have RLS enabled but zero policies, so `anon`/`authenticated` can read nothing despite the grants. Fine while ingestion runs server-side under `service_role`; revisit if anything ever reads BioMobi through the API.
 
 *Last updated: 2026-07-27.*
