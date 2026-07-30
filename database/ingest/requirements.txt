@@ -1,0 +1,5 @@
+# Ingestion environment for database/ingest/*.py
+# Create with:  python -m venv database/.venv
+#               database/.venv/Scripts/pip install -r database/ingest/requirements.txt
+openpyxl>=3.1
+psycopg[binary]>=3.2

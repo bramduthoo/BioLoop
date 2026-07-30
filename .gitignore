@@ -24,5 +24,7 @@ vault/.obsidian/workspace-mobile.json
 vault/.obsidian/workspace.json.bak
 vault/.obsidian/cache/
 
-# --- Optional: keep large raw data dumps out of git (uncomment if needed) ---
-# data/raw/
+# --- Raw source data stays out of git (decided phase 2, 2026-07-27) ---
+# Inputs are not versioned; the committed loader + the human-verified manifests
+# under database/crosswalks/ carry the audit trail instead.
+**/data/raw/

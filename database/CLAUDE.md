@@ -1,7 +1,7 @@
 # Database workstream — Claude Code conventions (BioMobi)
 
 *Local enforcement glue for the database workstream. Read this **with**, not instead of, the root `CLAUDE.md` and `protocol.md`. Detail lives here; only what the project needs rises to `state.md`/`flags.md`.*
-*Last updated: 2026-07-27.*
+*Last updated: 2026-07-30.*
 
 ## Session contract (this workstream)
 - **At start**, read in order: root `charter.md` → `state.md` → `flags.md` (filtered to `to: db`, status `open`/`acked`) → this folder's `hub.md` (status header first) → this file. The session objective is set when the session is opened.
@@ -23,7 +23,12 @@ BioMobi — a **facts-only** data layer in PostgreSQL/PostGIS on Supabase (proje
 - **Absence means "not measured."** Never insert fabricated or zero-filled rows to "complete" a composition vector. BioMobi stays sparse; the fixed-shape composition vector is a **model-layer projection**, not represented or padded here.
 - **Register vocabulary once, then map.** A parameter is registered a single time (`code`, `name`, `category`, `default_unit_code`, `definition`); every later value **maps** to it — never spawn a near-duplicate. Keep `basis` separate from `unit` (no "%DS"-style compound units). Same discipline for streams.
 - **Stream grain guardrail.** Define each canonical stream at the **finest grain any target source distinguishes**. Volumes attach **upward** (coarse inventory figure → fine stream, via conversion factors, e.g. AgroCycle). Never average composition **down** onto a coarse stream.
-- **Ingestion = committed scripts.** One idempotent Python script per source under `database/ingest/` (pandas + psycopg/SQLAlchemy), not notebooks. Source-name → canonical crosswalks live as committed CSVs under `database/crosswalks/`, LLM-proposed and **human-verified** (expect NL↔EN semantic mapping — peel/pomace/pulp — not string similarity).
+- **Ingestion = committed scripts.** One idempotent Python script per source under `database/ingest/` (openpyxl/pandas + psycopg), not notebooks. Source-name → canonical crosswalks live as committed CSVs under `database/crosswalks/`, LLM-proposed and **human-verified** (expect NL↔EN semantic mapping — peel/pomace/pulp — not string similarity).
+- **Curation is a human gate, not a model judgement.** Each source's crosswalk CSV carries the proposal beside a human `DECISION` column (`include`/`exclude`), per stream *and* per source. **A loader must exit non-zero, naming every unreviewed row, while any decision is blank.** Write these CSVs `;`-delimited with a UTF-8 BOM — the user's Excel is Belgian-locale and will otherwise cram every row into one column.
+- **Idempotency via a source-key namespace.** Both fact tables use identity PKs with no natural unique key, so a re-run duplicates silently. Each loader prefixes every `source.citation_key` it creates (e.g. `xls-`), then per run deletes fact rows in that namespace and reloads, in **one transaction**. This converges on removals as well as additions. Do not add UNIQUE constraints for this — legacy sources contain legitimately identical rows. **Never delete reference vocabulary** (`unit`/`basis`/`parameter`/`stream`): `stream_classification` cascades on stream delete, so an ingestion script must not be able to destroy classification work.
+- **Record what the source said.** Never silently harmonise units, fix errors, or drop duplicates — load as recorded and *report* the anomaly. A missing unit/basis is `unknown`; an inapplicable one is `n.a.`/`not_applicable`. Those are different claims and must not be collapsed.
+- **Raw inputs are not versioned.** `**/data/raw/` is gitignored (project decision, 2026-07-28). The committed script plus the human-verified manifests are the audit trail; a loader must fail with a clear message when its input is absent.
+- **Test against the local stack only.** A loader should refuse a non-local DSN unless explicitly overridden.
 
 ## Tooling roles (quick map)
 - **Schema:** Supabase CLI (authoring/lifecycle; files are truth) · Supabase MCP (read/inspect only).

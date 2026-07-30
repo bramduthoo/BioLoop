@@ -2,7 +2,7 @@
 
 *The shared ledger. The single place cross-workstream items are born, tracked, and closed. A flag is a stateful object with a lifecycle, not a note — see `protocol.md` §5 for the full schema.*
 *No workstream reaches into another; it leaves a flag here, and the ledger routes it.*
-*Last updated: 2026-07-14.*
+*Last updated: 2026-07-30.*
 
 ## How to use this file
 - **Raise** a flag when your session produces something *another specific workstream* must act on. Append a row; take the next free `id`.
@@ -15,7 +15,7 @@ Routing shorthand: `lit` = literature, `db` = database, `mod` = modelling.
 
 | ID | Date | From→To | Blocking | Status | Summary | Detail / Resolution |
 |----|------|---------|----------|--------|---------|---------------------|
-| — | — | — | — | — | *(no flags raised yet)* | — |
+| F-001 | 2026-07-30 | db→lit | no | open | ~20 legacy sources need Zotero entries + real BBT keys | `database/crosswalks/biomobi_excel_sources.csv`. Sources transcribed secondhand out of the old Excel; 8 carry DOIs, the rest are bare titles or database names. They load as `source_type='internal'` under placeholder keys (`xls-*`). Renaming to real BBT keys is safe — all source FKs are `ON UPDATE CASCADE`. |
 
 <!-- Example of a live and a closed row (delete this comment once real rows exist):
 | F-001 | 2026-07-18 | lit→db | no  | open     | brewer's spent grain missing from controlled vocab | literature/hub.md#vocab-gaps |
