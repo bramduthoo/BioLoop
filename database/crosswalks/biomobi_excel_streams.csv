@@ -1,9 +1,9 @@
 ﻿excel_name;n_rows;n_loadable;proposed_code;proposed_canonical_name;note;DECISION
 Sugar_beet;119;106;suikerbiet-REVIEW;Suikerbiet (grain unclear);AMBIGUOUS: beet, pulp or tops? Parameters (ADF/NDF/crude fibre/sugars) read like PULP. Fix the code before it becomes a primary key.;
-Wheat_Straw;72;60;tarwestro;Tarwestro;Wheat straw.;
-Wheat_bran;58;46;tarwezemelen;Tarwezemelen;Wheat bran.;
-Potato_peel;55;38;aardappelschillen;Aardappelschillen;Potato peel.;
-Pig_SH_WW;46;22;varkensslachthuis-afvalwater;Varkensslachthuis-afvalwater;AMBIGUOUS: pig slaughterhouse WASTEWATER (liquid effluent, not manure). Is an effluent a BioMobi stream?;
+Wheat_Straw;72;60;tarwestro;Tarwestro;Wheat straw.;include
+Wheat_bran;58;46;tarwezemelen;Tarwezemelen;Wheat bran.;include
+Potato_peel;55;38;aardappelschillen;Aardappelschillen;Potato peel.;include
+Pig_SH_WW;46;22;varkensslachthuis-afvalwater;Varkensslachthuis-afvalwater;AMBIGUOUS: pig slaughterhouse WASTEWATER (liquid effluent, not manure). Is an effluent a BioMobi stream?;exclude
 Pig manure;99;81;;;Manure - out of scope.;exclude
 OFMSW_Dried_Shredded;36;25;;;OFMSW - out of scope.;exclude
 OFMSW_unsorted;33;22;;;OFMSW - out of scope.;exclude
