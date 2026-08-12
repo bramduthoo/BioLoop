@@ -2,9 +2,11 @@
 - **Workstream:** Database (BioMobi)
 - **Current objective:** **phase 2 IN PROGRESS — not finished.** Seed the legacy internal Excel into the schema. Loader is built and tested; **paused awaiting human curation of the manifests.**
 - **Last session:** 2026-07-30 — inspected the workbook, agreed the mapping, built + tested an idempotent loader. No data loaded into any database yet.
+- **Last session (2b):** 2026-08-11 — parallel candidate-register workstream (see below). Read S002 (Monitor 2020) and S087 (Marktanalyse 2024) cover-to-cover in PDF and extended the standalone register. No schema or database touched.
 - **Progress:**
   - done: phase 1 (baseline migration); phase-2 workbook inspection; column→schema mapping; curation-manifest design; `load_biomobi_excel.py` written and verified against the local stack (idempotency, convergence, spot-checks all pass).
   - in progress: **phase 2 — awaiting the `DECISION` columns in `database/crosswalks/`, then the real load.**
+  - in progress (2b, parallel): candidate stream register — 276 claims from 13 sources (9 read cover-to-cover in PDF), held in a single live workbook + reading-guide docx + 90-source register CSV under `/mnt/user-data/outputs/`. Pre-database artifact; not yet committed to the repo.
   - not started: phases 3–4 (composition harvesting, classification facets).
 - **Key artifacts:**
   - `database/supabase/migrations/20260727114134_remote_schema.sql` — the baseline; schema of record. **Phase 2 required no schema change.**
@@ -18,6 +20,8 @@
 ## Where we are / what's next (read this first on reopening)
 
 **State:** nothing has been loaded into any database. The local stack was used for testing and then truncated back to empty. The live Supabase project is untouched. No migration was needed — the phase-1 schema absorbed the data as-is, which is itself a useful result.
+
+**State (2b — candidate stream register):** a parallel workstream builds a standalone, claim-level corpus of Flemish agri-food side-stream figures for expert review — the "literature review + monitors → candidate stream register" half of build-plan step 2. Each row is one figure exactly as a source reported it; contradictions are preserved, never averaged, and nothing is silently deleted (unverifiable claims are downgraded + flagged for the user, who decides). Currently 276 claims from 13 sources (9 read cover-to-cover in PDF). It lives in `/mnt/user-data/outputs/` (`BIOLOOP_streams_and_sources.xlsx` — single live file, no version suffix — plus the reading-guide docx and the 90-source register CSV), **not yet in the repo**, and touches no schema or database until 2a is committed.
 
 **To finish phase 2, in order:**
 
@@ -36,16 +40,20 @@
    (Requires the local stack up: `supabase start`. Never target the live project.)
 5. **Verify**, then update this hub, `state.md`, and commit.
 
+> **2b (parallel register) — goal still open; ASK THE USER.** No tangible completion steps could be written here because 2b has no defined end-state yet: "when is the sweep exhaustive enough / where does it hand off?" is an expert-curation scoping call, not something to hard-code. Ask the user to define the end-state (target sources, saturation rule, hand-off point) before writing concrete 2b steps. What *is* queued in the meantime: finish the remaining tier-1 sources — **S078** (MONBIO 4.0, web portal — different scraping route), **S086** (Marktanalyse ~2020, user's last priority, expected low yield), **S066** (blocked: no retrievable URL, 18 claims still inherited via S010 only; may need a direct ILVO request).
+
 **Expected result** under the proposed decisions: ~271 measurements across 5 streams, 19 sources, ~25 parameters.
+
+**Expected result (2b)** — *open; ask the user.* No tangible target was set because the register's goal is still undefined (how wide/exhaustive the sweep must be is an expert-curation decision). Current standing: 276 claims from 13 sources, 9 read cover-to-cover in PDF.
 
 ## Scope (compressed — see `charter.md` for the full version)
 Flemish **agri-food biomass side streams**, excluding manure and OFMSW. Inclusion is **expert-curated**: cast a wide but *bounded* net, then narrow. The 80/20 is a **prioritisation sort**, not a hard gate.
 
 ## Build plan (four phases)
 1. **Version the schema.** — done (phase 1).
-2. **Streams + canonical dictionary + volumes.**
-   - *First (in progress):* seed the old internal Excel via a committed loader. Note the scope correction: this seed exercises **6 of the 11 tables** (`source`, `unit`, `basis`, `parameter`, `stream`, `property_measurement`). The volume/geography and classification halves are **not** touched, because the workbook's only volume figures are fabricated placeholders. Earlier wording claiming this "validates the schema end-to-end" was overstated.
-   - Then: literature review + OVAM Inventaris (+ voedselverlies monitor) + AgroCycle → candidate stream register → expert curation → populate `stream`, `supply_observation`, `source`, `unit`/`basis`/`geography`.
+2. **Streams + canonical dictionary + volumes.** — *tackled as two parallel workstreams (2026-08-11): (2a) the loader seed, and (2b) the literature/monitor register sweep. 2b stays a pre-database artifact and populates no table until 2a is committed.*
+   - *2a (in progress):* seed the old internal Excel via a committed loader. Note the scope correction: this seed exercises **6 of the 11 tables** (`source`, `unit`, `basis`, `parameter`, `stream`, `property_measurement`). The volume/geography and classification halves are **not** touched, because the workbook's only volume figures are fabricated placeholders. Earlier wording claiming this "validates the schema end-to-end" was overstated.
+   - *2b (in progress — the workstream advanced in the 2026-08-11 session):* literature review + OVAM Inventaris (+ voedselverlies monitor) + AgroCycle → candidate stream register → expert curation → populate `stream`, `supply_observation`, `source`, `unit`/`basis`/`geography`. Currently a standalone workbook corpus; curation and DB population come after 2a lands.
 3. **Composition.** FoodWasteEXplorer, FOWCUS, AgroCycle, gap-fill literature → `property_measurement`.
 4. **Classification facets.** EWC likely first, plus a sector facet.
 
