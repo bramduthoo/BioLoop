@@ -2,7 +2,7 @@
 
 *The shared ledger. The single place cross-workstream items are born, tracked, and closed. A flag is a stateful object with a lifecycle, not a note — see `protocol.md` §5 for the full schema.*
 *No workstream reaches into another; it leaves a flag here, and the ledger routes it.*
-*Last updated: 2026-07-30.*
+*Last updated: 2026-08-14.*
 
 ## How to use this file
 - **Raise** a flag when your session produces something *another specific workstream* must act on. Append a row; take the next free `id`.
@@ -16,6 +16,7 @@ Routing shorthand: `lit` = literature, `db` = database, `mod` = modelling.
 | ID | Date | From→To | Blocking | Status | Summary | Detail / Resolution |
 |----|------|---------|----------|--------|---------|---------------------|
 | F-001 | 2026-07-30 | db→lit | no | open | ~20 legacy sources need Zotero entries + real BBT keys | `database/crosswalks/biomobi_excel_sources.csv`. Sources transcribed secondhand out of the old Excel; 8 carry DOIs, the rest are bare titles or database names. They load as `source_type='internal'` under placeholder keys (`xls-*`). Renaming to real BBT keys is safe — all source FKs are `ON UPDATE CASCADE`. |
+| F-002 | 2026-08-14 | db→lit | no | open | No Zotero MCP is wired — register sources cannot be archived or given BBT keys | `database/register/CLAUDE.md` step 2 assumes a Zotero MCP "wired at repo root `.mcp`", but `.mcp.json` holds only the Supabase server. S080 was extracted (310 claims) with its PDF archived, but no Zotero item exists and `Sources.S080.citation_key` is blank. Every later register source hits the same wall. Fix: add the Zotero server to `.mcp.json`, then backfill the items + BBT keys. |
 
 <!-- Example of a live and a closed row (delete this comment once real rows exist):
 | F-001 | 2026-07-18 | lit→db | no  | open     | brewer's spent grain missing from controlled vocab | literature/hub.md#vocab-gaps |

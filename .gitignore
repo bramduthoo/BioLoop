@@ -28,3 +28,10 @@ vault/.obsidian/cache/
 # Inputs are not versioned; the committed loader + the human-verified manifests
 # under database/crosswalks/ carry the audit trail instead.
 **/data/raw/
+
+# Same rule for the register's source PDFs — the 2026-07-28 decision names the
+# OVAM/MONBIO PDFs explicitly. ~57 MB of grey literature; the audit trail is the
+# committed streams_export.csv + log.md, verified by a human against the local
+# archive/ copy. Remove these two lines if the PDFs should be versioned after all.
+database/register/inbox/
+database/register/archive/
