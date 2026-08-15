@@ -8,6 +8,7 @@
 .DS_Store
 Thumbs.db
 desktop.ini
+~$*          # Excel/Word lock files, created while a workbook is open
 
 # --- Python (ingestion scripts) ---
 __pycache__/

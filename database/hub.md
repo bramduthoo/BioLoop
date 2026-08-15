@@ -2,11 +2,11 @@
 - **Workstream:** Database (BioMobi)
 - **Current objective:** **phase 2 IN PROGRESS — not finished.** Seed the legacy internal Excel into the schema. Loader is built and tested; **paused awaiting human curation of the manifests.**
 - **Last session:** 2026-07-30 — inspected the workbook, agreed the mapping, built + tested an idempotent loader. No data loaded into any database yet.
-- **Last session (2b):** 2026-08-14 — first extraction into the **in-repo** register (`database/register/`). Source **S080** (OVAM Monitor voedselverlies 2023) read cover-to-cover in PDF; **310 claims** written as C-001…C-310. PDF archived; Zotero step blocked (F-002). No schema or database touched.
+- **Last session (2b):** 2026-08-15 — **register protocol v2.** The S080 trial run (310 claims, 2026-08-14) was reviewed and **withdrawn**: it captured horeca/catering, and lacked per-row provenance. Protocol, dictionaries and the `Streams` schema were revised from that feedback; the workbook was emptied and S080 returned to `inbox/` for a clean re-run. No schema or database touched.
 - **Progress:**
   - done: phase 1 (baseline migration); phase-2 workbook inspection; column→schema mapping; curation-manifest design; `load_biomobi_excel.py` written and verified against the local stack (idempotency, convergence, spot-checks all pass).
   - in progress: **phase 2 — awaiting the `DECISION` columns in `database/crosswalks/`, then the real load.**
-  - in progress (2b, parallel): candidate stream register — **rebuilt in-repo** under `database/register/` (20-column `Streams` schema, three binding dictionaries, `inbox/` → `archive/` PDF flow, per-session `log.md`). **S080 done: 310 claims.** 11 verified PDFs wait in `register/inbox/`, one source per session. Pre-database artifact; populates no table.
+  - in progress (2b, parallel): candidate stream register — **rebuilt in-repo** under `database/register/` (25-column `Streams` schema, three binding dictionaries, `destination_index.csv`, `inbox/` → `archive/` PDF flow, per-session `log.md`). **Protocol v2 settled; zero claims captured — the workbook is empty by design.** 12 verified PDFs wait in `register/inbox/`, one source per session, S080 first. Pre-database artifact; populates no table.
   - not started: phases 3–4 (composition harvesting, classification facets).
 - **Key artifacts:**
   - `database/supabase/migrations/20260727114134_remote_schema.sql` — the baseline; schema of record. **Phase 2 required no schema change.**
@@ -21,7 +21,7 @@
 
 **State:** nothing has been loaded into any database. The local stack was used for testing and then truncated back to empty. The live Supabase project is untouched. No migration was needed — the phase-1 schema absorbed the data as-is, which is itself a useful result.
 
-**State (2b — candidate stream register):** a parallel workstream builds a standalone, claim-level corpus of Flemish agri-food side-stream figures for expert review — the "literature review + monitors → candidate stream register" half of build-plan step 2. Each row is one figure exactly as a source reported it; contradictions are preserved, never averaged, and nothing is silently deleted (unverifiable claims are downgraded + flagged for the user, who decides). It now lives **in the repo** at `database/register/` — `BIOLOOP_streams_and_sources.xlsx` (the only canonical copy; the older root-level file of the same name is superseded and must not be used), `dictionaries/` (three binding vocabularies), `inbox/` → `archive/` for verified PDFs, `log.md`, and the git-diffable `streams_export.csv`. Rebuilt under a stricter 20-column schema, so extraction restarted from scratch: **S080 = 310 claims (2026-08-14)**, 11 sources still queued in `inbox/`. Touches no schema or database.
+**State (2b — candidate stream register):** a parallel workstream builds a standalone, claim-level corpus of Flemish agri-food side-stream figures for expert review — the "literature review + monitors → candidate stream register" half of build-plan step 2. Each row is one figure exactly as a source reported it; contradictions are preserved, never averaged, and nothing is silently deleted (unverifiable claims are downgraded + flagged for the user, who decides). It now lives **in the repo** at `database/register/` — `BIOLOOP_streams_and_sources.xlsx` (the only canonical copy; the older root-level file of the same name is superseded and must not be used), `dictionaries/` (three binding vocabularies), `destination_index.csv`, `inbox/` → `archive/` for verified PDFs, `log.md`, and the git-diffable `streams_export.csv`. **Corpus is empty**: protocol v2 (below) settled after the S080 trial, and extraction starts from scratch under it — 12 sources queued in `inbox/`. Touches no schema or database.
 
 **To finish phase 2, in order:**
 
@@ -44,11 +44,14 @@
 
 **Expected result** under the proposed decisions: ~271 measurements across 5 streams, 19 sources, ~25 parameters.
 
-**Expected result (2b)** — *open; ask the user.* No tangible target was set because the register's goal is still undefined (how wide/exhaustive the sweep must be is an expert-curation decision). Current standing: **310 claims from 1 source (S080)** in the in-repo register; 11 verified PDFs queued in `register/inbox/` (S001, S002, S004, S005, S006, S007, S010, S066, S086, S087, S091), one source per session.
+**Expected result (2b)** — *open; ask the user.* No tangible target was set because the register's goal is still undefined (how wide/exhaustive the sweep must be is an expert-curation decision). Current standing: **0 claims** — protocol v2 is settled and the corpus starts fresh. 12 verified PDFs queued in `register/inbox/` (S001, S002, S004, S005, S006, S007, S010, S066, S080, S086, S087, S091), one source per session.
 
-**Two register-scope decisions to revisit** (both taken this session, both reversible):
-- *Huishoudens excluded* — `chain_L2` has no household stage. This drops well-resolved per-commodity Flemish tonnages (S080 Tabel 46). Admitting the consumer stage is a dictionary change.
-- *Whole-chain grand totals excluded* — `commodity_hierarchy.md`'s "no level 1" rule. These are exactly the totals a bottom-up sum check wants; see `register/log.md` → S080.
+**Register protocol v2 (2026-08-15) — settled from the S080 trial run.** The v1 output was withdrawn, not patched, because the scope change touched most rows. What changed:
+- **Chain-stage scope is now explicit and gated in `chain_L2.csv` (`in_scope` column).** In: primary production, visserij, veilingen/PO's, voedingsindustrie, retail. Out: **horeca, catering, households**. An aggregate is capturable only if *every* stage it spans is in scope — which is now the stated reason the depth rule has no level 1.
+- **`Streams` grew 20 → 25 columns.** Per-row provenance (`source_page`, `source_table_figure`) and per-row unit audit (`value_as_reported`, `unit_as_reported`, `conversion_factor_to_t_per_yr`, mandatory, factor must be a pure unit conversion or one the source itself supplies — never derived).
+- **`destination_index.csv`** — destination / collection-route volumes are still not extracted, but every source now records *where* they live, so the metadata is findable later.
+- **A source's own scope exclusions are not inherited** — a named tonnage the source excludes from its totals (slaughterhouse hides/bones, pre-harvest losses) is captured, with the source's framing kept in `source_type_label`.
+- **Contradictions split two ways** — *variant readings* (captured, listed, not called errors) versus *suspected source errors* (arithmetic evidence required; captured as recorded, flagged for `DECISION_expert`).
 
 ## Scope (compressed — see `charter.md` for the full version)
 Flemish **agri-food biomass side streams**, excluding manure and OFMSW. Inclusion is **expert-curated**: cast a wide but *bounded* net, then narrow. The 80/20 is a **prioritisation sort**, not a hard gate.
@@ -137,4 +140,4 @@ Source keys are renameable to real Zotero BBT keys later — all source FKs are 
 - ~~**Commit raw source data?**~~ — resolved 2026-07-28: **no.** `**/data/raw/` is gitignored.
 - ~~**80/20 ranking basis**~~ — resolved 2026-07-28: **not applicable to already-collected data.** The 80/20 is a rule for *prospective* harvesting. This dataset is small and already collected, so selection is manual, per stream, checking (a) the name, to exclude manure/OFMSW, and (b) the source, to validate the entry. Hence the manifest gate.
 
-*Last updated: 2026-08-14.*
+*Last updated: 2026-08-15.*

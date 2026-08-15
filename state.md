@@ -2,14 +2,14 @@
 
 *The project dashboard. Read this at the start of a session; update it at the end (project-grain only). Companion to `charter.md`; mechanics defined in `protocol.md`.*
 *This file holds project-level state only. Workstream detail lives in `<workstream>/hub.md`; cross-workstream items live in `flags.md`. Route each item by significance — see `protocol.md` §4.*
-*Last updated: 2026-07-30.*
+*Last updated: 2026-08-15.*
 
 ## Current phase
 **Foundational.** Database phase 1 done (schema baselined + verified); phase 2 **in progress** — the legacy-Excel loader is built and tested but has loaded nothing yet, pending human curation. Literature and model work not started.
 
 ## Workstream rollup
 *(one line per workstream — compressed from each hub's Status header; "—" until the workstream's first session runs)*
-- **Database:** phase 2 in progress — idempotent loader for the legacy Excel built and verified against the local stack; **paused awaiting the human `DECISION` columns in `database/crosswalks/`**. No data loaded anywhere yet; no schema change needed.
+- **Database:** phase 2 in progress — idempotent loader for the legacy Excel built and verified against the local stack; **paused awaiting the human `DECISION` columns in `database/crosswalks/`**. No data loaded anywhere yet; no schema change needed. In parallel, the candidate stream register (2b) is in-repo with its extraction protocol settled at v2; corpus starts empty, 12 source PDFs queued.
 - **Literature:** not started. One open flag inherited (F-001, non-blocking).
 - **Modelling:** not started (later phase).
 
@@ -39,6 +39,7 @@
 - **Raw source data is not versioned (2026-07-28)** — `**/data/raw/` is gitignored across the repo. Inputs stay out of git; the committed ingestion script plus the human-verified curation manifests carry the audit trail instead. Applies to the coming OVAM/MONBIO PDFs and literature exports too, not just the database workstream. Trade-off accepted: a fresh clone cannot re-run an ingestion without separately obtaining the input.
 - **Ingestion is gated on explicit human curation, not model judgement (2026-07-28)** — each source's crosswalk CSV carries an LLM proposal beside a human `include`/`exclude` decision, per stream *and* per source; the loader refuses to run while any decision is blank. Extends the existing "LLM-proposed, human-verified" crosswalk rule from name-mapping to inclusion.
 - **The 80/20 rule applies to prospective harvesting, not to data already in hand (2026-07-28)** — for small, already-collected datasets, selection is manual per stream: check the name (to exclude out-of-scope material) and the source (to validate the entry). Refines, and bounds, the charter's "stream selection guided by the 80/20 principle". Partially answers the "salvageable existing data" open question below.
+- **The candidate register covers the supply side of the agri-food chain only (2026-08-15)** — in: primary production (land + sea), auctions / producer organisations, processing industry, retail & wholesale. Out: horeca, catering, households, and anything downstream of retail. An aggregate figure is usable only if every chain stage it spans is in scope, which is why no whole-chain grand total is captured. This bounds what BioMobi's volume side will eventually hold, so it refines the charter's scope rather than merely implementing it. Enforced in `database/register/dictionaries/chain_L2.csv` (`in_scope` column).
 - **Solo for now; do not design for future collaborators** — keep overhead low; revisit if the team grows.
 - **Tooling** — PostgreSQL + PostGIS on Supabase, version-controlled SQL, Python/pandas ingestion; Zotero (refs) + Obsidian (notes, linked by citation key); literature-derived values flow into BioMobi carrying their citation key as provenance.
 

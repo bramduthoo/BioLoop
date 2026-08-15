@@ -30,8 +30,17 @@ and varies only the commodity level:
 - **5** — the figure is for a *named physical fraction* of a specific ingredient (a distinct part: peel, leaves, stems).
 - **4** — the figure is for the *whole ingredient* (`L4` filled; `L5` is a label / whole, not a distinct part).
 - **3** — the figure is a *subgroup total* (`L4` blank).
-- **2** — the figure is a *commodity-group total*.
-- **No 1.** A single whole-chain / cross-group grand total for all of Flanders is not useful for BioMobi and is **not captured at any level**.
+- **2** — the figure is a *commodity-group or sector total*. **This is the ceiling.**
+- **No 1.** A single whole-chain grand total for all of Flanders is **not captured**, because
+  such a total necessarily mixes in the stages the register excludes — horeca, catering and
+  households (see `chain_L2.csv`). The bar is not "too aggregated to be useful"; it is
+  "contains material that is out of scope".
+
+**The aggregate rule.** An aggregate row is capturable **iff every chain stage it spans is in
+scope**. A primary-sector total (visserij + visveilingen + landbouw + PO's) qualifies; a
+"retail + horeca + catering + consumenten" total does not. Where a level-2 aggregate *is*
+exactly one commodity group — `Tuinbouw`, `Akkerbouw`, `Veehouderij` — put that real group at
+L2 rather than `Aggregaat`.
 
 **Consistency note (this is what broke before):** a distinct part such as `blad- en stengelmassa`
 is *always* level 5, on every crop. Do not assign the same fraction level 4 on one ingredient
