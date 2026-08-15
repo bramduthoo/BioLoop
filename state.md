@@ -2,14 +2,14 @@
 
 *The project dashboard. Read this at the start of a session; update it at the end (project-grain only). Companion to `charter.md`; mechanics defined in `protocol.md`.*
 *This file holds project-level state only. Workstream detail lives in `<workstream>/hub.md`; cross-workstream items live in `flags.md`. Route each item by significance — see `protocol.md` §4.*
-*Last updated: 2026-08-15 (second entry that day).*
+*Last updated: 2026-08-15 (third entry that day).*
 
 ## Current phase
 **Foundational.** Database phase 1 done (schema baselined + verified); phase 2 **in progress** — the legacy-Excel loader is built and tested but has loaded nothing yet, pending human curation. Literature and model work not started.
 
 ## Workstream rollup
 *(one line per workstream — compressed from each hub's Status header; "—" until the workstream's first session runs)*
-- **Database:** phase 2 in progress — idempotent loader for the legacy Excel built and verified against the local stack; **paused awaiting the human `DECISION` columns in `database/crosswalks/`**. No data loaded anywhere yet; no schema change needed. In parallel, the candidate stream register (2b) is in-repo with its extraction protocol settled at v2; first source extracted and verified (S080, 114 claims), 11 source PDFs still queued.
+- **Database:** phase 2 in progress — idempotent loader for the legacy Excel built and verified against the local stack; **paused awaiting the human `DECISION` columns in `database/crosswalks/`**. No data loaded anywhere yet; no schema change needed. In parallel, the candidate stream register (2b) is in-repo with its extraction protocol settled at v2.1; two sources extracted — S080 (114 claims, human-verified) and S002 (100 claims, awaiting verification) — corpus 214 claims, 10 source PDFs still queued.
 - **Literature:** not started. One open flag inherited (F-001, non-blocking).
 - **Modelling:** not started (later phase).
 

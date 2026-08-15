@@ -2,11 +2,12 @@
 - **Workstream:** Database (BioMobi)
 - **Current objective:** **phase 2 IN PROGRESS — not finished.** Seed the legacy internal Excel into the schema. Loader is built and tested; **paused awaiting human curation of the manifests.**
 - **Last session:** 2026-07-30 — inspected the workbook, agreed the mapping, built + tested an idempotent loader. No data loaded into any database yet.
-- **Last session (2b):** 2026-08-15 — **S080 extracted and human-verified the same day: 114 claims (C-001…C-114), 1 retired.** The review found no misread value, but it did find a rule error that was costing `quantity_type` data (+4 claims once fixed); it also retired one row (C-074, a source typo), re-levelled akkerbouw in the dictionary, relabelled the Belgian-ports geography, and drove **protocol v2.1** (below). PDF archived; 18 destination/route locations indexed. No schema or database touched. *(Earlier that day: protocol v2 itself was settled and the withdrawn v1 trial run of S080 — 310 claims, 2026-08-14, which captured horeca/catering and lacked per-row provenance — was discarded.)*
+- **Last session (2b):** 2026-08-15 — **S002 (OVAM Monitor voedselverlies 2020) extracted under protocol v2.1: 100 claims (C-115…C-214), awaiting human verification.** Reference year **2020 only** (user decision at session open): S080 owns 2023 and left 2020 to this edition; the 2015 and 2017 columns were skipped for S004 and S003 and logged table-by-table. Two suspected source errors flagged with arithmetic evidence (C-193, a 1.999.983/1.999.383 digit transposition in Tabel 5; C-185, a "22.000 ton" veehouderij sentence that appears to be unrevised 2015 text). No new dictionary members were needed — the v2.1 vocabularies absorbed the source as-is. 19 destination/route locations indexed. No schema or database touched.
+- **Previous session (2b):** 2026-08-15 — **S080 extracted and human-verified the same day: 114 claims (C-001…C-114), 1 retired.** The review found no misread value, but it did find a rule error that was costing `quantity_type` data (+4 claims once fixed); it also retired one row (C-074, a source typo), re-levelled akkerbouw in the dictionary, relabelled the Belgian-ports geography, and drove **protocol v2.1** (below). PDF archived; 18 destination/route locations indexed. No schema or database touched. *(Earlier that day: protocol v2 itself was settled and the withdrawn v1 trial run of S080 — 310 claims, 2026-08-14, which captured horeca/catering and lacked per-row provenance — was discarded.)*
 - **Progress:**
   - done: phase 1 (baseline migration); phase-2 workbook inspection; column→schema mapping; curation-manifest design; `load_biomobi_excel.py` written and verified against the local stack (idempotency, convergence, spot-checks all pass).
   - in progress: **phase 2 — awaiting the `DECISION` columns in `database/crosswalks/`, then the real load.**
-  - in progress (2b, parallel): candidate stream register — **rebuilt in-repo** under `database/register/` (26-column `Streams` schema, three binding dictionaries, `destination_index.csv`, `inbox/` → `archive/` PDF flow, per-session `log.md`). **Protocol at v2.1; first source extracted and human-verified — 114 claims from S080, 1 retired by the reviewer.** 11 verified PDFs still wait in `register/inbox/`, one source per session. Pre-database artifact; populates no table.
+  - in progress (2b, parallel): candidate stream register — **rebuilt in-repo** under `database/register/` (26-column `Streams` schema, three binding dictionaries, `destination_index.csv`, `inbox/` → `archive/` PDF flow, per-session `log.md`). **Protocol at v2.1; two sources extracted — 114 claims from S080 (human-verified, 1 retired) and 100 from S002 (awaiting verification). Corpus: 214 claims.** 10 verified PDFs still wait in `register/inbox/`, one source per session. Pre-database artifact; populates no table.
   - not started: phases 3–4 (composition harvesting, classification facets).
 - **Key artifacts:**
   - `database/supabase/migrations/20260727114134_remote_schema.sql` — the baseline; schema of record. **Phase 2 required no schema change.**
@@ -20,6 +21,17 @@
 ## Where we are / what's next (read this first on reopening)
 
 **State:** nothing has been loaded into any database. The local stack was used for testing and then truncated back to empty. The live Supabase project is untouched. No migration was needed — the phase-1 schema absorbed the data as-is, which is itself a useful result.
+
+**S002 session outcome (2026-08-15), relevant to the sources still queued.** The v2.1 protocol
+held up without amendment on a second source: no rule change was needed, no dictionary member was
+added, and the self-check caught only one mechanical slip (a lower-case `chain_L2` value). Two
+things are worth carrying forward. First, **the cross-source restatement rule did real work here** —
+S002 is the middle edition of a four-edition series and roughly half its tables are 2015/2020
+evolution tables; the rule kept the corpus clean, at the cost that **S003 (2017) is in the `Sources`
+sheet but has no PDF and is not queued**, so 2017 stays uncaptured until that is resolved. Second,
+unlike S080, **every quantity-type total in S002 is printed outside a route cross-tab**, so the
+v2.1 "read by axis, not by table" correction changed nothing here — it is a monitor-specific
+hazard, not a universal one.
 
 **State (2b — candidate stream register):** a parallel workstream builds a standalone, claim-level corpus of Flemish agri-food side-stream figures for expert review — the "literature review + monitors → candidate stream register" half of build-plan step 2. Each row is one figure exactly as a source reported it; contradictions are preserved, never averaged, and nothing is silently deleted (unverifiable claims are downgraded + flagged for the user, who decides). It now lives **in the repo** at `database/register/` — `BIOLOOP_streams_and_sources.xlsx` (the only canonical copy; the older root-level file of the same name is superseded and must not be used), `dictionaries/` (three binding vocabularies), `destination_index.csv`, `inbox/` → `archive/` for verified PDFs, `log.md`, and the git-diffable `streams_export.csv`. **Corpus holds 114 claims from one source (S080), human-verified, 1 retired by the reviewer**: protocol v2 settled after the S080 trial run, extraction restarted from scratch under it, and the review then produced v2.1 (below) — 11 sources still queued in `inbox/`. Touches no schema or database.
 
@@ -76,7 +88,7 @@ source. The remaining fixes tighten rules where a reviewer had to catch somethin
 
 **Expected result** under the proposed decisions: ~271 measurements across 5 streams, 19 sources, ~25 parameters.
 
-**Expected result (2b)** — *open; ask the user.* No tangible target was set because the register's goal is still undefined (how wide/exhaustive the sweep must be is an expert-curation decision). Current standing: **114 claims from S080** (2026-08-15, human-verified). 11 verified PDFs still queued in `register/inbox/` (S001, S002, S004, S005, S006, S007, S010, S066, S086, S087, S091), one source per session.
+**Expected result (2b)** — *open; ask the user.* No tangible target was set because the register's goal is still undefined (how wide/exhaustive the sweep must be is an expert-curation decision). Current standing: **214 claims from two sources** — S080 (114, human-verified) and S002 (100, awaiting verification). 10 verified PDFs still queued in `register/inbox/` (S001, S004, S005, S006, S007, S010, S066, S086, S087, S091), one source per session. **S003 (Monitoring Vlaanderen 2017) has no PDF and is not queued** — while that holds, the 2017 figures skipped from S002 and S080 belong to no source in the register.
 
 **Register protocol v2 (2026-08-15) — settled from the S080 trial run.** The v1 output was withdrawn, not patched, because the scope change touched most rows. What changed:
 - **Chain-stage scope is now explicit and gated in `chain_L2.csv` (`in_scope` column).** In: primary production, visserij, veilingen/PO's, voedingsindustrie, retail. Out: **horeca, catering, households**. An aggregate is capturable only if *every* stage it spans is in scope — which is now the stated reason the depth rule has no level 1.
@@ -161,6 +173,7 @@ Source keys are renameable to real Zotero BBT keys later — all source FKs are 
 - **Every ingestion script is idempotent via its own source-key namespace.**
 
 ## Open questions (local)
+- **S003 (Monitoring Vlaanderen 2017) has no retrievable PDF — 2017 is currently unowned.** Both S080 and S002 skipped their 2017 columns to it under the cross-source restatement rule, but S003 is not in `inbox/` and not queued. Either source it (so 2017 gets extracted properly) or decide that the next series edition to be extracted captures 2017 too. Concretely recoverable from the archived S002 PDF: Tabel 12 (visserij) and Tabel 13 (aanvoer + opgehouden per vissoort) both carry a full 2017 column.
 - **`Sugar_beet` grain — BLOCKS the phase-2 load.** Beet, pulp, or tops? The 10× DS spread suggests fresh vs dried material conflated, so this may need **two** streams rather than one rename.
 - **`Pig_SH_WW`** — is a liquid slaughterhouse effluent a BioMobi stream?
 - **4 in-scope duplicate rows** — copy-paste artifact or two genuine agreeing measurements? Kept by default; `--dedupe` collapses them.

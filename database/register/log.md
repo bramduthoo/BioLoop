@@ -41,6 +41,7 @@ Keep these five headings, in this order, so notes stay comparable across sources
 
 | Date | source_id | source_short | PDF (in archive/) | Claims added | Verified? | Commit | Anomalies / flags |
 |------|-----------|--------------|-------------------|-------------:|-----------|--------|-------------------|
+| 2026-08-15 | S002 | OVAM Monitor voedselverlies 2020 | `S002_OVAM Monitor voedselverlies 2020.pdf` | 100 (C-115…C-214) | no | *(this session)* | See [S002](#s002) — 2 suspected source errors, 3 variant readings, no Zotero item (F-002) |
 | 2026-08-15 | S080 | OVAM Monitor voedselverlies 2023 | `S080_OVAM Monitor voedselverlies 2023.pdf` | 114 (C-001…C-114), 1 retired | **yes** (2026-08-15) | `2486196` + `8d23344` | See [S080](#s080) — 1 source error retired by the reviewer, 3 variant readings, no Zotero item (F-002) |
 
 *Note: S080 was extracted once before, on 2026-08-14 under protocol v1, producing 310 claims.
@@ -49,6 +50,224 @@ provenance/unit columns. See commit `ad3b36c` for the withdrawn output. The row 
 clean v2 re-run and supersedes it entirely.*
 
 ## Anomaly notes (detail, keyed by source_id)
+
+### S002
+
+**Session rule (set by the user at session open):** only the **2020** column of this monitor's
+evolution tables was captured. S002 is the third edition of the series (2015 · 2017 · 2020 ·
+2023); S080 already captured 2023 and explicitly left 2020 to this source. The 2015 and 2017
+columns were left to **S004** (2015 nulmeting, PDF queued in `inbox/`) and **S003** (2017
+edition, in the `Sources` sheet but with **no PDF and not among the queued sources**). The
+2017 risk was put to the user before extraction and the strict rule was chosen — see
+*Deliberate exclusions* for exactly which tables and years were skipped, so they stay
+recoverable from the archived PDF.
+
+Also of note: in this PDF the **file page equals the printed folio** throughout (every page
+prints "pagina N of 99"), so `source_page` needs no dual notation.
+
+**Duplicate tables.** The source prints **Tabel 1 (p.11) and Tabel 7 (p.26) identically**, and
+likewise **Tabel 2 (p.12) and Tabel 8 (p.27)** — same titles, same numbers, once in the
+"Samenvattend overzicht" and once in the synthesis chapter. Every figure in them was captured
+from the sector chapters instead (the more specific location) and both locations are listed in
+`also_stated_in`.
+
+#### 1. Variant readings
+
+All captured or noted; none of these is called an error.
+
+- **Visveilingen totale voedselreststroom 2020: 207,6 vs 208 ton.** Tabel 13 (p.35) prints the
+  per-species total as 207,6; Tabel 4 (p.21), Tabel 5 (p.22), Tabel 16 (p.37) and the running
+  text on p.35 and p.36 all print 208. This is a **rounded restatement**, so only the precise
+  207,6 got a row (C-144), with the other locations in `also_stated_in`. Consequence worth
+  knowing: the 104 + 104 voedselverlies/nevenstroom split (C-145, C-146) is derived by the
+  source from 208, not from 207,6, so those two do not sum to C-144.
+- **Retail selectief ingezameld: Tabel 43 (p.69-70) vs Tabel 36/40.** Tabel 43 gives 72.400 ton
+  selectief ingezamelde voedselreststromen and 27.205 ton selectief ingezamelde
+  voedselverliezen, where Tabel 36 (p.64) gives 71.967 and Tabel 40 (p.65) gives 26.897. Both
+  are collection-route cells whose quantity-type totals are printed and captured, so neither
+  became a row; recorded here and in `destination_index.csv`.
+- **Rounding-level mismatches inside table totals** (captured as printed, nothing retired):
+  Tabel 30's eight subsector totals sum to 1.999.384 against a printed 1.999.383; the primary
+  sector parts (0 + 207,6 + 479.095 + 15.954 = 495.256,6) fall 0,4 ton short of Tabel 5's
+  printed 495.257, which is the same 207,6/208 rounding.
+- **Schenkingen: 17.035 vs 16.979 ton.** Tabel 3 (p.20) totals the donations at 17.035 ton;
+  Figuur 1 (p.8) states 16.979 ton. Both are `schenking` and out of scope, so neither became a
+  row.
+
+#### 2. Suspected source errors
+
+Both captured as recorded, never corrected, so `DECISION_expert` can retire them.
+
+- **C-193 — voedingsindustrie, totale voedselreststroom 2020, Tabel 5 (p.22) prints
+  1.999.983 ton.** Arithmetic evidence that two digits are transposed: Tabel 4 (p.21), Tabel 29
+  (p.53), Tabel 30 (p.54), Tabel 34 (p.61) and Figuur 8 (p.57) all print **1.999.383**; Tabel
+  29's own parts give 2.034 + 227.206 + 7.011 + 1.763.132 = 1.999.383; and Tabel 4's 2020
+  column sums to exactly 3.051.469 — the printed chain total — only on the 1.999.383 basis.
+  Retire C-193 in favour of C-190.
+- **C-185 — veehouderij, totale voedselreststroom 2020, running text p.41 states "afgerond
+  22.000 ton".** Arithmetic evidence: Tabel 17 (p.39) prints 12.989, Tabel 20 (p.41) gives
+  12.891 + 98 = 12.989, the text on p.39 says "afgerond 13.000 ton", and the landbouw total
+  reconciles exactly as 310.944 + 155.162 + 12.989 = 479.095. The same sentence also quotes
+  "93%" voedselverliezen, which is the **2015** ratio in Tabel 21 (2020 = 99%), so this reads as
+  a paragraph carried over unrevised from the previous edition. Retire C-185 in favour of C-159.
+
+#### 3. Deliberate exclusions
+
+Every figure seen and not captured, with its reason.
+
+- **Out-of-scope chain stages** — §3.7 horeca en catering (Tabel 44, 45, 46, 47, 48, 49, 50, 51,
+  52; Figuur 11, 12) and §3.8 huishoudens (Tabel 53, 54, 55, 56, 57, 58, 59, 60, 61; Figuur 13,
+  14), in full. Likewise the horeca-, catering- and huishoudens-rows of Tabel 1, 2, 4, 5, 6, 7,
+  8, 9 and 10.
+- **Aggregates spanning an out-of-scope stage** — Tabel 4's "Totaal keten" (3.051.469 ton for
+  2020); Tabel 5's "Totaal voedingsindustrie t/m huishoudens" (2.556.213 ton) and its "Totaal"
+  row (3.051.469 ton plus the destination split); Figuur 1's whole-chain 3.051.469 /
+  2.167.727 / 883.742 / 6.484.757 ton and the p.8 text restating "3 miljoen ton"; the p.11 text
+  restating 883.742 ton; Tabel 11 (whole-chain per capita). **Figuur 2 (p.10)** is excluded
+  three times over: it is the same whole-chain infographic as Figuur 1 but for **2015**, so it
+  fails the stage rule, the reference-year rule and the destination rule at once.
+- **Values belonging to an earlier edition in the `Sources` sheet** (see the session rule above)
+  — the **2015** columns of Tabel 4, 5, 6, 9, 12, 17, 20, 21, 22, 23, 25, 26, 27, 34, 43 and
+  Figuur 2, and the **2017** columns of Tabel 12 and Tabel 13. Named explicitly because they are
+  the largest single block left on the table: Tabel 17/20's full 2015 landbouw breakdown (449.352
+  ton total, 330.319 voedselverliezen, 119.033 nevenstromen), Tabel 13's 2015 and 2017 aanvoer
+  and opgehouden per vissoort, and the 2015 sector totals 102 / 15.277 / 2.442.711 / 62.574 ton.
+  These belong to **S004** (2015) and **S003** (2017). *S002 does state on p.21 that "een aantal
+  data van 2015 werden lichtjes bijgestuurd" — the keten total moving from 3.485.157 to
+  3.481.083 ton — but that revision is only quantified for the whole-chain figure, which is out
+  of scope on its own; no in-scope 2015 sector figure is given a stated correction, so nothing
+  was captured under the revision clause.*
+- **Visserij (§3.1) yielded no reststroom figure.** Tabel 12 (p.34) has columns for 2015, 2017
+  and 2020, and every 2020 cell reads "N/A" — since the aanlandingsplicht took full effect in
+  2019, the source says teruggooi volumes are no longer tracked. Tabel 4 (p.21) likewise prints
+  "n/a". **Tabel 5 (p.22) nevertheless prints a bare 0** for visserij 2020; that printed zero was
+  captured as **C-148** and cross-referenced to the two n/a statements, because the register
+  records what a source prints. The undersized-fish (BMS) stream is described on p.33 and
+  explicitly excluded by the source as "niet-slachtrijp"; **no tonnage is given for it**, so
+  there was nothing to capture under the "do not inherit the source's own scope exclusions"
+  rule. The only visserij-stage rows in this extraction are the Tabel 13 aanvoer figures.
+- **Destination and collection-route values** — not extracted, indexed instead in
+  `destination_index.csv` (19 rows). This is the *destination* axis (voeder voor dieren,
+  biochemie, bodem, vergisting/compostering, gfvo/biodiesel, dierlijke afvalverwerking,
+  verbranden, andere) and the *collection* axis (selectief ingezameld vs restafval). It is **not**
+  the `voedselverlies` / `nevenstroom` axis, which is register data and was captured throughout.
+  Unlike S080, **every** quantity-type total in this source is printed somewhere outside a route
+  cross-tab, so no equivalent of S080's C-111…C-114 was needed here.
+- **`schenking`** (out of scope by `quantity_type.csv`) — Tabel 3 (p.20), Tabel 28 (p.52), Tabel
+  35 (p.62), the 1.632 ton PO gratis verdeling (p.46, Tabel 26 and Figuur 7), the 16.979 ton in
+  Figuur 1, the 5.697 / 2.428 / 3.269 / 9.706 / 1.664 ton on p.19, p.52 and p.62, and the
+  schenkingen rows of Tabel 34 and Tabel 43. Also Tabel 26's "Totaal 17.586 ton" niet-verkocht
+  product, because it is the sum of a captured reststroom (15.954) and a donation (1.632) and
+  therefore has no valid `quantity_type` — the same call S080 made on its Tabel 20.
+- **`slib`** (out of scope by `quantity_type.csv`) — the 484.693 ton waterzuiveringsslib of the
+  voedingsindustrie (Tabel 29 p.53, the p.54 text, Tabel 30 p.55 and Tabel 34 p.61), and the
+  5.030 + 40 ton vetslib of the retail (p.63 text, Tabel 37 and Tabel 38).
+- **Non-convertible units** — all kg/inwoner figures (Tabel 10's rightmost column, Tabel 11,
+  Figuur 15) are per-capita and cannot be converted without applying the population figure,
+  which would be a derivation. The p.71 catering figure of "37 gram verlies per passage" has no
+  mass basis either.
+- **Not a quantity of material** — all cascade-index values (Tabel 6, 15, 19, 24, 31, 39, 47,
+  56, 62), every percentage table (Tabel 9, 14, 18, 21, 23, 42, and the % rows of 5, 29, 30, 32,
+  36, 37, 38, 40), the IMJV sample sizes and response rates (Tabel 33, 41 — counts of
+  businesses, not tonnages), the Superlijst index scores (Figuur 9), and the year-on-year deltas
+  ("+8.576 ton", "+27.639 ton", "-4.411 ton", "-443.328 ton", "+3.759 ton", "-447.086 ton",
+  "met 106 ton verhoogd").
+- **Non-Flemish geography** — the België row of Tabel 11 and all other member states in it.
+- **Rounded restatements of a figure captured precisely elsewhere** — "479.000 ton" (p.38),
+  "afgerond 311.000 / 155.000 / 13.000 ton" (p.39), "349.000 ton" and "130.000 ton" (p.41),
+  "afgerond 155.000 ton" (p.41), "bijna 2 miljoen ton" (p.53), "ruim 1,1 miljoen ton" (p.46),
+  "208 ton" for 207,6 (p.35, p.36, Tabel 4, 5, 16), "3 miljoen ton" (p.8).
+- **Exact restatements** (same value, different location; captured once, from the location named
+  in the workbook) — Tabel 1 and Tabel 7 are the same table, as are Tabel 2 and Tabel 8;
+  479.095 / 348.786 / 130.309 recur across Tabel 4, 5, 17, 20, 22 and Figuur 6; 15.954 / 15.156 /
+  798 recur across Tabel 4, 5, 23, 25, 26, 27 and Figuur 7; 1.999.383 / 229.240 / 1.770.143
+  recur across Tabel 4, 29, 30, 32, 34 and Figuur 8; 85.802 / 37.381 / 48.421 recur across Tabel
+  4, 5, 36, 37, 38, 40, 43 and Figuur 10. **Chapter 4 does not exist in this edition**; the
+  synthesis chapter (§2) produced only four new claims — C-148, C-193 and C-210 from Tabel 5 and
+  the four EU rows from Tabel 10.
+
+#### 4. Completeness sweep — disposition of all 62 tables, 15 figures and 1 schema
+
+Every numbered object in the source's own *Figuren* / *Tabellen* index (p.92-95), in exactly
+one bucket.
+
+**Captured** (11 tables + 1 text passage set): T5, rij Visserij / Totaal primaire sector /
+Voedingsindustrie-variant (C-148, C-210, C-193) · T10 (C-211…C-214) · T13 (C-115…C-144) ·
+T16 (C-145, C-146) · T17 (C-149…C-160) · T20 (C-161…C-184) · T25 (C-187, C-188) · T27 (C-186) ·
+T29 (C-190…C-192) · T30 (C-194…C-201) · T36 (C-203…C-205) · T38 (C-208, C-209) · T40 (C-206,
+C-207). Plus four running-text figures: p.34 (C-147), p.41 (C-185), p.48 (C-189), p.56 (C-202).
+
+**Excluded, with reason:**
+
+| Object | Reason |
+|---|---|
+| T1, T7 | identieke tabellen; alle in-scope cijfers gecapteerd uit de sectorhoofdstukken |
+| T2, T8 | identieke inzamelwijze-cross-tabs; alle quantity_type-totalen staan elders en zijn daar gecapteerd |
+| T3, T28, T35 | `schenking` — buiten scope per `quantity_type.csv` |
+| T4 | synthese-tabel; elk in-scope 2020-cijfer is gecapteerd uit het sectorhoofdstuk; 2015-kolom hoort bij S004 |
+| T6, T15, T19, T24, T31, T39, T47, T56, T62 | cascade-index en wegingscoëfficiënten — geen hoeveelheid materiaal |
+| T9, T14, T18, T21, T23, T42 | percentages, geen tonnages (T23's Totaal-kolom in ton is wel gecapteerd als C-186) |
+| T11 | kg/inwoner, en alle andere lidstaten buiten scope |
+| T12 | 2020-kolom = N/A; 2015/2017 horen bij S004 resp. S003 |
+| T22, T34, T43 | evolutie-overzichten; elk 2020-cijfer herhaalt een gecapteerd cijfer, 2015-kolom hoort bij S004 |
+| T26 | bestemmingen niet-verkocht product; het Totaal (17.586 t) mengt reststroom en schenking |
+| T32, T37 | bestemmingssplitsing van een reeds gecapteerd totaal |
+| T33, T41 | aantallen bevraagde bedrijven en responsgraden — geen hoeveelheid materiaal |
+| T44–T52, F11, F12 | horeca en catering — ketenschakel buiten scope |
+| T53–T61, F13, F14 | huishoudens — ketenschakel buiten scope |
+| F1 | volledige keten (bevat horeca/catering/huishoudens) + bestemmingsdata |
+| F2 | idem, én referentiejaar 2015 (hoort bij S004) |
+| F5 | Vlaco-stroomschema: verwerkingsstromen naar vergisting, mengt horeca-keukenafval en import |
+| F6, F7, F8, F10 | cascade-infographics; elk cijfer erin herhaalt een gecapteerde waarde |
+| F9 | Superlijst-scores — geen hoeveelheid materiaal |
+| F15 | kg/inwoner, EU-lidstaten |
+
+**Carries no numbers** (3): F3 (schema voedselgerelateerde stromen, p.16) · F4 (cascade van
+waardebehoud, p.17) · Schema 1 (Vlaams en Europees kader, p.18).
+
+#### 5. Judgement calls & new dictionary members
+
+- **C-148, the printed 0 for visserij in Tabel 5**, was captured even though Tabel 4 and Tabel 12
+  print "n/a" for the same quantity. The register records what the source prints, and a zero the
+  source actually prints is a reading — but this one asserts something the source elsewhere says
+  it does not know, so it is cross-referenced on the row and flagged here. Retire it via
+  `DECISION_expert` if the reviewer reads the 0 as a formatting artefact for n/a.
+- **C-147, "jaarlijks zo'n 17 miljoen kg vis"** (p.34, sourced to Vlaamse Visveiling 2022), is the
+  one row in this extraction whose `reference_year` is not 2020. It is a generic annual-throughput
+  statement, not a 2020 measurement, and it does not match either the 2020 aanvoer (12.795,6 ton)
+  or the 2015 one (18.376,5 ton). Captured under "capture and flag rather than drop"; retire it if
+  the reviewer prefers only year-resolved figures.
+- **C-202, "meer dan 15 miljoen ton" productie voedingsindustrie** (p.56), is an order-of-magnitude
+  estimate by Fevia that the source uses as the denominator for its 1,3% relative loss figure. The
+  source's own wording is kept in `source_type_label`. Same treatment as S080's C-086
+  ("ruim 700.000 ton").
+- **Aanvoer vs opgehouden sit at different chain stages.** Per `chain_L2.csv` a landing volume is
+  `Visserij` and a withdrawn-at-auction figure is `Visveilingen`, so Tabel 13's two halves were
+  split across the two stages even though they share a table — the same call S080 made on its
+  Tabel 10.
+- **Tabel 13 rows carry `geography = Vlaanderen`** even though the table is titled "in Belgische
+  havens", under the single sanctioned Belgium→Flanders exception in the protocol. The source's
+  own wording is preserved in `source_type_label`.
+- **The EU-definition rows (C-211…C-214) are a parallel accounting**, captured beside the Flemish
+  figures per the S080 session decision. They are far smaller than their Flemish counterparts
+  because the EU scope counts only material going to compostering/vergisting, dierlijke
+  afvalverwerking and verbranding — feed, bodem, biochemie and biodiesel fall outside it. Two
+  reconciliations hold exactly and are worth recording: voedingsindustrie 311.700 + 485.912 +
+  9.045 = 806.657, and retail 51.947 + 13.835 = 65.782. Note also that the landbouw EU figure
+  (28.746) is numerically identical to the landbouw "in restafval/lozing/andere bestemming"
+  voedselverlies cell of Tabel 2/8 — a consequence of the definitions, not a transcription slip.
+- **`type_assumed = TRUE`** was set on the per-species opgehouden rows (the 50/50 edible split is a
+  sector-level assumption, not per species), the eight voedingsindustrie subsector rows (the source
+  states outright on p.60 that it does not publish the split per subsector), the primary-sector
+  aggregate, the four EU-definition rows, and C-148 and C-185.
+- **No new dictionary members were needed.** Every commodity grouping, chain stage and quantity
+  type in this source was already in the three dictionaries after S080 — including the eight
+  voedingsindustrie subsector groupings and the two retail segments, which this edition names
+  identically. `Zuivel` again takes `Dierlijk - vee / Melk` per the S080 rule.
+- **No Zotero item exists and `Sources.S002.citation_key` is blank** — flag **F-002** is still
+  open. (A Zotero MCP did appear in this session's tool list, but the user asked to leave the
+  connection issue aside; the flag stays open and the backfill is a separate job.) The PDF is
+  archived at `register/archive/S002_OVAM Monitor voedselverlies 2020.pdf`.
 
 ### S080
 
