@@ -41,7 +41,7 @@ Keep these five headings, in this order, so notes stay comparable across sources
 
 | Date | source_id | source_short | PDF (in archive/) | Claims added | Verified? | Commit | Anomalies / flags |
 |------|-----------|--------------|-------------------|-------------:|-----------|--------|-------------------|
-| 2026-08-15 | S080 | OVAM Monitor voedselverlies 2023 | `S080_OVAM Monitor voedselverlies 2023.pdf` | 114 (C-001…C-114), 1 retired | **yes** (2026-08-15) | `12c11cc` + review fixes | See [S080](#s080) — 1 source error retired by the reviewer, 3 variant readings, no Zotero item (F-002) |
+| 2026-08-15 | S080 | OVAM Monitor voedselverlies 2023 | `S080_OVAM Monitor voedselverlies 2023.pdf` | 114 (C-001…C-114), 1 retired | **yes** (2026-08-15) | `2486196` + `8d23344` | See [S080](#s080) — 1 source error retired by the reviewer, 3 variant readings, no Zotero item (F-002) |
 
 *Note: S080 was extracted once before, on 2026-08-14 under protocol v1, producing 310 claims.
 That run was **discarded** on 2026-08-15 — it captured horeca and catering, and predated the
@@ -81,7 +81,8 @@ classification, naming or provenance metadata, not to a number.
 - **Restatement trails added to 20 rows.** The reviewer reported Tabel 5's voedingsindustrie
   total as missing; it was in fact captured as **C-092** from Tabel 22, the identical value in
   its own sector chapter. That was invisible from the row, so every restated figure now lists
-  its other locations in `source_type_label`.
+  its other locations in the new **`also_stated_in`** column (26), together with
+  cross-references between variant claims.
 
 **Two rows for the voedingsindustrie that look contradictory and are not.** C-092
 (2.017.748 ton, Flemish `voedselreststromen`) and C-001 (279.114 ton, EU
