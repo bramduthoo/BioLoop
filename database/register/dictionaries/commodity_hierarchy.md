@@ -79,6 +79,23 @@ Productievolume → same commodity tree, but hoofdstroom rows only (context, not
 - `Groenten beschut`: `Champignon` added as an L4 ingredient (protected cultivation; grouped
   with the glasshouse crops as the sources do).
 
+**Members added 2026-08-15 (S080 re-run under protocol v2):**
+- `Gemengd` (L2, level 2) now also carries the eight **voedingsindustrie subsector groupings**
+  the OVAM monitor reports at: `Bakkerij`, `Aardappelen, groenten en fruit`, `Dranken`,
+  `Oliën, vetten`, `Suiker, chocolade, bereide maaltijden, enz.`,
+  `Deegwaren, dieetvoeding, zetmeel, maalderijen` (plus the already-listed
+  `Vlees, vis en gevogelte`), and the two **retail segments** `Grootdistributie en
+  supermarkten` and `Detailhandel voeding`. These are NACE-style processing/distribution
+  groupings, not commodity groups.
+- **`Zuivel` is the exception** among those subsectors: it is unambiguously dairy, so it takes
+  `L2 = Dierlijk - vee`, `L3 = Melk`, `level = 3` rather than `Gemengd`. Judgement call —
+  flagged in `log.md` for the reviewer.
+- **Chain-stage sector totals take `Aggregaat`**: a whole-schakel total (landbouw,
+  voedingsindustrie, retail, primaire sector, "landbouw en PO's") is `L2 = Aggregaat` with the
+  `AGGREGAAT - ` prefix. A total that *is* one commodity group keeps that group — so the PO's
+  groenten-en-fruit totals sit at `L2 = Plantaardig - tuinbouw` (`L3` blank, level 2) and the
+  visveilingen totals at `L2 = Dierlijk - vis`, `L3 = Vis` (level 3), without the prefix.
+
 **Using `Gemengd` at L2.** Processing- and distribution-stage aggregates that genuinely mix
 plant and animal commodities (`Vlees, vis en gevogelte`, `Dranken`, `Grootdistributie en
 supermarkten`, `Catering onderwijs`, …) take `L2 = Gemengd`, `L3` blank, `level = 2`. Reserve
