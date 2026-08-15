@@ -14,7 +14,7 @@ This is local working memory for the register workstream; project-level status s
 
 ### What an anomaly note must contain
 
-Keep these four headings, in this order, so notes stay comparable across sources:
+Keep these five headings, in this order, so notes stay comparable across sources:
 
 1. **Variant readings** — the same quantity stated more than once with different values, all
    captured. List them plainly; these may be rounding, revision, or genuinely different
@@ -25,17 +25,23 @@ Keep these four headings, in this order, so notes stay comparable across sources
    `claim_id` so `DECISION_expert` can retire that row.
 3. **Deliberate exclusions** — every figure seen and not captured, with the reason: an
    out-of-scope stage (horeca / catering / households), an aggregate containing one, a
-   destination or collection-route split, `schenking` / `slib` / `afgeleid product`, a
+   destination or collection-route value, `schenking` / `slib` / `afgeleid product`, a
    non-Flemish geography, a non-convertible unit, or a value that is not a quantity of
-   material. Name the tables so a reviewer can see nothing vanished silently.
-4. **Judgement calls & new dictionary members** — anything a reviewer should second-guess,
+   material. Name the tables so a reviewer can see nothing vanished silently. Note that a
+   `voedselverlies` / `nevenstroom` split is **not** a route value — it is `quantity_type`
+   and belongs in the corpus, even when the source prints it inside a route cross-tab.
+4. **Completeness sweep** — the disposition of every numbered table and figure in the source's
+   own index: captured (with claim ids), excluded (with the reason, which may point at the
+   list above), or carries no numbers. Group freely — one line per chapter of out-of-scope
+   tables is fine. This is what makes "nothing was missed" checkable rather than asserted.
+5. **Judgement calls & new dictionary members** — anything a reviewer should second-guess,
    and every vocabulary member added during the session.
 
 ## Sessions
 
 | Date | source_id | source_short | PDF (in archive/) | Claims added | Verified? | Commit | Anomalies / flags |
 |------|-----------|--------------|-------------------|-------------:|-----------|--------|-------------------|
-| 2026-08-15 | S080 | OVAM Monitor voedselverlies 2023 | `S080_OVAM Monitor voedselverlies 2023.pdf` | 110 (C-001…C-110) | no | *(this session)* | See [S080](#s080) — 1 suspected source error, 3 variant readings, no Zotero item (F-002) |
+| 2026-08-15 | S080 | OVAM Monitor voedselverlies 2023 | `S080_OVAM Monitor voedselverlies 2023.pdf` | 114 (C-001…C-114), 1 retired | **yes** (2026-08-15) | `12c11cc` + review fixes | See [S080](#s080) — 1 source error retired by the reviewer, 3 variant readings, no Zotero item (F-002) |
 
 *Note: S080 was extracted once before, on 2026-08-14 under protocol v1, producing 310 claims.
 That run was **discarded** on 2026-08-15 — it captured horeca and catering, and predated the
@@ -45,6 +51,46 @@ clean v2 re-run and supersedes it entirely.*
 ## Anomaly notes (detail, keyed by source_id)
 
 ### S080
+
+**Reviewer outcome (2026-08-15).** The full extraction was checked against the archived PDF by
+hand. **No captured value was found to be misread** — every correction below is to
+classification, naming or provenance metadata, not to a number.
+
+- **C-074 retired.** The reviewer confirmed the 21.060 / 215.060 discrepancy is a typo in the
+  source. `DECISION_expert = exclude`, superseded by C-077. The row is kept, not deleted: the
+  audit trail is the point, and downstream consumers filter on `DECISION_expert`.
+- **C-005 and C-102 confirmed kept** — the two "captured against the source's own exclusion"
+  judgement calls stand as extracted.
+- **The 27 Tabel 10 rows moved from `Belgie` to `Vlaanderen`.** Every Belgian fishing port lies
+  in Flanders, so the two labels denote the same figure. This is now a **named, single
+  exception** in the protocol and must not be generalised to any other Belgian number.
+- **Akkerbouw re-levelled** (dictionary rule change, recorded in `state.md`): `Aardappelen` and
+  `Suikerbieten` were single crops sitting at L3. They are now L4 ingredients (`Aardappel`,
+  `Suikerbiet`) under the new subgroups `Aardappelen en knolgewassen` and `Suikerbieten en
+  nijverheidsgewassen`, so those rows became level 4. `Granen` is a genuine subgroup and stays
+  level 3.
+- **Names disambiguated:** C-057 and C-058 now say `(incl. niet-geoogste aardappelen)`; C-086
+  now says `(som van 10 belangrijkste)`.
+- **Four claims added from Tabel 7 (C-111…C-114).** The reviewer corrected a rule error, not
+  just a row: `voedselverlies` vs `nevenstroom` is `quantity_type` — one of the register's
+  three axes — and had been wrongly swept up with the destination/collection axes because
+  Tabel 7 prints the two as a cross-tab. The primary-sector quantity-type figures (401.011 /
+  23.146 voedselverliezen, 215.162 / 8 nevenstromen) appear nowhere else in the source, so they
+  are now captured with the collection route named on the row and a never-sum warning. The
+  protocol was rewritten to read such tables **by axis, not by table**.
+- **Restatement trails added to 20 rows.** The reviewer reported Tabel 5's voedingsindustrie
+  total as missing; it was in fact captured as **C-092** from Tabel 22, the identical value in
+  its own sector chapter. That was invisible from the row, so every restated figure now lists
+  its other locations in `source_type_label`.
+
+**Two rows for the voedingsindustrie that look contradictory and are not.** C-092
+(2.017.748 ton, Flemish `voedselreststromen`) and C-001 (279.114 ton, EU
+`levensmiddelenafval`) measure the same stage and year under incompatible definitions. The EU
+definition counts only material that becomes *waste* in the sense of EU waste law, so feed
+(79%), biobrandstof (5%), biochemie (2%) and bodem (0,3%) fall outside it. Tabel 2 splits the
+EU figure as 274.016 (compostering/vergisting) + 5.098 (verbranding) = 279.114. Note the two
+accountings do **not** reconcile exactly: the same two destinations in Tabel 23 sum to
+273.063 + 6.832 = 279.895, i.e. 781 ton more than the EU total.
 
 **Session rule (set by the user at session open):** only the **2023** column of this monitor's
 evolution tables was captured. The 2015 / 2017 / 2020 columns were left for S004 (2015) and
@@ -100,13 +146,26 @@ Every figure seen and not captured, with its reason.
   horeca, catering en consumenten" (553.338 ton) and its whole-chain "Totaal" (3.210.384 ton);
   Figuur 4's whole-chain 3 210 385 / 2 016 092 / 1 194 295 ton and the p.20 text restating
   "3,2 miljoen ton" and "1.194.295 ton voedselverlies"; Tabel 56 (whole-chain per capita).
-- **Destination / collection-route splits** — not extracted, indexed instead in
-  `destination_index.csv` (17 rows). This includes Tabel 7 and Tabel 8 in their entirety: they
-  are `ingezameld` / `andere` and `selectief ingezameld` / `in restafval` splits, and the
-  per-stage row totals are never printed, so the primary-sector voedselverlies/nevenstromen
-  split could only be obtained by adding cells — a derivation the protocol forbids. One
-  casualty worth naming: Tabel 7's visveilingen cells (102 and 102 ton) restate the 101,5 ton
-  figures at rounded precision, but live only in route-split cells.
+  **Figuur 3 (p.21)** is excluded three times over and was missing from this list until the
+  review: it is the same whole-chain destination infographic as Figuur 4 but for **2020**, so
+  it fails the stage rule, the reference-year rule and the destination rule at once.
+- **Destination and collection-route values** — not extracted, indexed instead in
+  `destination_index.csv` (18 rows). This is the *destination* axis (diervoeder, vergisting,
+  verbranding, biobrandstof, biochemie, bodem) and the *collection* axis (selectief ingezameld
+  vs restafval). It is **not** the `voedselverlies` / `nevenstroom` axis, which is register
+  data and was captured throughout — see the correction below.
+- **Tabel 8 (p.20) in full, and most of Tabel 7 (p.19)** — both are cross-tabs of
+  `quantity_type` against a collection route. Their quantity-type totals are printed elsewhere
+  and were captured from there (landbouw in Tabel 16, visveilingen in Tabel 11, PO's in Tabel
+  19, voedingsindustrie in Tabel 22, retail in Tabel 32), so the route cells add nothing.
+  **The exception is Tabel 7's "Totaal primaire sector" row**, whose quantity-type figures are
+  printed *nowhere else* — these were captured as C-111…C-114 with the route named, and must
+  never be summed with their siblings.
+  - One rounding casualty worth naming: Tabel 7's visveilingen cells (102 and 102 ton) restate
+    the 101,5 ton figures of Tabel 11 at whole-tonne precision, so they are a rounded
+    restatement of a captured claim rather than a new one.
+  - Tabel 7's landbouw `nevenstromen ingezameld` cell reads **215.060**, a third independent
+    contradiction of C-074's 21.060.
 - **`schenking`** (out of scope by `quantity_type.csv`) — Tabel 4 (p.15), Tabel 21 (p.44),
   Tabel 27 (p.54), the 535 ton PO donation (p.38), the 3.525 / 5.451 ton in Figuur 8 and 9, the
   9 510 ton in Figuur 4, and the schenkingen rows of Tabel 26 and Tabel 34. Also Tabel 20's
@@ -142,7 +201,42 @@ Every figure seen and not captured, with its reason.
   The undersized-fish (BMS) stream is named on p.25 but the source gives no tonnage for it.
   **The only visserij-stage rows in this extraction are the Tabel 10 aanvoer figures.**
 
-#### 4. Judgement calls & new dictionary members
+#### 4. Completeness sweep — disposition of all 57 tables, 16 figures and 1 schema
+
+Every numbered object in the source's own *Tabellen* / *Figuren* index, in exactly one bucket.
+
+**Captured** (13 tables + 1 figure): T1 (C-001) · T2 (C-002, C-003) · T5 (C-004) · T7, rij
+Totaal primaire sector (C-111…C-114) · T10 (C-009…C-035) · T11 (C-006…C-008) · T12
+(C-036…C-050) · T14 (C-051…C-074) · T16 (C-075…C-077) · T17 (C-087) · T19 (C-088, C-089) ·
+T22 (C-090…C-092) · T23 (C-093…C-100) · T28 (C-103…C-105) · T30 (C-106, C-107) · T32 (C-108,
+C-109) · T34 (C-110) · F6 (C-078…C-085). Plus five running-text figures: p.31 (C-005), p.38
+(C-086), p.48 (C-101), p.52 (C-102), p.28 (within C-006…C-008).
+
+**Excluded, with reason:**
+
+| Object | Reason |
+|---|---|
+| T3, T55 | België-niveau; Vlaamse cijfers voor dezelfde grootheden bestaan |
+| T4, T21, T27 | `schenking` — buiten scope per `quantity_type.csv` |
+| T6, T18, T24, T31, T38, T47, T57 | cascade-index en wegingscoëfficiënten — geen hoeveelheid materiaal |
+| T8 | inzamelwijze-cross-tab; alle quantity_type-totalen staan elders en zijn daar gecapteerd |
+| T9 | enkel 2015/2017/2020; 2020 = "N/A". Visserij levert geen 2023-cijfer |
+| T13, T15, T33 | percentages, geen tonnages |
+| T20 | bestemmingen niet-verkocht product; het Totaal (15.724 t) mengt reststroom en schenking |
+| T25, T29 | bestemmingssplitsing van een reeds gecapteerd totaal |
+| T26 | herhalingen + schenkingen + percentages; geen nieuw cijfer voor 2023 |
+| T35–T43, F10–F12 | horeca en catering — ketenschakel buiten scope |
+| T44–T49, F13, F14 | huishoudens — ketenschakel buiten scope |
+| T50, T51, T52 | Vlaamse 2023-cijfers herhalen T1/T2; andere gewesten buiten scope; kg/inw niet converteerbaar |
+| T53, T54 | horeca/catering resp. huishoudens, per gewest |
+| T56, F15, F16 | kg/inwoner, en volledige keten incl. huishoudens |
+| F3, F4 | volledige keten (bevat horeca/catering/huishoudens); F3 bovendien referentiejaar 2020 |
+| F5, F7, F8, F9 | cascade-infographics; elk cijfer erin herhaalt een gecapteerde waarde |
+
+**Carries no numbers** (3): F1 (schema voedselgerelateerde stromen) · F2 (cascade van
+waardebehoud) · Schema 1 (Vlaams vs Europees kader).
+
+#### 5. Judgement calls & new dictionary members
 
 - **C-102, the ~50.000 ton slaughterhouse stream (p.52), was captured against the 2023-only
   rule, with `reference_year = 2020`.** The protocol explicitly requires capturing a tonnage a
@@ -155,10 +249,11 @@ Every figure seen and not captured, with its reason.
   captured under the same protocol rule. Note it is also the exact difference between the
   excl./incl. variants of the aardappelen and akkerbouw/landbouw totals, so it must never be
   summed with them.
-- **Tabel 10 rows carry `geography = Belgie`**, because the table is titled "in Belgische
-  havens", while Tabel 11 labels the same 203 ton total "Vlaanderen". All Belgian fishing
-  ports are in Flanders, so OVAM treats the two as interchangeable; the register does not, and
-  records what each table printed.
+- **Tabel 10 rows carry `geography = Vlaanderen`** (reviewer decision, 2026-08-15) even though
+  the table is titled "in Belgische havens" — all Belgian fishing ports lie in Flanders, so the
+  two labels denote the same figure, and Tabel 11 indeed calls the same 203 ton total
+  "Vlaanderen". The source's own wording is preserved in `source_type_label`. This is the
+  **only** sanctioned Belgium→Flanders equivalence in the protocol.
 - **Aanvoer vs opgehouden sit at different chain stages.** Per `chain_L2.csv`, a landing volume
   is `Visserij` and a withdrawn-at-auction figure is `Visveilingen`, so Tabel 10's two halves
   were split across the two stages even though they share a table.

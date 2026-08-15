@@ -9,6 +9,16 @@ and `database/CLAUDE.md`. Detail lives here; only project-level status rises to
 *Protocol v2 (2026-08-15) — chain-stage scope made explicit, provenance and unit columns
 added to `Streams`, destination/collection-route metadata split off into its own index.*
 
+*Protocol v2.1 (2026-08-15) — from the S080 review, all of it things a reviewer had to catch by
+hand. **A correction first:** the destination/route ban had been swallowing `quantity_type`
+data, because sources print the `voedselverlies` / `nevenstroom` split as a cross-tab against a
+collection route. Such tables are now read **by axis, not by table**. Added: a completeness
+sweep over the source's own table/figure index; a 26th column `also_stated_in` carrying
+restatement and variant trails on the row; `stream_name_NL` must disambiguate sibling rows;
+parallel accounting definitions handled explicitly; `chain_L2` assigned by the measured event
+rather than the chapter; a cross-source restatement rule for series editions; and a canonical
+export order independent of the sheet's own column arrangement.*
+
 ## What this workstream produces
 
 `BIOLOOP_streams_and_sources.xlsx` — a standalone, claim-level corpus of Flemish agri-food
@@ -114,14 +124,63 @@ year-on-year deltas ("+20.760 ton t.o.v. 2015"), and policy or regulatory text.
 
 **Also out**, by `quantity_type.csv`: `schenking`, `slib`, `afgeleid product`.
 
-**Destination and collection-route splits are not stream volumes** — how much went to
-diervoeder / vergisting / verbranding, or how much was selectively collected versus left in
-the restafval, is a *route* split of a stream already captured by its total. Do not extract
-these values; **do** record where they live, in `destination_index.csv` (procedure step 4).
+**Destination and collection-route splits are not stream volumes.** Two axes are out of scope:
 
-**Rounded restatements** of a figure given precisely elsewhere in the same source ("afgeleid
-341.000 ton" next to a table's 340.886) do not get their own row — capture the precise value
-and note the restatement in `log.md`.
+- the **destination** axis — diervoeder, vergisting, compostering, verbranding, biobrandstof,
+  biochemie, bodem, storten, petfood: *what was subsequently done with the material*;
+- the **collection-route** axis — selectief ingezameld vs in restafval, ingezameld vs andere:
+  *how the material was collected*.
+
+Do not extract figures resolved only along those axes; **do** record where they live, in
+`destination_index.csv` (procedure step 4).
+
+**`quantity_type` is register data wherever it is printed** (corrected 2026-08-15 — the earlier
+wording lost real data). The `voedselverlies` / `nevenstroom` / `agri-food waste` split is one
+of the register's three axes, not a routing detail, and sources routinely print it as a
+**cross-tab against a destination or collection axis**. Read such a table by axis, not by
+table:
+
+- If the source prints the stream × `quantity_type` **total** anywhere, that total is the
+  claim; the destination/route cells beside it add nothing and are only indexed.
+- If the source prints **no** total and the quantity-type figure exists only as component
+  cells, **capture the cells** — naming the route or destination in `stream_name_NL` and
+  `source_type_label`. Dropping them would discard quantity-type data; adding them together
+  would be a derivation. **Never sum siblings**, and say so on the row.
+- A cell that resolves *only* the destination/collection axis, adding no `quantity_type` or
+  commodity detail, is never a claim.
+
+### Restatements — capture once, but leave the trail on the row
+
+Sources repeat their headline figures. A figure that appears in several places is **one claim**,
+not several:
+
+- **Rounded restatements** ("afgeleid 341.000 ton" next to a table's 340.886) never get their
+  own row — capture the precise value.
+- **Exact restatements** (the identical number in a synthesis table, a sector table, an
+  infographic and the running text) likewise get one row.
+- **Which location wins:** the most specific one. A sector chapter's own table beats a
+  synthesis-chapter table, which beats an infographic, which beats running text. Record that
+  location in `source_page` / `source_table_figure`.
+- **Every other location goes in `also_stated_in` (column 25) on that same row** — e.g.
+  `ook in Tabel 5 (p.17), Figuur 8 (p.49)`. A reviewer checking the workbook against the PDF
+  must be able to see, from the row itself, that a table they are looking at *was* read and
+  where its value ended up. Listing restatements only in `log.md` is not enough — that has
+  already caused a reviewer to report a captured figure as missing. Cross-references to variant
+  claims go here too (`variant: Tabel 34 drukt 58.849 - zie C-110`), so both sides of a
+  contradiction point at each other.
+
+### Parallel accountings — same stream, incompatible definitions
+
+A source may report the same stream twice under **different definitions** (a national
+definition and an EU regulatory one; a "total arising" and a "waste only" figure). These are
+not variants and not errors — they measure different things and will differ by a large factor.
+
+- Capture **both**, and make the definition visible **in `stream_name_NL`**, not only in
+  `source_type_label`, so two rows for the same stage and year cannot be mistaken for a
+  contradiction.
+- State the reconciliation in `log.md` where the source allows it (which destinations one
+  definition includes and the other excludes, with the arithmetic), and say so plainly when the
+  two do not reconcile exactly.
 
 ### Do not inherit the source's own scope exclusions
 
@@ -163,7 +222,11 @@ rather than drop it.
 
 6. **Export for diffing.** Write a plain-CSV copy of the `Streams` sheet to
    `register/streams_export.csv` (semicolon-delimited, UTF-8 BOM), so the session's
-   claim-level changes are git-diffable.
+   claim-level changes are git-diffable. **Always write the 25 columns in the canonical order
+   of the schema below, whatever order the sheet's columns are currently in** — a reviewer may
+   rearrange the sheet to read it (moving `source_page` to the front, say), and the export must
+   not turn that into a diff where every row changed. Read and write the sheet **by column
+   header, never by position**, for the same reason.
 
 7. **Log.** Append a row to `register/log.md` (source, PDF, #claims, anomalies, commit),
    plus an anomaly note if the source needs one.
@@ -176,12 +239,17 @@ rather than drop it.
 
 ---
 
-## The `Streams` schema (25 columns)
+## The `Streams` schema (26 columns)
+
+*Canonical order is the order below. The **sheet's** physical column order is the reviewer's
+business — they may drag `source_page` to the front to check provenance quickly. Always read
+and write the sheet **by column header**, and always write `streams_export.csv` in the
+canonical order, so a rearranged sheet never produces a diff where every row changed.*
 
 | # | Column | Meaning / rule |
 |---|--------|----------------|
 | 1 | `claim_id` | Stable label `C-001...`; keep contiguous. |
-| 2 | `stream_name_NL` | The stream in Dutch, roughly as the source named it. `AGGREGAAT - ...` = a sector total (level 2), shaded. |
+| 2 | `stream_name_NL` | The stream in Dutch, roughly as the source named it. `AGGREGAAT - ...` = a sector total (level 2), shaded. **Must carry whatever qualifier distinguishes this row from its siblings** — `(incl./excl. ...)`, `(EU-definitie)`, `(som van de 10 belangrijkste)`, a variant marker. If two rows in the same source share a stage, year and quantity type, their names must differ and must say *why*. Putting the qualifier only in `source_type_label` is not enough: the name is what a reviewer reads. |
 | 3 | `L1_role` | `Productievolume` or `Reststroom`. **Gates `quantity_type`.** |
 | 4 | `L2_commodity_group` | Broad group (see `commodity_hierarchy.md`). |
 | 5 | `L3_commodity_subgroup` | Subgroup; the rollup pivot. |
@@ -204,11 +272,14 @@ rather than drop it.
 | 22 | `provenance` | Always `read in PDF` (every source is a verified, archived PDF). |
 | 23 | `source_page` | Page of the **archived PDF file** the figure was read from (not the printed folio, which often differs; if it does, note both: `30 (gedrukt 28)`). |
 | 24 | `source_table_figure` | Where on that page: `Tabel 12`, `Figuur 6`, `tekst`. Use the source's own numbering. |
-| 25 | `DECISION_expert` | Blank — the reviewer's column. |
+| 25 | `also_stated_in` | **Every other place in the same source that states this figure**, and any cross-reference to a variant claim: `ook in Tabel 5 (p.17), Figuur 8 (p.49)`; `variant: Tabel 34 drukt 58.849 - zie C-110`. Blank when the figure appears exactly once. See the restatement rule below. |
+| 26 | `DECISION_expert` | Blank — the reviewer's column. |
 
 Columns 23-24 exist so any row can be re-checked against the PDF in seconds, and 15-17 so any
 row can be re-derived. **All five are mandatory on every row** — an unfillable one means the
-figure was not actually read from a locatable place, which is itself a problem.
+figure was not actually read from a locatable place, which is itself a problem. Column 25 is
+what lets a reviewer who is looking at *a different* table find the row that already holds its
+value.
 
 ## Units and conversion
 
@@ -267,12 +338,40 @@ anomaly note too.
 
 - **`chain_L2`** standardised per `chain_L2.csv`: the source's own stage wording in
   `chain_stage`, the canonical value in `chain_L2`, and only values marked `in_scope = yes`.
+  **Assign the stage by the event the number measures, not by the chapter or table it sits
+  in.** One table can hold two stages — a landing volume is `Visserij` even when it is printed
+  in the visveilingen chapter next to the withdrawn-at-auction figure, which is `Visveilingen`.
+  Split such a table across stages rather than inheriting the chapter's heading.
 
 - **`geography`**: `Vlaanderen`, or `Belgie` where only a national figure exists. Never
   silently treat a Belgian number as Flemish. Figures for other regions (Wallonië, Brussel)
   or other countries are out of scope.
+  **One sanctioned exception, and only this one:** figures labelled *Belgische havens /
+  Belgische visveilingen / Belgische zeevisserij* are recorded as `Vlaanderen`, because every
+  Belgian fishing port lies in Flanders, so the national and Flemish figure are the same
+  number. Note the source's own wording in `source_type_label`. **Do not generalise this to any
+  other Belgian figure** — no other national number may be relabelled Flemish, however
+  Flemish-dominated the sector looks.
 
 - **`reference_year`**: free text as the source frames it; the year the figure *describes*.
+
+### Cross-source restatement — a source does not re-own figures it carries forward
+
+The restatement rule above works *within* a source; the same principle applies *between*
+sources, because monitor series reprint their predecessors' numbers in evolution tables
+(`2015 | 2020 | 2023`). A source that merely carries a figure forward does not re-own it.
+
+- **Capture what this source measured or revised.** A source that genuinely measures several
+  years keeps all of them — this is not a "one year per source" rule.
+- **Skip values restated from an edition already in the `Sources` sheet**, and log the skip
+  naming the table and the years, so it stays recoverable from the archived PDF.
+- **If no source in the register owns those years, capture them here** rather than lose them.
+  Check the `Sources` sheet; do not assume.
+- **A revision is new information.** Where a later edition *corrects or restates differently*
+  an earlier year's figure, that value is unique to this source and is captured with the
+  earlier `reference_year`. Flag it in `log.md`, since it will look like a year-rule violation.
+- Where a stage's *only* figures fall outside what this source owns, record in the log that it
+  yielded nothing — "checked and absent" must stay distinguishable from "not checked".
 
 - **`provenance`**: always `read in PDF`. Search-snippet extraction is no longer used.
 
@@ -295,6 +394,14 @@ anomaly note too.
 
 ## Self-check before finalising
 
+- **Completeness sweep — account for every table and figure in the source.** Walk the source's
+  own *Tabellen* / *Figuren* index (or, where it has none, your own enumeration of its numbered
+  objects) and put each one in exactly one bucket: **captured** (which claims), **excluded**
+  (with the reason, in `log.md`), or **carries no numbers**. Nothing may be left unaccounted
+  for. A near-duplicate of an object you already handled — the same infographic for a different
+  year, a second table restating the first — still needs its own line: it is precisely the item
+  that gets silently skipped, and a reviewer who finds it missing from the log cannot tell
+  whether it was read.
 - Every row: `L1_role` set; `quantity_type` consistent with `L1_role`; `level_1to5` in
   {2, 3, 4, 5} and matching the `L4`-blank rule; `chain_L2` canonical **and in scope**;
   `geography` explicit; `source_id` resolves in `Sources`.
@@ -304,6 +411,11 @@ anomaly note too.
   `value_as_reported × factor == volume_t_per_yr` for all of them.
 - Every retired stage-name captured in `source_type_label`, with `type_assumed` set where
   the default was used.
+- No two rows share a stage, year and `quantity_type` without their names saying how they
+  differ; every restated figure carries its other locations in `also_stated_in`, and both
+  sides of a variant pair cross-reference each other.
+- No single crop, species or product sits at `L3`, and no figure inherited its `chain_L2`
+  from the chapter it was printed in rather than from what it measures.
 - No cross-type or cross-stage sums implied; no averaged / merged figures.
 - Anomalies split into *variants* and *suspected errors* in the log, the latter with their
   arithmetic evidence stated.

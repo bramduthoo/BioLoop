@@ -22,7 +22,7 @@ and varies only the commodity level:
 | **L1** | `L1_role` | The nature of the claim: **Productievolume** (the product itself, a total volume — *not* waste) or **Reststroom** (a residual / side stream). | **Gates `quantity_type`**: Productievolume → only `hoofdstroom`; Reststroom → `agri-food waste` / `nevenstroom` / `voedselverlies`. |
 | **L2** | `L2_commodity_group` | Broad group: `Plantaardig - tuinbouw`, `Plantaardig - akkerbouw`, `Dierlijk - vee`, `Dierlijk - vis`, `Gemengd`, `Aggregaat`. | Exactly one L2 per claim. |
 | **L3** | `L3_commodity_subgroup` | Subgroup within the group: `Groenten openlucht`, `Groenten beschut`, `Fruit`, `Suikerbieten`, `Granen`, `Melk`, … | **The pivot level**: L4 figures roll up to here in the rollup check. |
-| **L4** | `L4_ingredient` | The specific ingredient: `Wortel`, `Appel`, `Aardappel`, `Schelvis`. **Blank** when the source reported only at subgroup level. | Blank ⟺ `level_1to5` = 3. |
+| **L4** | `L4_ingredient` | The specific ingredient: `Wortel`, `Appel`, `Aardappel`, `Schelvis`. **Blank** when the source reported only at subgroup level. | Blank ⟺ `level_1to5` = 3. **A single crop, species or product is never an L3** — if the source's "subsector" names one commodity (`aardappelen`, `suikerbieten`), that is an L4 ingredient and the row is level 4; find or add the real subgroup above it. |
 | **L5** | `L5_fraction_as_named` | A **genuine physical fraction** of the ingredient, in the source's own words: `loof`, `schillen`, `buitenste rokken`, `stengels`. Two L5s under one L4 (flesh vs peel) are **not** duplicates. | Must be a distinct object, **never a label** for the whole ingredient. |
 
 ## `level_1to5` — the depth rule (values 2–5; there is no level 1)
@@ -58,7 +58,12 @@ Reststroom
 │   ├─ Groenten beschut    → Tomaat, Komkommer, Paprika, Courgette, Aubergine, Sla en andijvie,
 │   │                        Champignon
 │   └─ Fruit               → Appel, Peer, Aardbei, Kers, …
-├─ Plantaardig – akkerbouw → Aardappelen, Granen, Suikerbieten, Voedergewassen, …
+├─ Plantaardig – akkerbouw
+│   ├─ Granen                               → Tarwe, Gerst, Maïs, …
+│   ├─ Aardappelen en knolgewassen          → Aardappel
+│   ├─ Suikerbieten en nijverheidsgewassen  → Suikerbiet, Cichorei, Vlas, Koolzaad
+│   ├─ Peulvruchten en eiwitgewassen        → Erwt, Boon, …
+│   └─ Voedergewassen
 ├─ Dierlijk – vee          → Melk, Vlees, Eieren, Rund, Varken, Gevogelte
 ├─ Dierlijk – vis
 │   └─ Vis                 → Schelvis, Wijting, Heek, Steenbolk, Schol, Bot, Schar, Roggen,
@@ -78,6 +83,16 @@ Productievolume → same commodity tree, but hoofdstroom rows only (context, not
   `Rund / Varken / Gevogelte` are L4 ingredients under `Vlees`.
 - `Groenten beschut`: `Champignon` added as an L4 ingredient (protected cultivation; grouped
   with the glasshouse crops as the sources do).
+
+**Rule change 2026-08-15 (reviewer decision, recorded in `state.md`) — akkerbouw regrouped.**
+The seed tree put single crops (`Aardappelen`, `Suikerbieten`) at L3, which contradicted this
+file's own L4 examples and left L3 as a mix of real groups (`Granen`) and one-crop entries.
+Akkerbouw now has genuine subgroups at L3 — `Granen`, `Aardappelen en knolgewassen`,
+`Suikerbieten en nijverheidsgewassen`, `Peulvruchten en eiwitgewassen`, `Voedergewassen` — with
+the crop at L4. A source reporting "aardappelen" is therefore **level 4**
+(`L4 = Aardappel`), while one reporting "granen" stays **level 3**. The general rule is in the
+L4 row of the table above: a single crop, species or product is never an L3, however the
+source labels its own subsectors.
 
 **Members added 2026-08-15 (S080 re-run under protocol v2):**
 - `Gemengd` (L2, level 2) now also carries the eight **voedingsindustrie subsector groupings**
