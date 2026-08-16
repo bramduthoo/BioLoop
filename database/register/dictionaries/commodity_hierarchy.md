@@ -118,6 +118,35 @@ supermarkten`, `Catering onderwijs`, …) take `L2 = Gemengd`, `L3` blank, `leve
 total *is* exactly one commodity group — `Tuinbouw`, `Akkerbouw`, `Veehouderij` — use that real
 group at L2 with `L3` blank, not `Aggregaat`.
 
+**Members added 2026-08-16 (S091, MONBIO 4.0) — a second, overlapping crop partition.**
+MONBIO groups the plant sector by its *own* gewasgroepen, which cut across the OVAM-derived
+subgroups already in this file. Both partitions are now members; **they overlap and must never
+be summed across each other**. New L3 members:
+- `Plantaardig - akkerbouw`: **`Suiker- en zetmeelgewassen`** (suikerbiet + aardappel — spans the
+  existing `Aardappelen en knolgewassen` and `Suikerbieten en nijverheidsgewassen`),
+  **`Industriele gewassen`** (cichorei, vlas — overlaps `Suikerbieten en nijverheidsgewassen`),
+  **`Oliehoudende gewassen`** (kool- en raapzaad, soja, zonnebloem, lijnzaad, maiskiem),
+  **`Specerijen`** (cacao, koffie, thee — MONBIO's own group name for the tropical crops).
+- `Plantaardig - tuinbouw`: **`Groenten`** (MONBIO does not split openlucht vs beschut, so this
+  spans the existing `Groenten openlucht` and `Groenten beschut`).
+
+New L4 members: under `Voedergewassen` — `Voedermais`, `Gras en hooi`, `Voederbiet`; under
+`Oliehoudende gewassen` — `Kool- en raapzaad`, `Soja`, `Zonnebloem`, `Lijnzaad`, `Maiskiem`,
+`Palm`, `Kokos`; under `Melk` — `Koemelk`, `Geiten- en schapenmelk`; under `Vlees` — `Paard`,
+`Schaap en geit`; under `Specerijen` — `Cacao`; under `Vis` — `Vis (alle soorten)`,
+`Schaaldieren`, `Weekdieren` (refining the combined `Schaal- en weekdieren`, which stays for
+sources that do not split them).
+
+New L5 fractions (all "in the source's own words", per the L5 rule): `stro`, `loof`, `schillen`,
+`stokken`, `harten`, `pulp`, `slachtafval (eetbaar)`.
+
+**MONBIO's NACE processing groupings take `L2 = Gemengd`, level 2**, per the S080 rule, with the
+same two exceptions applied by commodity: `Vervaardiging van zuivelproducten` →
+`Dierlijk - vee / Melk` (level 3), `Vlees- en gevogelteverwerking` → `Dierlijk - vee / Vlees`
+(level 3, unambiguously animal meat — the same judgement as `Zuivel`), and
+`Aardappelverwerking` → `Plantaardig - akkerbouw / Aardappelen en knolgewassen / Aardappel`
+(level 4 — it is exactly one crop).
+
 ## Maintenance
 
 - The rules above are fixed — change only by explicit decision, recorded in `state.md`.

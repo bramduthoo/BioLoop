@@ -29,7 +29,9 @@ def inline(s):
     """Escape, then apply the inline markdown the log actually uses."""
     s = html.escape(s, quote=False)
     s = re.sub(r"`([^`]+)`", r"<code>\1</code>", s)
-    s = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", s)
+    # Bold first, and allow a nested *italic* inside it: the body may contain a
+    # single "*" as long as it is not the closing "**".
+    s = re.sub(r"\*\*((?:[^*]|\*(?!\*))+?)\*\*", r"<strong>\1</strong>", s, flags=re.S)
     s = re.sub(r"(?<!\*)\*([^*\n][^*]*?)\*(?!\*)", r"<em>\1</em>", s, flags=re.S)
     s = re.sub(r"\[([^\]]+)\]\(#([^)]+)\)", r'<a href="#\2">\1</a>', s)
     return s

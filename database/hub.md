@@ -2,12 +2,13 @@
 - **Workstream:** Database (BioMobi)
 - **Current objective:** **phase 2 IN PROGRESS — not finished.** Seed the legacy internal Excel into the schema. Loader is built and tested; **paused awaiting human curation of the manifests.**
 - **Last session:** 2026-07-30 — inspected the workbook, agreed the mapping, built + tested an idempotent loader. No data loaded into any database yet.
-- **Last session (2b):** 2026-08-15 — **S002 (OVAM Monitor voedselverlies 2020) extracted under protocol v2.1: 100 claims (C-115…C-214), awaiting human verification.** Reference year **2020 only** (user decision at session open): S080 owns 2023 and left 2020 to this edition; the 2015 and 2017 columns were skipped for S004 and S003 and logged table-by-table. Two suspected source errors flagged with arithmetic evidence (C-193, a 1.999.983/1.999.383 digit transposition in Tabel 5; C-185, a "22.000 ton" veehouderij sentence that appears to be unrevised 2015 text). No new dictionary members were needed — the v2.1 vocabularies absorbed the source as-is. 19 destination/route locations indexed. No schema or database touched.
-- **Previous session (2b):** 2026-08-15 — **S080 extracted and human-verified the same day: 114 claims (C-001…C-114), 1 retired.** The review found no misread value, but it did find a rule error that was costing `quantity_type` data (+4 claims once fixed); it also retired one row (C-074, a source typo), re-levelled akkerbouw in the dictionary, relabelled the Belgian-ports geography, and drove **protocol v2.1** (below). PDF archived; 18 destination/route locations indexed. No schema or database touched. *(Earlier that day: protocol v2 itself was settled and the withdrawn v1 trial run of S080 — 310 claims, 2026-08-14, which captured horeca/catering and lacked per-row provenance — was discarded.)*
+- **Last session (2b):** 2026-08-16 — **S091 (MONBIO 4.0, ILVO/VITO bio-economiemonitor) extracted under protocol v2.2: 183 claims (C-215…C-397), awaiting human verification.** First non-OVAM source, and a very different animal: a 297-page, economy-wide biomass monitor (96 tables, 68 figures) reporting productie / import / export / aanbod and hoofdstromen / nevenstromen / productieresiduen across the whole bio-economy. Four scope decisions taken by the user at session open did most of the work — **mest excluded** (the hub's manure exclusion treated as binding on the register), **productie-only** (import/export/aanbod are not arising volumes), **MONBIO's nevenstroom *and* productieresidu both → `agri-food waste` with `type_assumed = TRUE`** (MONBIO's split is economic, not edible/inedible), and **agri-food sectors only** (bosbouw, landschapsbeheer, hout, papier, chemie, bio-energie, afvalsectoren out). Reference year **2021**, which needed no negotiation: MONBIO editions do not reprint each other's years, so S007→2020, S006→2019, S005→2018 fall out cleanly; the one overlap (the 2018 OVAM/IMJV waste tables T62–T65) was verified present in the S005 PDF and skipped. **No suspected source errors**; 5 variant readings, all from the source printing two definitions side by side. 15 new dictionary members, including a second, deliberately **overlapping** crop partition (MONBIO's own gewasgroepen) with a never-sum-across warning. 4 destination/route locations indexed. `render_log.py` gained a bug fix (bold containing an italic was left unrendered). No schema or database touched.
+- **Previous session (2b):** 2026-08-15 — **S002 (OVAM Monitor voedselverlies 2020) extracted under protocol v2.1: 100 claims (C-115…C-214), awaiting human verification.** Reference year **2020 only** (user decision at session open): S080 owns 2023 and left 2020 to this edition; the 2015 and 2017 columns were skipped for S004 and S003 and logged table-by-table. Two suspected source errors flagged with arithmetic evidence (C-193, a 1.999.983/1.999.383 digit transposition in Tabel 5; C-185, a "22.000 ton" veehouderij sentence that appears to be unrevised 2015 text). No new dictionary members were needed — the v2.1 vocabularies absorbed the source as-is. 19 destination/route locations indexed. No schema or database touched.
+- **Earlier session (2b):** 2026-08-15 — **S080 extracted and human-verified the same day: 114 claims (C-001…C-114), 1 retired.** The review found no misread value, but it did find a rule error that was costing `quantity_type` data (+4 claims once fixed); it also retired one row (C-074, a source typo), re-levelled akkerbouw in the dictionary, relabelled the Belgian-ports geography, and drove **protocol v2.1** (below). PDF archived; 18 destination/route locations indexed. No schema or database touched. *(Earlier that day: protocol v2 itself was settled and the withdrawn v1 trial run of S080 — 310 claims, 2026-08-14, which captured horeca/catering and lacked per-row provenance — was discarded.)*
 - **Progress:**
   - done: phase 1 (baseline migration); phase-2 workbook inspection; column→schema mapping; curation-manifest design; `load_biomobi_excel.py` written and verified against the local stack (idempotency, convergence, spot-checks all pass).
   - in progress: **phase 2 — awaiting the `DECISION` columns in `database/crosswalks/`, then the real load.**
-  - in progress (2b, parallel): candidate stream register — **rebuilt in-repo** under `database/register/` (26-column `Streams` schema, three binding dictionaries, `destination_index.csv`, `inbox/` → `archive/` PDF flow, per-session `log.md`). **Protocol at v2.1; two sources extracted — 114 claims from S080 (human-verified, 1 retired) and 100 from S002 (awaiting verification). Corpus: 214 claims.** 10 verified PDFs still wait in `register/inbox/`, one source per session. Pre-database artifact; populates no table.
+  - in progress (2b, parallel): candidate stream register — **rebuilt in-repo** under `database/register/` (26-column `Streams` schema, three binding dictionaries, `destination_index.csv`, `inbox/` → `archive/` PDF flow, per-session `log.md` + its derived `log.html`). **Protocol at v2.2; three sources extracted — 114 claims from S080 (human-verified, 1 retired), 100 from S002 and 183 from S091 (both awaiting verification). Corpus: 397 claims.** 9 verified PDFs still wait in `register/inbox/`, one source per session. Pre-database artifact; populates no table.
   - not started: phases 3–4 (composition harvesting, classification facets).
 - **Key artifacts:**
   - `database/supabase/migrations/20260727114134_remote_schema.sql` — the baseline; schema of record. **Phase 2 required no schema change.**
@@ -34,6 +35,37 @@ v2.1 "read by axis, not by table" correction changed nothing here — it is a mo
 hazard, not a universal one.
 
 **State (2b — candidate stream register):** a parallel workstream builds a standalone, claim-level corpus of Flemish agri-food side-stream figures for expert review — the "literature review + monitors → candidate stream register" half of build-plan step 2. Each row is one figure exactly as a source reported it; contradictions are preserved, never averaged, and nothing is silently deleted (unverifiable claims are downgraded + flagged for the user, who decides). It now lives **in the repo** at `database/register/` — `BIOLOOP_streams_and_sources.xlsx` (the only canonical copy; the older root-level file of the same name is superseded and must not be used), `dictionaries/` (three binding vocabularies), `destination_index.csv`, `inbox/` → `archive/` for verified PDFs, `log.md`, and the git-diffable `streams_export.csv`. **Corpus holds 114 claims from one source (S080), human-verified, 1 retired by the reviewer**: protocol v2 settled after the S080 trial run, extraction restarted from scratch under it, and the review then produced v2.1 (below) — 11 sources still queued in `inbox/`. Touches no schema or database.
+
+**S091 session outcome (2026-08-16) — the first non-OVAM source, and what it taught.** MONBIO is an
+economy-wide bio-economy monitor, not a food-loss monitor, and it broke none of the v2.2 rules —
+but it needed **four scope decisions the protocol does not itself settle**, all taken by the user
+at session open and all likely to recur on S005/S006/S007 and on the OVAM Marktanalyse sources:
+
+1. **Mest is out of the register**, on the strength of this hub's own "excluding manure and OFMSW"
+   scope line. Roughly 23,4 Mton of 2021 animal side stream was excluded on this ground alone, so
+   it is the single largest judgement in the corpus so far. Every tonnage is named in `log.md`.
+2. **Only the *productie* column is a claim.** Import, export and *aanbod* (production + import −
+   export, computed by the source) are not volumes arising in Flanders. This removed about
+   two-thirds of MONBIO's numbers, including its richest nevenstroom table (T38, feed-industry
+   input) — named in the log so a reviewer can pull it back.
+3. **MONBIO's `nevenstroom` / `productieresidu` split is *economic*, not edible/inedible**, so it
+   cannot be mapped onto the register's `nevenstroom`. Both map to `agri-food waste` with
+   `type_assumed = TRUE`; both terms are now recorded in `quantity_type.csv`. Consequence worth
+   knowing: **every** residual row in this source carries `type_assumed = TRUE` (50 of them).
+4. **Agri-food sectors only** — bosbouw, landschapsbeheer, hout, papier, textiel, chemie,
+   bio-energie and the afvalsectoren are not agri-food chain stages, so about half the report is out.
+
+Two further things carry forward. **The cross-source restatement rule was nearly free here**:
+unlike the OVAM series, MONBIO editions do not print evolution tables of their predecessors'
+years, so S091→2021, S007→2020, S006→2019, S005→2018 partition cleanly. The one overlap — the
+2018 OVAM/IMJV waste tables every edition reprints — was checked against the S005 PDF before being
+skipped. And **MONBIO's crop groups are a second, overlapping partition** of the commodity
+hierarchy (`Suiker- en zetmeelgewassen` straddles two existing L3s; `Groenten` straddles
+openlucht/beschut). They were added as members with an explicit never-sum-across warning rather
+than re-cut onto the OVAM partition, which would have been a derivation.
+
+*(Tooling: `render_log.py` was fixed to render bold that contains an italic — it previously left
+both markers raw. Protocol version unchanged.)*
 
 **Register protocol v2.1 (2026-08-15) — from the human review of S080.** The review found **no
 misread value** in 110 claims, but it did find a **rule error**: the destination/route ban had
@@ -88,7 +120,7 @@ source. The remaining fixes tighten rules where a reviewer had to catch somethin
 
 **Expected result** under the proposed decisions: ~271 measurements across 5 streams, 19 sources, ~25 parameters.
 
-**Expected result (2b)** — *open; ask the user.* No tangible target was set because the register's goal is still undefined (how wide/exhaustive the sweep must be is an expert-curation decision). Current standing: **214 claims from two sources** — S080 (114, human-verified) and S002 (100, awaiting verification). 10 verified PDFs still queued in `register/inbox/` (S001, S004, S005, S006, S007, S010, S066, S086, S087, S091), one source per session. **S003 (Monitoring Vlaanderen 2017) has no PDF and is not queued** — while that holds, the 2017 figures skipped from S002 and S080 belong to no source in the register.
+**Expected result (2b)** — *open; ask the user.* No tangible target was set because the register's goal is still undefined (how wide/exhaustive the sweep must be is an expert-curation decision). Current standing: **397 claims from three sources** — S080 (114, human-verified), S002 (100) and S091 (183, both awaiting verification). 9 verified PDFs still queued in `register/inbox/` (S001, S004, S005, S006, S007, S010, S066, S086, S087), one source per session. **S003 (Monitoring Vlaanderen 2017) has no PDF and is not queued** — while that holds, the 2017 figures skipped from S002 and S080 belong to no source in the register.
 
 **Register protocol v2 (2026-08-15) — settled from the S080 trial run.** The v1 output was withdrawn, not patched, because the scope change touched most rows. What changed:
 - **Chain-stage scope is now explicit and gated in `chain_L2.csv` (`in_scope` column).** In: primary production, visserij, veilingen/PO's, voedingsindustrie, retail. Out: **horeca, catering, households**. An aggregate is capturable only if *every* stage it spans is in scope — which is now the stated reason the depth rule has no level 1.
@@ -185,4 +217,4 @@ Source keys are renameable to real Zotero BBT keys later — all source FKs are 
 - ~~**Commit raw source data?**~~ — resolved 2026-07-28: **no.** `**/data/raw/` is gitignored.
 - ~~**80/20 ranking basis**~~ — resolved 2026-07-28: **not applicable to already-collected data.** The 80/20 is a rule for *prospective* harvesting. This dataset is small and already collected, so selection is manual, per stream, checking (a) the name, to exclude manure/OFMSW, and (b) the source, to validate the entry. Hence the manifest gate.
 
-*Last updated: 2026-08-15.*
+*Last updated: 2026-08-16.*

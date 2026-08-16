@@ -41,6 +41,7 @@ Keep these five headings, in this order, so notes stay comparable across sources
 
 | Date | source_id | source_short | PDF (in archive/) | Claims added | Verified? | Commit | Anomalies / flags |
 |------|-----------|--------------|-------------------|-------------:|-----------|--------|-------------------|
+| 2026-08-16 | S091 | MONBIO 4.0 | `S091_MONBIO4.0.pdf` | 183 (C-215…C-397) | no | `pending` | See [S091](#s091) — 0 suspected source errors, 5 variant readings, 4 session scope decisions, 15 new dictionary members, no Zotero item (F-002) |
 | 2026-08-15 | S002 | OVAM Monitor voedselverlies 2020 | `S002_OVAM Monitor voedselverlies 2020.pdf` | 100 (C-115…C-214) | no | `73910c0` | See [S002](#s002) — 2 suspected source errors, 3 variant readings, no Zotero item (F-002) |
 | 2026-08-15 | S080 | OVAM Monitor voedselverlies 2023 | `S080_OVAM Monitor voedselverlies 2023.pdf` | 114 (C-001…C-114), 1 retired | **yes** (2026-08-15) | `2486196` + `8d23344` | See [S080](#s080) — 1 source error retired by the reviewer, 3 variant readings, no Zotero item (F-002) |
 
@@ -50,6 +51,321 @@ provenance/unit columns. See commit `ad3b36c` for the withdrawn output. The row 
 clean v2 re-run and supersedes it entirely.*
 
 ## Anomaly notes (detail, keyed by source_id)
+
+### S091
+
+**What this source is, and why it reads nothing like S080/S002.** MONBIO 4.0 is an *economy-wide
+bio-economy monitor* (297 p., 96 tables, 68 figures), not a food-loss monitor. It measures the
+whole Vlaamse bio-economie — landbouw, visserij, bosbouw, landschapsbeheer, voeding & dranken,
+textiel, hout, papier, chemie, bio-energie, afvalsectoren — in **productie / import / export /
+aanbod** columns, and it splits every stream into **hoofdstromen / nevenstromen /
+productieresiduen**. Almost all of the extraction effort therefore went into *scope*, not into
+reading numbers. Four session decisions (all taken by the user at session open) shaped it:
+
+1. **Mest is out.** `database/hub.md` scopes BioMobi as "agri-food biomass side streams,
+   excluding manure and OFMSW"; that exclusion is treated as binding on the register too. See
+   *Deliberate exclusions* for every mest tonnage, so nothing is lost.
+2. **Productie only.** Import, export and *aanbod* (= productie + import − export, computed by
+   the source) are not quantities of material arising in Flanders, so they are not claims. This
+   removed roughly two-thirds of the source's numbers.
+3. **MONBIO's `nevenstroom` and `productieresidu` both map to `agri-food waste`, with
+   `type_assumed = TRUE` on every such row.** MONBIO's split is *economic* (has value / has none),
+   not edible/inedible as `quantity_type.csv` requires, so neither term can be mapped onto the
+   register's `nevenstroom`. The source's own word is kept in `source_type_label`. Both terms are
+   now recorded in `quantity_type.csv`.
+4. **Agri-food sectors only** — §2.1 Landbouw, §2.2 Visserij en aquacultuur, §2.5 Voedings- en
+   drankensector. Bosbouw, landschapsbeheer, hout, papier, textiel/kleding/leder, chemie/farma/
+   kunststof, bio-energie and de afvalsectoren are not agri-food chain stages.
+
+**Reference year: 2021, and it needed no negotiation.** S091's biomass chapters are *entirely*
+2021; S007 (MONBIO 3.0) is entirely 2020, S006 (2.0) 2019 and S005 (1.0) 2018. Unlike the OVAM
+series, MONBIO editions do **not** print evolution tables of their predecessors' years, so the
+cross-source restatement rule bit in exactly one place: the four OVAM/IMJV waste tables that every
+edition reprints unchanged for **2018** (T62–T65 here, T44–T47 in S007, T40–T41 in S005). Those
+were checked in the S005 PDF and confirmed identical, so they belong to S005 and were skipped.
+The chapter-1 economic indicators do run to 2022 — but they are euros and jobs, never tonnages.
+
+Also of note: in this PDF the **file page equals the printed folio** throughout, so `source_page`
+needs no dual notation. And the title page says *"update 2022"* while the Sources sheet says
+*"update 2021-2022"* and every biomass table says 2021 — worth a reviewer's eye, but it changes
+nothing: the tables state their own year.
+
+**MONBIO's chain has no retail and no veilingen.** Every claim here sits at `Primaire productie`,
+`Visserij`, `Visveilingen` (3 rows) or `Voedingsindustrie`. One row is `meerdere stadia`
+(C-217, landbouw + visserij — both in scope, so the aggregate rule is satisfied).
+
+#### 1. Variant readings
+
+All captured; none of these is called an error.
+
+- **Dierlijke hoofdstromen 2021: 6.682 kton (C-216) vs 6.723.055 ton (C-264).** Tabel 13 (p.39)
+  and Tabel 14 (p.49) count different things, and the arithmetic says exactly what:
+  6.723.055 − 43.110 (geiten- en schapenmelk) + 490 (paardenvlees) + 1.569 (schapen-/geitenvlees)
+  = 6.682.004. Both rows carry the difference in their `stream_name_NL` and cross-reference each
+  other. Tabel 14's own "TOTAAL (excl. geiten en schapen)" label is misleading: it applies to the
+  *animal-count* column (which does sum to 273.488.996 without goats and sheep), not to the
+  tonnage column, which does include the 43.110 ton.
+- **Suikerproductie Vlaanderen: 556.283 vs 289.188 vs 650.000 ton (C-361, C-379, C-380).** The
+  source itself prints three. 556.283 applies the export proxy (67% Vlaams); 289.188 applies the
+  *grondgebied* share (35%, "geproduceerd op Vlaamse productiesites"); 650.000 is a Food Industry
+  (2020) estimate the source quotes beside its own. These are three definitions, not three
+  measurements — all three captured, cross-referenced, never summed.
+- **Melasse: 91.958 vs 47.805 ton (C-362, C-381).** Same export-proxy vs grondgebied split as the
+  sugar above.
+- **Bier 2021: 24.003.327 hl vs 22.823.924 hl (C-393, C-394).** The federation's member figure
+  (which it says covers 95% of volume) is *higher* than Statbel's national total. The source
+  prints both side by side in Tabel 41 without reconciling them. Both captured, geography `Belgie`.
+- **Mengvoederproductie Vlaanderen: 6.175.148 t (BFA) vs 7.444.934 t (PRODCOM) (C-384, C-390).**
+  The source prints both in Tabel 39 and states it uses the BFA figure. Tabel 40's Prodcom lines
+  (C-391 + C-392 = 7.716.604 + 198.524 = 7.915.128) are a third reading on the Belgian→Flemish
+  ratio of the same quantity. All captured, cross-referenced, never summed.
+- **Perskoeken/schroot: 1.019.363 t Vlaanderen (C-342, Tabel 34) vs 1.149 kton Belgie (C-335,
+  Tabel 33).** Different scopes (Prodcom Vlaanderen vs FEDIOL Belgie) and the source says it used
+  the FEDIOL figure for its totals. Not a contradiction; recorded because a reviewer will see two
+  similar-sized oilseed-meal numbers.
+
+#### 2. Suspected source errors
+
+**None.** No figure in the in-scope chapters breaks its own table's total in a way that meets the
+arithmetic-evidence bar. Three arithmetic oddities fell short of it and are listed here instead:
+
+- **Tabel 17 (p.51) sums to 23.408.755 against a printed TOTAAL of 23.408.754.** A one-tonne
+  rounding gap. The whole row set is mest-dominated and excluded anyway.
+- **Tabel 26's "Vlees- en gevogelteverwerking, nev/res = 631 kton" (C-277) counts 100.000
+  *stuks* huiden as if they were tonnes.** The Prodcom nevenstroom lines that *do* have a mass
+  unit sum to 531.159 ton; 531.159 + 100.000 = 631.159, i.e. exactly the printed 631. This is
+  arithmetic evidence of a **unit** slip rather than a digit slip, and the affected number is an
+  aggregate the source computed, not a figure it measured — so C-277 is captured as printed with
+  the finding recorded here. **A reviewer may want to retire it**; the hides themselves were not
+  captured (see *Deliberate exclusions*).
+- **Tabel 28's eetbaar-slachtafval text sum is 217.672 against 217.671 from its own lines**
+  (82.576 + 84.141 + 49.893 + 1.061). One-tonne rounding; both the sum (C-308) and the lines are
+  captured.
+
+#### 3. Deliberate exclusions
+
+Every figure seen and not captured, with its reason.
+
+- **Out-of-scope sectors (session decision 4)** — §2.3 Bosbouw (T19–T21, F19), §2.4
+  Landschapsbeheer (T22–T25), §2.6 Biogebaseerde sectoren in full (T43–T61, F21 is in-scope but
+  carries no numbers, F23), §2.7 Afvalsectoren (T62–T65). None of these is an agri-food chain
+  stage. Named tonnages left on the table there include 482 kton bosbouwhout, ~600 kton
+  pre-consumer houtnevenstromen, 1.439 kton papier, 100.000 ton huishoudelijk afvalhout and
+  420.000 ton groenafval (p.164).
+- **Sierteelt** — Figuur 8 prints **137.091 ton sierteelt-hoofdstroom** (bosplanten,
+  sierplanten) and Figuur 7 its 5.777 ha. Ornamental horticulture is grown on agricultural land
+  but is not agri-food, and `commodity_hierarchy.md` has no member for it. Not captured; the
+  akkerbouw/tuinbouw group rows around it (C-219…C-226) *are*, and the plantaardige total
+  (C-218) includes sierteelt, so the eight captured groups do not sum to it.
+- **Mest (session decision 1)** — Tabel 17 (p.51): rundermest **14.754.093 ton**, varkensmest
+  **7.313.192**, gevogeltemest **626.178**, andere mest **628.292**, and the TOTAAL
+  **23.408.754**; Tabel 18 (p.51) repeats them as *aanbod* and adds "mest (niet gedefinieerd)
+  240.000". The mest-dominated aggregates of Tabel 13 (p.39) go with them: LANDBOUW nev/res
+  **27.021 kton**, DIERLIJK nev/res **23.409 kton**, TOTAAL nev/res **27.021 kton** — 94% of the
+  dierlijke figure is manure by the source's own account (p.39: "voor het overgrote deel …
+  mest"). The two non-mest rows of Tabel 17 (dode dieren, afgekeurde melk) *were* captured
+  (C-267, C-268). Also excluded: the mest trade and mestverwerking figures on p.51 and p.165
+  (800.000 / 560.000 ton import/export, 34,4 miljoen kg N).
+- **Import, export and aanbod (session decision 2)** — Tabel 13's six import/export columns
+  (p.39); Tabel 15, Tabel 16, Tabel 18 (p.50-51); Figuur 9, 10, 11, 12, 13, 15 (p.43-49); Figuur
+  17, 18 (p.56); Tabel 74 (p.200); the import/export/consumptie columns of Tabel 32, 33, 39, 41;
+  and the NBB import/export columns of every NACE table (T28–T42). Named figures left there
+  include 15 miljoen ton geïmporteerde landbouwgrondstoffen, the 101.700 ton visserij-aanbod
+  (p.56), and the 3.480.729 ton aardappelaanbod aan de verwerkende industrie (p.46).
+- **Tabel 38 (p.104), input voor de mengvoeders (7.978.403 t BE / 7.180.563 t VL and its
+  breakdown)** — consumption of feedstuffs by the feed industry, not a stream arising. Excluded
+  under the same decision. Named explicitly because it is the single richest nevenstroom table in
+  the source (bijproducten oliehoudende zaden 1.415.473 t, bijproducten vermaling granen 813.871 t,
+  suikerbereidingen 397.437 t, Vlaamse cijfers) and a reviewer may well want it back.
+- **Values belonging to an earlier edition in the `Sources` sheet** — the four OVAM/IMJV tables
+  for **2018**: Tabel 62 en 63 (p.161-162, secundaire afvalstoffen en grondstoffen door de
+  afvalsectoren), Tabel 64 (p.166-167, primaire afvalstoffen per NACE-sector) and Tabel 65
+  (p.168-169, nevenstromen en productieresiduen zonder afvalstatuut per NACE-sector, TOTAAL
+  1.797.073 ton). Verified present in the S005 PDF (its Tabel 40 and 41, p.129 and p.131), so
+  S005 owns them. The p.94 zuivel sentence quoting the same 2018 source (melkwei 49.722 ton,
+  zuiveringsslib 20.445 ton) is skipped for the same reason — but note that Tabel 26's zuivel
+  nev/res of 70 kton (C-282), which *is* captured as a 2021 figure, is 49.722 + 20.445 = 70.167,
+  i.e. the source carries the 2018 estimate forward as its 2021 number. Flagged on the row.
+  Also skipped: the 2020 visserij-aanlanding of 18.099 ton (p.55 → S007), the 2018 teruggooi of
+  8.775 ton (p.54 → S005), and Tabel 59's 2019 energiebalans (→ S006).
+- **2020 voedselreststroom figures reprinted from the OVAM monitor** — Tabel 27 (p.78) and the
+  p.77 text (1.999.983 ton totaal, 229.240 ton voedselverlies, 1,77 miljoen ton nevenstromen,
+  1,1 miljoen ton naar diervoeder). These are OVAM & ALZ (2023) figures already captured from
+  **S002** (C-190…C-193). Indexed in `destination_index.csv`.
+- **Destination and collection-route values** — not extracted, indexed instead in
+  `destination_index.csv` (4 rows): Tabel 27 (p.78), Tabel 61 (p.159), Tabel 62/63 (p.161-162),
+  Tabel 59/60 (p.157-158).
+- **`afgeleid product`** (out of scope by `quantity_type.csv`) — Prodcom **101316** "Meel, poeder
+  en pellets van vlees, niet geschikt voor menselijke consumptie; kanen" (**121.541 ton**,
+  Tabel 28 p.82) and **104119** "Andere dierlijke vetten en oliën" (**74.278 ton**, Tabel 34
+  p.92). Both are products manufactured *from* slaughterhouse residuals — the dictionary names
+  "diermeel, dierlijke vetten" as its examples. The raw streams they are made from *are* captured
+  (C-298 niet-eetbare ruwe slachtafvallen, C-297 dierlijk vet).
+- **Non-convertible units** — Prodcom **101142** "Gehele huiden en vellen van runderen of van
+  paardachtigen, ongelooid: **100.000 stuks**" (Tabel 28 p.81): a piece count with no mass basis
+  anywhere in the source. Prodcom **105210 consumptie-ijs, 65.497.290 liter** (Tabel 35 p.95):
+  the source supplies a density for *melk* (1.030 g/l) and for *dranken* (1.050 g/l) but none for
+  ice cream. Prodcom **110110 gedistilleerde dranken, 164.694 hl** (Tabel 42 p.107): the footnote
+  says this is *hectoliter zuivere alcohol*, to which the source's general drinks density does not
+  apply. All areas (624.634 / 611.359 / 447.074 ha, Figuur 6 and 7) and all volumes in m³
+  (bosbouw, 40.000 m³ houtbouw p.199) are likewise not masses.
+- **Confidential cells (`C`)** — a large share of every NACE table. Tabel 34 (oliën) is the worst
+  hit: the source says outright that "het grootste volume, de nevenstroom van schroot of meel is
+  confidentieel". A `C` is an absence, not a zero, and was never filled in.
+- **Not a quantity of material** — Tabel 1–9 (economic indicators, €/jobs/productivity),
+  Tabel 10, 11, 12 (p.38-39: these are the *taxonomy* lists of which streams exist, no numbers),
+  Tabel 66–96 (indicator framework, per-capita purchases, IDR ratios, nutrient balances, erosion,
+  cascade-index, GHG, patents, incomes, NACE/Prodcom methodology, chemical BBS), the animal-count
+  column of Tabel 14 (273.488.996 dieren), the percentage columns of Tabel 14/16/17/18/32/33/38/39,
+  and every year-on-year delta (+531.220 t, +672.732 t, −101.263 t, +87.566 t, −409.355 t,
+  −1.637 t, −131 t, −816.222 t, +33.000 t).
+- **Ranges and shares with no single value** — "Tereos-Syral verwerkt jaarlijks 600.000 tot
+  700.000 ton tarwe" (p.96, a company processing *input*, and a range); the mouterij nevenstromen
+  given only as percentages ("orgettes 2-3%", "moutkiempellets 3% op de mout", p.106); schuimaarde
+  ("6% op het gewicht aan bieten") and bietenstaartjes ("2-3%") on p.99.
+- **Aggregates with no valid `quantity_type`** — Tabel 26's **Visverwerking (32 kton)** and
+  **Verwerking van fruit, groenten en hun sappen (1.563 kton)** are printed in cells *merged
+  across* the hoofd and nev/res columns, so neither is a hoofdstroom figure nor a reststroom
+  figure. Same call as S002's Tabel 26 "Totaal 17.586 ton". Their component lines are captured
+  from Tabel 29 and Tabel 31, and both merged cells do reconcile against those lines
+  (visverwerking 11.591 + 20.169 = 31.760; groenten/fruit/sappen 91.104 + 1.318.543 + 153.028 =
+  1.562.675), which is why nothing is lost by dropping them. Tabel 26's diervoeder nev/res reads
+  "-", which is "not applicable", not a zero, and was not captured either.
+- **Non-Flemish geography where a Flemish figure exists** — the Belgian **Prodcom "Hoeveelheid"**
+  column of every NACE table. Each of those tables also carries a "Productie Vlaanderen" column,
+  which the source derives itself by applying a stated export ratio or sector share; that Flemish
+  column is what was captured. The one place this is visible in the text is bostel: p.106 says
+  "in België zo'n 176.989 ton", Tabel 42 gives 134.653 ton for Vlaanderen, and C-397 holds the
+  Flemish figure with the Belgian one noted. **Tabel 32, Tabel 33 and Tabel 41 are the
+  exception** — FEDIOL and Belgische Brouwers publish only at Belgian level, so those rows carry
+  `geography = Belgie` (C-324…C-335 en C-393, C-394), per the protocol's "Belgie where only a
+  national figure exists".
+- **Rounded restatements of a figure captured precisely elsewhere** — "16,7 miljoen ton" and
+  "3,6 miljoen ton" (p.4, p.47); "16.689 / 3.612 / 6.682 / 16 kton" in Tabel 13 where Figuur 8,
+  Figuur 14 and Figuur 16 give the precise value; "23.371 en 16 kton" restated on p.189;
+  "549 / 443 / 64 kton" vlees and "218 kton" slachtafval (p.4); "33 miljoen liter appelsap",
+  "40 miljoen liter gemengde sappen", "1,2 miljoen ton diepvriesgroenten" (p.87); "meer dan 539
+  miljoen liter melk" (p.94); "24 / 22,8 / 17,4 miljoen hl bier" (p.106); "zo'n 900 kton
+  chocolade" (p.5); "504 kton" and "1.149 kton" (p.4, p.90); "57 kton" aardappelnevenstroom and
+  "135 kton" bostel in Tabel 26. Each is listed in `also_stated_in` on the row that holds the
+  precise value.
+
+#### 4. Completeness sweep — disposition of all 96 tables and 68 figures
+
+Every numbered object in the source's own *Lijst van tabellen* (p.14-17) and *Lijst van figuren*
+(p.18-21), in exactly one bucket.
+
+**Captured** (18 tables + 2 figures + 6 text passages), with the exact id ranges:
+
+| Object | Page | Claims |
+|---|---|---|
+| Tabel 13 | 39 | C-215…C-217 |
+| Figuur 8 | 42 | C-218…C-226 |
+| tekst (gewassen) | 43 | C-227…C-237 |
+| Figuur 14 | 48 | C-238…C-245 |
+| tekst (nevenstromen per gewas) | 47 | C-246…C-257 |
+| Tabel 14 | 49 | C-258…C-264 |
+| tekst (paarden-/schapenvlees) | 49 | C-265…C-266 |
+| Tabel 17, de twee niet-mest rijen | 51 | C-267…C-268 |
+| Figuur 16 | 55 | C-269 |
+| tekst (aanlanding per groep) | 54 | C-270…C-272 |
+| tekst (teruggooi, opgehouden vis) | 55 | C-273…C-275 |
+| Tabel 26 | 76 | C-276…C-287 |
+| Tabel 28 | 81-82 | C-288…C-304 |
+| tekst (vlees-sommen) | 79-80 | C-305…C-308 |
+| Tabel 29 | 84 | C-309…C-311 |
+| Tabel 30 | 86 | C-312…C-314 |
+| Tabel 31 | 88-89 | C-315…C-323 |
+| Tabel 32 | 91 | C-324…C-329 |
+| Tabel 33 | 91 | C-330…C-335 |
+| Tabel 34 | 92-93 | C-336…C-342 |
+| Tabel 35 | 95 | C-343…C-350 |
+| Tabel 36 | 97-98 | C-351…C-360 |
+| Tabel 37 | 100-102 | C-361…C-378 |
+| tekst (suiker, melasse, pulp, chocolade) | 99 | C-379…C-383 |
+| Tabel 39 | 105 | C-384…C-390 |
+| Tabel 40 | 105 | C-391…C-392 |
+| Tabel 41 | 106 | C-393…C-395 |
+| Tabel 42 | 107 | C-396…C-397 |
+
+**Excluded, with reason:**
+
+| Object | Reason |
+|---|---|
+| T1–T9, F1–F5 | macro-economische indicatoren (euro, jobs, arbeidsproductiviteit) — geen hoeveelheid materiaal |
+| T10, T11, T12 | taxonomietabellen: welke hoofd- en nevenstromen bestaan per sector — bevatten geen cijfers |
+| T15, T16, T18 | handelsbalans resp. aanbod veeteelt — sessiebeslissing 2 (enkel productie) |
+| T17, mestrijen | mest — sessiebeslissing 1; tonnages staan in de uitsluitingslijst hierboven |
+| T19–T25, F19 | bosbouw en landschapsbeheer — geen agrovoedingsschakel (sessiebeslissing 4) |
+| T27 | bestemmingen voedselreststromen 2020 (OVAM & ALZ) — bestemmingsas én reeds gecapteerd via S002 |
+| T38 | input/verbruik van de voedersector — geen ontstane stroom (sessiebeslissing 2) |
+| T43–T58 | textiel, kleding, leder, hout, meubelen, papier, chemie, farma, kunststof — buiten scope |
+| T59, T60, T61 | bio-energiebalans in PJ; T59 bovendien referentiejaar 2019 (hoort bij S006); T61 zuivere verbrandingsbestemming |
+| T62–T65 | OVAM/IMJV-afvaltabellen met referentiejaar 2018 — horen bij S005 (geverifieerd in de S005-PDF) |
+| T66–T73, T75–T82 | indicatorenkader, aankopen per capita, IDR, dood hout, nutriëntenbalansen, erosie, cascade-index, broeikasgassen, octrooien, inkomens — geen hoeveelheid materiaal |
+| T74 | handel en netto import 2020 — handelsstromen én referentiejaar 2020 (hoort bij S007) |
+| T83–T96 | methodologie: NACE/Prodcom-systematiek, sectorselectie, databronnen, chemische BBS-lijsten |
+| F6, F7 | landbouwareaal in ha — oppervlakte, geen massa |
+| F9, F10, F11 | handelsbalans, import en export plantaardige hoofdstromen — sessiebeslissing 2 |
+| F12, F13, F15, F17, F18 | aanbodfiguren (landbouw, verwerkende industrie, nevenstromen, visserij) — sessiebeslissing 2 |
+| F20, F21, F22, F23 | sectorverhoudingsschema's in % binnen de voedingssector resp. papiersector — geen tonnages |
+| F24–F44, F46–F68 | indicatoren-, methodologie- en conceptfiguren van hoofdstuk 3 en 4 |
+| F45 | DMI-biomassa-inzet 2010-2021 (CE Monitor) — staafdiagram zonder afgedrukte waarden, en import + extractie samen |
+
+**Carries no numbers** (5): F51, F52, F53, F54, F55 (conceptuele stroomschema's van de
+bio-economie, hoofdstuk 4) — plus F56, F57 in the same series.
+
+#### 5. Judgement calls & new dictionary members
+
+- **MONBIO's gewasgroepen are a *second, overlapping* crop partition.** `Suiker- en
+  zetmeelgewassen` (suikerbiet + aardappel) cuts straight across the register's existing
+  `Aardappelen en knolgewassen` and `Suikerbieten en nijverheidsgewassen`; `Groenten` spans
+  `Groenten openlucht` and `Groenten beschut`; `Industriele gewassen` (cichorei, vlas) overlaps
+  `Suikerbieten en nijverheidsgewassen`. All four are now members, with an explicit
+  **never-sum-across** warning in `commodity_hierarchy.md`. The alternative — re-cutting MONBIO's
+  groups onto the OVAM partition — would have been a derivation, not a reading.
+- **The plantaardige group rows do not sum to the plantaardige total**, by design: C-218
+  (16.688.841 t) includes sierteelt, and the eight captured group rows (C-219…C-226) do not.
+  16.688.841 − 137.091 (sierteelt) = 16.551.750. Same for the nevenstroom side, where Figuur 14
+  simply has no fruit group.
+- **`Vlees- en gevogelteverwerking` was given `Dierlijk - vee / Vlees` rather than `Gemengd`**
+  (C-276, C-277), by the same reasoning the S080 session used for `Zuivel`: it is unambiguously
+  animal meat, unlike OVAM's `Vlees, vis en gevogelte`, which mixes in fish. Every other MONBIO
+  NACE grouping takes `Gemengd`, level 2.
+- **Paardenvlees (490 t) and schapen-/geitenvlees (1.569 t) were assigned `Primaire productie`,
+  not `Voedingsindustrie`** (C-265, C-266), even though meat arises at slaughter. The source
+  presents them inside §2.1.4 *Veeteelt – hoofdstromen* and, as the arithmetic under *Variant
+  readings* shows, counts them in its **primary-production** total. Assigning them by the chapter
+  would have been wrong; assigning them by the event would have contradicted the source's own
+  accounting. Flagged so a reviewer can overrule.
+- **The NACE 10.13 / 10.7 / 10.42 / 10.9 lines the source excludes from its own totals were
+  captured** (C-300…C-304 bacon, worst, conserven; C-359 vers brood; C-360 koekjes; C-341
+  margarine; C-391, C-392 Prodcom-veevoeder), under the protocol's "do not inherit the source's
+  own scope exclusions". The source drops them **to avoid double counting** with the upstream
+  lines, which is a real reason — so every one of these rows says so in `source_type_label` and
+  **they must never be summed with their precursors**. This is the largest single block a reviewer
+  might want to retire, and it is deliberately grouped so that it can be.
+- **Approximations captured with the source's wording in `source_type_label`**, following the
+  S080 "ruim 700.000 ton" precedent: teruggooi ">7.500 ton" (C-273), afgekeurde appelen
+  "± 14.000 ton" (C-257), bietenpulp "ongeveer 350.000 ton" (C-382), chocolade "ongeveer 900.000
+  ton" (C-383), suiker "650.000 ton" (C-380).
+- **Unit conversions all use factors the source itself supplies** (protocol: never derive one):
+  1.040 g/l for sappen and 1.030 g/l for melk, both stated on p.74; 1.050 g/l for dranken, stated
+  on p.75 (applied per hl, i.e. ×0,105); and kton → ton (×1.000). No other conversion was made —
+  see *Non-convertible units* for the three cases where no factor existed.
+- **`type_assumed = TRUE` on every `agri-food waste` row** (all 50 of them), by session decision 3:
+  MONBIO never states edible vs inedible, so the quantity type is defaulted on every residual row
+  in this source. This is a heavier use of the flag than in S080/S002 and is expected.
+- **`Vis (alle soorten)`, `Schaaldieren` and `Weekdieren` were added as L4 members** so that
+  Figuur 16's three components sit one level below the 16.683 t total (C-269). S080's combined
+  `Schaal- en weekdieren` stays in the dictionary for the auction row (C-275), where the source
+  does not split them.
+- **The `Sources` sheet's `extraction_status` is stale for S005, S006 and S007** — all three read
+  "EXTRACTED - source read, claims taken", but `streams_export.csv` holds no row from any of them.
+  That metadata predates the in-repo register and describes the superseded root-level corpus. Left
+  as found rather than silently rewritten, but a later session must not read it as "already done".
+- **No Zotero item exists and `Sources.S091.citation_key` is blank** — flag **F-002** is still
+  open. The PDF is archived at `register/archive/S091_MONBIO4.0.pdf`.
 
 ### S002
 
