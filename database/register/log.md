@@ -41,7 +41,7 @@ Keep these five headings, in this order, so notes stay comparable across sources
 
 | Date | source_id | source_short | PDF (in archive/) | Claims added | Verified? | Commit | Anomalies / flags |
 |------|-----------|--------------|-------------------|-------------:|-----------|--------|-------------------|
-| 2026-08-16 | S007 | MONBIO 3.0 | `S007_MONBIO3.0.pdf` | 195 (C-398…C-592) | no | `pending` | See [S007](#s007) — 1 suspected source error (in **S091**, found from here), 6 variant readings, 3 new dictionary members, no Zotero item (F-002) |
+| 2026-08-16 | S007 | MONBIO 3.0 | `S007_MONBIO3.0.pdf` | 195 (C-398…C-592) | no | `e3c61bc` | See [S007](#s007) — 1 suspected source error (in **S091**, found from here), 6 variant readings, 3 new dictionary members, no Zotero item (F-002) |
 | 2026-08-16 | S091 | MONBIO 4.0 | `S091_MONBIO4.0.pdf` | 183 (C-215…C-397) | no | `0ae8225` | See [S091](#s091) — 0 suspected source errors, 5 variant readings, 4 session scope decisions, 15 new dictionary members, no Zotero item (F-002) |
 | 2026-08-15 | S002 | OVAM Monitor voedselverlies 2020 | `S002_OVAM Monitor voedselverlies 2020.pdf` | 100 (C-115…C-214) | no | `73910c0` | See [S002](#s002) — 2 suspected source errors, 3 variant readings, no Zotero item (F-002) |
 | 2026-08-15 | S080 | OVAM Monitor voedselverlies 2023 | `S080_OVAM Monitor voedselverlies 2023.pdf` | 114 (C-001…C-114), 1 retired | **yes** (2026-08-15) | `2486196` + `8d23344` | See [S080](#s080) — 1 source error retired by the reviewer, 3 variant readings, no Zotero item (F-002) |
