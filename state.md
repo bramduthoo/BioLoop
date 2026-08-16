@@ -9,7 +9,7 @@
 
 ## Workstream rollup
 *(one line per workstream — compressed from each hub's Status header; "—" until the workstream's first session runs)*
-- **Database:** phase 2 in progress — idempotent loader for the legacy Excel built and verified against the local stack; **paused awaiting the human `DECISION` columns in `database/crosswalks/`**. No data loaded anywhere yet; no schema change needed. In parallel, the candidate stream register (2b) is in-repo with its extraction protocol settled at v2.2; three sources extracted — S080 (114 claims, human-verified), S002 (100) and S091/MONBIO 4.0 (183, both awaiting verification) — corpus 397 claims, 9 source PDFs still queued.
+- **Database:** phase 2 in progress — idempotent loader for the legacy Excel built and verified against the local stack; **paused awaiting the human `DECISION` columns in `database/crosswalks/`**. No data loaded anywhere yet; no schema change needed. In parallel, the candidate stream register (2b) is in-repo with its extraction protocol settled at v2.2; four sources extracted — S080 (114 claims, human-verified), S002 (100), S091/MONBIO 4.0 (183) and S007/MONBIO 3.0 (195; the last three awaiting verification) — corpus 592 claims, 8 source PDFs still queued.
 - **Literature:** not started. One open flag inherited (F-001, non-blocking).
 - **Modelling:** not started (later phase).
 

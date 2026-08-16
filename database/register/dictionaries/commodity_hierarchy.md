@@ -147,6 +147,13 @@ same two exceptions applied by commodity: `Vervaardiging van zuivelproducten` �
 `Aardappelverwerking` → `Plantaardig - akkerbouw / Aardappelen en knolgewassen / Aardappel`
 (level 4 — it is exactly one crop).
 
+**Members added 2026-08-16 (S007, MONBIO 3.0).** Only three, because S091's session had already
+absorbed the MONBIO vocabulary one edition later: **`Koffie`** as an L4 under `Specerijen`, and
+**`Cichorei`** and **`Vlas`** as L4 ingredients under **`Industriele gewassen`**. Note that
+`Cichorei` and `Vlas` were already listed under `Suikerbieten en nijverheidsgewassen` in the seed
+tree — they now sit under both, which is the direct consequence of carrying MONBIO's overlapping
+crop partition. The never-sum-across warning above covers this.
+
 ## Maintenance
 
 - The rules above are fixed — change only by explicit decision, recorded in `state.md`.
