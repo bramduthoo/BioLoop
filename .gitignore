@@ -36,3 +36,9 @@ vault/.obsidian/cache/
 # archive/ copy. Remove these two lines if the PDFs should be versioned after all.
 database/register/inbox/
 database/register/archive/
+
+# Derived HTML view of the register log. `log.md` is the source of truth;
+# `render_log.py` regenerates this from it, so the file is disposable and
+# deliberately not versioned — 50 kB of generated markup would make every
+# session's diff unreadable. Delete this line if it should be committed after all.
+database/register/log.html

@@ -19,6 +19,10 @@ parallel accounting definitions handled explicitly; `chain_L2` assigned by the m
 rather than the chapter; a cross-source restatement rule for series editions; and a canonical
 export order independent of the sheet's own column arrangement.*
 
+*Protocol v2.2 (2026-08-16) — tooling only, no extraction rule changed. `log.md` gained a
+derived HTML view (`render_log.py` → `log.html`), regenerated as part of procedure step 7, so
+the log can be read and reviewed outside an editor.*
+
 ## What this workstream produces
 
 `BIOLOOP_streams_and_sources.xlsx` — a standalone, claim-level corpus of Flemish agri-food
@@ -32,6 +36,12 @@ precedent.
 
 Alongside it, two smaller committed artifacts: `destination_index.csv` (where each source
 keeps its destination / collection-route volumes) and `log.md` (the per-session record).
+
+**`log.md` has a derived HTML view.** `render_log.py` renders it to `log.html` — a readable,
+navigable page for checking the log without an editor. **`log.md` stays the source of truth**;
+`log.html` is generated, gitignored and disposable, and is **never hand-edited** (same rule as
+the workbook's `Rollup_check` / `Stream_index` sheets). Its summary figures are computed from
+the Sessions table and `streams_export.csv`, so they cannot drift.
 
 ## Session contract
 
@@ -229,7 +239,15 @@ rather than drop it.
    header, never by position**, for the same reason.
 
 7. **Log.** Append a row to `register/log.md` (source, PDF, #claims, anomalies, commit),
-   plus an anomaly note if the source needs one.
+   plus an anomaly note if the source needs one. Then regenerate the HTML view:
+
+   ```
+   database/.venv/Scripts/python database/register/render_log.py
+   ```
+
+   It reads `log.md` and rewrites `log.html` in place; it never writes to the markdown.
+   If a session adds a markdown construct the renderer does not handle, **fix the renderer** —
+   do not simplify the log to suit it.
 
 8. **Report up.** Update `database/hub.md` status; commit
    `register: extract <source_id> — <n> claims`.
@@ -431,7 +449,7 @@ sources, because monitor series reprint their predecessors' numbers in evolution
 - Do not derive a conversion factor the source does not give.
 - Do not correct a source's figure, even one you are sure is a typo — record and flag it.
 - Do not create Zotero items from PDF DOI extraction — use the `Sources`-row metadata.
-- Do not edit `Rollup_check` or `Stream_index` (derived), and do not touch any database
-  table.
+- Do not edit `Rollup_check` or `Stream_index` (derived), do not hand-edit `log.html`
+  (derived — edit `log.md` and re-render), and do not touch any database table.
 - Do not invent structure, fractions, or figures; when the source is silent, leave blank
   or flag.
