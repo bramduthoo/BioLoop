@@ -99,9 +99,15 @@ All captured; none of these is called an error.
   7, a one-tonne rounding). Both series captured — C-450…C-452 (aanlanding) and C-453…C-456
   (hoofdstromen) — cross-referenced and never to be summed. **This differs from S091**, where the
   figure was titled *Aanlanding* and matched the text exactly, so only one series existed there.
-- **Suikerproductie Vlaanderen: 538.889 vs 275.044 vs 650.000 ton (C-553, C-572, C-573).** Same
-  three-way split as S091: export proxy (69%), grondgebied share (35%), and a FoodIndustry (2020)
-  estimate the source quotes beside its own. All three captured, never summed.
+- **Suiker: 538.889 vs 275.044 vs 650.000 ton (C-553, C-572, C-573) — only one is Flemish.**
+  *(Corrected 2026-08-17 in the review pass.)* Identical structure to S091: 785.839 t Belgian
+  Prodcom x **69%** export proxy = 538.889 t, which folio 118 defines as the production of **het
+  Vlaamse bedrijf** whose sites lie in Flanders *and* Wallonia -> `geography = Belgie`; x **35%**
+  grondgebied share = 275.044 t **op Vlaamse productiesites** -> the Flemish figure; and FoodIndustry
+  (2020) 650.000 t is a rival estimate of the same **company-level** quantity -> `Belgie`. So
+  275.044 is a *subset* of 538.889, not an alternative reading of it. The Tabel 85 column header
+  says "Productie Vlaanderen"; the text says otherwise, and the text wins. See the S091 note for
+  the full table.
 - **Melasse: 111.298 vs 56.806 ton (C-554, C-574); bietenpulp: 661.550 vs 337.649 ton (C-555,
   C-575).** Export proxy vs grondgebied, as above. Note S091 had no Prodcom value for bietenpulp at
   all, so this pair is new information.
@@ -352,6 +358,12 @@ Every figure seen and not captured, with its reason.
   2026-08-16): S005 and S006 read "EXTRACTED - source read, claims taken" but have no row in the
   corpus. Both now read "NOT EXTRACTED (was stale metadata from the superseded root-level corpus;
   corrected 2026-08-16)". S007's own status was set to EXTRACTED by this session.
+- **This source was included in the review pass of 2026-08-17.** Every remark the reviewer made on
+  S091 was applied here too - the edibility reclassification (C-480, C-481, C-483, C-484, C-493),
+  the level fix on C-484, the vinegar-row renaming (C-508, C-509), the sugar geography (C-553,
+  C-572, C-573), the sierteelt note on C-399, the 2018-cijferbasis in the name of C-467, and the
+  conversion arithmetic on every liter/hl row. See **[S091 -> Review pass](#s091)** for the reasoning
+  behind each; the rules themselves are in `database/register/CLAUDE.md` (protocol v2.3).
 - **No Zotero item exists and `Sources.S007.citation_key` is blank** — flag **F-002** is still open.
   The PDF is archived at `register/archive/S007_MONBIO3.0.pdf`.
 
@@ -408,11 +420,30 @@ All captured; none of these is called an error.
   other. Tabel 14's own "TOTAAL (excl. geiten en schapen)" label is misleading: it applies to the
   *animal-count* column (which does sum to 273.488.996 without goats and sheep), not to the
   tonnage column, which does include the 43.110 ton.
-- **Suikerproductie Vlaanderen: 556.283 vs 289.188 vs 650.000 ton (C-361, C-379, C-380).** The
-  source itself prints three. 556.283 applies the export proxy (67% Vlaams); 289.188 applies the
-  *grondgebied* share (35%, "geproduceerd op Vlaamse productiesites"); 650.000 is a Food Industry
-  (2020) estimate the source quotes beside its own. These are three definitions, not three
-  measurements — all three captured, cross-referenced, never summed.
+- **Suiker: 556.283 vs 289.188 vs 650.000 ton (C-361, C-379, C-380) — and only one of the three is
+  a Flemish figure.** *(Corrected 2026-08-17 in the review pass; the first write-up called all three
+  Flemish.)* The source packs all three into one sentence on p.99:
+
+  > "Op basis van de exportproxy (67%) kan de productiehoeveelheid van **het Vlaamse bedrijf**
+  > geschat worden op 556.283 ton (Tabel 37; Food Industry, 2020 schat 650.000 ton), **waarvan**
+  > 289.188 ton suiker geproduceerd op **Vlaamse productiesites**."
+
+  Unpacked against the Belgian Prodcom quantity of 826.253 ton (Tabel 37):
+
+  | Figure | How the source derives it | What it actually covers | geography |
+  |---|---|---|---|
+  | **556.283 t** (C-361) | 826.253 × **67%** (export proxy) | production by **Südzucker–Tiense Suiker**, the "Flemish company" — but p.99 says its sites are "verspreid over Vlaanderen en Wallonië" | **Belgie** |
+  | **289.188 t** (C-379) | 826.253 × **35%** (grondgebied share, CINBIOS) | the part produced **on Flemish soil** | **Vlaanderen** |
+  | **650.000 t** (C-380) | Food Industry (2020) estimate | the **same company-level** quantity as C-361 | **Belgie** |
+
+  So they are **not three measurements of one quantity, and not three parallel definitions of a
+  Flemish figure**. 289.188 is a *subset* of 556.283 (35% vs 67% of the same Belgian total), and
+  650.000 is a rival estimate of that same 67% company figure. Only **C-379 is the Flemish
+  volume**. C-361 sits in a column headed *"Productie Vlaanderen"*, which is exactly why it was
+  first mis-typed as Flemish — **the column header is not the definition; the text is**. All three
+  are captured, each now says in its own name what it covers, and `also_stated_in` states the
+  subset relation rather than calling them variants. The identical structure recurs in S007
+  (C-553 / C-572 / C-573) and was corrected there too.
 - **Melasse: 91.958 vs 47.805 ton (C-362, C-381).** Same export-proxy vs grondgebied split as the
   sugar above.
 - **Bier 2021: 24.003.327 hl vs 22.823.924 hl (C-393, C-394).** The federation's member figure
@@ -550,8 +581,14 @@ Every figure seen and not captured, with its reason.
   "40 miljoen liter gemengde sappen", "1,2 miljoen ton diepvriesgroenten" (p.87); "meer dan 539
   miljoen liter melk" (p.94); "24 / 22,8 / 17,4 miljoen hl bier" (p.106); "zo'n 900 kton
   chocolade" (p.5); "504 kton" and "1.149 kton" (p.4, p.90); "57 kton" aardappelnevenstroom and
-  "135 kton" bostel in Tabel 26. Each is listed in `also_stated_in` on the row that holds the
-  precise value.
+  "135 kton" bostel and **"6.175 kton" diervoeders** in Tabel 26. Each is listed in
+  `also_stated_in` on the row that holds the precise value — the diervoeder cell on **C-384**
+  (6.175.148 t, Tabel 39), the bostel cell on C-397, the aardappel cell on C-314.
+
+  *(Added in the review pass: the diervoeder entry was missing from this list, which made the
+  Tabel 26 row look unread. It was captured all along — see the new completeness rule in the
+  protocol, which now requires a captured table to be accounted for cell by cell whenever any of
+  its cells are dropped.)*
 
 #### 4. Completeness sweep — disposition of all 96 tables and 68 figures
 
@@ -620,13 +657,36 @@ bio-economie, hoofdstuk 4) — plus F56, F57 in the same series.
 
 #### 5. Judgement calls & new dictionary members
 
-- **MONBIO's gewasgroepen are a *second, overlapping* crop partition.** `Suiker- en
-  zetmeelgewassen` (suikerbiet + aardappel) cuts straight across the register's existing
-  `Aardappelen en knolgewassen` and `Suikerbieten en nijverheidsgewassen`; `Groenten` spans
-  `Groenten openlucht` and `Groenten beschut`; `Industriele gewassen` (cichorei, vlas) overlaps
-  `Suikerbieten en nijverheidsgewassen`. All four are now members, with an explicit
-  **never-sum-across** warning in `commodity_hierarchy.md`. The alternative — re-cutting MONBIO's
-  groups onto the OVAM partition — would have been a derivation, not a reading.
+- **MONBIO's gewasgroepen are a *second, overlapping* crop partition — what that means and why it
+  was allowed.** *(Expanded 2026-08-17 in the review pass.)*
+
+  `commodity_hierarchy.md` grew out of the OVAM voedselverlies monitors, whose L3 subgroups cut the
+  plant sector one way. MONBIO cuts it a **different** way, and the two cuts cross rather than nest:
+
+  | MONBIO gewasgroep | Existing register L3 it crosses | Nature of the overlap |
+  |---|---|---|
+  | `Suiker- en zetmeelgewassen` (suikerbiet **+** aardappel) | `Aardappelen en knolgewassen` **and** `Suikerbieten en nijverheidsgewassen` | one MONBIO group spans two register groups |
+  | `Groenten` (not split) | `Groenten openlucht` **and** `Groenten beschut` | one MONBIO group spans two register groups |
+  | `Industriele gewassen` (cichorei, vlas, hennep, hop) | part of `Suikerbieten en nijverheidsgewassen` | MONBIO carves a *piece* out of a register group |
+  | `Oliehoudende gewassen` (kool- en raapzaad, soja, …) | part of `Suikerbieten en nijverheidsgewassen` | same |
+
+  **Three ways to handle this, and why the third was chosen:**
+  1. *Force MONBIO's groups onto the register's partition* — would require splitting 3.630.317 t of
+     "Suiker- en zetmeelgewassen" into an aardappel part and a suikerbiet part. The source does not
+     print that split, so producing it would be a **derivation**, which the protocol forbids
+     outright.
+  2. *Drop the group rows and keep only the crop rows* — loses the source's own sector structure and
+     its only published subtotals.
+  3. *Admit MONBIO's groups as additional L3 members* — keeps every figure exactly as printed, at
+     the cost that **`L3_commodity_subgroup` is no longer a partition**: two rows can both be real
+     and still overlap in the material they cover.
+
+  The cost of (3) is real and has to be managed, so: `commodity_hierarchy.md` carries a
+  **never-sum-across** warning naming these four members, and any future rollup must group by
+  `source_id` **and** by which partition a row belongs to — summing L3 across sources would now
+  double-count. This is the single biggest structural concession the register has made to a source
+  so far, and it will recur for every MONBIO edition (S006, S005) and for any source with its own
+  sector taxonomy.
 - **The plantaardige group rows do not sum to the plantaardige total**, by design: C-218
   (16.688.841 t) includes sierteelt, and the eight captured group rows (C-219…C-226) do not.
   16.688.841 − 137.091 (sierteelt) = 16.551.750. Same for the nevenstroom side, where Figuur 14
@@ -663,6 +723,64 @@ bio-economie, hoofdstuk 4) — plus F56, F57 in the same series.
   Figuur 16's three components sit one level below the 16.683 t total (C-269). S080's combined
   `Schaal- en weekdieren` stays in the dictionary for the auction row (C-275), where the source
   does not split them.
+#### 6. Review pass (2026-08-17) — reviewer remarks and what changed
+
+The reviewer's remarks on S091 were applied **to S091 and S007 alike**, and each one that
+generalised became a rule in `database/register/CLAUDE.md` (protocol **v2.3**). What changed in the
+data:
+
+- **Edibility stated in the source's own product name now overrides the session default.** Session
+  decision 3 defaults MONBIO's residual streams to `agri-food waste` because MONBIO's
+  nevenstroom/productieresidu split is *economic*. But where an individual Prodcom **product name**
+  says "eetbare" or "niet-eetbare", the source *has* specified edibility, and the protocol's own
+  rule ("classify as nevenstroom/voedselverlies **iff** the source specifies edible/inedible") takes
+  over. Reclassified, with `type_assumed` flipped to FALSE:
+  `voedselverlies` — C-295 / C-480 (eetbare slachtafvallen), C-296 / C-481 (ander vlees en andere
+  eetbare slachtafvallen), C-299 / C-484 (eetbare slachtafval van gevogelte), C-308 / C-493 (the
+  text total); `nevenstroom` — C-298 / C-483 (niet-eetbare ruwe slachtafvallen).
+  This is a **refinement of decision 3, not a reversal** — the sector-level default still stands
+  wherever the source is silent, which is most rows.
+  **One caveat is recorded on each reclassified row**: `voedselverlies` is the register's
+  *edible-fraction* category, and the source stresses that eetbaar slachtafval is valorised in the
+  food industry rather than lost. The category name says "verlies"; the material is not lost.
+- **C-299 / C-484 moved from level 5 to level 4** and its `L5_fraction_as_named` was cleared. The
+  reviewer queried why poultry offal sat at L5 while bacon and gezouten rundsvlees sat at L4. The
+  evidence settles it against the L5: the **human-verified S080/S002 corpus never uses L5 on the
+  animal branch at all** (every meat row sits at L3 `Vlees`), and `commodity_hierarchy.md` lists
+  only plant fractions as L5 examples. `slachtafval (eetbaar)` was the corpus's only animal L5 — a
+  one-off, and inconsistent even inside S091, where the multi-species eetbare-slachtafval row sits
+  at level 3. Pulling C-299 up to level 4 restores consistency; pushing C-300/C-301 down to level 5
+  would have re-levelled every meat row in the corpus against verified precedent.
+- **The two vinegar rows were renamed to make their disjointness unmissable.** Prodcom 103917 is
+  vegetables preserved *other than* in vinegar (72.920 t, C-319) and 103918 is vegetables, fruit and
+  other edible plant parts preserved *in* vinegar (13.246 t, C-320). They are **disjoint Prodcom
+  categories, not a part and its whole** — which is why the "broader" row is five times smaller.
+  The confusion came from `level_1to5`: C-320 sits at level 2 because it spans several commodity
+  groups, and that was read as "aggregate of C-319". `level_1to5` is a **commodity-breadth**
+  label, never a volume nesting — only rows named `AGGREGAAT - …` are volume aggregates. Both rows
+  now say so in `also_stated_in`, and the rule is in the protocol.
+- **The sugar geography was corrected** — see *Variant readings* above.
+- **C-218 / C-399 now state on the row that the plantaardige total includes sierteelt**, which was
+  deliberately not captured, so a reviewer summing the eight gewasgroep rows against the total sees
+  immediately why they fall short (16.688.841 − 137.091 = 16.551.750 for S091).
+- **C-282 / C-467 carry the 2018 cijferbasis in `stream_name_NL`**, not only in
+  `source_type_label`. The caveat changes *what year the figure measures*, and the protocol already
+  requires that kind of qualifier to be in the name.
+- **Every converted row now spells out its conversion arithmetic** in `source_type_label`
+  ("1 liter x 1.040 g/l = 0,00104 t", "1 hl = 100 l x 1.050 g/l = 0,105 t"), and the
+  `conversion_factor_to_t_per_yr` column was given an explicit number format. The stored factors
+  were always correct, but Excel's *General* format renders 0,00104 as "0,001", so a reviewer
+  checking `value × factor = volume` by eye concluded the row did not add up. An audit column that
+  cannot be read is not an audit column.
+- **`Sources` metadata**: unchanged in this pass.
+
+**Reviewer decisions already recorded in `DECISION_expert` and preserved untouched**: C-074
+(S080, retired earlier), C-147, C-148, C-185, C-193 (S002, `no`), and **C-384…C-390** (the whole
+BFA mengvoeder block) and **C-393, C-394** (the two Belgian beer rows) in S091, all `NO`. The
+S007 twins of the beer rows (C-586, C-587) now cross-reference the rejected S091 rows so they can
+be disposed of the same way. **The S007 twin of the mengvoeder block (C-577…C-583) is left for the
+reviewer** — see the open question in `database/hub.md`.
+
 - **The `Sources` sheet's `extraction_status` is stale for S005, S006 and S007** — all three read
   "EXTRACTED - source read, claims taken", but `streams_export.csv` holds no row from any of them.
   That metadata predates the in-repo register and describes the superseded root-level corpus. Left

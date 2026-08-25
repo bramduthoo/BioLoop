@@ -23,6 +23,17 @@ export order independent of the sheet's own column arrangement.*
 derived HTML view (`render_log.py` → `log.html`), regenerated as part of procedure step 7, so
 the log can be read and reviewed outside an editor.*
 
+*Protocol v2.3 (2026-08-17) — from the human review of S091, all of it things a reviewer had to
+catch by hand on a source with per-product statistics. **Geography tightened**: where a figure
+exists for both Belgium and Flanders, the Flemish one is the claim — and a column headed
+"Vlaanderen" does not make a figure Flemish if the source's own text defines it otherwise. Added:
+a source's own product name can specify edible/inedible and then overrides a session-level default;
+`level_1to5` is a commodity-breadth label and never implies that one row contains another; the
+conversion factor must be **legible and its arithmetic spelled out**; a scope caveat that changes
+*what* or *which year* a figure measures belongs in `stream_name_NL`; an aggregate that includes a
+deliberately-excluded component must say so on the row; and the completeness sweep must account for
+a captured table **cell by cell** whenever any of its cells are dropped.*
+
 ## What this workstream produces
 
 `BIOLOOP_streams_and_sources.xlsx` — a standalone, claim-level corpus of Flemish agri-food
@@ -299,6 +310,22 @@ figure was not actually read from a locatable place, which is itself a problem. 
 what lets a reviewer who is looking at *a different* table find the row that already holds its
 value.
 
+**Two rules on where a caveat goes (v2.3).** Both come from the S091 review, where a reviewer
+reading only the workbook could not see something the log knew:
+
+- **A caveat that changes *what* — or *which year* — the figure measures belongs in
+  `stream_name_NL`**, not only in `source_type_label`. Examples: a figure the source carries
+  forward from an older edition (`(cijferbasis 2018, door de bron overgenomen)`); a coverage that
+  is a company rather than a territory (`productie van het Vlaamse bedrijf (sites in Vlaanderen en
+  Wallonie)`); a definition that differs from the sibling row's. The name is what a reviewer reads;
+  a caveat parked in the label will be missed. This extends the existing sibling-disambiguation
+  rule from "how does this row differ from its neighbour" to "what does this row actually measure".
+- **An aggregate that includes a component you deliberately did not capture must say so on the
+  row.** Otherwise a reviewer summing the captured children against the parent finds a gap and
+  cannot tell whether something was missed or excluded on purpose. Name the excluded component and
+  its tonnage in `source_type_label` — e.g. a plantaardige total that includes an uncaptured
+  sierteelt figure.
+
 ## Units and conversion
 
 `volume_t_per_yr` must be a **pure unit conversion** of what the source printed:
@@ -313,6 +340,14 @@ value.
   in the source").
 - Never silently harmonise. If two figures in one source use different units, convert each
   independently and let the columns show it.
+- **Spell the arithmetic out, and make the factor legible** (v2.3). `conversion_factor_to_t_per_yr`
+  exists so a reviewer can re-derive the row, so it has to survive being opened in Excel: give the
+  column an explicit number format (`0.#####`), because the default *General* format renders
+  0,00104 as "0,001" and a reviewer checking `value × factor = volume` by eye will conclude the row
+  is wrong. Where the factor is not the source's stated number but a unit-conversion of it, put the
+  chain in `source_type_label` — "1 liter × 1.040 g/l = 0,00104 t", "1 hl = 100 l × 1.050 g/l =
+  0,105 t". A stated density in g/l is the source's factor; expressing it in t per reported unit is
+  arithmetic on that factor, not a new one.
 
 ## Contradictions and anomalies
 
@@ -344,6 +379,16 @@ anomaly note too.
     specifies edible/inedible; otherwise `agri-food waste`. When a source gives **both** the
     total and the split, capture all three — they are different quantity types and never sum
     across each other.
+  - **"The source specifies edible/inedible" includes the source's own product name** (v2.3).
+    A session may set a source-wide default (e.g. "this source's residual vocabulary is economic,
+    so everything defaults to `agri-food waste`"), but that default is **per-source, not
+    per-row**: any individual row whose printed name says *eetbaar* / *niet-eetbaar* (or the
+    equivalent) has had its edibility specified, and takes `voedselverlies` / `nevenstroom` with
+    `type_assumed = FALSE`. The default governs only rows where the source is silent. When you
+    set a source-wide default, say in `log.md` that it is overridden by explicit per-row wording.
+    Note the vocabulary trap and record it on the row: `voedselverlies` is the register's
+    **edible-fraction** category, not a claim that the material was wasted — an edible by-product
+    that is fully valorised still belongs there.
   - Retired stage-names (`productieverlies`, `doordraai`, `voedselafval`): classify as
     `nevenstroom` / `voedselverlies` **iff** the source specifies edible/inedible, else
     `agri-food waste`. In **all** cases keep the source's original word in
@@ -353,6 +398,19 @@ anomaly note too.
 
 - **`level_1to5` is in the set {2, 3, 4, 5}** per the depth rule. A distinct fraction is
   always 5. Level 2 is the ceiling (see the aggregate rule above).
+  **`level_1to5` is a commodity-breadth label, not a volume hierarchy** (v2.3). A level-2 row is
+  not the aggregate of the level-3 rows near it; it is simply a row whose material spans more than
+  one commodity group. **Only rows named `AGGREGAAT - …` are volume aggregates.** Two rows from the
+  same table can sit at different levels and still be *disjoint* — a statistical nomenclature
+  routinely splits one commodity across categories that cut each other (e.g. "preserved in vinegar"
+  vs "preserved other than in vinegar"). Where two rows could be misread as part and whole, say in
+  `also_stated_in` that they are disjoint and why. Do not rename or re-level a row to make the
+  volumes look ordered — the ordering is not the point.
+- **`L5_fraction_as_named` is only used where the dictionary already establishes a fraction
+  vocabulary for that branch** (v2.3). A processing state (*bevroren*, *gezouten*, *bereid*,
+  *geraffineerd*) is a name qualifier, never an L5 fraction. Before inventing the first L5 on a
+  branch, check what the human-verified rows on that branch do; if none uses L5, do not be the
+  first. Comparable objects inside one table must sit at the same level.
 
 - **`chain_L2`** standardised per `chain_L2.csv`: the source's own stage wording in
   `chain_stage`, the canonical value in `chain_L2`, and only values marked `in_scope = yes`.
@@ -364,6 +422,16 @@ anomaly note too.
 - **`geography`**: `Vlaanderen`, or `Belgie` where only a national figure exists. Never
   silently treat a Belgian number as Flemish. Figures for other regions (Wallonië, Brussel)
   or other countries are out of scope.
+  **Where the same quantity is printed at both levels, the Flemish figure is the claim** (v2.3).
+  A Belgian figure is captured only when it is a *different measurement* with no Flemish
+  counterpart, and then always with `geography = Belgie` and a cross-reference to the Flemish row.
+  Never let a Belgian number stand in as the Flemish claim.
+  **A column header is not a definition** (v2.3). Statistical tables routinely carry a "Productie
+  Vlaanderen" column whose contents the running text defines as something else — a company's
+  output across several regions, a sector federation's members, an export-ratio proxy. **Read what
+  the text says the column means before trusting the header**, and set `geography` by the material
+  coverage, not by the heading. When the two disagree, record the disagreement in
+  `source_type_label` — that is the opposite of treating a Belgian number as Flemish silently.
   **One sanctioned exception, and only this one:** figures labelled *Belgische havens /
   Belgische visveilingen / Belgische zeevisserij* are recorded as `Vlaanderen`, because every
   Belgian fishing port lies in Flanders, so the national and Flemish figure are the same
@@ -412,6 +480,12 @@ sources, because monitor series reprint their predecessors' numbers in evolution
 
 ## Self-check before finalising
 
+- **Account for a captured table cell by cell whenever any of its cells are dropped** (v2.3).
+  "Captured" is not a sufficient disposition for a table some of whose rows were skipped as rounded
+  restatements, confidential, or non-convertible: name those cells and their reason in `log.md`,
+  and make sure the row that *does* hold the value carries the table in `also_stated_in`. The
+  `also_stated_in` trail only helps a reviewer who starts from the row that has it — a reviewer
+  working table by table needs the log entry. This is what makes a captured figure look missing.
 - **Completeness sweep — account for every table and figure in the source.** Walk the source's
   own *Tabellen* / *Figuren* index (or, where it has none, your own enumeration of its numbered
   objects) and put each one in exactly one bucket: **captured** (which claims), **excluded**
@@ -437,6 +511,16 @@ sources, because monitor series reprint their predecessors' numbers in evolution
 - No cross-type or cross-stage sums implied; no averaged / merged figures.
 - Anomalies split into *variants* and *suspected errors* in the log, the latter with their
   arithmetic evidence stated.
+- **(v2.3)** No row carries `geography = Vlaanderen` on a figure the source's text defines as
+  covering more than Flanders; no Belgian figure is captured where a Flemish one exists for the
+  same quantity; every `Belgie` row cross-references its Flemish counterpart if there is one.
+- **(v2.3)** Every row whose printed name states *eetbaar* / *niet-eetbaar* carries
+  `voedselverlies` / `nevenstroom` with `type_assumed = FALSE`, whatever the source-wide default.
+- **(v2.3)** Every converted row spells its conversion chain out in `source_type_label`, and the
+  `conversion_factor_to_t_per_yr` column has an explicit number format so small factors stay
+  legible in Excel.
+- **(v2.3)** Every aggregate that includes an uncaptured component says so on the row; every
+  captured table whose cells were partly dropped is accounted for cell by cell in `log.md`.
 - `destination_index.csv` has at least one row for this source (even if `has_data = no`).
 - `streams_export.csv` written; `log.md` appended; `database/hub.md` updated.
 
