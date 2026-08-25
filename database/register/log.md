@@ -772,14 +772,29 @@ data:
   were always correct, but Excel's *General* format renders 0,00104 as "0,001", so a reviewer
   checking `value × factor = volume` by eye concluded the row did not add up. An audit column that
   cannot be read is not an audit column.
+- **A second geography case, found by sweeping the new rule over both sources.** Tabel 26 / Tabel 28
+  present the NACE 10.4 oil figures (771 and 1.149 kton in S091; 902 and 1.376 kton in S007) inside a
+  table titled *"de Vlaamse voedingssector"*, but the source states on p.74 / folio 106 that for this
+  sector it used the **FEDIOL figures for Belgium**. Same pattern as the sugar rows: the table title
+  is not the definition. C-279 / C-280 and C-464 / C-465 are now `geography = Belgie` with the
+  disagreement recorded on the row. A consequence worth the reviewer's attention: once the geography
+  is corrected these four rows carry the *same number, unit and coverage* as the FEDIOL totals they
+  were lifted from (C-329 / C-335 and C-518 / C-524), so each pair is one figure in two places rather
+  than two claims. Both sides now cross-reference each other; **collapsing each pair is a
+  `DECISION_expert` call, not one this session should make silently.**
+- **S091's four landing rows (C-269…C-272) now invoke the sanctioned Belgian-ports exception by
+  name**, as S080's and S002's fisheries rows already did. The figures were always right — the
+  justification for calling a "Belgische vissersvaartuigen" figure Flemish simply was not on the row.
 - **`Sources` metadata**: unchanged in this pass.
 
 **Reviewer decisions already recorded in `DECISION_expert` and preserved untouched**: C-074
 (S080, retired earlier), C-147, C-148, C-185, C-193 (S002, `no`), and **C-384…C-390** (the whole
 BFA mengvoeder block) and **C-393, C-394** (the two Belgian beer rows) in S091, all `NO`. The
 S007 twins of the beer rows (C-586, C-587) now cross-reference the rejected S091 rows so they can
-be disposed of the same way. **The S007 twin of the mengvoeder block (C-577…C-583) is left for the
-reviewer** — see the open question in `database/hub.md`.
+be disposed of the same way. **The mengvoeder rejection is source-specific** — the reviewer confirmed
+(2026-08-17) that mengvoeder was simply irrelevant *for S091*, not that compound feed is out of
+scope for the register. S007's block (C-577…C-583) stays captured and unmarked, and future sources
+that report feed production should keep capturing it.
 
 - **The `Sources` sheet's `extraction_status` is stale for S005, S006 and S007** — all three read
   "EXTRACTED - source read, claims taken", but `streams_export.csv` holds no row from any of them.
