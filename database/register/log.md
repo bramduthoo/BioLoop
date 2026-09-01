@@ -41,6 +41,7 @@ Keep these five headings, in this order, so notes stay comparable across sources
 
 | Date | source_id | source_short | PDF (in archive/) | Claims added | Verified? | Commit | Anomalies / flags |
 |------|-----------|--------------|-------------------|-------------:|-----------|--------|-------------------|
+| 2026-09-01 | S087 | Marktanalyse Biomassareststromen 2024 | `S087_Marktanalyse Biomassareststromen 2024 OVAM.pdf` | **0** | n.v.t. | `PENDING` | See [S087](#s087) - read cover-to-cover and agri-food-empty; 4 scope decisions, 8 tonnages named for recovery, no Zotero item (F-002) |
 | 2026-08-16 | S007 | MONBIO 3.0 | `S007_MONBIO3.0.pdf` | 195 (C-398…C-592) | no | `e3c61bc` | See [S007](#s007) — 1 suspected source error (in **S091**, found from here), 6 variant readings, 3 new dictionary members, no Zotero item (F-002) |
 | 2026-08-16 | S091 | MONBIO 4.0 | `S091_MONBIO4.0.pdf` | 183 (C-215…C-397) | no | `0ae8225` | See [S091](#s091) — 0 suspected source errors, 5 variant readings, 4 session scope decisions, 15 new dictionary members, no Zotero item (F-002) |
 | 2026-08-15 | S002 | OVAM Monitor voedselverlies 2020 | `S002_OVAM Monitor voedselverlies 2020.pdf` | 100 (C-115…C-214) | no | `73910c0` | See [S002](#s002) — 2 suspected source errors, 3 variant readings, no Zotero item (F-002) |
@@ -330,6 +331,183 @@ average, `Σø` = a sum of averaged parts.
 sits first). Every script here reads and writes by column header, so that is safe.
 
 ## Anomaly notes (detail, keyed by source_id)
+
+### S087
+
+**Outcome: zero claims.** S087 was read cover-to-cover and yielded no capturable figure. That is a
+result, not a gap: the register now records this edition as *checked and agri-food-empty* rather
+than *not checked*. Every tonnage the source prints is named below with the reason it was not
+captured, so any of the four session decisions can be reversed without re-opening the PDF.
+
+**What this source actually is.** The OVAM *Marktanalyse Biomassareststromen* executes chapter
+8.4.2 of the Actieplan Voedselverlies en Biomassa(rest)stromen Circulair, and its own afbakening
+(Tabel 1, p.9) names three blocks: biomassa(rest)stromen van groen-, natuur-, bos- en
+landschapsbeheer; hout(rest)stromen van industrie en huishoudens; and dierlijke bijproducten. The
+first two are the sectors the S091 session put out of scope as non-agri-food, and they occupy
+chapters 3 and 4 — roughly 44 of ~60 content pages. Only chapter 5 touches the agri-food chain at
+all, and everything in it is either a derived product or a figure another source owns. The title is
+misleading for register purposes: this is a woody-biomass and rendering-sector market report, not a
+food-side-stream monitor.
+
+#### 1. Variant readings
+
+None. No quantity in this source is stated twice with different values.
+
+#### 2. Suspected source errors
+
+None with arithmetic evidence. One presentational defect is worth recording because it affects how
+the source can be checked: **the source's own *Lijst van tabellen en figuren* (p.69-70) is wrong.**
+The documentbeschrijving (p.3) claims *16 tabellen en 27 figuren*; the body actually carries
+**9 tables and 27 figures**. The index omits Tabel 5 entirely, renumbers Tabel 6-10 against the
+body's Tabel 5-9, and skips the body's Figuur 8 (*Afzet groencompost per bestemming*, p.29), so
+from that point on every index entry is off by one against the body caption. The completeness sweep
+below is therefore built on **my own enumeration of the body captions**, not on the source's index,
+as the protocol allows where the index is unusable.
+
+#### 3. Deliberate exclusions
+
+Eight tonnages were seen and not captured. All are named here with their value, page and reason.
+
+**a. Not agri-food — chapters 3 and 4 (session decision 1).**
+Bosbeheer, landschapsbeheer, heidebeheer, groenafval, berm- en natuurmaaisel, gft-structuurmateriaal,
+primair and secundair houtafval van industrie en huishoudens, and the Netherlands / France /
+Luxembourg / Germany benchmark chapters. These are the same sectors S091's decision 4 excluded
+(bosbouw, landschapsbeheer, hout, papier, bio-energie, afvalsectoren). Not one figure in either
+chapter measures an agri-food stream: a keyword sweep for *landbouw / oogstrest / gewas / teelt /
+slacht / vlees / zuivel / melk / groente / fruit / voedsel* over both chapters returns only
+teeltsubstraat research notes, *landbouwers* as users of houtsnippers, and gft as a composting
+input. No tonnages recorded, per the user's decision that this block is out entirely.
+
+**b. Not a Flemish arising volume — the 698.000 t input stream (session decision 2).**
+*"De Vlaamse verwerkers ontvingen 698 000 ton dierlijk afval in 2023"* (p.55). This was the
+source's one genuine raw-side-stream candidate, arising at slachthuizen, uitsnijderijen and
+vleesverwerkende bedrijven (`Voedingsindustrie`). It is **not captured** because it measures
+material *received by Flemish processors*, not material arising in Flanders: Figuur 24 (p.56) splits
+its herkomst across **Vlaanderen / Wallonie / Brussel / Buitenland**, and the source gives no
+Flemish-only counterpart. The text says only *"Het grootste aandeel van het afval werd opgehaald in
+Vlaanderen"* and *"een klein percentage C3-materiaal (minder dan 5%) wordt verder afgevoerd voor
+verwerking in het buitenland"*. Neither `Vlaanderen` nor `Belgie` would be an honest `geography`
+value — the pie includes buitenland — so the row was dropped rather than mislabelled. **To recover
+it, the value is 698.000 ton, 2023, p.55, running text.**
+
+The accompanying split — *78% categorie 3 (slachtafval, veren, afval van vleesverwerkende
+bedrijven) / 22% categorie 1- en 2-materiaal (gestorven dieren, afgekeurd slachtafval, GRM)* — is a
+**percentage**, not a quantity, and the register does not derive tonnages from percentages. Figuur
+24 carries no printed numbers or percentages at all (unlabelled 3-D pie), so nothing there is
+readable either.
+
+**c. Afgeleide producten — six tonnages (session decision 3).**
+`afgeleid product` is `discarded` in `quantity_type.csv`: these are outputs of a prescribed heat
+treatment, not raw side streams, and capturing them beside the 698 kt input would count the same
+material twice. All six, for recovery:
+
+| Value | Page | What it is |
+|---|---|---|
+| 43.500 t | 57 | afgeleide producten bij Vlaamse voedingsbedrijven erkend voor dierlijke bijproducten, 2023 |
+| 122.600 t | 58 | verwerkte dierlijke eiwitten uit categorie 3-materiaal, 2023 |
+| 137.500 t | 58 | verwerkte dierlijke vetten uit categorie 3-materiaal, 2023 |
+| 48.000 t | 59 | diermeel uit categorie 1- en 2-materiaal, 2023 |
+| 15.000 t | 59 | dierlijke vetten uit categorie 1- en 2-materiaal, 2023 |
+| 338 kton | 8 | samenvattingstotaal afgeleide producten, 2023 |
+
+Note the reconciliation does not close on the source's own numbers: 122.600 + 137.500 + 48.000 +
+15.000 = **323.100 t** against the samenvatting's **338 kton**, and the source explicitly says the
+43.500 t of voedingsbedrijven *"zijn niet mee opgenomen in de hiernavolgende tabellen en grafieken"*
+(p.57), so adding it gives 366.600 t and does not close either. Recorded, not resolved — the
+register captures none of these rows.
+
+**d. Owned by another edition — the 4.000 t GFVO (session decision 4).**
+*"In 2020 bedroeg de totale productie in de voedingsmiddelenindustrie ca. 4000 ton"* (p.64,
+par. 5.2.2). This was the source's only other in-scope candidate: used frying fats and oils arising
+at `Voedingsindustrie`. **Skipped under the cross-source restatement rule** — reference year 2020
+belongs to S001 (*Marktanalyse Biomassareststromen 2022*), which is in the `Sources` sheet as
+KEEP-CORE. **If S001 is never extracted, this figure is lost and should be pulled back from here:
+ca. 4.000 ton, 2020, p.64, running text.** The source attaches its own caveat, which any capture
+must carry: the 2022 professional figures diverge sharply because collection moved from IMJV to
+MATIS, and *"de cijfers in het verleden lijken sterk onderschat"*.
+
+**e. Out of scope by stage, geography or nature — the remainder.**
+
+- **ca. 1.000 ton GFVO horeca, 2020** (p.64) — `Horeca & catering`, out of scope by stage.
+- **7,2 kton GFVO van particulieren, 2013** (p.63) and **Figuur 27** (p.64, the 2013-2023 series,
+  ca. 6.000 → 3.900 t recyclagepark and 1.100 → 3.000 t supermarkten) — huishoudens, out of scope
+  by stage, *and* resolved only along the collection-route axis. Note the trap: *supermarkten* here
+  is a drop-off point for household GFVO, not the schakel where the stream arises, so this is not a
+  retail figure.
+- **ca. 90 kton frituurvetten en olien op de Belgische markt per jaar** (p.62) — a market-placement
+  volume for **Belgium**, with no Flemish counterpart and no Flemish equivalent measurement. Not a
+  volume arising in Flanders.
+- **911 ton gezelschapsdieren gecremeerd, 2023** and **616 ton, 2019** (p.55, p.60) — companion
+  animals at dierencrematoria. Not agri-food biomass. Worth a note for a future session: the source
+  says this sector *"kreeg sinds 2021 ook de mogelijkheid om landbouwdieren, waaronder paardachtigen,
+  te cremeren"*, so the figure is no longer purely companion-animal, but it is not split.
+- **"een deel gaat verloren bij gebruik (geschat op een 30%)"** (p.63) — a percentage, and an
+  estimate; the register does not derive a tonnage from it even though the 90 kton is printed two
+  paragraphs above. That derivation is exactly what the conversion rule forbids.
+
+#### 4. Completeness sweep
+
+Built on my own enumeration of the body captions (see §2 — the source's index is unusable).
+**9 tables, 27 figures, all accounted for.**
+
+| Object | p. | Disposition |
+|---|---|---|
+| Tabel 1 (afbakening) | 9 | carries no numbers — it is the scope list itself |
+| Tabel 2 (beleidsontwikkelingen landschapselementen) | 15 | carries no numbers |
+| Tabel 3 (volumes plagsel) | 20 | excluded — heidebeheer, not agri-food (3a) |
+| Tabel 4 (productie bermmaaisel) | 24 | excluded — landschapsbeheer (3a) |
+| Tabel 5 (verwerking groenafval composteringsinstallaties) | 26 | excluded — groenafval (3a) |
+| Tabel 6 (afvoer houtige fractie groenafval) | 28 | excluded — groenafval + bestemmingsas (3a) |
+| Tabel 7 (materialenbanken) | 43 | carries no volumes — an installation list |
+| Tabel 8 (voedingsbedrijven erkend voor dierlijke bijproducten) | 57 | carries no volumes — counts of erkenningen per bedrijfstype; the 43.500 t beside it is excluded under 3c |
+| Tabel 9 (bedrijven buiten de voedingssector) | 57 | carries no volumes — counts of erkenningen |
+| Figuur 1 (verkocht volume hout ANB) | 11 | excluded — bosbeheer (3a) |
+| Figuur 2-8 (groenafval inzameling, productie, verwerking, compost) | 22-29 | excluded — groenafval / gft (3a). Figuur 8 is absent from the source's own index |
+| Figuur 9-17 (primair + secundair houtafval, in- en uitvoer) | 32-40 | excluded — houtafval van industrie en huishoudens (3a) |
+| Figuur 18-23 (NL, FR, LU, DE benchmarks) | 46-53 | excluded — non-Flemish geography *and* houtafval (3a) |
+| Figuur 24 (herkomst dierlijk afval) | 56 | carries no printed numbers; indexed in `destination_index.csv` because it settles the geography of the 698 kt (3b) |
+| Figuur 25 (bestemming C3 eiwitten) | 58 | carries no printed numbers; bestemmingsas; indexed |
+| Figuur 26 (bestemming C3 vetten) | 59 | carries no printed numbers; bestemmingsas; indexed |
+| Figuur 27 (huishoudelijke GFVO per inzamelpunt) | 64 | excluded — huishoudens + inzamelroute-as (3e); indexed |
+
+Running text outside any numbered object was swept as well; the eight tonnages it carries are the
+ones listed in §3. The bijlage (p.67-68, prognoses vraag en aanbod houtafval) is houtafval and
+excluded under 3a.
+
+#### 5. Judgement calls & new dictionary members
+
+**No new dictionary members** — nothing was captured, so nothing was needed.
+
+Four session decisions, all taken by the user at session open, all reversible from the tonnages in
+§3:
+
+1. **Chapters 3 and 4 out entirely**, as non-agri-food. Consistent with S091 decision 4. No
+   open-ruimte or houtafval tonnages recorded, by explicit choice.
+2. **The 698.000 t is not captured**, because its geography is Flemish processors rather than
+   Flemish territory and the source prints no Flemish-only figure. This is the strictest reading of
+   the v2.3 geography rule and it is worth flagging: an alternative reading would have captured it
+   at `geography = Vlaanderen` with the coverage spelled out in `stream_name_NL`. It is the single
+   largest judgement in this session.
+3. **All six afgeleide producten excluded**, per `quantity_type.csv`. This is the first source where
+   that dictionary line is load-bearing — S087 is largely *about* diermeel and dierlijke vetten, so
+   the rule removes most of its chapter 5.
+4. **The 4.000 t GFVO 2020 left to S001**, per the cross-source restatement rule.
+
+**`extraction_status` in the `Sources` sheet was not touched.** It still reads `NOT EXTRACTED` for
+S087 — and for S080, S002, S091 and S007, all of which are extracted. The column has not been
+maintained by any register session since the S007 session corrected it on S005/S006, so writing it
+for S087 alone would create the opposite inconsistency (S087 `EXTRACTED` with 0 claims beside the
+human-verified S080 reading `NOT EXTRACTED`). Left alone deliberately; flagged here so the reviewer
+can decide whether to retire or repair the column.
+
+**No Zotero item (F-002).** The Zotero MCP server was configured this session but timed out on
+connect, so no item was created and `citation_key` stays blank. The PDF is archived as
+`archive/S087_Marktanalyse Biomassareststromen 2024 OVAM.pdf`.
+
+**Consequence for the queue.** S086 (Marktanalyse ~2020) and S001 (Marktanalyse 2022) are earlier
+editions of *this* report and will have the same shape: woody biomass, houtafval and the rendering
+sector. Expect a similarly thin agri-food yield from both. S001 is now the only source that can own
+the 2020 GFVO figure, which is a reason to keep it in the queue rather than drop it.
 
 ### S007
 
