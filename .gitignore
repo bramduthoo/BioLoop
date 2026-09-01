@@ -42,3 +42,6 @@ database/register/archive/
 # deliberately not versioned — 50 kB of generated markup would make every
 # session's diff unreadable. Delete this line if it should be committed after all.
 database/register/log.html
+
+# --- superseded legacy corpus at repo root: never open, never commit (see database/register/CLAUDE.md) ---
+/BIOLOOP_streams_and_sources.xlsx

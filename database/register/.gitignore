@@ -1,0 +1,16 @@
+# generated intermediate — always rebuilt by build_overview.py
+streams.json
+
+# derived from log.md by render_log.py; never hand-edited, never committed
+log.html
+
+# Excel lock files
+~$*.xlsx
+
+# the archived source PDFs are not versioned (project decision, 2026-07-28);
+# the committed audit trail is streams_export.csv + log.md
+archive/
+inbox/
+
+# the generated view is derived too; un-comment to keep it out of git and regenerate on demand
+# stream_overview.html

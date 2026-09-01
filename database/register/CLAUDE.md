@@ -34,6 +34,29 @@ conversion factor must be **legible and its arithmetic spelled out**; a scope ca
 deliberately-excluded component must say so on the row; and the completeness sweep must account for
 a captured table **cell by cell** whenever any of its cells are dropped.*
 
+*Protocol v2.4 (2026-08-26) — no extraction rule changed, but one marker became load-bearing.
+The derived overview now reads the **`AGGREGAAT - ` name prefix as a structural claim**: a row
+carrying it is a *total of other rows*, so it is never summed with its siblings and instead
+becomes the reported total they are checked against. Apply the prefix to every such row and to no
+others. Each aggregate also needs a line in `crosswalks/aggregate_coverage.csv` saying what it
+totals. The `Gemengd` → `Varia` reclassification is **proposed** in `crosswalks/varia_reclass.csv`
+and awaits the reviewer's `DECISION`; until it is applied, `Gemengd` remains the live vocabulary.*
+
+*Protocol v2.5 (2026-09-01) — **five placement rules, all of them learned the hard way.** The
+`Gemengd` → `Varia` reclassification is applied and `Gemengd` is retired. Cleaning up after it took
+three review rounds over ~190 rows, and every round traced back to the same handful of decisions
+being made ad hoc during extraction. They are now rules, and `audit_register.py` enforces them, so
+a new source is checked in seconds instead of re-litigated:*
+*(1) a row that names a **product** sits at **L4**, never at L3 — an L3 row is invisible to a
+selection, which only reaches L4/L5; (2) a **residual class of a nomenclature** (`Andere …`,
+`n.e.g.`, `van alle soorten`, several species in one cell) is an **aggregate**, not a component —
+it is a real volume but not a named stream, and it lands in the unallocated band; (3) a row that
+**totals other rows** carries the prefix, whether the source says* totaal *or the arithmetic shows
+it; (4) `level_1to5` is the row's **own commodity depth**, never the level an aggregate totals —
+that lives in `aggregate_coverage.totals_level`; (5) a **processing product goes under its sector**,
+not under the crop it came from — the register has two partitions, crops and `Varia` sectors, and
+bread is not a cereal.*
+
 ## What this workstream produces
 
 `BIOLOOP_streams_and_sources.xlsx` — a standalone, claim-level corpus of Flemish agri-food
@@ -47,6 +70,21 @@ precedent.
 
 Alongside it, two smaller committed artifacts: `destination_index.csv` (where each source
 keeps its destination / collection-route volumes) and `log.md` (the per-session record).
+
+**The aggregate registry (v2.4).** `crosswalks/aggregate_coverage.csv` records, per
+`AGGREGAAT - ` row, **what that row is the total of**: the level it totals, the parent row it
+attaches to, whether it covers all of that row's entries or a named subset, which chain stages it
+spans, and whether competing values are variants (the default — averaged, never summed) or a
+`component_set` (collection-route halves, which do sum). It is human-gated like every crosswalk
+here: `make_aggregate_coverage.py` proposes, the `DECISION` column decides, and a blank `DECISION`
+means the proposal is used but shown in the overview as an unreviewed `proposal`.
+
+An aggregate is placeable only when **everything it covers sits under one parent row at one
+level**. One that does not — a total of three L3 entries living under two different L2 parents —
+is not an error and is not dropped: it goes to the overview's *unallocated* band, where it stays
+visible and usable but is never compared or summed. **When a session captures a new aggregate,
+add its line to the registry in that same session**, exactly as new dictionary members are added
+in the session that first needs them.
 
 **`log.md` has a derived HTML view.** `render_log.py` renders it to `log.html` — a readable,
 navigable page for checking the log without an editor. **`log.md` stays the source of truth**;
@@ -239,7 +277,21 @@ rather than drop it.
    `has_data = no` — "checked and absent" must be distinguishable from "not yet checked".
    Do not extract the values themselves.
 
-5. **Self-check** (checklist below) before the write is final.
+5. **Self-check** (checklist below) before the write is final, then **run the structural audit**:
+
+   ```
+   database/.venv/Scripts/python database/register/audit_register.py --source S0xx
+   ```
+
+   It checks the five placement rules of v2.5 plus provenance and registry consistency, and exits
+   non-zero while anything is open. **It must come back clean, or every remaining finding must be
+   named in `log.md` with the reason it is not a defect.** `--csv` writes
+   `crosswalks/AUDIT_findings.csv` with a `DECISION_fix` column when a reviewer needs to sweep them.
+   Then regenerate the aggregate registry and decide the new rows:
+
+   ```
+   database/.venv/Scripts/python database/register/make_aggregate_coverage.py
+   ```
 
 6. **Export for diffing.** Write a plain-CSV copy of the `Streams` sheet to
    `register/streams_export.csv` (semicolon-delimited, UTF-8 BOM), so the session's
@@ -465,6 +517,49 @@ sources, because monitor series reprint their predecessors' numbers in evolution
   mapping) first appears, add it to the relevant dictionary in the *same* session, then
   use it.
 
+## Placement rules (v2.5) — where a row goes, and what it is
+
+These five decide whether a figure is usable. They were settled after three review rounds over the
+first four sources; `audit_register.py` checks all five.
+
+**1. A product sits at L4. A subgroup sits at L3.** If the source names an *article* — anything
+carrying a Prodcom/PRODCOM code, or a specific product like *Mout*, *Vers brood*, *Melasse* — it is
+`L4_ingredient` under its subgroup. Never leave it at L3 with `L4` blank: BioMobi selects from
+**L4/L5 only**, so an L3 row is invisible to a selection no matter how large it is. This alone
+accounted for 75 rows and ~17 Mt in the first four sources.
+
+**2. A residual class of the nomenclature is an aggregate, not a component.** Every statistical
+nomenclature ends its branches with a leftover bucket: *Andere plantaardige oliën*, *Worst van alle
+soorten*, *Gries, griesmeel en pellets van granen, n.e.g.*, *Eetbare slachtafvallen van runderen,
+varkens, schapen, geiten en paarden*. That is a real volume but **not a named stream**, and it is
+not the total of its siblings either. Give it the `AGGREGAAT - ` prefix and `allocatable = no`: it
+stays visible in the unallocated band, and never sums with named siblings. The reviewer's own test:
+*"if the name is a sum of things or a collection of parts which already exist, this will almost
+always be an aggregate."*
+
+**3. A row that totals other rows carries the prefix.** Two kinds of evidence, both sufficient:
+the source's own wording (*totaal*, *totale*, *(totaal)*), or arithmetic — the row equals the sum of
+its siblings. `promote_totals.py` applies both and is idempotent. A row that says *totaal* is a
+total even when its name also looks like a residual class.
+
+**4. `level_1to5` is the row's own commodity depth.** It equals the deepest of `L2…L5` actually
+filled — nothing else. For an aggregate it answers *"where does this row sit"*, not *"what does it
+total"*; the level it totals belongs in `aggregate_coverage.totals_level`, and the entries it covers
+in `commodity_coverage`. Three separate facts, three separate places.
+
+**5. A processing product goes under its sector, not its crop.** The register carries **two
+partitions** — the commodity ladder (`Plantaardig - akkerbouw`, `Dierlijk - vee`, …) *and* the
+processing sectors under `Varia` (`Bakkerij`, `Dranken`, `Olien, vetten`, `Chocolade`, `Suiker`,
+`Zetmeel en zetmeelproducten`). A product of a process belongs to the **sector**: bread is not a
+cereal, refined sugar is not a beet, melasse is not a suikerbiet. Keep the crop ladder for material
+that is still the crop (straw, haulm, the tuber itself).
+
+**Which scripts run for every source, and which are finished migrations.** Run for each new source:
+`prep_data.py`, `build_overview.py`, `promote_totals.py`, `make_aggregate_coverage.py`,
+`audit_register.py`, `apply_fixes.py`. **Do not re-run** the one-off migrations — `make_varia_reclass.py`,
+`apply_reclass.py`, `apply_exclusions.py`, `make_fixes.py`, `make_fixes_round2.py` — they exist for
+provenance; `Gemengd` is retired and their work is done.
+
 ## Invariants (never break)
 
 - **Facts only.** No rules, transformations, or valorisation judgements — those are
@@ -521,6 +616,13 @@ sources, because monitor series reprint their predecessors' numbers in evolution
   legible in Excel.
 - **(v2.3)** Every aggregate that includes an uncaptured component says so on the row; every
   captured table whose cells were partly dropped is accounted for cell by cell in `log.md`.
+- **(v2.5)** `audit_register.py --source S0xx` comes back clean, or every remaining finding is
+  named in `log.md` with the reason it is not a defect. In particular: no row naming a product sits
+  above L4; no residual nomenclature class is left as a component; every row that totals others
+  carries the `AGGREGAAT - ` prefix; `level_1to5` equals the deepest filled commodity column on
+  every row; every `AGGREGAAT` row has a line in `aggregate_coverage.csv`.
+- **(v2.5)** No processing product is filed under the crop it came from rather than its `Varia`
+  sector.
 - `destination_index.csv` has at least one row for this source (even if `has_data = no`).
 - `streams_export.csv` written; `log.md` appended; `database/hub.md` updated.
 

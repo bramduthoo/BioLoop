@@ -51,6 +51,284 @@ That run was **discarded** on 2026-08-15 — it captured horeca and catering, an
 provenance/unit columns. See commit `ad3b36c` for the withdrawn output. The row above is the
 clean v2 re-run and supersedes it entirely.*
 
+## Tooling & model sessions (no source extracted)
+
+### 2026-09-01 (close) — cleanup, generality check, and the pipeline made re-runnable
+
+**Cleanup.** The five finished one-off scripts and the four completed decision sheets moved to
+`register/migrations/` with a README explaining what each did and why it must not be re-run. The
+live folder now holds only what runs again for a new source. `apply_reclass.py`'s canonical-order
+exporter was extracted to `export_streams.py` first, so nothing live imports a migration; the copy
+in `migrations/` is a thin alias. `.gitignore` gained `log.html` (derived), `~$*.xlsx` (Excel locks)
+and `archive/` + `inbox/` (the unversioned PDFs).
+
+**Generality check — the pipeline is source-agnostic.** Counted directly: `prep_data.py`,
+`derive.js`, `template.html`, `build_overview.py`, `apply_fixes.py`, `export_streams.py` and
+`render_log.py` contain **zero** source names and **zero** claim ids. Per-claim judgement is
+confined to `OVERRIDE` in `make_aggregate_coverage.py` (59 claims) and two entries in
+`promote_totals.py`.
+
+One piece of real overfitting was found and removed: `PLACED_BY_REVIEWER`, a hardcoded list of ten
+claim ids exempting them from the residual-class rule. It was redundant — an explicit `OVERRIDE`
+entry already expresses the same judgement — so the rule now reads *"an explicit per-claim placement
+beats the pattern"*, and there is one place a judgement lives. **Re-validated at 46/46 against the
+reviewer's own decisions with zero false positives after the change.** The audit's product-code
+detection was also broadened from `Prodcom` alone to the common nomenclature markers (NACE, CN, GN,
+HS, CPA), so a source with a different code system is caught the same way.
+
+**New: `verify_overview.py`** — eight arithmetic identities taken from the sources themselves, so
+they are independent of the code under test: retail reads 132.082 from C-105 alone; no `AGGREGAAT`
+row is ever a summand; MONBIO 4.0's Granen fractions sum to 1.590.919 exactly; provenance flags
+match how each figure was built; exclusions re-derive; no node loses volume against its children.
+**8/8 pass.** Two of the eight failed on first run and both were wrong assumptions in the test, not
+defects — worth recording, because they document real design behaviour: a leaf carrying an aggregate
+at another stage *is* legitimately marked summed, and **excluding a component does not move L1**,
+because L1 is driven by the reported (aggregate) totals while components drive the coverage %.
+
+**Final state.** MONBIO 4.0 resolves 84,1% of its residual total to L4/L5, MONBIO 3.0 84,9%,
+OVAM 2023 19,8%. `audit_register.py` reports **24 open findings** in
+`crosswalks/AUDIT_findings.csv` — fifteen residual classes and nine unmarked totals, which are one
+decision on the dairy block plus C-587 (a Belgian beer total whose MONBIO 4.0 twin is already
+excluded). Everything else is clean.
+
+
+### 2026-09-01 (later) — round 2 applied; the fixes became rules; protocol v2.5
+
+**No source extracted.** `FIXES_ROUND2.csv` came back 85 `ok` / 1 `skip` and is applied. C-495
+(*Gerookte vis, filets daaronder begrepen*) was excluded on the reviewer's note that a cooking
+state is not a distinct stream.
+
+**Effect on the overview.** MONBIO 4.0 resolves **84,1%** of its residual total to L4/L5 (was 57,3%
+before the class-C promotions and 44,1% at the start of the day); MONBIO 3.0 reaches 84,9%. The L1
+totals fall as the double counting goes: MONBIO 4.0 from 7.177.539 to **5.004.331**.
+
+**The reviewer's two remarks became general rules, not claim lists.** Both were phrased as
+principles, and both turned out to be mechanisable:
+
+- *"If the name is a sum of things or a collection of parts which already exist, this will almost
+  always be an aggregate."* → `COLLECTION_SIGNALS` in `make_aggregate_coverage.py`, fourteen named
+  signals (`en andere`, leading `Andere`, `van alle soorten`, `n.e.g.`, three or more
+  comma-separated items, `Rund-, schapen-, …`, a whole offal category, …). Validated against the
+  reviewer's own 46 decisions: **46/46 agreement**, no misses. A row that calls itself *totaal* is
+  exempt — it is a real total, whatever else its name contains.
+- *"We kind of made 2 distinctions in the commodity ladder, with the crops but also some sectors in
+  varia."* → the placement rule that a processing product goes under its `Varia` sector, not under
+  the crop it came from. Bread is not a cereal; refined sugar is not a beet.
+
+A residual class gets `allocatable = no`, so it stays visible in the unallocated band without ever
+summing with named siblings — which is what the reviewer's own words asked for: *"this isn't a
+component which can be easily placed somewhere in the current commodity ladder."*
+
+**New: `audit_register.py`.** Seven structural checks, none tied to a source, exit code 1 while
+anything is open. It immediately found six rows where applying round 2 had left a stale
+`L4_ingredient` on a row that now sits at L3 (C-355/356/365/546/547/558) — cleared. **24 findings
+remain and are in `crosswalks/AUDIT_findings.csv`** for the reviewer: fifteen residual classes the
+rule flags that were not in round 2's scope (notably `Zuivelproducten, n.e.g.`, `Kaas en wrongel`,
+`Margarine en andere eetbare vetten`) and nine unmarked totals (the *"Vlaamse productie (vers/gekoeld
++ bevroren)"* rows, which equal the sum of their two halves). **This is the dairy question flagged
+`medium` in round 2 coming back: the rule says those rows are residual classes, the reviewer
+approved them as L4. It needs one decision, applied to the whole block.**
+
+**Protocol raised to v2.5** with five placement rules and a new *Placement rules* section:
+product → L4 never L3; residual class → aggregate; a total carries the prefix; `level_1to5` is the
+row's own depth, not what it totals; a processing product goes under its sector. Procedure step 5
+now runs `audit_register.py --source S0xx`, and the self-check requires it clean or every finding
+explained here. The protocol also records **which scripts run for every source and which are
+finished one-off migrations** (`make_varia_reclass.py`, `apply_reclass.py`, `apply_exclusions.py`,
+`make_fixes*.py` — do not re-run; `Gemengd` is retired).
+
+**Still open:** `crosswalks/AUDIT_findings.csv` (24 rows). Nothing is committed.
+
+
+### 2026-09-01 — review applied; structural audit round 1 applied, round 2 open
+
+**No source extracted.** The reviewer completed `REVIEW_2026-08-31.csv` (178 `ok`, 11 `fix`) and
+half of `FIXES_2026-09-01.csv` (24 `ok`, 30 `fix`, 49 deferred). The 24 approved fixes are applied.
+
+**Three questions answered from the sources, not from inference:**
+
+- **C-201** — Tabel 30 (p.54, S002) lists *Zuivel* as its own row (123.219 t) beside *Vlees, vis en
+  gevogelte* (574.792 t). The row therefore covers meat + fish + poultry only, spans two L2 parents
+  (`Dierlijk - vee` and `Dierlijk - vis`), and stays **unallocatable** — which is what the registry
+  already said. The 2026-08-31 override to `ok` stands, now on evidence rather than symmetry.
+- **C-185 vs C-159** — they do not collapse, because C-185 is already retired. It is a *sentence*
+  on p.41 ("afgerond 22.000 ton") that this log flagged in the S002 session as probably unrevised
+  2015 text; the reviewer excluded it via `DECISION_expert`. C-159 (12.989, Tabel 17 p.39) is the
+  2020 table figure and is the live claim.
+- **"were some of these already excluded?"** — no. Checked all 103 fix rows against
+  `DECISION_expert`: **none** sits on an excluded claim.
+
+**Applied (24):** the 14 `C-unmarked-total` promotions, 8 `A-prodcom-level` moves to L4, and the 2
+`B-level-mismatch` corrections on C-383/C-576. Effect on MONBIO 4.0: the L1 residual total falls
+from 7.177.539 to **5.766.983** as the per-gewasgroep totals stop summing with their own fractions,
+and resolution to L4/L5 rises from 57,3% to **71,4%**.
+
+**Round 2 opened — `crosswalks/FIXES_ROUND2.csv`, 86 rows.** The reviewer's remarks showed round 1
+had asked three questions as one. Round 2 separates them:
+
+- **the collection rule** (46 rows) — *"if the name is a sum of things or a collection of parts
+  which already exist, this will almost always be an aggregate."* Prodcom residual categories
+  (`Andere ...`, `... en andere ...`, `van alle soorten`, `n.e.g.`, several species in one cell)
+  are nomenclature buckets, not products, so they take the `AGGREGAAT - ` prefix instead of an L4.
+- **the two-partition rule** (8 rows) — *"we kind of made 2 distinctions in the commodity ladder,
+  with the crops but also some sectors in varia."* A processing product filed under the crop it came
+  from moves to the Varia sector: bread is not a cereal, refined sugar is not a beet.
+- **13 genuine single products** keep the round-1 proposal. The dairy rows among them are flagged
+  `medium`: they also pair two products, but round 1 approved the analogous rows as L4.
+- **12 `B` rows** re-proposed as the reviewer asked ("why level 2 suddenly?") — the row gets its
+  real `L2 = Varia` instead of the placeholder `Aggregaat`, so *level 2* means "this row sits at
+  L2" and the level it totals stays in `aggregate_coverage.totals_level`.
+- **7 placement corrections** from the review sheet, including a new L3 member.
+
+**One new dictionary member proposed: `Varia > Suiker`** — glucose/fructose/invertsuiker, refined
+sugar and melasse are sugars, and were sitting under starch or under a crop. Not yet applied; it
+becomes real when round 2 is approved.
+
+**Also corrected:** C-086 is a subset, not a full L3 total — the source says *"som van de 10
+belangrijkste"*, and two of those ten (komkommer, kropsla) are reported in pieces and were never
+convertible, so its coverage can never reach 100%.
+
+**Still open:** `FIXES_ROUND2.csv` (86 rows, all awaiting `DECISION_fix`). Nothing is committed.
+
+
+### 2026-08-31 — crosswalk review applied; register-wide aggregate correction; 80/20 gap analysis
+
+**No source extracted.** The reviewer's decisions on the two human-gated crosswalks were applied,
+and a register-wide modelling error was corrected. The reviewer was away, so the remaining
+decisions were **taken provisionally by Claude and stamped in the files** — every one is
+recoverable, and none is settled.
+
+**What the reviewer decided.** `varia_reclass.csv`: 41 rows kept, 59 excluded. `aggregate_coverage.csv`:
+62 `ok`, 7 `unallocated` (all the EU-definition totals), 8 deferred as `0`, 1 `exclude`.
+Shelving the EU-definition rows resolves the retail contradiction structurally — retail
+agri-food waste now reads 132.082 from C-105 alone, with no averaging against the EU figure.
+
+**Exclusions were not reaching the overview.** `prep_data.py` never read `DECISION_expert`, so
+14 claims the reviewer had already excluded were still counted. Wired up, plus the 44 further
+claims flagged in the reviewer's crosswalk remarks (`apply_exclusions.py`). **58 claims retired,
+66.068.834 t/yr** — dominated by mengvoeder (C-390 7,4 Mt; C-384 6,2 Mt) and the two beer rows,
+which had been inflating every food-industry production figure.
+
+**The `Gemengd` → `Varia` reclassification was applied**, with the two NACE lumps split into
+`Chocolade` and `Zetmeel en zetmeelproducten`. Five of the eleven originally proposed L3 buckets
+turned out to be empty once the exclusions applied — including both new dictionary members the
+first revision had invented — so the split *shrinks* the vocabulary. `Gemengd` is now empty and
+retired; see `commodity_hierarchy.md`.
+
+**Register-wide correction: 40 rows promoted to `AGGREGAAT`.** Rows the source itself calls a
+*totaal* were sitting in the register as ordinary components, so every sector total was being
+added to its own parts — the cause of 132% coverage on akkerbouw and 165% on the primary stage.
+Promoted by `promote_totals.py` on name evidence, plus **C-043 on arithmetic** (it equals
+C-005 308.000 + C-042 240.305 exactly). Not promoted: C-057, whose "incl. niet-geoogste" names
+its scope, not a total — it is the only voedselverlies figure for that node.
+
+**Anomalies — variants, not errors.** The detector also found rows that equal a sum of siblings
+without saying they are totals: C-343 and C-533 (`Verwerkte vloeibare melk`, Prodcom 105111),
+C-541 (`Zuivelproducten n.e.g.`). Prodcom classes cut across each other, so these are most
+likely coincidence rather than totals, and were **left as components**. C-586/C-587 (beer
+equalling a sum of unrelated grain rows) are certainly coincidence. All four need a reviewer's eye.
+
+**Provisional decisions taken by Claude** — all stamped, all reversible:
+- 35 `varia_reclass` rows whose proposal moved (`AUTO-DECIDED by Claude 2026-08-31`).
+- 58 `aggregate_coverage` placements, including the 8 the reviewer had deferred as `0`, which the
+  L3 split made answerable.
+- **C-201 overridden.** The reviewer set it to `no`; its 2023 twin C-098 is `ok`. Same claim,
+  different edition, so they were aligned — marked `AUTO-OVERRIDE` in the `revision` column.
+  **This is the one place an explicit human decision was reversed.**
+
+**Retail rows are a chain stage, not a commodity.** C-103/104/106/107 and their 2020 twins became
+`component_set` aggregates. Each pair sums exactly to a total the source also prints standalone
+(115.862 + 16.220 = 132.082 = C-105; 53.330 + 6.519 = 59.849 = C-108), so `derive.js` now marks a
+component_set that reproduces a total in its own group as a **restatement** and leaves it out of
+the mean — otherwise that figure would be weighted twice against a genuine variant (retail
+voedselverlies would read 59.516 instead of 59.349).
+
+**80/20 gap analysis** (published as an artifact). Against an addressable total of 9.327.369 t/yr
+— MONBIO 4.0 primary residues 7.177.539 + OVAM 2023 food industry 2.017.748 + retail 132.082 —
+only **44,1% is resolved to L4/L5**, all of it in primary production. Five Flemish items
+(maisstro, aardappelloof, suikerbietenloof, bietenpulp, tarwestro) carry 80% of that selectable
+pool but only **33,8% of the addressable total**. The food industry has *no* L4/L5 detail at all,
+and every selectable item is a field residue rather than a processing side-stream. Largest gaps:
+food industry undifferentiated 1,34 Mt · `Suiker- en zetmeelgewassen` 1,21 Mt · food-industry
+subsectors at L3 597 kt · `Granen` 496 kt · `Dierlijk - vee / Vlees` 304 kt.
+**Recommended next extractions: S005 (MONBIO 1.0) first** — it names bietenpulp+melasse 458 kt,
+bostel 80 kt and gries/zemelen/DDGS 646 kt, hitting the two largest gaps at once — **then S087**
+(Marktanalyse Biomassareststromen 2024) for slaughter by-products, then S066 and S065 for
+horticulture and fruit.
+
+**Still open for the reviewer:** the five empty L3 subgroups (placeholders or not); whether field
+residues belong in a BioMobi selection at all, which changes the denominator; the three Belgian
+FEDIOL rows in the ranking (lijnzaad-, soja- en zonnebloemschroot) that cannot stand in for
+Flemish claims; and several reviewer remarks that appear paste-offset by one row
+(C-199/C-201, C-355/C-356, C-472, C-518) — acted on by row content, not by the remark text.
+
+**Backups** of both crosswalks and the pre-change workbook are in the session scratchpad under
+`scratchpad/backup/`.
+
+
+*Sessions that changed how the corpus is read rather than what is in it. Kept apart from the
+Sessions table above, which is one row per source extraction.*
+
+### 2026-08-26 — the stream overview learns that an aggregate is not a commodity
+
+**What was wrong.** `stream_overview.html` treated every claim as a summand, including the 78
+rows named `AGGREGAAT - …`. Those rows are totals *of* other rows, so adding them to their own
+components double-counted, and where a source printed two definitions of one total the view
+added those together as well. The reviewer's example: OVAM 2023 retail read **192,166 t** with a
+38/62 split — the EU-definition figure (C-003, 60,084) plus the Belgian one (C-105, 132,082),
+wearing the Belgian split. The same fault kept the coverage line blank at L1 and L2, because the
+figure that *was* their reported total was standing beside them as an ordinary commodity row.
+
+**The model now.** Two axes. Components build the commodity tree and sum as before. An aggregate
+never enters a sum; it attaches to the row whose children it totals and becomes the denominator
+the level below is measured against. Each aggregate is described by the level it totals, the row
+it attaches to, whether it covers **all** of that row's entries or a named **subset**, which
+chain stages it spans, and its quantity type. **Allocation rule (reviewer's):** an aggregate is
+placeable only when everything it covers sits under one parent row at one level; anything else —
+OVAM's *Aardappelen, groenten en fruit*, which totals three L3 entries under two different L2
+parents — goes to an **unallocated** band, visible and usable but never compared or summed.
+
+**Two reconciliations this exposed**, both previously invisible:
+
+- OVAM 2023 · Retail · agri-food waste — the two component rows (115,862 + 16,220) make
+  **exactly** C-105's 132,082. Dropping the EU figure from the average takes the row to 100%.
+- OVAM 2023 · Voedingsindustrie · agri-food waste — the eight subsector rows sum to 2,017,721
+  against C-092's 2,017,748, i.e. **100.0%**, 27 t of rounding.
+- C-113 + C-114 (nevenstromen primaire sector, ingezameld + andere bestemming) reconcile to
+  **215,170 = 100.0%** of the printed total once they are treated as one figure rather than two
+  competing ones. They are marked `component_set` in the registry for that reason.
+
+**Competing values are averaged and listed, never summed** — the existing cross-source rule,
+now applied to competing definitions inside one source too. Each value can be excluded from the
+average in the browser. This is a reading aid held in the browser only; a decision worth keeping
+should be written down here.
+
+**`type_assumed`-style honesty about arithmetic.** Every number in the view now carries its
+provenance: unmarked = a figure straight from the register, `Σ` = summed by the view, `ø` = an
+average, `Σø` = a sum of averaged parts.
+
+**Two human gates opened, both awaiting `DECISION`:**
+
+- `crosswalks/aggregate_coverage.csv` — 78 rows, one per aggregate, saying what each is the
+  total of. Proposals only. Notable ones the default rule could not get right: C-002 and C-004
+  span 2 and 4 of the 6 in-scope stages so neither may fill the Total column; C-111/C-112 and
+  C-113/C-114 are route halves that sum; C-218/C-238/C-399/C-419 (*plantaardige landbouw*) are
+  commodity subsets spanning akkerbouw + tuinbouw; C-279/C-329 and C-280/C-335 are the **same
+  FEDIOL figure recorded twice** under two placements, which will double-count until one of each
+  pair is excluded.
+- `crosswalks/varia_reclass.csv` — 100 rows retiring `Gemengd` for `Varia`. 82 become components
+  with a real L3 (MONBIO's Prodcom rows keyed off the printed Prodcom class, not guessed from
+  the wording, and flagged as an overlapping nomenclature that must never be summed together);
+  4 become aggregates because they are totals of commodity groups the tree already holds
+  (C-094, C-098 and their 2020 twins C-195, C-201) and gain the `AGGREGAAT - ` prefix. Two new
+  dictionary members are proposed: **`Mengvoeder en diervoeder`** (NACE 10.9) and **`Overige
+  voedingsmiddelen`** (NACE 10.84/10.89). `apply_reclass.py` refuses to run while any `DECISION`
+  is blank; it was tested end-to-end on a copy of the workbook (100 rows changed, idempotent on
+  a second run, only the five intended columns touched, 592 claim ids unchanged).
+
+**Note for whoever reviews the workbook:** its columns have been rearranged (`source_page` now
+sits first). Every script here reads and writes by column header, so that is safe.
+
 ## Anomaly notes (detail, keyed by source_id)
 
 ### S007
