@@ -217,3 +217,19 @@ source's own wording (`totaal`, `totale`, `(totaal)`) is usually decisive; where
 arithmetic is — C-043 was promoted because it equals C-005 + C-042 exactly.
 
 `promote_totals.py` applies both tests and is idempotent, so it can be re-run after any extraction.
+
+**Members added 2026-09-01 (S066, ILVO Mededeling 239 - tuinbouw).** Only one, because S066's
+crops were already almost entirely present: **`Kool`** as an L4 ingredient under `Groenten
+openlucht`. S066 reports it as *"kolen (witte, rode en groene)"* — three colour variants of
+sluitkool in one cell.
+
+**Judgement recorded, because v2.5 rule 2 could have gone the other way.** A cell naming several
+species is normally a *residual class of the nomenclature* and takes the `AGGREGAAT - ` prefix with
+`allocatable = no`. `Kool` is deliberately **not** treated that way: witte, rode and groene kool are
+colour variants of one commodity, not a leftover bucket, and none of them exists separately in the
+register, so the reviewer's own test — *"a sum of things or a collection of parts which already
+exist"* — is not met. If a later source splits them, `Kool` becomes the parent and the three
+colours become its L4 siblings, at which point this row should be re-read as an aggregate.
+
+S066's four genuine residual classes **do** take the prefix and `allocatable = no`: `overige
+groenten industrie`, `overige groenten vers`, `overige groenten beschut` and `overig fruit`.
