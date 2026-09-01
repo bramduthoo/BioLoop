@@ -57,6 +57,79 @@ clean v2 re-run and supersedes it entirely.*
 
 ## Tooling & model sessions (no source extracted)
 
+### 2026-09-01 (evening) — aggregate decisions taken in a copy, and the 80/20 coverage audit
+
+**No source extracted.** The reviewer asked for the open decision sheet to be filled provisionally
+so the overview could be built and read as an expert would read it.
+
+**The decisions live in a copy, not in the reviewer's file.**
+`crosswalks/aggregate_coverage.csv` is untouched. `crosswalks/aggregate_coverage_CLAUDE.csv` holds
+the same 244 rows with the 42 blank `DECISION` cells filled and a `RATIONALE_claude` column giving
+the reason per row. `prep_data.py` gained a `BIOLOOP_REGISTRY` env override so an overview can be
+built from an alternative sheet without overwriting the canonical one.
+
+Twenty-five of the 42 were routine subsector rollups already verified to the tonne. The seventeen
+that were not:
+
+- **16 residual classes shelved** (`unallocated`), per v2.5 rule 2. This is what makes the coverage
+  line honest: S066's tuinbouw reads **90,8%** resolved instead of a flattering 100%, and the
+  missing 9,2% is exactly the unnamed *overige* residue.
+- **C-800 shelved** — a Belgian diepvriesindustrie throughput sitting under a primary-production
+  commodity node at the processing stage. Not a commodity total.
+- **Four generator fields corrected.** C-689 and C-767 cover only the groenten subgroups, so
+  `commodity_coverage` went from `full` to the named subset — left as `full`, C-689 would have been
+  averaged against C-685 (groenten *and* fruit) to give a meaningless 1.798.336 t. C-691 and C-692
+  are channel halves summing exactly to C-690 (757.574 + 341.965 = 1.099.539), so `treatment` went
+  from `variant` to `component_set`; as variants the view would have averaged them.
+
+**One data defect found and fixed.** `prep_data.py` parses the first year-like number out of the
+free-text `reference_year`, so the S065 entries *"onbekend (data uit Bernaerts et al. 2012)"* and
+*"… Braekevelt & Schelfhout, 2013"* were being filed as reference years **2012** and **2013** —
+citation years, not measurement years, which put a 3 Mt figure in the wrong bucket. Both now read
+`onbekend`; the reasoning moved to `source_type_label`.
+
+**The audit.** `analyse.js` drives the tested `derive.js` to produce per-edition resolution, the
+per-L2 gap map and the 80/20 ranking. Published as an artifact:
+<https://claude.ai/code/artifact/d005bbbc-20a7-4797-9c75-6fe22de1c337>
+
+Findings worth keeping in the log:
+
+- **Resolution to selectable L4/L5 depth, per edition:** GeNeSys 2010 **100%**, ILVO 239 2015
+  **90,8%**, MONBIO 3.0 **84,9%**, MONBIO 4.0 **84,1%**, OVAM 2023 **19,8%**, OVAM 2020 **5,9%**.
+  The monitors carry the mass and almost none of the depth; the ILVO sources are fully resolved but
+  cover only horticulture. MONBIO is the only source with both.
+- **The selection is possible for plants and not for animals.** On MONBIO 4.0 (2021), **13 L4/L5
+  streams reach 80,9%** of the reported L1 residual total; within the selectable pool the 80/20 is
+  sharp at **6 of 20 items = 80,6%**. But **15,9% of L1 has no L4/L5 detail at any price**, and it
+  is almost entirely animal and processing mass.
+- **The two gaps.** `Dierlijk - vee` is **769.000 t behind a single row** (gevogelte, 84.141 t) =
+  10,9% resolved. OVAM's `Varia` (the food-industry lump) is its **largest group at 596.710 t and
+  resolves to nothing at all** in either edition. OVAM's akkerbouw shows **135%** coverage —
+  captured components exceeding their parent, which wants checking.
+- **Sources converge within a series and not across.** MONBIO 3.0→4.0 moves 9% at L1, OVAM
+  2020→2023 moves 12% — consecutive editions measure the same thing. Across series, on the *same
+  year 2020*, MONBIO reads 5.499.135 t against OVAM's 2.583.633 t: a factor **2,1**, and per group
+  akkerbouw **24x**, vee **5,4x**, vis **38x**. The cause is definitional, not error: MONBIO counts
+  *productieresiduen* (stro, loof) and the OVAM monitor counts only food-linked *voedselreststromen*.
+  The same split explains GeNeSys (894.535) against ILVO 239 (282.821) on horticulture, 3,2x, same
+  institute.
+- **Consequence for BioMobi:** ten of the thirteen selected streams are straw, leaf, pulp and stalk
+  — material that is *outside the scope* of the OVAM and ILVO 239 monitors by construction. A
+  MONBIO-based selection cannot be cross-checked against OVAM, and the two must never be summed or
+  averaged. One genuine convergence: OVAM 2020 (330.089) and ILVO 239 2015 (282.821) agree within
+  17% on tuinbouw, as they should — ILVO 239 *is* that monitor's agriculture chapter worked out.
+
+**Next-source consequence.** S004 is the only live PDF left in `inbox/`; the other four (S001, S005,
+S006, S086) carry the `_RETIRED` mark and the eight archived sources are done. S004 is worth reading
+as the 2015 zero-point but is reported at sector grain and **will not add one L4/L5 stream**.
+**Neither gap has a queued owner** — checked against the whole 91-row `Sources` sheet. For
+`Dierlijk - vee` the only routes are to **reopen the S087 geography call** (its 698.000 t was dropped
+because the material is *received by* Flemish processors rather than arising in Flanders — reversible
+in one edit, everything recorded) or to **un-retire S001**, whose own verdict note has it covering
+the animal by-product sector at ~860 kt for 2021. For `Varia`, three unqueued candidates carry volume
+data at the right grain: **S025** (per EURAL code), **S041** (Eurostat `env_wasfw` per NACE) and
+**S067** (Comeos retail — the 64.271 t figure S010 cited and no register source owns).
+
 ### 2026-09-01 (close) — cleanup, generality check, and the pipeline made re-runnable
 
 **Cleanup.** The five finished one-off scripts and the four completed decision sheets moved to
