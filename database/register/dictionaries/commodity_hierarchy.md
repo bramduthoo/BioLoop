@@ -161,3 +161,59 @@ crop partition. The never-sum-across warning above covers this.
   add it here in the *same* session (the crosswalk step), then use it.
 - Review regularly for drift: the same fraction at inconsistent levels, near-duplicate names,
   an `L4` that should be an `L3`, a `chain_L2` value that leaked in from the commodity axis.
+
+---
+
+## `Gemengd` is retired — `Varia` replaces it (2026-08-31)
+
+`Gemengd` was one flat L2 lump of 100 claims holding three unrelated kinds of row: genuinely new
+processing subsectors, MONBIO's Prodcom product rows, and rows that were really *totals* of
+commodity groups already in the tree. It is now **empty and retired**. Do not assign it.
+
+**`Varia` (L2, replaces `Gemengd`)** carries processing subsectors that are not a commodity group
+of their own. Its L3 members are exactly the five that hold a captured row:
+
+| L3 under `Varia` | Holds |
+|---|---|
+| `Bakkerij` | OVAM subsector totals; Prodcom 1072 (koekjes, biscuits, wafels) |
+| `Dranken` | OVAM subsector totals; NACE 11 aggregates |
+| `Olien, vetten` | OVAM subsector totals; Prodcom 1042 (margarine); NACE 10.4 aggregates |
+| `Chocolade` | Prodcom 1082; the Flemish chocolate estimate (an `AGGREGAAT of L4` above it) |
+| `Zetmeel en zetmeelproducten` | Prodcom 1062 (zetmeel, glucose/fructose, zetmeelafvallen) |
+
+**Two NACE lumps were split**, because a NACE class is not a commodity subgroup: chocolate and
+prepared meals are not one class, and neither are pasta, starch and milling.
+
+- `Suiker, chocolade, bereide maaltijden, enz.` → **`Chocolade`**
+- `Deegwaren, dieetvoeding, zetmeel, maalderijen` → **`Zetmeel en zetmeelproducten`**
+
+**The uncaptured halves are deliberately NOT members.** `Suiker`, `Bereide maaltijden`,
+`Deegwaren`, `Maalderijproducten` and `Dieetvoeding` hold no claim after the reviewer's
+exclusions, so creating them would be inventing structure speculatively. They are instead named
+in the aggregates' `commodity_coverage` in `crosswalks/aggregate_coverage.csv`, which is also what
+protocol v2.3 requires: an aggregate that includes a component the register does not capture must
+say so on the row. **Add one as a real member in the session that first captures a row for it.**
+
+**Two members proposed and then withdrawn.** `Mengvoeder en diervoeder` (NACE 10.9) and
+`Overige voedingsmiddelen` (NACE 10.84/10.89) were proposed while the crosswalk was being built,
+but every row that would have populated them was excluded by the reviewer. Neither exists.
+
+**Retail is not a commodity.** `Grootdistributie en supermarkten` and `Detailhandel voeding` are
+collection *channels*, not subgroups. They were withdrawn as L3 members: the rows are now
+`AGGREGAAT` rows with `treatment = component_set` in the registry, because each pair sums exactly
+to a retail stage total the source also prints standalone (115.862 + 16.220 = 132.082 = C-105).
+
+## A row that totals other rows carries the prefix — no exceptions (2026-08-31)
+
+Protocol v2.4 made the `AGGREGAAT - ` name prefix load-bearing: it decides whether a row **sums**
+with its siblings or becomes the **total they are checked against**. Rows extracted before v2.4
+predate that rule, and 40 of them — every row the source itself calls a *totaal* — were sitting in
+the register as ordinary components and being added to their own parts. That is what produced
+coverage ratios of 132% for akkerbouw and 165% for the primary stage.
+
+**When extracting, apply the prefix by this test:** does the figure count material that another
+row in this register also counts? If yes it is an aggregate, whatever level it sits at. The
+source's own wording (`totaal`, `totale`, `(totaal)`) is usually decisive; where it is not,
+arithmetic is — C-043 was promoted because it equals C-005 + C-042 exactly.
+
+`promote_totals.py` applies both tests and is idempotent, so it can be re-run after any extraction.
