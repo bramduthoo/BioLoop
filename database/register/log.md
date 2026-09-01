@@ -41,6 +41,7 @@ Keep these five headings, in this order, so notes stay comparable across sources
 
 | Date | source_id | source_short | PDF (in archive/) | Claims added | Verified? | Commit | Anomalies / flags |
 |------|-----------|--------------|-------------------|-------------:|-----------|--------|-------------------|
+| 2026-09-01 | S010 | Verkennende haalbaarheidsstudie biomassahub | `S010_Verkennende economische haalbaarheidsstudie biomassahub_ILVO.pdf` | **0** | n.v.t. | `PENDING2` | See [S010](#s010) - a consolidation with no original measurement; all 4 data tables restated from S002/S006/S065/S066, no Zotero item (F-002) |
 | 2026-09-01 | S087 | Marktanalyse Biomassareststromen 2024 | `S087_Marktanalyse Biomassareststromen 2024 OVAM.pdf` | **0** | n.v.t. | `2856b23` | See [S087](#s087) - read cover-to-cover and agri-food-empty; 4 scope decisions, 8 tonnages named for recovery, no Zotero item (F-002) |
 | 2026-08-16 | S007 | MONBIO 3.0 | `S007_MONBIO3.0.pdf` | 195 (C-398…C-592) | no | `e3c61bc` | See [S007](#s007) — 1 suspected source error (in **S091**, found from here), 6 variant readings, 3 new dictionary members, no Zotero item (F-002) |
 | 2026-08-16 | S091 | MONBIO 4.0 | `S091_MONBIO4.0.pdf` | 183 (C-215…C-397) | no | `0ae8225` | See [S091](#s091) — 0 suspected source errors, 5 variant readings, 4 session scope decisions, 15 new dictionary members, no Zotero item (F-002) |
@@ -331,6 +332,170 @@ average, `Σø` = a sum of averaged parts.
 sits first). Every script here reads and writes by column header, so that is safe.
 
 ## Anomaly notes (detail, keyed by source_id)
+
+### S010
+
+**Outcome: zero claims — a consolidation with nothing of its own.** S010 was read cover-to-cover
+and retired without a row, for a completely different reason than S087. S087 was the wrong *topic*;
+S010 is exactly the right topic and is, on paper, the richest per-crop table set in the whole
+queue — but it contains **no original measurement**. Every tonnage it prints is a restatement,
+attributed cell by cell to a study the register already owns or has queued.
+
+**The attribution structure.** All volume data sits in four tables (Tabel 2 p.17, Tabel 3 p.19,
+Tabel 4 p.21, Tabel 5 p.22). Every figure in all four carries a superscript letter resolving to one
+of five upstream studies:
+
+| Upstream study, as S010 cites it | Register source | Status at time of reading |
+|---|---|---|
+| MONITOR VOEDSELVERLIES 2020 (Braekevelt et al., 2023) | **S002** | extracted, 100 claims |
+| GeNeSys 2010 (Kips & Van Droogenbroeck, 2014) | **S065** | queued in `inbox/` |
+| ILVO 2015 (Bernaert, Van Droogenbroeck & Roels, 2018) | **S066** | queued in `inbox/` |
+| MONBIO 2019/20 (Van Kerckhove et al., 2023) | **S006** | queued in `inbox/` |
+| COMEOS 2018 (Comeos, 2019) | *not in the register* | — |
+
+**A reading hazard worth recording: the letter scheme changes between tables.** The superscripts are
+re-assigned per table and a reader who carries one legend forward will mis-attribute every cell:
+
+- **Tabel 2** — A = MONBIO, B = GeNeSys, C = Monitor Voedselverlies, D = COMEOS
+- **Tabel 3** — A = MONBIO, B = GeNeSys, **C = ILVO 2015**, **D = Monitor Voedselverlies**
+- **Tabel 4** — A = GeNeSys (single source; the whole table)
+- **Tabel 5** — **A = GeNeSys**, **B = ILVO 2015**, **C = MONBIO**, **D = Monitor Voedselverlies**
+
+Three different meanings for `C` and three for `D` across four adjacent tables. Any future session
+that pulls figures from here must re-read the legend beneath each individual table.
+
+#### 1. Variant readings
+
+None captured, because nothing was captured. The tables do however *display* variants, which is
+their real value and which is worth knowing before S065/S066/S006 are extracted: several streams
+carry two upstream figures side by side, and they diverge widely. Bloemkool blad/loof reads
+**131.637 t** (MONBIO) against **197.100 t** (GeNeSys); wortelloof **76.652 t** against
+**69.500 t**; preiloof **64.171 t** against **70.875 t**; spruitstokken **57.542 t** against
+**138.000 t** — a factor 2.4. Groenteteelt as a whole reads **534.952 t** (MONBIO) against
+**800.000 t** (GeNeSys). When S065 and S006 are extracted these will surface as genuine
+cross-source contradictions, and the register will hold both, as it should.
+
+#### 2. Suspected source errors
+
+None. No arithmetic evidence of a defect anywhere in the four tables.
+
+#### 3. Deliberate exclusions
+
+**a. All of Tabel 2, 3, 4 and 5 — restatement (session decision 1).**
+Skipped under the cross-source restatement rule: *"Skip values restated from an edition already in
+the `Sources` sheet."* All four upstream studies that carry cells are in the sheet. The rule's
+escape hatch — *"if no source in the register owns those years, capture them here"* — does not
+apply, because S065, S066 and S006 are not merely listed but **queued as verified PDFs in
+`inbox/`**, all priority-1 CORE. They are the proper owners: they carry the method, the wet/dry
+basis and the per-crop context that this consolidation strips out.
+
+This is the largest deliberate skip in the register so far, so the tables are named here in full:
+
+- **Tabel 2** (p.17) — sector totals for landbouw / groenteteelt / fruitteelt / veilingen /
+  voedingsindustrie / supermarkten / grote cateraars, across four quantity columns
+  (biomassareststromen, voedselreststromen, nevenstromen, voedselverliezen). ~30 cells.
+- **Tabel 3** (p.19) — per-groentesoort, per-fraction: bloemkool, wortel, prei, spruiten, uien,
+  erwt, bonen, selder, spinazie, witloof, witte/rode/savooikool, broccoli, knolselder, schorseneer,
+  courgette, raap, tomaat, kropsla, paprika, champignons, komkommer, aardappelen. ~60 cells.
+- **Tabel 4** (p.21) — per-soort reststromen at the verwerkende industrie (explicitly **België**,
+  2011) and at three large Flemish auctions (2012). ~14 cells, all GeNeSys.
+- **Tabel 5** (p.22) — per-fruitsoort: appels, peren, aardbei, kers. ~10 cells.
+
+**b. The consolidated total — a derivation.**
+*"Totaal groenten en fruit 973.954 – 1.512.656 ton"* (Tabel 2, shaded row) and the same range in the
+running text on p.16. Not captured on two independent grounds: it is a **range**, not a value, and
+the table's own footnote states it rests on an assumption S010 itself introduces — *"aanname: 2/3
+van verwerkende industrie exclusief groenten en fruit, 1/3 aardappel"*. That is a calculation on
+other sources' figures, which the conversion rule forbids.
+
+**c. S010's own primary data — not captured (session decision 2).**
+Two figures in this source are genuinely its own and were still not captured, by explicit choice:
+
+- **~11.000 ton/jaar** biomassareststromen at a single Flemish auction, from S010's own expert
+  interview (p.16).
+- **~15.000 ton** total biomassareststroom at fruitveilingen, S010's own interview-based estimate
+  (p.16).
+- **64.271 ton** voedselreststromen at supermarkten en retailers (Tabel 2, letter D), from
+  **COMEOS 2018** — the one upstream study *not* in the register, so the restatement rule would
+  have allowed it.
+
+All three are recoverable from the pages named. The COMEOS cell carries a caveat any later capture
+must keep: Tabel 2's own note says the supermarket and caterer figures are **total organic residual
+streams**, not groente-en-fruit only.
+
+**d. Not quantities of arising material.**
+- **Hypothetical hub design capacities** (pp. 44–83) — 1.000, 2.000, 7.000, 21.000, 13.000, 240 and
+  480 ton/jaar throughput, plus 2.500 / 31.500 t compost, 41.450 t bio-gebaseerde meststof, 3.300 t
+  insect frass, 940 t larven, 357 t insectenproteïne, 200 t laurinezuur, 29 t chitosan, 3.250 t
+  biochar. These are **scenario parameters for a modelled installation that does not exist**, not
+  measurements of anything, and the outputs are derived products besides.
+- **Company throughput examples** (§6.1, pp. 32–40) — 600 t vruchtenresten, 4.100 t across six
+  NW-European pilot regions, 350.000 t (Group Op De Beeck), 6 miljoen ton (Duynie Group, European).
+  These measure what a processor *takes in*, i.e. the destination side, and are mostly not Flemish.
+- **2.480 ton voedseloverschotten** opgehaald en verdeeld (2021, p.36) — `schenking`, out of scope
+  by `quantity_type.csv`.
+- **All of chapters 2 and 3** — costs (€/jaar, €/ton), minimum selling prices, break-even results
+  and maximum investment cost. Not quantities of material.
+- **Figuur 3** (p.25) and **Tabel 6** (p.24) — valorisation routes in **percentages** and a cascade
+  **index**; no mass anywhere. Indexed in `destination_index.csv` with `has_data = no`.
+
+#### 4. Completeness sweep
+
+**22 tables, 20 figures, all accounted for.** The source's own lists (pp.4–7) match the body
+numbering exactly — unlike S087 — so they were used directly.
+
+| Object | p. | Disposition |
+|---|---|---|
+| Tabel 1 (stakeholdergroepen bevraagd) | 13 | carries no volumes — an interview roster |
+| **Tabel 2** (sector overzicht) | 17 | **excluded — restatement (3a)**; total row excluded as a derivation (3b); COMEOS cell not captured (3c) |
+| **Tabel 3** (per groentesoort) | 19 | **excluded — restatement (3a)**, ~60 cells |
+| **Tabel 4** (verwerkende industrie + veilingen per soort) | 21 | **excluded — restatement (3a)**, all GeNeSys; industry column is België |
+| **Tabel 5** (per fruitsoort) | 22 | **excluded — restatement (3a)** |
+| Tabel 6 (cascade-index) | 24 | index scores, no mass; indexed |
+| Tabel 7 (praktijkvoorbeelden start-ups/projecten) | 32 | carries no volumes in the table itself; the company tonnages in the surrounding text are excluded under 3d |
+| Tabel 8-13 (operationeel + technologisch profiel) | 46-50 | excluded — hub scenario parameters (3d) |
+| Tabel 14-17 (scenario's, kosten, minimale verkoopsprijs) | 51-69 | excluded — costs and prices, not quantities |
+| Tabel 18-22 (gevalstudie 2: profiel, scenario's, kosten, prijs) | 73-83 | excluded — as above |
+| Figuur 1 (schematische weergave definities) | 9 | a definitional schema, carries no numbers |
+| Figuur 2 (waardepiramide) | 23 | a cascade schema, carries no numbers |
+| Figuur 3 (valorisatiewegen) | 25 | percentages only (3d); indexed |
+| Figuur 4 (Biomassaplein Limburg) | 36 | a photograph / site schema, no numbers |
+| Figuur 5 (opzet gevalstudie 1) | 45 | a process schema |
+| Figuur 6-11 (max. investeringskost, gevalstudie 1) | 55-66 | excluded — € per year against price, not quantities |
+| Figuur 12 (opzet gevalstudie 2) | 72 | a process schema |
+| Figuur 13-19 (max. investeringskost, gevalstudie 2) | 77-82 | excluded — as Figuur 6-11 |
+| Figuur 20 (struikelblokken) | 90 | qualitative, no numbers |
+
+Running text was swept as well; the tonnages it carries are those listed in §3c and §3d.
+
+#### 5. Judgement calls & new dictionary members
+
+**No new dictionary members** — nothing was captured.
+
+Two session decisions, both taken by the user:
+
+1. **All four data tables skipped as restatements**, leaving S065, S066 and S006 as the owners.
+2. **S010's own three figures not captured either**, retiring the source at zero claims rather than
+   holding it open for three rows.
+
+**The consequence is worth stating plainly, because it is the one thing this session changes about
+the register's plan.** The 2026-08-31 gap analysis found that the food industry — the largest single
+stage at 2,02 Mt — has **no L4/L5 detail at all**, and that only 44,1% of the addressable pool
+resolves to L4/L5. Tabel 3 of this source is precisely the missing detail: bloemkoolloof,
+spruitstokken, uienschillen, preiloof, witloofwortelen, per crop and per fraction. By skipping it
+here we have decided that **the register's single largest known gap is now blocked on three specific
+queued sources — S065 (GeNeSys), S066 (ILVO 2015 tuinbouw) and S006 (MONBIO 2.0)**. If any of those
+is later retired the way S001/S086 were, the figures do not simply vanish: S010 is the fallback, and
+this note plus the archived PDF is how to find them. That is the reason the tables are enumerated in
+§3a rather than dismissed in a line.
+
+**Note for whoever extracts S065 and S066.** S010 has already done the cross-source comparison for
+you: §1 above lists the streams where GeNeSys and MONBIO diverge, in one case by a factor 2.4. Read
+it before extracting either, the way S091 and S007 were read against each other.
+
+**No Zotero item (F-002).** The Zotero MCP server timed out on connect this session, so no item was
+created and `citation_key` stays blank. PDF archived as
+`archive/S010_Verkennende economische haalbaarheidsstudie biomassahub_ILVO.pdf`.
 
 ### S087
 
