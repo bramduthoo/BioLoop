@@ -233,3 +233,33 @@ colours become its L4 siblings, at which point this row should be re-read as an 
 
 S066's four genuine residual classes **do** take the prefix and `allocatable = no`: `overige
 groenten industrie`, `overige groenten vers`, `overige groenten beschut` and `overig fruit`.
+
+**Members added 2026-09-01 (S065, GeNeSys / ILVO Mededeling 165).** The largest single intake of
+members so far, because Bijlage 1 lists 33 crops where earlier sources reported 20-odd.
+
+New **L4** under `Groenten openlucht`: `Asperge`, `Broccoli`, `Knolselder`, `Peterselie`,
+`Pompoen`, `Raap`, `Schorseneer`, `Selder` (the source's *"Selder (wit en groen)"*),
+`Witte kool`, `Rode kool`, `Savooikool`.
+New **L4** under `Groenten beschut`: `Veldsla`.
+New **L5** fractions, all in the source's own words: `bladmassa`, `bladmassa (groene deel)`,
+`stengelmassa`, `buitenste bladeren`, `blaadjes`, `wortelmassa na forcerie`.
+
+**`Kool` now has three siblings, and that is deliberate.** The S066 note above anticipated this:
+S066 reports *"kolen (witte, rode en groene)"* as one cell, S065 splits them. Both stay members —
+`Kool` is the coarser member for sources that do not split, `Witte kool` / `Rode kool` /
+`Savooikool` the finer ones. **They are not an aggregate-and-components pair**: they come from
+different sources, and the aggregate machinery only ever operates *within* a source. Never sum
+across them.
+
+**Two crops now sit under two L3 parents, following each source's own placement.** `Cichorei` was
+already an L4 under akkerbouw (`Suikerbieten en nijverheidsgewassen`, `Industriele gewassen`);
+S065 lists it under **openluchtgroenten**, as the root crop for witloof forcing, and that is where
+its S065 rows sit. `Courgette` was seeded under `Groenten beschut`; S065 lists it under
+**openluchtgroenten** and its S065 oogstrest row follows the source, while its S065 doordraai row
+(Tabel 3) sits under `Groenten beschut` where that table puts it. This is the same overlapping-
+partition situation the MONBIO gewasgroepen created: **both placements are members, and rows under
+them must never be summed across.**
+
+**`Kropsla` was not added.** S065's *kropsla* row uses the existing L4 `Sla en andijvie`, with
+"Kropsla" carried in `stream_name_NL`. Adding a variety-level member for one row would deepen the
+ladder for no gain; revisit if a source reports lettuce types separately at volume.

@@ -41,6 +41,7 @@ Keep these five headings, in this order, so notes stay comparable across sources
 
 | Date | source_id | source_short | PDF (in archive/) | Claims added | Verified? | Commit | Anomalies / flags |
 |------|-----------|--------------|-------------------|-------------:|-----------|--------|-------------------|
+| 2026-09-01 | S065 | GeNeSys ILVO 165 | `S065_genesis.pdf` | 98 (C-704...C-801) | no | `PENDING4` | See [S065](#s065) - the superset to S066; 62 of 98 claims live in an unnumbered appendix, 1 layout trap caught by arithmetic, 12 new L4 members, no Zotero item (F-002) |
 | 2026-09-01 | S066 | ILVO 239 tuinbouw | `S066_Monitoring voedselverliezen Vlaamse tuinbouw_ILVO.pdf` | 111 (C-593...C-703) | no | `3388b1f` | See [S066](#s066) - 1 suspected source error (C-685, TOTAAL productie omits overig fruit), 2 rounding variants, 1 new dictionary member, first source whose edible/inedible split matches ours, no Zotero item (F-002) |
 | 2026-09-01 | S010 | Verkennende haalbaarheidsstudie biomassahub | `S010_Verkennende economische haalbaarheidsstudie biomassahub_ILVO.pdf` | **0** | n.v.t. | `c665c27` | See [S010](#s010) - a consolidation with no original measurement; all 4 data tables restated from S002/S006/S065/S066, no Zotero item (F-002) |
 | 2026-09-01 | S087 | Marktanalyse Biomassareststromen 2024 | `S087_Marktanalyse Biomassareststromen 2024 OVAM.pdf` | **0** | n.v.t. | `2856b23` | See [S087](#s087) - read cover-to-cover and agri-food-empty; 4 scope decisions, 8 tonnages named for recovery, no Zotero item (F-002) |
@@ -333,6 +334,181 @@ average, `Σø` = a sum of averaged parts.
 sits first). Every script here reads and writes by column header, so that is safe.
 
 ## Anomaly notes (detail, keyed by source_id)
+
+### S065
+
+**98 claims (C-704…C-801). The superset to S066, and the widest single source in the corpus.**
+GeNeSys covers three chain stages where S066 covers one, and reports at a scope S066 explicitly
+excludes. Together the two now hold the tuinbouw side from field to processing.
+
+**Where the data actually is.** The numbered tables carry almost nothing: **Tabel 2** (p.18) has
+three rows, **Tabel 3** (p.21) seven, **Tabel 4** (p.24) nine. The per-crop detail — the figures
+every downstream study quotes as "GeNeSys 2010" — lives in **Bijlage 1 on p.68**, an unnumbered
+appendix table absent from the source's own list of tables. Any session working from the table list
+alone would miss 62 of this source's 98 claims.
+
+#### 1. Variant readings
+
+**Tabel 2's totals are rounded versions of Bijlage 1, and the rounding is now measurable.** Both
+were captured as printed, with the exact sum recorded in `also_stated_in`:
+
+- **Groenten 800.000 t** (Tabel 2) against **799.285 t** summed over Bijlage 1's 25 groenterijen.
+- **Fruit 87.000 t** (Tabel 2) against **86.978 t** summed over its 4 fruitrijen.
+
+The source describes these as *"gemiddelden, berekend op basis van GeNeSys database"*, so the
+rounding is intentional, not an error.
+
+**The akkerbouw row is a rival measurement of streams the register already holds.** C-766 carries
+**3.000.000 t** of oogstresten on 224.428 ha of akkerbouwgewassen (granen, aardappelen,
+suikerbieten). MONBIO already gives measured stro figures — maisstro + tarwestro = 1.590.919 t. The
+two are not reconcilable and must never be summed: S065's is a flat order-of-magnitude estimate
+attributed to Bernaerts et al. (2012) with no reference year, MONBIO's is a per-fraction
+measurement. Cross-referenced on the row.
+
+#### 2. Suspected source errors
+
+**None.** But one **layout trap** that would have produced a wrong reading, caught by arithmetic:
+
+In Bijlage 1, each band-header row carries the **previous** block's production total, not its own.
+The number **1.009.182** is printed on the row headed *Glasgroenten*, and **340.570** on the row
+headed *Fruit*. Verified by summing:
+
+- the 23 openluchtgroenten production cells total **1.009.182** exactly → the figure on the
+  *Glasgroenten* row belongs to openluchtgroenten;
+- the 6 glasgroenten production cells total **340.570** exactly → the figure on the *Fruit* row
+  belongs to glasgroenten.
+
+Both are captured under the block they actually measure (C-764, C-765), with the trap spelled out
+in `source_type_label`. A reader taking the labels at face value would attribute 1,0 Mt of
+open-field production to glasshouses.
+
+#### 3. Deliberate exclusions
+
+**a. Rates and areas.** Bijlage 1's *Areaal (ha)* and *Reststroom (ton/ha)* columns; Tabel 2's
+*Areaal* columns; Tabel 4's *%* column. Converting a ton/ha rate into a Flemish tonnage needs the
+area, which is a derivation — and unnecessary, since the source has already done that arithmetic in
+its *Totale hoeveelheid natte reststroom* column, which **is** captured.
+
+**b. Cells with a rate but no tonnage.** Six Bijlage 1 rows carry a production figure but no
+residual total — **Asperge** (*"Loof en schillen"*, no rate), **Chicorei** (20 ton/ha, no total),
+**Peterselie**, **Pompoen**, **aubergine**, **veldsla**. Their production rows are captured; there
+is no residual figure to capture. In Tabel 4, **Diepvriesindustrie** gives 25% schilverlies,
+**Verlies bij snijderijen** 20%, and **Appel** 10-30%, all three without a tonnage; only
+diepvries's 955.000 t production figure is capturable (C-800).
+
+**c. Ranges, not values.** §5.4's summary bands — oogstresten *"ca. 15.000 – 200.000 ton per
+jaar"*, productieverliezen *"ca. 3.000 – 20.000 ton"*, veilingverliezen *"400 – 2.000 ton"*. A
+range is not a figure.
+
+**d. Out of scope by nature.** Tabel 1 (p.6, patents), Tabel 5 (p.28, valorisation costs in
+EUR/ton), Tabel 6 (p.36, protein/fibre sources in feed), Tabel 7 (p.54, knelpunten en
+opportuniteiten), and chapters 6-10 entirely (valorisation routes, markets, supply-chain
+organisation, legislation). Prices, qualitative criteria and policy text.
+
+**e. Destination data.** The three *"Huidig gebruik"* paragraphs and Tabel 5, indexed in
+`destination_index.csv`. They are qualitative or in percentages; the one tonnage among them
+(129.000 t, §5.3.2) **is** captured, as C-801.
+
+#### 4. Completeness sweep
+
+**7 numbered tables, 6 numbered figures, plus 1 unnumbered appendix table.**
+
+| Object | p. | Disposition |
+|---|---|---|
+| Tabel 1 (patenten) | 6 | excluded — patent counts, not quantities (3d) |
+| **Tabel 2** (arealen + oogstresten, 3 rijen) | **18** | **captured — 3 aggregates (C-766…C-768)**; areaal columns dropped (3a) |
+| **Tabel 3** (uit de markt genomen, veilingen) | **21** | **captured — 7 claims (C-769…C-775)**, kg → t |
+| **Tabel 4** (productieverliezen industrie, Belgie) | **24** | **captured — 25 claims (C-776…C-800)**; the three %-only rows have no tonnage (3b) |
+| Tabel 5 (valorisatietrajecten) | 28 | excluded — EUR/ton and qualitative (3d); indexed |
+| Tabel 6 (eiwit/vezel/antioxidant-bronnen in veevoeding) | 36 | excluded — no Flemish volumes (3d) |
+| Tabel 7 (knelpunten en opportuniteiten) | 54 | excluded — qualitative (3d) |
+| Figuur 1 (overzicht GeNeSys) | 7 | project schema, no numbers |
+| Figuur 2 (SIC-model) | 11 | method schema, no numbers |
+| Figuur 3 (brede scan) | 12 | method schema, no numbers |
+| Figuur 5 (waardepiramides) | 14 | schema, no numbers |
+| Figuur 6 (ketenopbouw tuinbouwproducten) | 17 | chain schema, no numbers |
+| **Bijlage 1** (oogstresten per gewas) | **68** | **captured — 62 claims (C-704…C-765)**, 33 production rows + 27 residual rows + 2 block totals |
+
+*(The source's figure numbering skips 4 — there is no Figuur 4 in the body; Figuur 3 is followed by
+Figuur 5. Noted so a reviewer does not hunt for it.)*
+
+Running text was swept: §5.3.2's **129.000 t** is the only tonnage outside the tables and is
+captured (C-801). §5.4 carries only the ranges in (3c).
+
+#### 5. Judgement calls & new dictionary members
+
+**Three session decisions, all taken by the user:**
+
+1. **Everything maps to `agri-food waste` with `type_assumed = TRUE`.** S065's Box 1 defines
+   nevenstroom and voedselverlies exactly as the register does, but then says it will use
+   *reststromen* as the umbrella *precisely because* it does not distinguish them — so the register
+   does not distinguish either. The fraction is preserved in `L5_fraction_as_named`, so nothing is
+   lost. **This is the sharp contrast with S066**, extracted the same day, where every row carries
+   `type_assumed = FALSE`: same institute, same crops, one splits and one declines to.
+2. **Tabel 4 captured at `geography = Belgie`** with the coverage caveat on every row. Worth being
+   precise about *how* Belgian it is: the residual tonnages are derived from the column *"productie
+   industriegroenten in België **en buitenland** voor verwerking in België"*, verified
+   (76.000 × 5% = 3.800; 107.000 × 20% = 21.400; 306.000 × 5% = 15.300). So the crops are partly
+   grown outside Belgium and only the processing is Belgian. Both production columns are captured
+   as **parallel accountings** — narrow (Belgian arealen) and wide (incl. foreign) — cross-
+   referenced with never-sum warnings.
+3. **The akkerbouw 3 Mt row captured**, cross-referenced against MONBIO's stro rows (§1).
+
+**Two audit findings were resolved by fixing my own row names, not by overriding the rule.**
+`audit_register.py` flagged the two *Bonen* rows as an unmarked residual class, because I had put
+the source's footnote (*"stambonen, stamslabonen, tuinbonen en veldbonen"*) into
+`stream_name_NL`, which trips the several-species-in-one-cell signal. The source's row is simply
+*Bonen*; the enumeration is a footnote clarifying what the L4 member covers, not a nomenclature
+leftover bucket. Names corrected to *Bonen*, footnote moved to `source_type_label`. **S065 now
+audits clean at 0 findings**, and the rule was not weakened to get there.
+
+**Twelve new L4 members and six new L5 fractions** — the largest intake so far, because Bijlage 1
+lists 33 crops. Full list and reasoning in `commodity_hierarchy.md`. Three points recorded there:
+
+- **`Kool` gained three siblings**, exactly as the S066 note predicted. `Witte kool`, `Rode kool`
+  and `Savooikool` are members alongside the coarser `Kool`. They are **not** an
+  aggregate-and-components pair: they come from different sources, and the aggregate machinery
+  operates only within a source.
+- **`Cichorei` and `Courgette` now sit under two L3 parents**, following each source's own
+  placement — the same overlapping-partition situation the MONBIO gewasgroepen created. Never sum
+  across.
+- **`Kropsla` was deliberately not added**; the row uses the existing `Sla en andijvie`.
+
+**The doordraai rows carry a vocabulary conflict, recorded on the row.** Tabel 3's column is headed
+*"Totale hoeveelheid natte **nevenstroom** (kg)"*, but market-withdrawn produce is marketable,
+edible fruit and veg — which contradicts the source's own Box 1 definition of nevenstroom as
+*niet-eetbare* biomassa. Rather than pick a side, the rows take `agri-food waste` with
+`type_assumed = TRUE` and state the conflict in `source_type_label`. Two coverage caveats travel
+with them: only the **three** auctions that applied for EU intervention support are counted, not
+all Flemish auctions, and **fruit was omitted by the source** as negligible.
+
+**Wet weight throughout.** The source works deliberately in natte tonnages, because its dry-matter
+percentages were computed on the primary product rather than on the residual stream. Recorded in
+`source_type_label` on every S065 row. The register has no basis column, so this is the only place
+it can live — and it matters when comparing S065 against any dry-matter source.
+
+**S010's transcription of this source was accurate — with one exception, already logged.** All 22
+Bijlage 1 figures and all 4 fruit figures that S010 reproduces match exactly. Its Tabel 4 relabelled
+S065's *Cichorei* as *Witloof* (8.250 t) and flagged only bloemkool as `(BEL)` when the whole table
+is Belgian. And **two figures S010 attributes to "GeNeSys 2010" are not in this report at all** —
+*groente- en fruitverwerking 337.404 t* and *organisch-biologische afvalstoffen … 723.449 t*. They
+must come from the GeNeSys *database* or another output, not Mededeling 165. A third, *veilingen
+5.191 t*, is S010's own sum of Tabel 3 (5.190.667 kg), not a figure this source prints — so it is
+not captured here.
+
+**How S065 and S066 relate, for the reviewer.** They are **not** rival measurements. S066 measures
+cells B+D of its own scope matrix — food-linked, post-harvest, primary production only. S065
+measures A+B+C+D+E+F+G+H+I — including pre-harvest, non-food-associated material (stro,
+spruitstokken, loof), and the veiling and verwerking stages. That is why the same crop differs so
+widely: spruiten reads **5.452 t** in S066 and **138.000 t** in S065, a factor 25. Neither is wrong;
+they answer different questions. **Never sum or average across the two sources**, and read S065 as
+the outer bound.
+
+**No Zotero item (F-002).** The Zotero MCP server timed out on connect this session. PDF archived as
+`archive/S065_genesis.pdf`.
+
+**42 aggregate rows now await a `DECISION` in `crosswalks/aggregate_coverage.csv`** — 35 from S066
+plus 7 from S065.
 
 ### S066
 
