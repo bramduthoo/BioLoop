@@ -19,7 +19,10 @@ Workbook location is resolved in this order:
 """
 import pandas as pd, json, re, pathlib, sys, os, csv, io
 HERE = pathlib.Path(__file__).resolve().parent
-REGISTRY = HERE / "crosswalks" / "aggregate_coverage.csv"
+# BIOLOOP_REGISTRY lets a session build the overview from an alternative decision sheet
+# (e.g. a reviewer's working copy) without overwriting the canonical one.
+REGISTRY = pathlib.Path(os.environ["BIOLOOP_REGISTRY"]).expanduser() \
+    if os.environ.get("BIOLOOP_REGISTRY") else HERE / "crosswalks" / "aggregate_coverage.csv"
 AGG_PREFIX = "AGGREGAAT"
 REVIEWED_OK = {"ok", "include", "yes", "j", "ja"}
 # A reviewer's DECISION_expert starting with one of these retires the claim: it leaves the
