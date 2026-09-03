@@ -1,0 +1,2191 @@
+{
+ "editions": [
+  {
+   "ed": "MONBIO 4.0",
+   "short": "MB4",
+   "fam": "MONBIO",
+   "yr": 2021,
+   "L1": 5451052,
+   "ceil": 4868081,
+   "ceilPct": 0.8930534876570614,
+   "nItems": 25
+  },
+  {
+   "ed": "MONBIO 3.0",
+   "short": "MB3",
+   "fam": "MONBIO",
+   "yr": 2020,
+   "L1": 5944027,
+   "ceil": 5313067,
+   "ceilPct": 0.893849741934214,
+   "nItems": 27
+  },
+  {
+   "ed": "OVAM Monitor voedselverlies 2023",
+   "short": "OV23",
+   "fam": "OVAM",
+   "yr": 2023,
+   "L1": 2891823.3333333335,
+   "ceil": 711957,
+   "ceilPct": 0.2461965749406084,
+   "nItems": 15
+  },
+  {
+   "ed": "OVAM Monitor voedselverlies 2020",
+   "short": "OV20",
+   "fam": "OVAM",
+   "yr": 2020,
+   "L1": 2583632.6,
+   "ceil": 286812.6,
+   "ceilPct": 0.1110113721277553,
+   "nItems": 16
+  },
+  {
+   "ed": "ILVO 239 tuinbouw",
+   "short": "ILVO",
+   "fam": "ILVO",
+   "yr": 2015,
+   "L1": 282821,
+   "ceil": 256888,
+   "ceilPct": 0.9083059603070494,
+   "nItems": 16
+  },
+  {
+   "ed": "GeNeSys ILVO 165",
+   "short": "GNS",
+   "fam": "ILVO",
+   "yr": "2010-12",
+   "L1": 990129.667,
+   "ceil": 947492.666,
+   "ceilPct": 0.9569379623487233,
+   "nItems": 30
+  }
+ ],
+ "streams": [
+  {
+   "key": "Plantaardig - akkerbouw|Mais",
+   "l2": "Plantaardig - akkerbouw",
+   "l4": "Mais",
+   "fr": [
+    "stro"
+   ],
+   "fams": [
+    "MONBIO"
+   ],
+   "in": {
+    "MB4": {
+     "v": 1335083,
+     "shareL1": 0.24492208109553898,
+     "shareCeil": 0.2742524210258621
+    },
+    "MB3": {
+     "v": 1456062,
+     "shareL1": 0.24496221164540471,
+     "shareCeil": 0.27405300930705373
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - akkerbouw|Tarwe",
+   "l2": "Plantaardig - akkerbouw",
+   "l4": "Tarwe",
+   "fr": [
+    "stro"
+   ],
+   "fams": [
+    "MONBIO"
+   ],
+   "in": {
+    "MB4": {
+     "v": 255836,
+     "shareL1": 0.04693332589745979,
+     "shareCeil": 0.052553768106980966
+    },
+    "MB3": {
+     "v": 236095,
+     "shareL1": 0.03971970517630556,
+     "shareCeil": 0.044436669065155775
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - akkerbouw|Gries",
+   "l2": "Plantaardig - akkerbouw",
+   "l4": "Gries",
+   "fr": [],
+   "fams": [
+    "MONBIO"
+   ],
+   "in": {
+    "MB4": {
+     "v": 85219,
+     "shareL1": 0.015633496066447358,
+     "shareCeil": 0.017505665990356363
+    },
+    "MB3": {
+     "v": 98390,
+     "shareL1": 0.01655275119039668,
+     "shareCeil": 0.018518494120251073
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - akkerbouw|Zemelen",
+   "l2": "Plantaardig - akkerbouw",
+   "l4": "Zemelen",
+   "fr": [],
+   "fams": [
+    "MONBIO"
+   ],
+   "in": {
+    "MB4": {
+     "v": 275849,
+     "shareL1": 0.05060472730768299,
+     "shareCeil": 0.05666483363773117
+    },
+    "MB3": {
+     "v": 278865,
+     "shareL1": 0.046915163743367926,
+     "shareCeil": 0.05248663342660652
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - akkerbouw|Bostel",
+   "l2": "Plantaardig - akkerbouw",
+   "l4": "Bostel",
+   "fr": [],
+   "fams": [
+    "MONBIO"
+   ],
+   "in": {
+    "MB4": {
+     "v": 134653,
+     "shareL1": 0.024702204271762587,
+     "shareCeil": 0.027660386094643864
+    },
+    "MB3": {
+     "v": 113637,
+     "shareL1": 0.01911784721031718,
+     "shareCeil": 0.02138821136642922
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - akkerbouw|Aardappel",
+   "l2": "Plantaardig - akkerbouw",
+   "l4": "Aardappel",
+   "fr": [
+    "loof"
+   ],
+   "fams": [
+    "MONBIO",
+    "OVAM"
+   ],
+   "in": {
+    "MB4": {
+     "v": 744945,
+     "shareL1": 0.13666077667209925,
+     "shareCeil": 0.15302641841826378
+    },
+    "MB3": {
+     "v": 800480,
+     "shareL1": 0.13466964399724296,
+     "shareCeil": 0.15066250811442808
+    },
+    "OV23": {
+     "v": 548305,
+     "shareL1": 0.18960528939642463,
+     "shareCeil": 0.7701378032662085
+    },
+    "OV20": {
+     "v": 102717,
+     "shareL1": 0.039756813720340886,
+     "shareCeil": 0.3581328016969966
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - akkerbouw|Suikerbiet",
+   "l2": "Plantaardig - akkerbouw",
+   "l4": "Suikerbiet",
+   "fr": [
+    "loof",
+    "pulp"
+   ],
+   "fams": [
+    "MONBIO",
+    "OVAM"
+   ],
+   "in": {
+    "MB4": {
+     "v": 812224,
+     "shareL1": 0.14900316489367557,
+     "shareCeil": 0.16684685402728508
+    },
+    "MB3": {
+     "v": 801533,
+     "shareL1": 0.1348467966245779,
+     "shareCeil": 0.1508606987263665
+    },
+    "OV23": {
+     "v": 23857,
+     "shareL1": 0.008249812402094641,
+     "shareCeil": 0.033509046192396454
+    },
+    "OV20": {
+     "v": 48662,
+     "shareL1": 0.018834721314477918,
+     "shareCeil": 0.16966479157470768
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - akkerbouw|Kool- en raapzaad",
+   "l2": "Plantaardig - akkerbouw",
+   "l4": "Kool- en raapzaad",
+   "fr": [
+    "stro"
+   ],
+   "fams": [
+    "MONBIO"
+   ],
+   "in": {
+    "MB4": {
+     "v": 7818,
+     "shareL1": 0.001434218569186278,
+     "shareCeil": 0.001605971634407891
+    },
+    "MB3": {
+     "v": 5931,
+     "shareL1": 0.000997808388151669,
+     "shareCeil": 0.0011163043869012004
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - akkerbouw|Soja",
+   "l2": "Plantaardig - akkerbouw",
+   "l4": "Soja",
+   "fr": [],
+   "fams": [
+    "MONBIO"
+   ],
+   "in": {
+    "MB4": {
+     "v": 98000,
+     "shareL1": 0.017978181092383635,
+     "shareCeil": 0.02013113586236548
+    },
+    "MB3": {
+     "v": 170000,
+     "shareL1": 0.028600139265854613,
+     "shareCeil": 0.031996585023301986
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - akkerbouw|Zonnebloem",
+   "l2": "Plantaardig - akkerbouw",
+   "l4": "Zonnebloem",
+   "fr": [],
+   "fams": [
+    "MONBIO"
+   ],
+   "in": {
+    "MB4": {
+     "v": 58000,
+     "shareL1": 0.010640147993451539,
+     "shareCeil": 0.011914345714461202
+    },
+    "MB3": {
+     "v": 49000,
+     "shareL1": 0.00824356955309927,
+     "shareCeil": 0.009222545094951748
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - akkerbouw|Lijnzaad",
+   "l2": "Plantaardig - akkerbouw",
+   "l4": "Lijnzaad",
+   "fr": [],
+   "fams": [
+    "MONBIO"
+   ],
+   "in": {
+    "MB4": {
+     "v": 245000,
+     "shareL1": 0.04494545273095909,
+     "shareCeil": 0.0503278396559137
+    },
+    "MB3": {
+     "v": 237000,
+     "shareL1": 0.0398719588588679,
+     "shareCeil": 0.044607003826603354
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Bloemkool",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Bloemkool",
+   "fr": [
+    "loof",
+    "harten",
+    "blad- en stengelmassa"
+   ],
+   "fams": [
+    "MONBIO",
+    "ILVO"
+   ],
+   "in": {
+    "MB4": {
+     "v": 180125,
+     "shareL1": 0.0330440802986286,
+     "shareCeil": 0.037001233134781444
+    },
+    "MB3": {
+     "v": 165644,
+     "shareL1": 0.027867302756195422,
+     "shareCeil": 0.031176719585881377
+    },
+    "ILVO": {
+     "v": 16388,
+     "shareL1": 0.05794477779231386,
+     "shareCeil": 0.06379433838871415
+    },
+    "GNS": {
+     "v": 197100,
+     "shareL1": 0.1990648362221026,
+     "shareCeil": 0.20802271835210173
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Spruiten",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Spruiten",
+   "fr": [
+    "stokken",
+    "stengelmassa"
+   ],
+   "fams": [
+    "MONBIO",
+    "ILVO"
+   ],
+   "in": {
+    "MB4": {
+     "v": 75983,
+     "shareL1": 0.013939144223903936,
+     "shareCeil": 0.015608409145205266
+    },
+    "MB3": {
+     "v": 65509,
+     "shareL1": 0.01102097954804041,
+     "shareCeil": 0.01232978993112641
+    },
+    "ILVO": {
+     "v": 5452,
+     "shareL1": 0.01927721067388914,
+     "shareCeil": 0.021223256827878297
+    },
+    "GNS": {
+     "v": 138000,
+     "shareL1": 0.13937568441730167,
+     "shareCeil": 0.14564756536068008
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Wortel",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Wortel",
+   "fr": [
+    "loof",
+    "bladmassa"
+   ],
+   "fams": [
+    "MONBIO",
+    "ILVO"
+   ],
+   "in": {
+    "MB4": {
+     "v": 72718,
+     "shareL1": 0.013340177272203603,
+     "shareCeil": 0.01493771364938258
+    },
+    "MB3": {
+     "v": 69001,
+     "shareL1": 0.011608460055783731,
+     "shareCeil": 0.012987037430546236
+    },
+    "ILVO": {
+     "v": 16966,
+     "shareL1": 0.05998847327461539,
+     "shareCeil": 0.06604434617420822
+    },
+    "GNS": {
+     "v": 69500,
+     "shareL1": 0.07019282657248165,
+     "shareCeil": 0.07335149125048743
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Prei",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Prei",
+   "fr": [
+    "loof",
+    "bladmassa (groene deel)"
+   ],
+   "fams": [
+    "MONBIO",
+    "ILVO"
+   ],
+   "in": {
+    "MB4": {
+     "v": 69778,
+     "shareL1": 0.012800831839432095,
+     "shareCeil": 0.014333779573511616
+    },
+    "MB3": {
+     "v": 62857,
+     "shareL1": 0.01057481737549308,
+     "shareCeil": 0.0118306432047629
+    },
+    "ILVO": {
+     "v": 101746,
+     "shareL1": 0.35975404938105726,
+     "shareCeil": 0.39607143969356295
+    },
+    "GNS": {
+     "v": 70875,
+     "shareL1": 0.07158153357301635,
+     "shareCeil": 0.07480268981839275
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Ui",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Ui",
+   "fr": [
+    "schillen"
+   ],
+   "fams": [
+    "MONBIO",
+    "ILVO"
+   ],
+   "in": {
+    "MB4": {
+     "v": 62032,
+     "shareL1": 0.011379821729823894,
+     "shareCeil": 0.012742598161369953
+    },
+    "MB3": {
+     "v": 50695,
+     "shareL1": 0.008528729765191175,
+     "shareCeil": 0.009541569869154672
+    },
+    "ILVO": {
+     "v": 33411,
+     "shareL1": 0.11813479197089324,
+     "shareCeil": 0.13006057114384478
+    },
+    "GNS": {
+     "v": 33080,
+     "shareL1": 0.033409765511045936,
+     "shareCeil": 0.034913199000951425
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Appel",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Appel",
+   "fr": [],
+   "fams": [
+    "MONBIO",
+    "ILVO"
+   ],
+   "in": {
+    "MB4": {
+     "v": 14000,
+     "shareL1": 0.0025683115846262335,
+     "shareCeil": 0.002875876551766497
+    },
+    "MB3": {
+     "v": 14000,
+     "shareL1": 0.0023553055865997916,
+     "shareCeil": 0.002635012884271928
+    },
+    "ILVO": {
+     "v": 13913,
+     "shareL1": 0.0491936595938774,
+     "shareCeil": 0.05415978948024042
+    },
+    "GNS": {
+     "v": 54800,
+     "shareL1": 0.05534628627585603,
+     "shareCeil": 0.05783685928815411
+    }
+   }
+  },
+  {
+   "key": "Dierlijk - vee|Melk",
+   "l2": "Dierlijk - vee",
+   "l4": "Melk",
+   "fr": [],
+   "fams": [
+    "MONBIO",
+    "OVAM"
+   ],
+   "in": {
+    "MB4": {
+     "v": 19000,
+     "shareL1": 0.0034855657219927455,
+     "shareCeil": 0.0039029753202545316
+    },
+    "MB3": {
+     "v": 19000,
+     "shareL1": 0.0031964861532425746,
+     "shareCeil": 0.003576088914369045
+    },
+    "OV23": {
+     "v": 89593,
+     "shareL1": 0.030981491492679935,
+     "shareCeil": 0.12584046508426772
+    },
+    "OV20": {
+     "v": 135226,
+     "shareL1": 0.05233948511100223,
+     "shareCeil": 0.4714785891554277
+    }
+   }
+  },
+  {
+   "key": "Dierlijk - vee|Dierlijk vet",
+   "l2": "Dierlijk - vee",
+   "l4": "Dierlijk vet",
+   "fr": [],
+   "fams": [
+    "MONBIO"
+   ],
+   "in": {
+    "MB4": {
+     "v": 145498,
+     "shareL1": 0.026691728495710554,
+     "shareCeil": 0.02988816332349441
+    },
+    "MB3": {
+     "v": 136457,
+     "shareL1": 0.02295699531647484,
+     "shareCeil": 0.025683282367792465
+    }
+   }
+  },
+  {
+   "key": "Dierlijk - vee|Gevogelte",
+   "l2": "Dierlijk - vee",
+   "l4": "Gevogelte",
+   "fr": [],
+   "fams": [
+    "MONBIO"
+   ],
+   "in": {
+    "MB4": {
+     "v": 84141,
+     "shareL1": 0.015435736074431137,
+     "shareCeil": 0.017284223495870343
+    },
+    "MB3": {
+     "v": 86856,
+     "shareL1": 0.014612315859265108,
+     "shareCeil": 0.01634761993402304
+    }
+   }
+  },
+  {
+   "key": "Dierlijk - vis|Vis (alle soorten)",
+   "l2": "Dierlijk - vis",
+   "l4": "Vis (alle soorten)",
+   "fr": [],
+   "fams": [
+    "MONBIO"
+   ],
+   "in": {
+    "MB4": {
+     "v": 214,
+     "shareL1": 0.000039258477079286716,
+     "shareCeil": 0.00004395982729128788
+    },
+    "MB3": {
+     "v": 199,
+     "shareL1": 0.000033478986552382756,
+     "shareCeil": 0.000037454825997865264
+    }
+   }
+  },
+  {
+   "key": "Dierlijk - vis|Schaal- en weekdieren",
+   "l2": "Dierlijk - vis",
+   "l4": "Schaal- en weekdieren",
+   "fr": [],
+   "fams": [
+    "MONBIO",
+    "OVAM"
+   ],
+   "in": {
+    "MB4": {
+     "v": 7,
+     "shareL1": 0.0000012841557923131168,
+     "shareCeil": 0.0000014379382758832485
+    },
+    "OV23": {
+     "v": 1,
+     "shareL1": 3.458025905224731e-7,
+     "shareCeil": 0.0000014045792091376305
+    },
+    "OV20": {
+     "v": 8.5,
+     "shareL1": 0.000003289941456846457,
+     "shareCeil": 0.000029636075960400627
+    }
+   }
+  },
+  {
+   "key": "Varia|Melasse",
+   "l2": "Varia",
+   "l4": "Melasse",
+   "fr": [],
+   "fams": [
+    "MONBIO"
+   ],
+   "in": {
+    "MB4": {
+     "v": 91958,
+     "shareL1": 0.016869771192789942,
+     "shareCeil": 0.018889989710524538
+    },
+    "MB3": {
+     "v": 111298,
+     "shareL1": 0.018724342941241687,
+     "shareCeil": 0.02094797599954979
+    }
+   }
+  },
+  {
+   "key": "Dierlijk - vis|Weekdieren",
+   "l2": "Dierlijk - vis",
+   "l4": "Weekdieren",
+   "fr": [],
+   "fams": [
+    "MONBIO"
+   ],
+   "in": {
+    "MB3": {
+     "v": 7,
+     "shareL1": 0.0000011776527932998958,
+     "shareCeil": 0.000001317506442135964
+    }
+   }
+  },
+  {
+   "key": "Dierlijk - vis|Schaaldieren",
+   "l2": "Dierlijk - vis",
+   "l4": "Schaaldieren",
+   "fr": [],
+   "fams": [
+    "MONBIO"
+   ],
+   "in": {
+    "MB3": {
+     "v": 2,
+     "shareL1": 3.364722266571131e-7,
+     "shareCeil": 3.764304120388469e-7
+    }
+   }
+  },
+  {
+   "key": "Varia|Zetmeel",
+   "l2": "Varia",
+   "l4": "Zetmeel",
+   "fr": [],
+   "fams": [
+    "MONBIO"
+   ],
+   "in": {
+    "MB3": {
+     "v": 284549,
+     "shareL1": 0.047871417811527435,
+     "shareCeil": 0.053556448657620916
+    }
+   }
+  },
+  {
+   "key": "Dierlijk - vis|Schelvis",
+   "l2": "Dierlijk - vis",
+   "l4": "Schelvis",
+   "fr": [],
+   "fams": [
+    "OVAM"
+   ],
+   "in": {
+    "OV23": {
+     "v": 7,
+     "shareL1": 0.0000024206181336573117,
+     "shareCeil": 0.000009832054463963413
+    },
+    "OV20": {
+     "v": 6,
+     "shareL1": 0.000002322311616597499,
+     "shareCeil": 0.00002091958303087103
+    }
+   }
+  },
+  {
+   "key": "Dierlijk - vis|Wijting",
+   "l2": "Dierlijk - vis",
+   "l4": "Wijting",
+   "fr": [],
+   "fams": [
+    "OVAM"
+   ],
+   "in": {
+    "OV23": {
+     "v": 23,
+     "shareL1": 0.00000795345958201688,
+     "shareCeil": 0.0000323053218101655
+    },
+    "OV20": {
+     "v": 3.3,
+     "shareL1": 0.0000012772713891286244,
+     "shareCeil": 0.000011505770666979066
+    }
+   }
+  },
+  {
+   "key": "Dierlijk - vis|Heek",
+   "l2": "Dierlijk - vis",
+   "l4": "Heek",
+   "fr": [],
+   "fams": [
+    "OVAM"
+   ],
+   "in": {
+    "OV23": {
+     "v": 2,
+     "shareL1": 6.916051810449462e-7,
+     "shareCeil": 0.000002809158418275261
+    },
+    "OV20": {
+     "v": 10,
+     "shareL1": 0.000003870519360995832,
+     "shareCeil": 0.000034865971718118384
+    }
+   }
+  },
+  {
+   "key": "Dierlijk - vis|Steenbolk",
+   "l2": "Dierlijk - vis",
+   "l4": "Steenbolk",
+   "fr": [],
+   "fams": [
+    "OVAM"
+   ],
+   "in": {
+    "OV23": {
+     "v": 3,
+     "shareL1": 0.0000010374077715674193,
+     "shareCeil": 0.0000042137376274128915
+    },
+    "OV20": {
+     "v": 15.6,
+     "shareL1": 0.000006038010203153498,
+     "shareCeil": 0.000054390915880264675
+    }
+   }
+  },
+  {
+   "key": "Dierlijk - vis|Schar",
+   "l2": "Dierlijk - vis",
+   "l4": "Schar",
+   "fr": [],
+   "fams": [
+    "OVAM"
+   ],
+   "in": {
+    "OV23": {
+     "v": 2,
+     "shareL1": 6.916051810449462e-7,
+     "shareCeil": 0.000002809158418275261
+    },
+    "OV20": {
+     "v": 16.3,
+     "shareL1": 0.000006308946558423206,
+     "shareCeil": 0.00005683153390053297
+    }
+   }
+  },
+  {
+   "key": "Dierlijk - vis|Roggen",
+   "l2": "Dierlijk - vis",
+   "l4": "Roggen",
+   "fr": [],
+   "fams": [
+    "OVAM"
+   ],
+   "in": {
+    "OV23": {
+     "v": 5,
+     "shareL1": 0.0000017290129526123655,
+     "shareCeil": 0.0000070228960456881525
+    },
+    "OV20": {
+     "v": 35.9,
+     "shareL1": 0.000013895164505975036,
+     "shareCeil": 0.00012516883846804499
+    }
+   }
+  },
+  {
+   "key": "Dierlijk - vis|Ponen",
+   "l2": "Dierlijk - vis",
+   "l4": "Ponen",
+   "fr": [],
+   "fams": [
+    "OVAM"
+   ],
+   "in": {
+    "OV23": {
+     "v": 55,
+     "shareL1": 0.000019019142478736022,
+     "shareCeil": 0.00007725185650256968
+    },
+    "OV20": {
+     "v": 4.9,
+     "shareL1": 0.0000018965544868879578,
+     "shareCeil": 0.000017084326141878008
+    }
+   }
+  },
+  {
+   "key": "Dierlijk - vis|Haaien",
+   "l2": "Dierlijk - vis",
+   "l4": "Haaien",
+   "fr": [],
+   "fams": [
+    "OVAM"
+   ],
+   "in": {
+    "OV23": {
+     "v": 61,
+     "shareL1": 0.000021093958021870862,
+     "shareCeil": 0.00008567933175739546
+    }
+   }
+  },
+  {
+   "key": "Dierlijk - vis|Andere demersale soorten",
+   "l2": "Dierlijk - vis",
+   "l4": "Andere demersale soorten",
+   "fr": [],
+   "fams": [
+    "OVAM"
+   ],
+   "in": {
+    "OV23": {
+     "v": 27,
+     "shareL1": 0.000009336669944106774,
+     "shareCeil": 0.000037923638646716026
+    },
+    "OV20": {
+     "v": 94.1,
+     "shareL1": 0.000036421587186970775,
+     "shareCeil": 0.00032808879386749397
+    }
+   }
+  },
+  {
+   "key": "Dierlijk - vis|Pelagische soorten",
+   "l2": "Dierlijk - vis",
+   "l4": "Pelagische soorten",
+   "fr": [],
+   "fams": [
+    "OVAM"
+   ],
+   "in": {
+    "OV23": {
+     "v": 16,
+     "shareL1": 0.00000553284144835957,
+     "shareCeil": 0.000022473267346202088
+    }
+   }
+  },
+  {
+   "key": "Dierlijk - vee|Slachthuisstromen",
+   "l2": "Dierlijk - vee",
+   "l4": "Slachthuisstromen",
+   "fr": [],
+   "fams": [
+    "OVAM"
+   ],
+   "in": {
+    "OV23": {
+     "v": 50000,
+     "shareL1": 0.017290129526123656,
+     "shareCeil": 0.07022896045688153
+    }
+   }
+  },
+  {
+   "key": "Dierlijk - vis|Schol",
+   "l2": "Dierlijk - vis",
+   "l4": "Schol",
+   "fr": [],
+   "fams": [
+    "OVAM"
+   ],
+   "in": {
+    "OV20": {
+     "v": 1.8,
+     "shareL1": 6.966934849792497e-7,
+     "shareCeil": 0.0000062758749092613095
+    }
+   }
+  },
+  {
+   "key": "Dierlijk - vis|Bot",
+   "l2": "Dierlijk - vis",
+   "l4": "Bot",
+   "fr": [],
+   "fams": [
+    "OVAM"
+   ],
+   "in": {
+    "OV20": {
+     "v": 1.6,
+     "shareL1": 6.192830977593331e-7,
+     "shareCeil": 0.000005578555474898942
+    }
+   }
+  },
+  {
+   "key": "Dierlijk - vis|Kongeraal",
+   "l2": "Dierlijk - vis",
+   "l4": "Kongeraal",
+   "fr": [],
+   "fams": [
+    "OVAM"
+   ],
+   "in": {
+    "OV20": {
+     "v": 8.7,
+     "shareL1": 0.0000033673518440663735,
+     "shareCeil": 0.00003033339539476299
+    }
+   }
+  },
+  {
+   "key": "Dierlijk - vis|Haaien alg.",
+   "l2": "Dierlijk - vis",
+   "l4": "Haaien alg.",
+   "fr": [],
+   "fams": [
+    "OVAM"
+   ],
+   "in": {
+    "OV20": {
+     "v": 0.9,
+     "shareL1": 3.4834674248962486e-7,
+     "shareCeil": 0.0000031379374546306548
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Boon",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Boon",
+   "fr": [
+    "blad- en stengelmassa"
+   ],
+   "fams": [
+    "ILVO"
+   ],
+   "in": {
+    "ILVO": {
+     "v": 1783,
+     "shareL1": 0.006304340908206958,
+     "shareCeil": 0.006940767961134814
+    },
+    "GNS": {
+     "v": 68600,
+     "shareL1": 0.06928385471758619,
+     "shareCeil": 0.07240161582422212
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Spinazie",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Spinazie",
+   "fr": [],
+   "fams": [
+    "ILVO"
+   ],
+   "in": {
+    "ILVO": {
+     "v": 19305,
+     "shareL1": 0.06825872194780444,
+     "shareCeil": 0.07514948148609511
+    },
+    "GNS": {
+     "v": 22020,
+     "shareL1": 0.022239511383108573,
+     "shareCeil": 0.023240285429291123
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Kool",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Kool",
+   "fr": [],
+   "fams": [
+    "ILVO"
+   ],
+   "in": {
+    "ILVO": {
+     "v": 143,
+     "shareL1": 0.0005056201625763292,
+     "shareCeil": 0.0005566628258229267
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Witloof",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Witloof",
+   "fr": [
+    "wortelmassa na forcerie",
+    "blaadjes"
+   ],
+   "fams": [
+    "ILVO"
+   ],
+   "in": {
+    "ILVO": {
+     "v": 10277,
+     "shareL1": 0.03633747140417437,
+     "shareCeil": 0.04000576126560992
+    },
+    "GNS": {
+     "v": 22275,
+     "shareL1": 0.02249705340866228,
+     "shareCeil": 0.023509416800066293
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Tomaat",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Tomaat",
+   "fr": [],
+   "fams": [
+    "ILVO"
+   ],
+   "in": {
+    "ILVO": {
+     "v": 5050,
+     "shareL1": 0.017855816930143095,
+     "shareCeil": 0.019658372520320138
+    },
+    "GNS": {
+     "v": 14931.222,
+     "shareL1": 0.015080067285772984,
+     "shareCeil": 0.01575866762434655
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Sla en andijvie",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Sla en andijvie",
+   "fr": [],
+   "fams": [
+    "ILVO"
+   ],
+   "in": {
+    "ILVO": {
+     "v": 10519,
+     "shareL1": 0.03719313629468816,
+     "shareCeil": 0.04094780604777179
+    },
+    "GNS": {
+     "v": 10443.571,
+     "shareL1": 0.01054768011511365,
+     "shareCeil": 0.011022323839285527
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Paprika",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Paprika",
+   "fr": [],
+   "fams": [
+    "ILVO"
+   ],
+   "in": {
+    "ILVO": {
+     "v": 511,
+     "shareL1": 0.001806796525010519,
+     "shareCeil": 0.0019891937342343745
+    },
+    "GNS": {
+     "v": 3638.518,
+     "shareL1": 0.0036747893950338528,
+     "shareCeil": 0.0038401542624710936
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Champignon",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Champignon",
+   "fr": [],
+   "fams": [
+    "ILVO"
+   ],
+   "in": {
+    "ILVO": {
+     "v": 2643,
+     "shareL1": 0.009345133494330336,
+     "shareCeil": 0.010288530410139827
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Peer",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Peer",
+   "fr": [],
+   "fams": [
+    "ILVO"
+   ],
+   "in": {
+    "ILVO": {
+     "v": 16945,
+     "shareL1": 0.05991422136262866,
+     "shareCeil": 0.06596259848649995
+    },
+    "GNS": {
+     "v": 8545,
+     "shareL1": 0.008630182777868426,
+     "shareCeil": 0.009018539463818922
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Aardbei",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Aardbei",
+   "fr": [],
+   "fams": [
+    "ILVO"
+   ],
+   "in": {
+    "ILVO": {
+     "v": 1836,
+     "shareL1": 0.006491738590840143,
+     "shareCeil": 0.007147083553922332
+    },
+    "GNS": {
+     "v": 22500,
+     "shareL1": 0.022724296372386144,
+     "shareCeil": 0.02374688565663262
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Broccoli",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Broccoli",
+   "fr": [
+    "blad- en stengelmassa"
+   ],
+   "fams": [
+    "ILVO"
+   ],
+   "in": {
+    "GNS": {
+     "v": 10000,
+     "shareL1": 0.010099687276616063,
+     "shareCeil": 0.01055417140294783
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Courgette",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Courgette",
+   "fr": [
+    "blad- en stengelmassa"
+   ],
+   "fams": [
+    "ILVO"
+   ],
+   "in": {
+    "GNS": {
+     "v": 7350.534,
+     "shareL1": 0.007423809471613378,
+     "shareCeil": 0.007757879573919573
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Erwt",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Erwt",
+   "fr": [],
+   "fams": [
+    "ILVO"
+   ],
+   "in": {
+    "GNS": {
+     "v": 93400,
+     "shareL1": 0.09433107916359404,
+     "shareCeil": 0.09857596090353274
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Knolselder",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Knolselder",
+   "fr": [
+    "bladmassa"
+   ],
+   "fams": [
+    "ILVO"
+   ],
+   "in": {
+    "GNS": {
+     "v": 9000,
+     "shareL1": 0.009089718548954457,
+     "shareCeil": 0.009498754262653047
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Raap",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Raap",
+   "fr": [
+    "blad- en stengelmassa"
+   ],
+   "fams": [
+    "ILVO"
+   ],
+   "in": {
+    "GNS": {
+     "v": 3700,
+     "shareL1": 0.0037368842923479434,
+     "shareCeil": 0.0039050434190906974
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Rode kool",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Rode kool",
+   "fr": [
+    "buitenste bladeren"
+   ],
+   "fams": [
+    "ILVO"
+   ],
+   "in": {
+    "GNS": {
+     "v": 15000,
+     "shareL1": 0.015149530914924094,
+     "shareCeil": 0.015831257104421747
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Savooikool",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Savooikool",
+   "fr": [
+    "buitenste bladeren"
+   ],
+   "fams": [
+    "ILVO"
+   ],
+   "in": {
+    "GNS": {
+     "v": 15000,
+     "shareL1": 0.015149530914924094,
+     "shareCeil": 0.015831257104421747
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Schorseneer",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Schorseneer",
+   "fr": [
+    "blad- en stengelmassa"
+   ],
+   "fams": [
+    "ILVO"
+   ],
+   "in": {
+    "GNS": {
+     "v": 7000,
+     "shareL1": 0.007069781093631244,
+     "shareCeil": 0.0073879199820634815
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Selder",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Selder",
+   "fr": [
+    "blad- en stengelmassa"
+   ],
+   "fams": [
+    "ILVO"
+   ],
+   "in": {
+    "GNS": {
+     "v": 19250,
+     "shareL1": 0.01944189800748592,
+     "shareCeil": 0.020316779950674574
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Witte kool",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Witte kool",
+   "fr": [
+    "buitenste bladeren"
+   ],
+   "fams": [
+    "ILVO"
+   ],
+   "in": {
+    "GNS": {
+     "v": 20000,
+     "shareL1": 0.020199374553232126,
+     "shareCeil": 0.02110834280589566
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Cichorei",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Cichorei",
+   "fr": [],
+   "fams": [
+    "ILVO"
+   ],
+   "in": {
+    "GNS": {
+     "v": 8250,
+     "shareL1": 0.008332242003208253,
+     "shareCeil": 0.008707191407431961
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Komkommer",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Komkommer",
+   "fr": [],
+   "fams": [
+    "ILVO"
+   ],
+   "in": {
+    "GNS": {
+     "v": 2087.421,
+     "shareL1": 0.0021082299314641177,
+     "shareCeil": 0.0022030999024112764
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Aubergine",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Aubergine",
+   "fr": [],
+   "fams": [
+    "ILVO"
+   ],
+   "in": {
+    "GNS": {
+     "v": 13.4,
+     "shareL1": 0.000013533580950665525,
+     "shareCeil": 0.000014142589679950093
+    }
+   }
+  },
+  {
+   "key": "Plantaardig - tuinbouw|Kers",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Kers",
+   "fr": [],
+   "fams": [
+    "ILVO"
+   ],
+   "in": {
+    "GNS": {
+     "v": 1133,
+     "shareL1": 0.0011442945684406,
+     "shareCeil": 0.0011957876199539892
+    }
+   }
+  }
+ ],
+ "trace": [
+  {
+   "n": 1,
+   "key": "Plantaardig - akkerbouw|Aardappel",
+   "l4": "Aardappel",
+   "l2": "Plantaardig - akkerbouw",
+   "fams": [
+    "MONBIO",
+    "OVAM"
+   ],
+   "fr": [
+    "loof"
+   ],
+   "ceil": {
+    "MB4": 0.15302641841826378,
+    "MB3": 0.15066250811442808,
+    "OV23": 0.7701378032662085,
+    "OV20": 0.3581328016969966,
+    "ILVO": 0,
+    "GNS": 0
+   },
+   "l1": {
+    "MB4": 0.13666077667209925,
+    "MB3": 0.13466964399724296,
+    "OV23": 0.18960528939642463,
+    "OV20": 0.039756813720340886,
+    "ILVO": 0,
+    "GNS": 0
+   },
+   "meanCeil": 0.23865992191598284,
+   "minCeil": 0,
+   "meanL1": 0.0834487539643513
+  },
+  {
+   "n": 2,
+   "key": "Dierlijk - vee|Melk",
+   "l4": "Melk",
+   "l2": "Dierlijk - vee",
+   "fams": [
+    "MONBIO",
+    "OVAM"
+   ],
+   "fr": [],
+   "ceil": {
+    "MB4": 0.15692939373851833,
+    "MB3": 0.1542385970287971,
+    "OV23": 0.8959782683504762,
+    "OV20": 0.8296113908524243,
+    "ILVO": 0,
+    "GNS": 0
+   },
+   "l1": {
+    "MB4": 0.14014634239409202,
+    "MB3": 0.13786613015048552,
+    "OV23": 0.22058678088910455,
+    "OV20": 0.09209629883134313,
+    "ILVO": 0,
+    "GNS": 0
+   },
+   "meanCeil": 0.33945960832836936,
+   "minCeil": 0,
+   "meanL1": 0.09844925871083754
+  },
+  {
+   "n": 3,
+   "key": "Plantaardig - akkerbouw|Mais",
+   "l4": "Mais",
+   "l2": "Plantaardig - akkerbouw",
+   "fams": [
+    "MONBIO"
+   ],
+   "fr": [
+    "stro"
+   ],
+   "ceil": {
+    "MB4": 0.43118181476438044,
+    "MB3": 0.42829160633585084,
+    "OV23": 0.8959782683504762,
+    "OV20": 0.8296113908524243,
+    "ILVO": 0,
+    "GNS": 0
+   },
+   "l1": {
+    "MB4": 0.385068423489631,
+    "MB3": 0.3828283417958902,
+    "OV23": 0.22058678088910455,
+    "OV20": 0.09209629883134313,
+    "ILVO": 0,
+    "GNS": 0
+   },
+   "meanCeil": 0.43084384671718867,
+   "minCeil": 0,
+   "meanL1": 0.18009664083432816
+  },
+  {
+   "n": 4,
+   "key": "Plantaardig - akkerbouw|Suikerbiet",
+   "l4": "Suikerbiet",
+   "l2": "Plantaardig - akkerbouw",
+   "fams": [
+    "MONBIO",
+    "OVAM"
+   ],
+   "fr": [
+    "loof",
+    "pulp"
+   ],
+   "ceil": {
+    "MB4": 0.5980286687916655,
+    "MB3": 0.5791523050622174,
+    "OV23": 0.9294873145428727,
+    "OV20": 0.9992761824271319,
+    "ILVO": 0,
+    "GNS": 0
+   },
+   "l1": {
+    "MB4": 0.5340715883833066,
+    "MB3": 0.5176751384204682,
+    "OV23": 0.2288365932911992,
+    "OV20": 0.11093102014582104,
+    "ILVO": 0,
+    "GNS": 0
+   },
+   "meanCeil": 0.5176574118039813,
+   "minCeil": 0,
+   "meanL1": 0.23191905670679921
+  },
+  {
+   "n": 5,
+   "key": "Plantaardig - tuinbouw|Prei",
+   "l4": "Prei",
+   "l2": "Plantaardig - tuinbouw",
+   "fams": [
+    "MONBIO",
+    "ILVO"
+   ],
+   "fr": [
+    "loof",
+    "bladmassa (groene deel)"
+   ],
+   "ceil": {
+    "MB4": 0.6123624483651772,
+    "MB3": 0.5909829482669803,
+    "OV23": 0.9294873145428727,
+    "OV20": 0.9992761824271319,
+    "ILVO": 0.39607143969356295,
+    "GNS": 0.07480268981839275
+   },
+   "l1": {
+    "MB4": 0.5468724202227386,
+    "MB3": 0.5282499557959612,
+    "OV23": 0.2288365932911992,
+    "OV20": 0.11093102014582104,
+    "ILVO": 0.35975404938105726,
+    "GNS": 0.07158153357301635
+   },
+   "meanCeil": 0.6004971705190195,
+   "minCeil": 0.07480268981839275,
+   "meanL1": 0.307704262068299
+  },
+  {
+   "n": 6,
+   "key": "Plantaardig - tuinbouw|Bloemkool",
+   "l4": "Bloemkool",
+   "l2": "Plantaardig - tuinbouw",
+   "fams": [
+    "MONBIO",
+    "ILVO"
+   ],
+   "fr": [
+    "loof",
+    "harten",
+    "blad- en stengelmassa"
+   ],
+   "ceil": {
+    "MB4": 0.6493636814999586,
+    "MB3": 0.6221596678528616,
+    "OV23": 0.9294873145428727,
+    "OV20": 0.9992761824271319,
+    "ILVO": 0.4598657780822771,
+    "GNS": 0.2828254081704945
+   },
+   "l1": {
+    "MB4": 0.5799165005213672,
+    "MB3": 0.5561172585521567,
+    "OV23": 0.2288365932911992,
+    "OV20": 0.11093102014582104,
+    "ILVO": 0.41769882717337115,
+    "GNS": 0.27064636979511897
+   },
+   "meanCeil": 0.657163005429266,
+   "minCeil": 0.2828254081704945,
+   "meanL1": 0.36069109491317236
+  },
+  {
+   "n": 7,
+   "key": "Plantaardig - tuinbouw|Spruiten",
+   "l4": "Spruiten",
+   "l2": "Plantaardig - tuinbouw",
+   "fams": [
+    "MONBIO",
+    "ILVO"
+   ],
+   "fr": [
+    "stokken",
+    "stengelmassa"
+   ],
+   "ceil": {
+    "MB4": 0.6649720906451638,
+    "MB3": 0.634489457783988,
+    "OV23": 0.9294873145428727,
+    "OV20": 0.9992761824271319,
+    "ILVO": 0.4810890349101554,
+    "GNS": 0.42847297353117453
+   },
+   "l1": {
+    "MB4": 0.5938556447452712,
+    "MB3": 0.567138238100197,
+    "OV23": 0.2288365932911992,
+    "OV20": 0.11093102014582104,
+    "ILVO": 0.4369760378472603,
+    "GNS": 0.41002205421242066
+   },
+   "meanCeil": 0.6896311756400811,
+   "minCeil": 0.42847297353117453,
+   "meanL1": 0.3912932647236949
+  },
+  {
+   "n": 8,
+   "key": "Plantaardig - tuinbouw|Ui",
+   "l4": "Ui",
+   "l2": "Plantaardig - tuinbouw",
+   "fams": [
+    "MONBIO",
+    "ILVO"
+   ],
+   "fr": [
+    "schillen"
+   ],
+   "ceil": {
+    "MB4": 0.6777146888065338,
+    "MB3": 0.6440310276531427,
+    "OV23": 0.9294873145428727,
+    "OV20": 0.9992761824271319,
+    "ILVO": 0.6111496060540001,
+    "GNS": 0.463386172532126
+   },
+   "l1": {
+    "MB4": 0.6052354664750951,
+    "MB3": 0.5756669678653882,
+    "OV23": 0.2288365932911992,
+    "OV20": 0.11093102014582104,
+    "ILVO": 0.5551108298181535,
+    "GNS": 0.44343181972346657
+   },
+   "meanCeil": 0.7208408320026346,
+   "minCeil": 0.463386172532126,
+   "meanL1": 0.41986878288652063
+  },
+  {
+   "n": 9,
+   "key": "Plantaardig - tuinbouw|Wortel",
+   "l4": "Wortel",
+   "l2": "Plantaardig - tuinbouw",
+   "fams": [
+    "MONBIO",
+    "ILVO"
+   ],
+   "fr": [
+    "loof",
+    "bladmassa"
+   ],
+   "ceil": {
+    "MB4": 0.6926524024559164,
+    "MB3": 0.657018065083689,
+    "OV23": 0.9294873145428727,
+    "OV20": 0.9992761824271319,
+    "ILVO": 0.6771939522282084,
+    "GNS": 0.5367376637826135
+   },
+   "l1": {
+    "MB4": 0.6185756437472987,
+    "MB3": 0.5872754279211719,
+    "OV23": 0.2288365932911992,
+    "OV20": 0.11093102014582104,
+    "ILVO": 0.615099303092769,
+    "GNS": 0.5136246462959482
+   },
+   "meanCeil": 0.7487275967534052,
+   "minCeil": 0.5367376637826135,
+   "meanL1": 0.44572377241570144
+  },
+  {
+   "n": 10,
+   "key": "Plantaardig - tuinbouw|Appel",
+   "l4": "Appel",
+   "l2": "Plantaardig - tuinbouw",
+   "fams": [
+    "MONBIO",
+    "ILVO"
+   ],
+   "fr": [],
+   "ceil": {
+    "MB4": 0.6955282790076829,
+    "MB3": 0.6596530779679609,
+    "OV23": 0.9294873145428727,
+    "OV20": 0.9992761824271319,
+    "ILVO": 0.7313537417084488,
+    "GNS": 0.5945745230707675
+   },
+   "l1": {
+    "MB4": 0.6211439553319249,
+    "MB3": 0.5896307335077717,
+    "OV23": 0.2288365932911992,
+    "OV20": 0.11093102014582104,
+    "ILVO": 0.6642929626866463,
+    "GNS": 0.5689709325718042
+   },
+   "meanCeil": 0.7683121864541441,
+   "minCeil": 0.5945745230707675,
+   "meanL1": 0.46396769958919454
+  },
+  {
+   "n": 11,
+   "key": "Plantaardig - akkerbouw|Zemelen",
+   "l4": "Zemelen",
+   "l2": "Plantaardig - akkerbouw",
+   "fams": [
+    "MONBIO"
+   ],
+   "fr": [],
+   "ceil": {
+    "MB4": 0.7521931126454141,
+    "MB3": 0.7121397113945674,
+    "OV23": 0.9294873145428727,
+    "OV20": 0.9992761824271319,
+    "ILVO": 0.7313537417084488,
+    "GNS": 0.5945745230707675
+   },
+   "l1": {
+    "MB4": 0.671748682639608,
+    "MB3": 0.6365458972511396,
+    "OV23": 0.2288365932911992,
+    "OV20": 0.11093102014582104,
+    "ILVO": 0.6642929626866463,
+    "GNS": 0.5689709325718042
+   },
+   "meanCeil": 0.7865040976315338,
+   "minCeil": 0.5945745230707675,
+   "meanL1": 0.4802210147643697
+  },
+  {
+   "n": 12,
+   "key": "Plantaardig - tuinbouw|Erwt",
+   "l4": "Erwt",
+   "l2": "Plantaardig - tuinbouw",
+   "fams": [
+    "ILVO"
+   ],
+   "fr": [],
+   "ceil": {
+    "MB4": 0.7521931126454141,
+    "MB3": 0.7121397113945674,
+    "OV23": 0.9294873145428727,
+    "OV20": 0.9992761824271319,
+    "ILVO": 0.7313537417084488,
+    "GNS": 0.6931504839743002
+   },
+   "l1": {
+    "MB4": 0.671748682639608,
+    "MB3": 0.6365458972511396,
+    "OV23": 0.2288365932911992,
+    "OV20": 0.11093102014582104,
+    "ILVO": 0.6642929626866463,
+    "GNS": 0.6633020117353983
+   },
+   "meanCeil": 0.8029334244487892,
+   "minCeil": 0.6931504839743002,
+   "meanL1": 0.4959428612916354
+  },
+  {
+   "n": 13,
+   "key": "Plantaardig - tuinbouw|Spinazie",
+   "l4": "Spinazie",
+   "l2": "Plantaardig - tuinbouw",
+   "fams": [
+    "ILVO"
+   ],
+   "fr": [],
+   "ceil": {
+    "MB4": 0.7521931126454141,
+    "MB3": 0.7121397113945674,
+    "OV23": 0.9294873145428727,
+    "OV20": 0.9992761824271319,
+    "ILVO": 0.8065032231945439,
+    "GNS": 0.7163907694035914
+   },
+   "l1": {
+    "MB4": 0.671748682639608,
+    "MB3": 0.6365458972511396,
+    "OV23": 0.2288365932911992,
+    "OV20": 0.11093102014582104,
+    "ILVO": 0.7325516846344508,
+    "GNS": 0.6855415231185068
+   },
+   "meanCeil": 0.8193317189346869,
+   "minCeil": 0.7121397113945674,
+   "meanL1": 0.5110259001801208
+  },
+  {
+   "n": 14,
+   "key": "Plantaardig - akkerbouw|Tarwe",
+   "l4": "Tarwe",
+   "l2": "Plantaardig - akkerbouw",
+   "fams": [
+    "MONBIO"
+   ],
+   "fr": [
+    "stro"
+   ],
+   "ceil": {
+    "MB4": 0.8047468807523951,
+    "MB3": 0.7565763804597232,
+    "OV23": 0.9294873145428727,
+    "OV20": 0.9992761824271319,
+    "ILVO": 0.8065032231945439,
+    "GNS": 0.7163907694035914
+   },
+   "l1": {
+    "MB4": 0.7186820085370678,
+    "MB3": 0.6762656024274453,
+    "OV23": 0.2288365932911992,
+    "OV20": 0.11093102014582104,
+    "ILVO": 0.7325516846344508,
+    "GNS": 0.6855415231185068
+   },
+   "meanCeil": 0.8354967917967097,
+   "minCeil": 0.7163907694035914,
+   "meanL1": 0.5254680720257484
+  },
+  {
+   "n": 15,
+   "key": "Plantaardig - akkerbouw|Lijnzaad",
+   "l4": "Lijnzaad",
+   "l2": "Plantaardig - akkerbouw",
+   "fams": [
+    "MONBIO"
+   ],
+   "fr": [],
+   "ceil": {
+    "MB4": 0.8550747204083088,
+    "MB3": 0.8011833842863265,
+    "OV23": 0.9294873145428727,
+    "OV20": 0.9992761824271319,
+    "ILVO": 0.8065032231945439,
+    "GNS": 0.7163907694035914
+   },
+   "l1": {
+    "MB4": 0.7636274612680268,
+    "MB3": 0.7161375612863131,
+    "OV23": 0.2288365932911992,
+    "OV20": 0.11093102014582104,
+    "ILVO": 0.7325516846344508,
+    "GNS": 0.6855415231185068
+   },
+   "meanCeil": 0.8513192657104626,
+   "minCeil": 0.7163907694035914,
+   "meanL1": 0.5396043072907196
+  },
+  {
+   "n": 16,
+   "key": "Plantaardig - tuinbouw|Boon",
+   "l4": "Boon",
+   "l2": "Plantaardig - tuinbouw",
+   "fams": [
+    "ILVO"
+   ],
+   "fr": [
+    "blad- en stengelmassa"
+   ],
+   "ceil": {
+    "MB4": 0.8550747204083088,
+    "MB3": 0.8011833842863265,
+    "OV23": 0.9294873145428727,
+    "OV20": 0.9992761824271319,
+    "ILVO": 0.8134439911556788,
+    "GNS": 0.7887923852278135
+   },
+   "l1": {
+    "MB4": 0.7636274612680268,
+    "MB3": 0.7161375612863131,
+    "OV23": 0.2288365932911992,
+    "OV20": 0.11093102014582104,
+    "ILVO": 0.7388560255426577,
+    "GNS": 0.754825377836093
+   },
+   "meanCeil": 0.8645429963413553,
+   "minCeil": 0.7887923852278135,
+   "meanL1": 0.5522023398950185
+  },
+  {
+   "n": 17,
+   "key": "Plantaardig - tuinbouw|Peer",
+   "l4": "Peer",
+   "l2": "Plantaardig - tuinbouw",
+   "fams": [
+    "ILVO"
+   ],
+   "fr": [],
+   "ceil": {
+    "MB4": 0.8550747204083088,
+    "MB3": 0.8011833842863265,
+    "OV23": 0.9294873145428727,
+    "OV20": 0.9992761824271319,
+    "ILVO": 0.8794065896421787,
+    "GNS": 0.7978109246916324
+   },
+   "l1": {
+    "MB4": 0.7636274612680268,
+    "MB3": 0.7161375612863131,
+    "OV23": 0.2288365932911992,
+    "OV20": 0.11093102014582104,
+    "ILVO": 0.7987702469052864,
+    "GNS": 0.7634555606139615
+   },
+   "meanCeil": 0.8770398526664086,
+   "minCeil": 0.7978109246916324,
+   "meanL1": 0.563626407251768
+  },
+  {
+   "n": 18,
+   "key": "Dierlijk - vee|Slachthuisstromen",
+   "l4": "Slachthuisstromen",
+   "l2": "Dierlijk - vee",
+   "fams": [
+    "OVAM"
+   ],
+   "fr": [],
+   "ceil": {
+    "MB4": 0.8550747204083088,
+    "MB3": 0.8011833842863265,
+    "OV23": 0.9997162749997542,
+    "OV20": 0.9992761824271319,
+    "ILVO": 0.8794065896421787,
+    "GNS": 0.7978109246916324
+   },
+   "l1": {
+    "MB4": 0.7636274612680268,
+    "MB3": 0.7161375612863131,
+    "OV23": 0.24612672281732284,
+    "OV20": 0.11093102014582104,
+    "ILVO": 0.7987702469052864,
+    "GNS": 0.7634555606139615
+   },
+   "meanCeil": 0.8887446794092222,
+   "minCeil": 0.7978109246916324,
+   "meanL1": 0.566508095506122
+  },
+  {
+   "n": 19,
+   "key": "Plantaardig - tuinbouw|Witloof",
+   "l4": "Witloof",
+   "l2": "Plantaardig - tuinbouw",
+   "fams": [
+    "ILVO"
+   ],
+   "fr": [
+    "wortelmassa na forcerie",
+    "blaadjes"
+   ],
+   "ceil": {
+    "MB4": 0.8550747204083088,
+    "MB3": 0.8011833842863265,
+    "OV23": 0.9997162749997542,
+    "OV20": 0.9992761824271319,
+    "ILVO": 0.9194123509077886,
+    "GNS": 0.8213203414916987
+   },
+   "l1": {
+    "MB4": 0.7636274612680268,
+    "MB3": 0.7161375612863131,
+    "OV23": 0.24612672281732284,
+    "OV20": 0.11093102014582104,
+    "ILVO": 0.8351077183094607,
+    "GNS": 0.7859526140226237
+   },
+   "meanCeil": 0.8993305424201682,
+   "minCeil": 0.8011833842863265,
+   "meanL1": 0.5763138496415948
+  },
+  {
+   "n": 20,
+   "key": "Dierlijk - vee|Dierlijk vet",
+   "l4": "Dierlijk vet",
+   "l2": "Dierlijk - vee",
+   "fams": [
+    "MONBIO"
+   ],
+   "fr": [],
+   "ceil": {
+    "MB4": 0.8849628837318031,
+    "MB3": 0.826866666654119,
+    "OV23": 0.9997162749997542,
+    "OV20": 0.9992761824271319,
+    "ILVO": 0.9194123509077886,
+    "GNS": 0.8213203414916987
+   },
+   "l1": {
+    "MB4": 0.7903191897637374,
+    "MB3": 0.739094556602788,
+    "OV23": 0.24612672281732284,
+    "OV20": 0.11093102014582104,
+    "ILVO": 0.8351077183094607,
+    "GNS": 0.7859526140226237
+   },
+   "meanCeil": 0.9085924500353827,
+   "minCeil": 0.8213203414916987,
+   "meanL1": 0.5845886369436256
+  },
+  {
+   "n": 21,
+   "key": "Varia|Zetmeel",
+   "l4": "Zetmeel",
+   "l2": "Varia",
+   "fams": [
+    "MONBIO"
+   ],
+   "fr": [],
+   "ceil": {
+    "MB4": 0.8849628837318031,
+    "MB3": 0.8804231153117399,
+    "OV23": 0.9997162749997542,
+    "OV20": 0.9992761824271319,
+    "ILVO": 0.9194123509077886,
+    "GNS": 0.8213203414916987
+   },
+   "l1": {
+    "MB4": 0.7903191897637374,
+    "MB3": 0.7869659744143154,
+    "OV23": 0.24612672281732284,
+    "OV20": 0.11093102014582104,
+    "ILVO": 0.8351077183094607,
+    "GNS": 0.7859526140226237
+   },
+   "meanCeil": 0.9175185248116527,
+   "minCeil": 0.8213203414916987,
+   "meanL1": 0.5925672065788802
+  },
+  {
+   "n": 22,
+   "key": "Plantaardig - akkerbouw|Soja",
+   "l4": "Soja",
+   "l2": "Plantaardig - akkerbouw",
+   "fams": [
+    "MONBIO"
+   ],
+   "fr": [],
+   "ceil": {
+    "MB4": 0.9050940195941686,
+    "MB3": 0.9124197003350419,
+    "OV23": 0.9997162749997542,
+    "OV20": 0.9992761824271319,
+    "ILVO": 0.9194123509077886,
+    "GNS": 0.8213203414916987
+   },
+   "l1": {
+    "MB4": 0.808297370856121,
+    "MB3": 0.8155661136801701,
+    "OV23": 0.24612672281732284,
+    "OV20": 0.11093102014582104,
+    "ILVO": 0.8351077183094607,
+    "GNS": 0.7859526140226237
+   },
+   "meanCeil": 0.9262064782925973,
+   "minCeil": 0.8213203414916987,
+   "meanL1": 0.6003302599719199
+  },
+  {
+   "n": 23,
+   "key": "Plantaardig - tuinbouw|Sla en andijvie",
+   "l4": "Sla en andijvie",
+   "l2": "Plantaardig - tuinbouw",
+   "fams": [
+    "ILVO"
+   ],
+   "fr": [],
+   "ceil": {
+    "MB4": 0.9050940195941686,
+    "MB3": 0.9124197003350419,
+    "OV23": 0.9997162749997542,
+    "OV20": 0.9992761824271319,
+    "ILVO": 0.9603601569555604,
+    "GNS": 0.8323426653309842
+   },
+   "l1": {
+    "MB4": 0.808297370856121,
+    "MB3": 0.8155661136801701,
+    "OV23": 0.24612672281732284,
+    "OV20": 0.11093102014582104,
+    "ILVO": 0.872300854604149,
+    "GNS": 0.7965002941377374
+   },
+   "meanCeil": 0.9348681666071069,
+   "minCeil": 0.8323426653309842,
+   "meanL1": 0.6082870627068869
+  },
+  {
+   "n": 24,
+   "key": "Plantaardig - akkerbouw|Bostel",
+   "l4": "Bostel",
+   "l2": "Plantaardig - akkerbouw",
+   "fams": [
+    "MONBIO"
+   ],
+   "fr": [],
+   "ceil": {
+    "MB4": 0.9327544056888125,
+    "MB3": 0.9338079117014711,
+    "OV23": 0.9997162749997542,
+    "OV20": 0.9992761824271319,
+    "ILVO": 0.9603601569555604,
+    "GNS": 0.8323426653309842
+   },
+   "l1": {
+    "MB4": 0.8329995751278836,
+    "MB3": 0.8346839608904872,
+    "OV23": 0.24612672281732284,
+    "OV20": 0.11093102014582104,
+    "ILVO": 0.872300854604149,
+    "GNS": 0.7965002941377374
+   },
+   "meanCeil": 0.9430429328506191,
+   "minCeil": 0.8323426653309842,
+   "meanL1": 0.6155904046205668
+  }
+ ]
+}

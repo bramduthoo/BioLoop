@@ -233,8 +233,33 @@ COLLECTION_RE = re.compile("|".join(COLLECTION_SIGNALS), re.I)
 TOTAL_RE = re.compile(r"\btotaal\b|\btotale\b", re.I)
 
 
-def is_collection(name):
+# A bundled label does not always mean a residual class. Reviewer rule, 2026-09-03:
+# where the bundled items ARISE TOGETHER and cannot be separated in practice, the row is one real
+# stream and belongs at L4 - even though the label reads like a leftover class. That is a physical
+# fact about the material, not something derivable from the string, so it is recorded per claim.
+# Rule 2 still holds where the bundle is a STATISTICAL leftover ("Andere ...", "van alle soorten").
+#
+# This is deliberately NOT the `PLACED_BY_REVIEWER` list removed on 2026-09-01. That one was
+# redundant, because an explicit OVERRIDE entry already said the same thing for an aggregate.
+# These claims are COMPONENTS: they have no registry line, so OVERRIDE cannot carry the judgement
+# and there is nowhere else to put it. Do not delete it as overfitting without reading
+# crosswalks/GAP_DECISIONS.csv first.
+PHYSICAL_BUNDLE = {
+    "C-297": "Prodcom 101150 is a named product - animal fat - not a species leftover (GAP-2)",
+    "C-482": "Prodcom 101150 is a named product - animal fat - not a species leftover (GAP-2)",
+    "C-358": "zemelen en slijpsel leave the mill together (GAP-4)",
+    "C-549": "zemelen en slijpsel leave the mill together (GAP-4)",
+    "C-357": "gries en griesmeel are one milling fraction (GAP-4)",
+    "C-548": "gries en griesmeel are one milling fraction (GAP-4)",
+    "C-397": "bostel en branderijafval are collected as one stream (GAP-5)",
+    "C-590": "bostel en branderijafval are collected as one stream (GAP-5)",
+}
+
+
+def is_collection(name, claim_id=None):
     """True when the name is a residual class of the nomenclature rather than a named stream."""
+    if claim_id and claim_id in PHYSICAL_BUNDLE:
+        return False
     name = name or ""
     if TOTAL_RE.search(name):
         return False
@@ -263,7 +288,7 @@ def propose(r):
         commodity_coverage="full", stage_coverage=r["chain_L2"],
         treatment="variant", allocatable="yes", note="", DECISION="",
     )
-    if is_collection(r["stream_name_NL"]) and r["claim_id"] not in OVERRIDE:
+    if is_collection(r["stream_name_NL"], r["claim_id"]) and r["claim_id"] not in OVERRIDE:
         row.update(allocatable="no", commodity_coverage="residual nomenclature class",
                    note="a leftover class of the nomenclature ('Andere ...', 'n.e.g.', "
                         "'van alle soorten'): a real volume, but not a named stream and not the "

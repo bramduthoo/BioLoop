@@ -107,13 +107,67 @@ method:
 
 ---
 
+## G-04 · Dierlijk – vee — 471 kt still unresolved after the re-levelling
+
+**Status:** open · **Kind:** granularity · **Size:** 471.361 t/yr (65,5% of the group, MONBIO 4.0)
+*Opened 2026-09-03, after the gap-desk fixes were applied.*
+
+**Evidence.** The GAP-2/3/8 fixes lifted `Dierlijk – vee` from **10,9% to 34,5%** resolved — Melk
+(19.000), Dierlijk vet (145.498) and Gevogelte (84.141) now sit at L4. The remaining **471.361 t**
+does not move, because it is held in genuine slaughter-offal aggregates: `C-308` *Eetbare
+slachtafvallen, totaal* (217.672), `C-298` *Niet-eetbare ruwe slachtafvallen* (169.051), `C-295`
+*Eetbare slachtafvallen van runderen, varkens, schapen, geiten en paarden* (82.576), `C-296` *Ander
+vlees en andere eetbare slachtafvallen* (49.893).
+
+**Why it is a gap and why re-levelling cannot close it.** These are real category totals, not
+mislabelled streams. Splitting them per animal needs a **measured waste ratio per species**, and no
+source in the register gives one — the register has production volumes per species but nothing that
+links production to offal yield. Inferring the split from production would be a derivation the
+protocol forbids, which is exactly why the reviewer declined it on GAP-2.
+
+**What would close it.** A source that reports slaughter by-products per species, or a
+species-resolved rendering-sector figure. The nearest candidates are the retired Marktanalyse
+editions (**S001**, animal by-product sector at ~860 kt for 2021) and the S087 geography decision.
+Failing that, a slaughterhouse-federation source.
+
+---
+
+## G-05 · `Granen` now mixes field residue with mill and brewery residue
+
+**Status:** open · **Kind:** taxonomy · **Size:** n/a (structural)
+*Opened 2026-09-03, as a direct consequence of the GAP-4 and GAP-5 fixes.*
+
+**Evidence.** `Plantaardig – akkerbouw › Granen` now holds **maisstro** and **tarwestro** (field
+residue, arising at primary production) alongside **Zemelen**, **Gries** and **Bostel** (mill and
+brewery residue, arising at the food industry). Its leaf sum went from 1.590.919 t to 2.086.640 t
+for that reason, and `verify_overview.py`'s Granen assertion was updated to match.
+
+**Why it matters.** The node is still arithmetically correct — the chain stage is carried per row,
+so nothing is summed across stages that should not be. But the *commodity* node no longer means one
+thing, and a reader selecting "Granen" gets two physically unrelated kinds of material. The register
+already carries the alternative: v2.5 rule 5 says a processing product goes under its `Varia` sector,
+which would put zemelen, gries and bostel under `Varia › Maalderijproducten` / `Varia › Dranken`.
+
+**The precedent cuts the other way, which is why this is left open rather than decided.** Bietenpulp
+— also a processing residue — sits under `Suikerbieten en nijverheidsgewassen` on the crop ladder,
+not under `Varia › Suiker`. The fixes followed that precedent for consistency. One of the two
+placements should win for both, and the choice is the reviewer's.
+
+**What would close it.** A decision, not a source: either move the three mill/brewery streams to
+`Varia`, or move bietenpulp to the crop ladder's logic explicitly and record that processing
+residues stay with their crop.
+
+---
+
 ## Summary
 
 | id | Gap | Size | Kind | Next action |
 |----|-----|------|------|-------------|
 | G-01 | Retail below sector level | 132.082 t | missing data | queue S067 / S035 |
 | G-02 | PO's & veilingen implausibly small | 15.189 t | **fact-check first** | check VBT / auction jaarverslag |
-| G-03 | Food industry stream detail | 1,7–2,2 Mt | granularity + missing data | do the gap-desk re-levelling first, then S025 / S058 |
+| G-03 | Food industry stream detail | 1,7–2,2 Mt | granularity + missing data | re-levelling **done** 2026-09-03; next S025 / S058 |
+| G-04 | Dierlijk – vee offal below species level | 471 kt | granularity | needs a species-resolved source (S001 / S087) |
+| G-05 | `Granen` mixes field and processing residue | n/a | taxonomy | a placement decision, not a source |
 
 **Not in this file:** the eight gaps that can be closed by re-levelling rows the register already
 holds. Those live on the gap desk and are decided there, not here.

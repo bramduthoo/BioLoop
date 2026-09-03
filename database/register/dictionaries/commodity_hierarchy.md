@@ -263,3 +263,31 @@ them must never be summed across.**
 **`Kropsla` was not added.** S065's *kropsla* row uses the existing L4 `Sla en andijvie`, with
 "Kropsla" carried in `stream_name_NL`. Adding a variety-level member for one row would deepen the
 ladder for no gain; revisit if a source reports lettuce types separately at volume.
+
+**Members added 2026-09-03 (reviewer gap decisions, `crosswalks/GAP_DECISIONS.csv`).** Seven L4
+members, all created by **re-levelling rows the register already held** — no new source, no new
+figure. Each was previously an `AGGREGAAT` or a plain L3 row and therefore invisible to a selection.
+
+| New L4 | Under L3 | From | Why |
+|---|---|---|---|
+| `Perskoeken en schroot` | `Oliehoudende gewassen` | C-342, C-532 | The largest unresolved block in the register. **Not** split per oilseed: the reviewer rejected inferring a waste split from crude-oil production volumes, since it is unproven that those oilseeds are the only source and that each contributes proportionally. |
+| `Dierlijk vet` | `Vlees` | C-297, C-482 | Prodcom 101150 is *"Rund-, schapen-, geiten- of varkensvet"* — a named product, not a species residual class. Reviewer's correction. |
+| `Zemelen` | `Granen` | C-358, C-549 | |
+| `Gries` | `Granen` | C-357, C-548 | Promoted **despite** the `n.e.g.` marker, on the reviewer's rule below. |
+| `Bostel` | `Granen` | C-397, C-590 | Kept on the crop ladder rather than moved to `Varia > Dranken`, following the precedent that bietenpulp sits under `Suikerbieten`, not `Varia > Suiker`. |
+| `Melk` (unsplit) | `Melk` | 10 dairy waste rows | The L3 `Melk` had only species members at L4 (`Koemelk`, `Geiten- en schapenmelk`), but no source reports dairy **waste** by species, so the L4 slot was permanently empty on the residual side while production filled it. |
+| `Slachthuisstromen` | `Vlees` | C-102 | Huiden, botten e.d. |
+
+**A rule the reviewer set, which generalises beyond these rows.** A bundled nomenclature label does
+not automatically make a row an aggregate. Where the bundled items **arise together and cannot be
+separated in practice** — *zemelen en slijpsel*, *gries en griesmeel*, *bostel en afvallen van
+branderijen* — the row is a single real stream and belongs at L4, even though v2.5 rule 2 would read
+the label as a residual class. Rule 2 still holds where the bundle is a *statistical* leftover
+(`Andere …`, `van alle soorten`) rather than a physical one.
+
+**`Dode dieren` was proposed and rejected** (C-267, C-448, ~68 kt): not needed as a selectable
+stream. Both rows are retired in `DECISION_expert`, not deleted.
+
+**Not added: no per-oilseed and no per-animal split.** Both were considered and both founder on the
+same problem the reviewer identified — the register has production volumes per species/oilseed but
+no measured waste ratio, and inferring one would be a derivation.

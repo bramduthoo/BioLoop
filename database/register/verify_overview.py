@@ -49,14 +49,19 @@ let aggAsComponent = 0;
   walk(n.children); } })(D.derive(P.claims, {}).roots);
 ok("no AGGREGAAT row appears as a component anywhere", aggAsComponent, 0, 0);
 
-// --- 3. MONBIO 4.0 Granen: the group total equals its two straw fractions ---------------------
+// --- 3. MONBIO 4.0 Granen: field straw PLUS the mill and brewery residues --------------------
+// Was 1.590.919 (maisstro + tarwestro alone) until 2026-09-03, when the reviewer's GAP-4/GAP-5
+// decisions promoted zemelen (275.849), gries (85.219) and bostel (134.653) to L4 under Granen.
+// 1.590.919 + 495.721 = 2.086.640. The number changed because the tree changed, not because the
+// derivation drifted - note that Granen now mixes FIELD residue with MILL/BREWERY residue.
 const mb = scope("MONBIO 4.0", 2021);
 const granen = findNode({label:"", children: mb.rest.children}, "Granen");
 const gset = (granen && granen.subsetSets || []).concat(granen ? [] : []);
 ok("MONBIO 4.0 Granen node exists", granen ? 1 : 0, 1, 0);
 if (granen) {
   const kids = leaves(granen).reduce((a,b)=>a+b.repTotal,0);
-  ok("MONBIO 4.0 Granen fractions sum to 1,590,919 (maisstro + tarwestro)", kids, 1590919, 2);
+  ok("MONBIO 4.0 Granen leaves sum to 2,086,640 (maisstro + tarwestro + zemelen + gries + bostel)",
+     kids, 2086640, 2);
 }
 
 // --- 4. every figure's provenance matches how it was built ------------------------------------

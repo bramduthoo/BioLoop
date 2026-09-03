@@ -127,7 +127,7 @@ def main():
                  "prefix the name with 'AGGREGAAT - '")
 
         # 4 — residual nomenclature class not marked
-        if not agg and is_collection(name):
+        if not agg and is_collection(name, r["claim_id"]):
             flag("unmarked-residual-class", r,
                  "a leftover class of the nomenclature, not a named stream",
                  "prefix with 'AGGREGAAT - '; it will sit in the unallocated band")
