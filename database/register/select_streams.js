@@ -159,6 +159,45 @@ console.log("  " + "-".repeat(34 + 12 * EDS.length));
 console.log("  % of ceiling".padEnd(36) + cov.map(c => pct(c.got / c.pool).padStart(12)).join(""));
 console.log("  % of L1".padEnd(36) + cov.map(c => pct(c.got / c.L1).padStart(12)).join(""));
 
+// ---------------------------------------------------------------------------------------------
+// THE SELECTION AT ITS LOWEST DETAIL LEVEL (reviewer decision, 2026-09-03)
+// A selected stream stays ONE item - Aardappel is Aardappel - but the number is reported per
+// fraction rather than as the L4 sum, because an L4 sum and a single-fraction figure are not the
+// same quantity and comparing them manufactures spread. Suikerbiet read at L4 spans 34x across
+// sources; read at its fractions it does not.
+// ---------------------------------------------------------------------------------------------
+const fracKey = p => (p.label === "(zonder fractie)" ? "— " + p.st.join("/") : p.label);
+items.forEach(s => {
+  s.fracRows = new Map();
+  EDS.filter(e => s.by[e]).forEach(e => s.by[e].parts.forEach(p => {
+    const k = fracKey(p);
+    if (!s.fracRows.has(k)) s.fracRows.set(k, { label: k, by: {}, st: p.st, geo: p.geo });
+    const row = s.fracRows.get(k);
+    row.by[e] = (row.by[e] || 0) + p.v;
+    row.geo = [...new Set(row.geo.concat(p.geo))];
+  }));
+  s.fracRows.forEach(row => {
+    const v = Object.values(row.by);
+    row.M = Math.max(...v); row.min = Math.min(...v);
+    row.spread = v.length > 1 && row.min > 0 ? row.M / row.min : null;
+  });
+});
+console.log("\n" + "=".repeat(108));
+console.log("THE SELECTION AT ITS LOWEST DETAIL LEVEL - one item, its fractions spelled out");
+console.log("=".repeat(108));
+console.log("  " + "stream / fraction".padEnd(44) + EDS.map(e => short(e).slice(0, 10).padStart(11)).join("") + "   spread");
+items.slice(0, N).forEach((s, i) => {
+  console.log("  " + (String(i + 1).padStart(2) + ". " + s.l4).padEnd(44) +
+    EDS.map(e => (s.by[e] ? fmt(s.by[e].v) : "-").padStart(11)).join("") +
+    "   " + (s.spread ? s.spread.toFixed(1) + "x" : "-"));
+  if (s.fracRows.size > 1 || [...s.fracRows.keys()].some(k => k[0] !== "—"))
+    [...s.fracRows.values()].sort((a, b) => b.M - a.M).forEach(row =>
+      console.log("      " + ("· " + row.label).slice(0, 40).padEnd(40) +
+        EDS.map(e => (row.by[e] ? fmt(row.by[e]) : "-").padStart(11)).join("") +
+        "   " + (row.spread ? row.spread.toFixed(1) + "x" : "-") +
+        (row.geo.includes("Belgie") ? "  [BE]" : "")));
+});
+
 console.log("\n" + "=".repeat(108));
 console.log("BUNDLED L4s - one selected stream holding two physically different materials");
 console.log("=".repeat(108));
@@ -184,4 +223,5 @@ items.slice(0, N).filter(s => s.geo.includes("Belgie")).forEach(s =>
 
 const jf = process.argv[process.argv.indexOf("--json") + 1];
 if (process.argv.includes("--json") && jf)
-  require("fs").writeFileSync(jf, JSON.stringify({ EDS, src, items, TOT, n80, N, cov: coverage(items.slice(0, N)) }, null, 1));
+  require("fs").writeFileSync(jf, JSON.stringify({ EDS, src, TOT, n80, N, cov: coverage(items.slice(0, N)),
+    items: items.map(s => Object.assign({}, s, { fracRows: [...s.fracRows.values()] })) }, null, 1));

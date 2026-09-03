@@ -208,6 +208,10 @@ COLLECTION_SIGNALS = [
     r"\ben andere\b",                                     # en andere ...
     r"\bof andere\b",                                     # of andere ...
     r"\bvan andere\b",                                    # van andere ...
+    r"\buit andere\b",                                    # uit andere ... (added 2026-09-03: the
+    #   missing preposition let 'Meel/schroot uit ANDERE oliehoudende zaden' (C-334, C-523,
+    #   68.000 t each) sit as a plain L3 component - neither selectable nor an aggregate, so its
+    #   mass appeared nowhere at all. Prepositions are cheap; enumerate them.)
     r"^\s*(?:AGGREGAAT\s*-\s*)?ander(?:e)?\b",            # the name starts with 'Andere'
     r"\balle soorten\b",                                  # van alle soorten
     r"n\.e\.g\.",                                         # n.e.g.

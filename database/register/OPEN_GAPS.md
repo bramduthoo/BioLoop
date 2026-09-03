@@ -1,15 +1,58 @@
 # BIOLOOP register — open gaps
 
-*Gaps that **cannot** be closed by re-levelling what the register already holds. Each one needs
-data the corpus does not contain. Companion to the gap desk, which covers the eight gaps that
-**can** be fixed internally (re-levelling, renaming, splitting bundled nomenclature rows).*
-
-*Created 2026-09-03, from the coverage audit at 801 claims / six extracted sources.*
+*Created 2026-09-03, from the coverage audit at 801 claims / six extracted sources.
+**Rewritten the same day** after a systematic sweep of the whole corpus — every residual row, every
+aggregate, every chain stage, an absence checklist of 41 named Flemish side streams, and all 91 rows
+of the `Sources` sheet.*
 
 **How to use this file.** One entry per gap. A gap leaves this file when either (a) a source is
 extracted that resolves it, or (b) it is fact-checked and turns out not to be a gap — in which case
 the entry stays with its status flipped to `closed`, so the check is not repeated. Do not delete
 entries.
+
+## The two classes
+
+Every gap below is one of two kinds, and they need opposite responses:
+
+- **Class A — hiding in the current data.** The figure is already in the register but the selection
+  cannot see it, because it sits above L4, carries the wrong marker, or is parented in the wrong
+  branch. **No new source will help.** These are decided in
+  `crosswalks/HIDDEN_STREAMS.csv` and applied.
+- **Class B — not in the corpus at all.** No source the register holds measures this. **Only a new
+  source will help**, and the entry names which one.
+
+The distinction matters because they were being confused: the first coverage audit reported
+*"the food industry has no L4/L5 detail"* as one 2 Mt data gap, when part of it was placement
+(class A) and the rest is five separate, differently-sourced data gaps (class B).
+
+## How the sweep was run
+
+Five screens over `streams_export.csv`, all reproducible:
+
+1. every **live residual row above L4** without an `AGGREGAAT - ` prefix — 49 rows, 2.367.761 t
+   (`find_hidden_streams.py`);
+2. every **retired row**, checked for anything large being lost by mistake — nothing was;
+3. every **`Productievolume` row whose name reads like a residual** — 30 hits, all false positives,
+   so the "waste filed as production" hypothesis is **closed**;
+4. every **aggregate** reconciled against the components under it, per source;
+5. an **absence checklist** of 41 named Flemish agri-food side streams, asked of the whole workbook
+   in any role and any status.
+
+Screens 1 and 5 are what produced almost everything new below.
+
+## The mechanism behind most of class B
+
+**MONBIO's food-industry residual detail is exactly the set of Prodcom product codes that happen to
+name a waste or by-product** — 106132 gries, 106220 zetmeelafvallen, 108114 melasse, 110210 bostel,
+101150 dierlijk vet, 101240 slachtafval van gevogelte — plus one FEDIOL crush table for oilseed
+meal. **A side stream with no such code is invisible to MONBIO no matter how large it is.** That is
+why whey, cacaodoppen and potato peel are absent while bostel and zemelen are present, and it
+predicts where to look: not another monitor edition, but a sector source that carves by *process*
+instead of by product code.
+
+OVAM's monitors have the mirror-image limit: they publish the food industry at **subgroup level and
+nothing finer** (`Dranken`, `Bakkerij`, `Oliën en vetten`, `Aardappelen, groenten en fruit`), so
+every OVAM food-industry figure lands in class B by construction.
 
 ---
 
@@ -257,35 +300,308 @@ source states a conversion between the two definitions, and inventing one is a d
 
 ---
 
-## Summary
+# Class A — hiding in the current data
 
-| id | Gap | Size | Kind | Next action |
-|----|-----|------|------|-------------|
-| G-01 | Retail below sector level | 132.082 t | missing data | queue S067 / S035 |
-| G-02 | PO's & veilingen implausibly small | 15.189 t | **fact-check first** | check VBT / auction jaarverslag |
-| G-03 | Food industry stream detail | 1,7–2,2 Mt | granularity + missing data | re-levelling **done** 2026-09-03; next S025 / S058 |
-| G-04 | Dierlijk – vee offal below species level | 471 kt | granularity | needs a species-resolved source (S001 / S087) |
-| G-05 | `Granen` mixes field and processing residue | n/a | taxonomy | a placement decision, not a source |
-| G-06 | Oilseed meal — the #2 stream is a Belgian figure | 1,15–1,31 Mt | missing data (geography) | needs a Flemish crush figure (S058?) |
-| G-07 | One L4 row holds two unrelated streams | n/a | taxonomy | a registration rule; arithmetic already printed |
-| G-08 | Oogstresten vs voedselreststromen under one crop name | n/a | definition | mark the fraction on the ILVO 239 rows |
+*Three misplaced rows and the blind spot that let them through. All decided in
+`crosswalks/HIDDEN_STREAMS.csv`; no source needed.*
 
-**Not in this file:** the eight gaps that can be closed by re-levelling rows the register already
-holds. Those live on the gap desk and are decided there, not here.
+## G-A1 · Three named streams sit above L4 and appear nowhere
+
+**Status:** open · **Class:** A · **Size:** 255.818 t across the two MONBIO editions
+
+| claims | stream | t/yr | why it is invisible |
+|---|---|---|---|
+| `C-334` `C-523` | *Meel/schroot uit andere oliehoudende zaden* | 68.000 + 68.000 | a residual class of the oilseed nomenclature, but **unprefixed and at L3** — so it is neither selectable nor an aggregate, and its mass appears in no figure at all |
+| `C-381` `C-574` | *Melasse op Vlaamse productiesites (grondgebiedbasis)* | 47.805 + 56.806 | the grondgebied twin of `C-362`/`C-554` *Melasse (Prodcom 108114)*, which **is** at L4 under `Varia › Suiker`. One basis is selectable, the other is stranded at L3 |
+| `C-273` `C-457` | *Teruggegooide vis (ongewenste bijvangst)* | 7.500 + 7.707 | a single named stream at L3. It is also **the entire residual content of the `Visserij` stage**, which otherwise has zero L4/L5 rows |
+
+The melasse pair is documented in `log.md`: *"Tabel 28's suiker-nevenstroom total uses the
+grondgebied basis … 56.806 (melasse) + 337.649 (bietenpulp) = 394.455 ≈ the printed 394 kton, while
+Tabel 85's export-proxy cells give 111.298 + 661.550."* The bietenpulp half of that pair sits at L5
+and is in the selection; the melasse half does not.
+
+**Scale check on the discards row:** the register's entire selectable fish mass is **839 t** across
+32 rows. `C-273` alone is **nine times** that.
+
+**Fix.** Decide the three pairs in `crosswalks/HIDDEN_STREAMS.csv` (`aggregate` for the oilseed
+class, `promote` for melasse and discards) and apply.
 
 ---
 
-## Where the fixable eight are decided
+## G-A2 · The audit could not see this class, by construction
 
-The eight gaps that **can** be closed by re-levelling live in
-**`crosswalks/GAP_DECISIONS.csv`** — same convention as every other human gate here:
-`;`-delimited, UTF-8 BOM, blank `DECISION` and `NOTES` columns for you to fill in Excel or VS Code.
-Each row carries the claim ids, the mass, why it is a gap and the proposed fix, so it stands on its
-own without the artifact.
+**Status:** open · **Class:** A · **Size:** structural
 
-There is also a browser version of the same eight with the evidence tables and charts —
-the **Gap Desk** artifact — but note that anything typed there lives in that browser only.
-**`crosswalks/GAP_DECISIONS.csv` is the file of record.** If the two disagree, the CSV wins.
+`audit_register.py` identifies a misplaced row **from its name**: check 1 fires on a product code
+(Prodcom / NACE / CN), check 4 on a leftover-class phrase (*Andere …*, *n.e.g.*, *van alle soorten*).
+**A live residual row at L2 or L3 with an ordinary name passes every check in the file.** All three
+rows in G-A1 are in that blind spot — none carries a code, none matched a phrase.
 
-`GAP-6` is marked `fixable_internally = partly`: its internal half (promoting zetmeel) is decided in
-the CSV, its external half is **G-03** above.
+One contributing defect, now fixed: `COLLECTION_SIGNALS` listed *en andere*, *of andere* and *van
+andere* but **not *uit andere***, which is why *Meel/schroot **uit andere** oliehoudende zaden*
+escaped check 4. Adding the preposition catches exactly those two rows and nothing else; the audit
+baseline moves from 24 findings to 26.
+
+**Fix, done.** `find_hidden_streams.py` enumerates the whole class rather than pattern-matching
+names — 49 rows, 2.367.761 t — and writes them to a human gate. **43 of the 49 are legitimate**:
+OVAM publishes *Dranken*, *Bakkerij* and *groenten openlucht* at subgroup level and nothing finer,
+so an L3 row there is that source's finest grain. Those 43 are not defects — **they are the class-B
+data gaps below**, which is exactly why the screen has to be run before the gap list is trusted.
+
+---
+
+## G-A3 · The `Varia` sector aggregates are parented away from their components
+
+**Status:** open · **Class:** A · **Size:** structural (1.074.000 t of aggregate on MONBIO 4.0)
+
+`C-284`/`C-469` *Vervaardiging van maalderijproducten, zetmeelproducten* (671.000 / 563.000 t) and
+`C-286`/`C-471` *Vervaardiging van suiker en chocolade* (403.000 / 394.000 t) sit at **L2 under
+`Varia` with `L3` blank**, while the rows they total sit under `Plantaardig - akkerbouw › Granen`
+(Zemelen, Gries, Bostel) and `Varia › Zetmeel` / `Varia › Suiker`. The aggregates therefore
+reconcile against nothing in the tree, and the overview shows their branch as empty.
+
+Both reconciliations are already recorded in `log.md` and are exact:
+
+```
+C-469  563.000 = zemelen 278.865 + zetmeelafvallen 284.549      = 563.414
+C-471  394.000 = melasse 56.806  + bietenpulp     337.649       = 394.455   (grondgebied basis)
+```
+
+This is **G-05 with numbers attached**: it is the same open placement decision (does a processing
+residue live under its crop or under its `Varia` sector), and until it is taken these two aggregates
+cannot be checked against anything.
+
+---
+
+# Class B — not in the corpus at all
+
+*Ordered by mass. Each entry names what would close it.*
+
+## G-09 · Zuivelverwerking — wei (whey) is absent from the register entirely
+
+**Status:** open · **Class:** B · **Size:** unknown; the only measured figure is 70.000–89.593 t
+
+**Evidence.** The absence checklist finds **no row anywhere in the workbook** — any role, any status
+— containing *wei*, *kaaswei*, *weipoeder*, *melkserum*, *permeaat*, *retentaat* or *lactose*. The
+only dairy-processing residual figures in the register are `C-282`/`C-467` *Vervaardiging van
+zuivelproducten, productie nevenstromen* (**70.000 t**, L3, **no component rows**) and OVAM's
+`Melk` rows (135.226 t in 2020, 89.593 t in 2023, spanning primary production and industry).
+
+**Why it is a gap.** The register does hold the production side: **koemelk 4.450.280 t** (`C-261`)
+and **kaas en wrongel 101.256 t** (`C-348`). Cheese-making separates roughly nine parts whey to one
+part curd — *an industry rule of thumb, not a register figure, and deliberately not derived here* —
+so a 70.000 t dairy nevenstroom cannot be counting whey. It is counted as a **product**, not a loss,
+and both monitors measure losses and Prodcom-coded by-products.
+
+**What would close it.** A dairy-sector source: BCZ/CBL (Belgische Confederatie van de Zuivelindustrie)
+volumes, or a Flemish dairy-processing study. **Nothing in the 91-row `Sources` sheet covers dairy
+processing** — this gap has no candidate at all and needs a search.
+
+---
+
+## G-10 · Aardappelverwerking — no named residue stream, in the world's largest frozen-potato cluster
+
+**Status:** open · **Class:** B · **Size:** 621.063 t (OVAM 2023) / 653.463 t (2020), zero components
+
+**Evidence.** `C-094` *Voedselreststromen Aardappelen, groenten en fruit (voedingsindustrie)* is
+**621.063 t with no component rows** — the largest food-industry commodity block in the register
+with no detail. The only potato food-industry residual row anywhere is `C-314`/`C-501` *Meel, gries,
+vlokken, korrels en pellets van gedroogde aardappelen* (56.585 / 54.913 t), which is a **product**,
+not residue. The checklist finds **aardappelschillen, stoomschillen, aardappelvezel and
+aardappeleiwit all absent**.
+
+**Why it is a gap.** Flanders hosts the largest concentration of potato processing in Europe. Peel,
+steam-peel concentrate, fibre and protein are its characteristic, homogeneous, well-described side
+streams — precisely what BioMobi is for — and the register has none of them.
+
+**What would close it.** Belgapom / VLAM sector volumes, or a processing-sector study.
+**S058** (ILVO TransBio WP3, in the `Sources` sheet, no PDF yet) is the nearest queued candidate.
+
+---
+
+## G-11 · Dranken — 378.539 t, and only bostel is named
+
+**Status:** open · **Class:** B · **Size:** 378.539 t (OVAM 2023) / 343.166 t (2020)
+
+**Evidence.** `C-095` / `C-196` under `Varia › Dranken`, **zero L4 rows in any source**. MONBIO
+supplies exactly one beverage side stream, *Bostel* (134.653 t, Prodcom 110210) — filed under
+`Granen`, not under `Dranken`. So at most a third of OVAM's beverage figure has a name.
+**Absent from the whole workbook: draf / DDGS, vinasse, biergist, sapresidu.** *Gist* appears only
+as a 138.901 t **production** row (`C-376`, retired).
+
+**What would close it. S005 (MONBIO 1.0) is the named owner and is already in the folder** — its
+`Sources`-sheet verdict reads *"Confirmed to carry NAMED stream tonnages (bietenpulp+melasse 458 kt,
+bostel 80 kt, **gries/zemelen/DDGS 646 kt**)"*. It is currently marked `_RETIRED` in `inbox/`.
+Un-retiring it is the cheapest move available on this gap.
+
+---
+
+## G-12 · Cacao en chocolade — no residual figure at all
+
+**Status:** open · **Class:** B · **Size:** unmeasured
+
+**Evidence.** The aggregate is *named* for it — `C-286`/`C-471` *Vervaardiging van suiker **en
+chocolade***, 403.000 / 394.000 t — but the reconciliation in G-A3 shows that figure is **entirely
+sugar** (melasse + bietenpulp = 394.455 against a printed 394 kton). The chocolate half contributes
+nothing. Production rows exist — *Chocolade en cacaobevattende bereidingen* 554.394 t (`C-365`),
+*Cacaopasta* 22.310 t, *Cacaoboter* 1.061 t — but **cacaodoppen, cacaoschillen and cacaoperskoek
+appear nowhere in the workbook**.
+
+**Why it is a gap.** Belgium is one of Europe's largest cocoa processors and the plants are in
+Flanders. Cocoa shell is a clean, dry, characterised stream with an established market.
+
+**What would close it.** A cocoa/chocolate sector source (Choprabisco, or a plant-level study).
+**No candidate in the `Sources` sheet.**
+
+---
+
+## G-13 · Bakkerij — 122.276 t, zero components
+
+**Status:** open · **Class:** B · **Size:** 122.276 t (OVAM 2023) / 37.755 t (2020)
+
+**Evidence.** `C-093` / `C-194` under `Varia › Bakkerij`, no L4 in any source. The register holds
+*Vers brood* production 303.437 t but no bread-waste stream. **Note the 3,2× jump between the two
+OVAM editions** (37.755 → 122.276) — either a real change or a method change, and it is not
+explained on the rows.
+
+**What would close it.** **S067** (Comeos, retail 2015–2018) reaches bakery return from the retail
+side; **S025** (OVAM bedrijfsafval, ref. yr 2022) carves by NACE and would give the industry side.
+Both are in the `Sources` sheet without a PDF.
+
+---
+
+## G-14 · Oliën en vetten, and used frying fat
+
+**Status:** open · **Class:** B · **Size:** 95.895 t (OVAM 2023) / 57.723 t (2020)
+
+**Evidence.** `C-096` / `C-197` under `Varia › Oliën, vetten`, zero components. MONBIO's oilseed
+meal sits in a different branch and is Belgian (**G-06**). *Frituurvet / afgewerkt vet* is **absent
+from the workbook**.
+
+**What would close it. S001** (OVAM *Marktanalyse Biomassareststromen* 2022) explicitly covers
+*"used frying fats/oils"* per its own `Sources`-sheet verdict. It is in `inbox/` marked `_RETIRED`.
+
+---
+
+## G-15 · MONBIO's own crop groups with no component rows — 203.387 t of field residue
+
+**Status:** open · **Class:** B · **Size:** 203.387 t (MONBIO 4.0) / 195.757 t (3.0)
+
+**Evidence.** Three L3 residual aggregates carry mass with **zero component rows in either edition**:
+
+| claims | group | MONBIO 4.0 | MONBIO 3.0 |
+|---|---|---|---|
+| `C-242` `C-423` | Voedergewassen | 101.780 | 90.551 |
+| `C-243` `C-424` | Industriële gewassen | 55.065 | 56.987 |
+| `C-244` `C-425` | Peulvruchten en eiwitgewassen | 46.542 | 48.219 |
+
+The asymmetry is the tell: the **production** side of these same groups *is* resolved to L4 —
+Voedermais 5.395.992 t, Gras (incl. hooi) 3.939.458 t, Voederbiet 360.547 t, Cichorei 90.000 t,
+Vlas 23.000 t — so the dictionary has the members and only the residual side is missing.
+
+**What would close it.** A source giving field-residue ratios per fodder / fibre / pulse crop.
+**S077** (Vlaanderen Circulair scenariostudie) re-tabulates MONBIO into 14 crop types and may resolve
+some of it, though it is a re-aggregation, not a new measurement.
+
+---
+
+## G-16 · Eieren — 1.282 t, zero components; eierschalen absent
+
+**Status:** open · **Class:** B · **Size:** 1.282 t
+
+**Evidence.** `C-047`, `C-060`, `C-170`, `C-071`, `C-182` under `Dierlijk - vee › Eieren`, all at L3,
+no L4 anywhere. *Eierschalen* absent from the workbook. Small in tonnage, but it is a **complete**
+absence in a sector Flanders has.
+
+---
+
+## G-17 · Visverwerking — everything except discards is absent
+
+**Status:** open · **Class:** B · **Size:** the whole selectable fish mass is **839 t**
+
+**Evidence.** 32 selectable fish rows across the corpus total **839 t**, all of them
+*opgehouden vis* at the auctions. *Visafval, visresten, visgraat, viskop* are **absent**. The one
+real fisheries residual figure in the register is the discards row of **G-A1** (7.500 t), which is
+currently invisible. The `Visserij` chain stage has **zero** L4/L5 rows.
+
+**What would close it.** A fish-processing or ILVO fisheries source; `flag_agrifood_sidestreams`
+in the `Sources` sheet marks one row *"yes (FISHERIES side streams)"* — worth locating.
+
+---
+
+## G-18 · Seven MONBIO 4.0 figures exist only in the 2020 edition, because 2021 suppressed them
+
+**Status:** open · **Class:** B (source suppression) · **Size:** 284.549 t on the largest of them
+
+**Evidence.** `log.md` records it exactly: *"Three Prodcom cells that were confidential in S091 carry
+a value here — 106220 afvallen van zetmeelfabrieken (284.549 t, C-550), 108120 bietenpulp en andere
+afvallen van de suikerindustrie (661.550 t, C-555) and 108311 gebrande koffie (36.953 t, C-560) —
+plus 103213 pompelmoessap and 103214 ananassap, and 102024 gerookte vis and 102034 bereide
+schaal-/weekdieren. Seven claims that have no counterpart in the 2021 edition."*
+
+**Why it matters here.** **Zetmeel is the #5 stream in the selection and is single-source for this
+reason alone** — not because the register missed it. A confidential Prodcom cell is an absence, never
+a zero, so no re-reading of S091 will produce it.
+
+**What would close it.** Any further MONBIO edition (S005, S006, S078 portal) may un-suppress a
+different subset; a cell is suppressed per year, not permanently.
+
+---
+
+## Summary
+
+### Class A — hiding in the current data (no source will help)
+
+| id | Gap | Size | Next action |
+|----|-----|------|-------------|
+| G-A1 | Three named streams sit above L4 and appear nowhere | 255.818 t | decide the 6 rows in `HIDDEN_STREAMS.csv`, then apply |
+| G-A2 | The audit is blind to residual rows above L4 with plain names | structural | **done** — `find_hidden_streams.py`; `uit andere` added to the collection rule |
+| G-A3 | `Varia` sector aggregates parented away from their components | 1,07 Mt of aggregate | the same decision as G-05 |
+| G-05 | `Granen` mixes field and processing residue | n/a | a placement decision, not a source |
+| G-07 | One L4 row holds two unrelated streams | n/a | **resolved by decision** — one item, reported at its lowest detail level (`select_streams.js`) |
+| G-08 | Oogstresten vs voedselreststromen under one crop name | n/a | mark the fraction on the ILVO 239 rows |
+
+### Class B — not in the corpus (only a new source will help)
+
+| id | Gap | Size | Best candidate source | In hand? |
+|----|-----|------|----------------------|----------|
+| G-10 | Aardappelverwerking — no named residue | 621.063 t block, 0 components | Belgapom / VLAM; **S058** | no PDF |
+| G-11 | Dranken — only bostel is named | 378.539 t | **S005 (MONBIO 1.0) — carries DDGS** | **in `inbox/`, `_RETIRED`** |
+| G-04 | Slaughter offal below species level | 471.361 t | **S001** (animal by-product sector, ~860 kt) | **in `inbox/`, `_RETIRED`** |
+| G-06 | Oilseed meal is a Belgian figure | 1,15–1,31 Mt | a Flemish crush figure; S058 | no PDF |
+| G-13 | Bakkerij | 122.276 t | **S067** (Comeos), **S025** (OVAM NACE) | no PDF |
+| G-01 | Retail below sector level | 132.082 t | **S067**, S035, S041 | no PDF |
+| G-14 | Oliën, vetten + frituurvet | 95.895 t | **S001** (covers used frying fats) | **in `inbox/`, `_RETIRED`** |
+| G-15 | MONBIO fodder / fibre / pulse field residue | 203.387 t | S077 (re-tabulation), or a new field-ratio source | no PDF |
+| G-09 | Zuivelverwerking — whey absent entirely | unmeasured | BCZ / dairy sector — **no candidate in the sheet** | **none** |
+| G-12 | Cacao en chocolade — no residual figure | unmeasured | Choprabisco / plant study — **no candidate** | **none** |
+| G-18 | Seven MONBIO 4.0 cells suppressed as confidential | 284.549 t on zetmeel | S005 / S006 / S078 may un-suppress a different subset | S005, S006 in `inbox/` |
+| G-17 | Visverwerking — 839 t is the whole selectable fish mass | ~0 | an ILVO fisheries source | no PDF |
+| G-02 | PO's & veilingen implausibly small | 15.189 t | **fact-check first** — VBT / one auction's jaarverslag | n/a |
+| G-16 | Eieren en eierschalen | 1.282 t | a poultry/egg sector source | no PDF |
+| G-03 | *(umbrella, superseded)* food-industry detail | 1,7–2,2 Mt | **now decomposed into G-09…G-14** | — |
+
+### The cheapest three moves
+
+1. **Un-retire S005 (MONBIO 1.0).** It is already in `inbox/` and its own verdict says it carries
+   named tonnages including **DDGS** — the one thing that would put a second stream into G-11.
+2. **Un-retire S001 (Marktanalyse 2022).** Already in `inbox/`; covers the **animal by-product
+   sector (~860 kt, 2021)** and **used frying fats** — that is G-04 and G-14 together.
+3. **Decide the six rows in `HIDDEN_STREAMS.csv`.** Costs nothing and recovers 255.818 t, including
+   the entire residual content of the `Visserij` stage.
+
+*S001, S005, S006 and S086 were retired on the expectation that they would repeat later editions.
+For G-04, G-11 and G-14 that expectation is wrong: the later editions do not carry these streams,
+which is precisely why the gaps exist.*
+
+---
+
+## Where the class-A rows are decided
+
+Same convention as every other human gate here — `;`-delimited, UTF-8 BOM, blank `DECISION`:
+
+- **`crosswalks/HIDDEN_STREAMS.csv`** — the 49 residual rows above L4, with a proposal per row
+  (`promote` | `subgroup-figure` | `aggregate`) and the reason. Regenerate with
+  `find_hidden_streams.py`; it refuses to overwrite once any `DECISION` is filled.
+- **`crosswalks/GAP_DECISIONS.csv`** — the earlier eight, all decided and applied on 2026-09-03.
+  Kept for provenance; do not re-run its generator.

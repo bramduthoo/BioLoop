@@ -57,6 +57,94 @@ clean v2 re-run and supersedes it entirely.*
 
 ## Tooling & model sessions (no source extracted)
 
+### 2026-09-03 (last) — full-corpus gap sweep; the gap list split into two classes
+
+**No source extracted; no claim changed.** The reviewer asked for the gap analysis to be redone
+thoroughly and critically — explicitly including *"a sector/chain stage or L3 level with a large
+aggregate and no selectable L4/L5"* and *"screening the workbook for names you expect to be possible
+entries which are now not rendered"*, the way zemelen, gries and bostel had been. Five screens were
+run over `streams_export.csv`, and the result is `OPEN_GAPS.md`, rewritten around **two classes**:
+*hiding in the current data* (no source will help) and *not in the corpus at all* (only a source
+will).
+
+**Screen 1 — residual rows above L4.** 49 live residual rows sit at L2/L3 with no `AGGREGAAT - `
+prefix, **2.367.761 t**, invisible to any selection. **43 are legitimate** — OVAM publishes
+*Dranken*, *Bakkerij* and *groenten openlucht* at subgroup level and nothing finer — and those 43
+are the class-B data gaps. **Six are misplacements** (G-A1): `C-334`/`C-523` *Meel/schroot uit
+andere oliehoudende zaden* (68.000 t each), `C-381`/`C-574` *Melasse grondgebiedbasis* (47.805 /
+56.806), `C-273`/`C-457` *Teruggegooide vis* (7.500 / 7.707). The discards row is also **the entire
+residual content of the `Visserij` stage**, against a total selectable fish mass of 839 t.
+
+**The audit could not have caught any of them (G-A2).** `audit_register.py` identifies a misplaced
+row from its **name** — check 1 on a product code, check 4 on a leftover-class phrase — so a
+residual row at L2/L3 with an ordinary name passes every check in the file. One concrete hole was
+found and fixed: `COLLECTION_SIGNALS` listed *en andere*, *of andere*, *van andere* but not ***uit
+andere***, which is exactly how `C-334` escaped. Adding it catches those two rows and nothing else;
+the audit baseline moves **24 → 26 findings**. The durable fix is the new
+**`find_hidden_streams.py`**, which enumerates the class instead of matching names and writes
+`crosswalks/HIDDEN_STREAMS.csv` as a human gate (`promote` | `subgroup-figure` | `aggregate`).
+
+**Screen 2 — retired rows.** Nothing large is being lost by mistake.
+
+**Screen 3 — waste filed as production.** 30 `Productievolume` rows whose names read like residue;
+**all 30 are false positives** (margarine, cacaopasta, witloof production, *Aanvoer Bot* — a
+flatfish). The hypothesis is closed and should not be re-run.
+
+**Screen 4 — aggregate reconciliation.** Found G-A3: `C-284`/`C-469` *maalderij* (671.000 /
+563.000) and `C-286`/`C-471` *suiker en chocolade* (403.000 / 394.000) sit at **L2 under `Varia`
+with `L3` blank** while the rows they total sit under `Granen` and `Varia › Zetmeel`/`Suiker`, so
+they reconcile against nothing in the tree. Both compositions were already in this log and are
+exact: `563.000 = 278.865 zemelen + 284.549 zetmeelafvallen`; `394.000 = 56.806 melasse + 337.649
+bietenpulp`. It is **G-05 with numbers attached**.
+
+**Screen 5 — absence checklist.** 41 named Flemish side streams asked of the whole workbook, any
+role, any status. **Absent entirely:** wei/kaaswei/permeaat/lactose, cacaodoppen, aardappelschillen
+/ stoomschillen / aardappelvezel / aardappeleiwit, draf/DDGS, vinasse, frituurvet, eierschalen,
+veren, verenmeel/diermeel, categorie 1/2/3 materiaal, visafval, citruspulp, bietenpuntjes,
+schuimaarde, champost, bermgras.
+
+**Four suspected gaps were checked and dismissed** — two of which would have made the list wrong:
+
+- **`Suiker- en zetmeelgewassen`** (1.207.169 / 1.264.364 t, no components under it) is **not a
+  gap**: it is MONBIO's own *gewasgroep* and its components sit under two register L3s.
+  744.945 + 462.224 = 1.207.169 **exactly**; 800.480 + 463.884 = 1.264.364 **exactly**.
+- **GeNeSys akkerbouw 3.000.000 t and groenten 800.000 t** are covered — the first is a declared
+  rival of MONBIO's measured stro and already cross-referenced, the second a round approximation of
+  GeNeSys's own crop rows (903.130 t).
+
+**The mechanism behind most of class B, stated so it can guide the source hunt.** MONBIO's
+food-industry residual detail *is* the set of **Prodcom codes that happen to name a waste or
+by-product** (106132 gries, 106220 zetmeelafvallen, 108114 melasse, 110210 bostel, 101150 dierlijk
+vet, 101240 slachtafval gevogelte) plus one FEDIOL crush table. **A side stream with no such code is
+invisible to MONBIO however large it is** — which is why bostel and zemelen are in the selection and
+whey, cocoa shell and potato peel are absent. OVAM has the mirror-image limit: subgroup level and
+nothing finer. So the next source should carve **by process, not by product code**.
+
+**Ten new class-B entries** (G-09…G-18), each with claim ids, what is absent by name, and a
+candidate: aardappelverwerking (621.063 t block, 0 components), dranken (378.539), slachtafval per
+soort (471.361, was G-04), oliezaadschroot geography (was G-06), bakkerij (122.276), retail (was
+G-01), oliën/vetten + frituurvet (95.895), MONBIO's voedergewassen/industriële/peulvruchten field
+residue (203.387), **zuivel — wei absent entirely**, **cacao — no residual figure at all**, the
+seven MONBIO 4.0 cells suppressed as confidential (which is why zetmeel is single-source),
+visverwerking, PO's, eieren. `G-03` becomes an umbrella marked superseded.
+
+**Three cheapest moves, and a correction to an earlier decision.** S005 (MONBIO 1.0) and S001
+(Marktanalyse 2022) are **already in `inbox/`, marked `_RETIRED`** — S005's own `Sources` verdict
+names *gries/zemelen/**DDGS** 646 kt* and S001 covers the **animal by-product sector (~860 kt, 2021)
+and used frying fats**. They were retired on the expectation that they repeat later editions; for
+G-04, G-11 and G-14 that expectation is wrong, and un-retiring them is the cheapest progress
+available. The third move is deciding the six rows in `HIDDEN_STREAMS.csv`.
+
+**G-07 resolved by reviewer decision.** A bundled L4 stays **one item** — Aardappel is Aardappel —
+but the number is now reported **at its lowest detail level**, per fraction, because an L4 sum and a
+single-fraction figure are not the same quantity and comparing them manufactures spread.
+`select_streams.js` gained that view, and it does what the reviewer predicted: Suikerbiet reads 34×
+across sources at L4 and **1,0× on loof, 1,0× on pulp**; Aardappel 8,3× at L4 and **1,1× on loof**.
+
+**Checks.** `verify_overview.py` 8/8; `audit_register.py` 26 findings (24 pre-existing + the two
+`uit andere` rows the fix now catches); workbook untouched. Report artifact:
+`https://claude.ai/code/artifact/4a899558-975e-400e-a69b-3d277cc9b5d2`.
+
 ### 2026-09-03 (later) — the 80/20 selection re-run after two defects were found in the analysis
 
 **No source extracted; no claim in the workbook was touched.** The reviewer rejected the first
