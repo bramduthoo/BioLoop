@@ -19,9 +19,14 @@ function analyse(ed, yr) {
   const rest = r.roots.find(x => x.label === "Reststroom");
   if (!rest) return null;
   const nodes = walk(rest, []);
-  const deep = nodes.filter(n => (n.level === "l4" || n.level === "l5") && (n.repTotal || 0) > 0);
-  // avoid double counting an l4 that also has l5 children: keep l5 where present
-  const keep = deep.filter(n => !(n.level === "l4" && n.children.some(c => (c.repTotal || 0) > 0)));
+  // The selectable pool is the set of L4 nodes; an L4's repTotal already contains its L5
+  // fractions, so taking L4 counts every fraction exactly once.
+  // FIXED 2026-09-03: the previous filter kept the L5 children and DROPPED the L4 whenever one
+  // existed, which silently deleted the L4's own tonnage. On MONBIO 4.0 that removed
+  // 'Kool- en raapzaad' entirely - 681.000 t of schroot vanished because the same L4 carried a
+  // 7.818 t 'stro' fraction - plus 56.585 t of aardappel food-industry residue. 737.585 t, and
+  // the corpus' second-largest stream, were invisible to the 80/20 selection because of it.
+  const keep = nodes.filter(n => n.level === "l4" && (n.repTotal || 0) > 0);
   const l4sum = keep.reduce((a, n) => a + n.repTotal, 0);
   return { r, rest, nodes, keep, l4sum, unalloc: r.unallocated || [] };
 }
@@ -50,8 +55,7 @@ rowsOut.forEach(({ ed, yr, rep, a }) => {
   console.log(`\n--- ${ed} (${yr})   L1 residual = ${fmt(rep)} t ---`);
   a.rest.children.forEach(g => {
     const nodes = walk(g, []);
-    const deep = nodes.filter(n => (n.level === "l4" || n.level === "l5") && (n.repTotal || 0) > 0)
-      .filter(n => !(n.level === "l4" && n.children.some(c => (c.repTotal || 0) > 0)));
+    const deep = nodes.filter(n => n.level === "l4" && (n.repTotal || 0) > 0);   // see analyse() above
     const dsum = deep.reduce((x, n) => x + n.repTotal, 0);
     const share = rep ? (g.repTotal || 0) / rep : 0;
     const flag = deep.length === 0 ? "  <-- NO L4/L5 DATA" :

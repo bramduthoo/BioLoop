@@ -159,6 +159,104 @@ residues stay with their crop.
 
 ---
 
+## G-06 · The oilseed-meal block — the corpus's #2 stream is a Belgian figure
+
+**Status:** open · **Kind:** missing data (geography) · **Size:** 1.150.000 t/yr (MONBIO 4.0) ·
+1.308.000 t/yr (MONBIO 3.0)
+*Opened 2026-09-03, from the re-run of the 80/20 selection.*
+
+**Evidence.** Four of the twenty-four selected streams carry `geography = Belgie`, not
+`Vlaanderen`: **Kool- en raapzaad** (`C-331` 681.000 / `C-520` 852.000), **Lijnzaad** (`C-333`
+245.000 / `C-522` 237.000), **Soja** (`C-330` 98.000 / `C-519` 170.000) and **Zonnebloem** (`C-332`
+58.000 / `C-521` 49.000). Together they are ~18% of the corpus envelope and include the
+**second-largest stream in the register**. MONBIO prints them as *ruwe productie (België)* because
+the crushing statistics are only published nationally.
+
+**Why it is a gap.** The register is a Flemish corpus and every other figure in the selection is
+Flemish. A selection whose #2 entry rests on a national denominator cannot be scaled or compared
+without a stated Flemish share, and the protocol forbids deriving one (that would be a calculation,
+not a reading). The sanctioned Belgian→Flemish exception covers fishing ports only and must not be
+stretched to cover oilseed crushing, however Ghent-heavy the sector is.
+
+**Second symptom, same cause.** These rows are why MONBIO's selectable L4 ceiling **exceeds its own
+reported L1 residual total** (104,6% for MONBIO 3.0, 102,8% for 4.0): the Prodcom food-industry rows
+sit under `Plantaardig - akkerbouw › Oliehoudende gewassen`, whose covering aggregate
+(`C-419` / `C-238`, *plantaardige landbouw*) counts primary production only. The percentages are a
+denominator artefact, not double counting — but they make `% of L1` meaningless for MONBIO, which is
+why coverage is scored against the ceiling instead.
+
+**What would close it.** A Flemish crushing / persing figure for oilseed meal, or a source that
+states the Flemish share of Belgian crush. Candidates: **S058** (ILVO TransBio WP3), a
+sector-federation figure, or the Belgian Prodcom data resolved per region if it exists at all.
+Failing that, the four rows stay in the selection with `geography = Belgie` on the face of them.
+
+---
+
+## G-07 · One L4 row can hold two physically unrelated streams
+
+**Status:** open · **Kind:** taxonomy — a decision, not a source · **Size:** n/a (structural,
+affects 3 of the top 4)
+*Opened 2026-09-03, from the re-run of the 80/20 selection.*
+
+**Evidence.** The selection unit is the L4 commodity node, which buys cross-source comparability
+(MONBIO's *Groenten* matches ILVO's *Groenten openlucht*). The price is that a commodity throwing
+off residue at two points in the chain lands on one row:
+
+| L4 row | splits into | | |
+|---|---|---|---|
+| **Suikerbiet** 812.224 | bietenloof 462.224 (primaire productie) | + | bietenpulp 350.000 (voedingsindustrie) |
+| **Aardappel** 801.530 | aardappelloof 744.945 (primaire productie) | + | 56.585 (voedingsindustrie) |
+| **Kool- en raapzaad** 688.818 | koolzaadstro 7.818 (primaire productie, VL) | + | raapzaadschroot 681.000 (voedingsindustrie, **BE**) |
+
+(MONBIO 4.0 values; MONBIO 3.0 splits the same way. Smaller cases: Bloemkool, Prei, Boon, Wortel in
+GeNeSys, where a Flemish field figure sits beside a Belgian industry figure.)
+
+**Why it matters.** BioMobi wants six streams here, not three — bietenpulp and bietenloof have
+nothing physically in common, and in the raapzaad case the two halves are not even in the same
+country. Ranking and coverage are unaffected (the tonnages are correct either way), but the list
+cannot be handed to BioMobi as-is.
+
+**Why it is not simply fixed by keying on L5.** Only some sources name a fraction. Keying the
+selection on L5 would split *Bloemkool loof* (MONBIO) from *Bloemkool blad- en stengelmassa*
+(GeNeSys) from *Bloemkool* (ILVO 239) — three keys for one crop — and destroy the cross-source
+matching the L4 key exists to provide. The split has to be made **at registration time**, from the
+fraction breakdown, not by changing the key.
+
+**What would close it.** A rule saying how a bundled L4 is registered in BioMobi. The arithmetic is
+already printed per row by `select_streams.js` (its *bundled L4s* block), so no new data is needed.
+
+---
+
+## G-08 · The same horticultural crop carries two incompatible quantities
+
+**Status:** open · **Kind:** definition · **Size:** n/a (affects every tuinbouw stream in the
+selection)
+*Opened 2026-09-03, from the re-run of the 80/20 selection.*
+
+**Evidence.** GeNeSys (S065) measures **oogstresten** — the leaf and stem mass left in the field;
+its rows carry L5 fractions like *blad- en stengelmassa*. ILVO 239 (S066) measures
+**voedselreststromen** — product that does not reach the market; its rows have no L5. Under one crop
+name the two collapse into one stream with an enormous spread:
+
+| stream | GeNeSys | ILVO 239 | spread |
+|---|---|---|---|
+| Boon | 90.000 | 1.783 | **50,5×** |
+| Spruiten | 138.000 | 5.452 | **25,3×** |
+| Bloemkool | 201.311 | 16.388 | **12,3×** |
+| Aardbei | 22.500 | 1.836 | **12,3×** |
+
+**Why it is a gap.** This is the MONBIO-vs-OVAM definitional divide reappearing *inside*
+horticulture, where it is less obvious because both sources are ILVO and both are Flemish tuinbouw.
+Selecting "Boon" without saying which quantity is meant is not usable, and the two figures must
+never be averaged or summed. The selection ranks on the **larger** of the two, so every tuinbouw
+entry in the shortlist is currently sized as *oogstresten*.
+
+**What would close it.** Partly internal: give the ILVO 239 rows a fraction marker that distinguishes
+product loss from field residue, so the two quantities stop sharing a node. Partly external: neither
+source states a conversion between the two definitions, and inventing one is a derivation.
+
+---
+
 ## Summary
 
 | id | Gap | Size | Kind | Next action |
@@ -168,6 +266,9 @@ residues stay with their crop.
 | G-03 | Food industry stream detail | 1,7–2,2 Mt | granularity + missing data | re-levelling **done** 2026-09-03; next S025 / S058 |
 | G-04 | Dierlijk – vee offal below species level | 471 kt | granularity | needs a species-resolved source (S001 / S087) |
 | G-05 | `Granen` mixes field and processing residue | n/a | taxonomy | a placement decision, not a source |
+| G-06 | Oilseed meal — the #2 stream is a Belgian figure | 1,15–1,31 Mt | missing data (geography) | needs a Flemish crush figure (S058?) |
+| G-07 | One L4 row holds two unrelated streams | n/a | taxonomy | a registration rule; arithmetic already printed |
+| G-08 | Oogstresten vs voedselreststromen under one crop name | n/a | definition | mark the fraction on the ILVO 239 rows |
 
 **Not in this file:** the eight gaps that can be closed by re-levelling rows the register already
 holds. Those live on the gap desk and are decided there, not here.

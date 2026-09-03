@@ -57,6 +57,72 @@ clean v2 re-run and supersedes it entirely.*
 
 ## Tooling & model sessions (no source extracted)
 
+### 2026-09-03 (later) — the 80/20 selection re-run after two defects were found in the analysis
+
+**No source extracted; no claim in the workbook was touched.** The reviewer rejected the first
+shortlist as internally inconsistent, naming the symptom precisely: raapzaadschroot at 681.000 t/yr
+was absent while bonen at 1.783–68.600 t/yr was in, and so were gries (~85–98 kt), bostel (~114–135
+kt) and the bietenpulp aggregate. They were right, and the cause was entirely in the analysis code.
+
+**Defect 1 — the pool filter deleted an L4's own tonnage.** `analyse.js` built the selectable pool
+by keeping an L5 fraction where a stream had one and the L4 node otherwise, to avoid double
+counting. The effect was that whenever *any* source gave a commodity a named fraction, that
+commodity's **unfractioned** tonnage was discarded. `Kool- en raapzaad` carries a 7.818 t *stro*
+fraction from the field; that L5 was enough to delete the 681.000 t of schroot sitting on the same
+L4 from the pool the selection ranked over. It could not have been selected at any N. Arithmetic:
+
+```
+MONBIO 4.0 pool   before 4.868.081   after 5.605.666   restored 737.585
+                  = 681.000 (C-331 raapzaadschroot) + 56.585 (C-314 aardappel, voedingsindustrie)
+MONBIO 3.0 pool   restored 906.913 = 852.000 (C-520) + 54.913 (C-501)
+```
+
+Fixed in `analyse.js` (both call sites), with the arithmetic recorded in the comment so the
+regression is recognisable if it returns.
+
+**Defect 2 — the ranking rewarded ubiquity, not mass.** The first pass ran a greedy selection
+maximising *mean coverage across the six sources*. A stream two sources report scores twice; a
+stream only MONBIO reports is diluted by four zeros — zeros that the register's own invariant says
+do not exist (absence is *not measured*, never zero). So horticultural crops present in GeNeSys and
+ILVO 239 outranked food-industry streams three to four times their size. That is the whole
+explanation for zemelen, gries and bostel being missing while boon and peer were in.
+
+**The method now, stated so it can be argued with.** Unit = the L4 commodity node, keyed
+`L2 | L4` (L3 dropped: MONBIO's *Groenten* is ILVO's *Groenten openlucht*). Value = that source's
+own derived total, never summed across sources. Rank = `M(k) = max over sources`, which is monotone
+in mass, so the reviewer's inversion cannot recur. Denominator = each source's **selectable
+ceiling** (the sum of its L4 streams), with its reported L1 total shown beside it — a source cannot
+be asked for depth it never published. All of it lives in the header comment of the new committed
+script `select_streams.js`; `select.js` / `select2.js` were scratch and are not in the repo.
+
+**Result.** 65 selectable streams, envelope 7.095.847 t. **80% falls at rank 12** (18,5% of entries;
+25,5% if the 18 fish species, 578 t between them, are set aside). The recommended working set is
+**24 streams** — 96,0% of the envelope, 100% of *both* MONBIO ceilings, 99,9% OVAM 2020, 92,9%
+OVAM 2023, 77,6% GeNeSys, 73,8% ILVO 239. Against the first pass's 16: fifteen survive, nine enter
+(Kool- en raapzaad **at rank 2**, Zetmeel, Soja, Dierlijk vet, Bostel, Melasse, Gries, Gevogelte,
+Zonnebloem) and one drops (Spinazie, now rank 28).
+
+**Coverage percentages are lower than the first pass reported, and that is the fix working** — the
+ceilings it measured against were short by 737.585 t and 906.913 t, so its percentages were
+flattering.
+
+**Three gaps raised**, all of them properties of the corpus that only became visible once the
+ranking was correct — written up in `OPEN_GAPS.md`:
+
+- **G-06** — the oilseed-meal block (Kool- en raapzaad, Lijnzaad, Soja, Zonnebloem; ~18% of the
+  envelope, including the #2 stream) carries `geography = Belgie`. Same rows explain why MONBIO's
+  L4 ceiling exceeds its own L1 total (104,6% / 102,8%): a denominator artefact, not double
+  counting.
+- **G-07** — three of the top four L4 rows bundle two physically unrelated streams (Suikerbiet =
+  loof + pulp; Aardappel = loof + industrieel; Kool- en raapzaad = stro VL + schroot BE). Needs a
+  registration rule, not new data; the split arithmetic is printed per row by `select_streams.js`.
+- **G-08** — GeNeSys measures *oogstresten*, ILVO 239 measures *voedselreststromen*, and under one
+  crop name they collapse into one stream with spreads up to 50,5× (Boon 90.000 vs 1.783).
+
+**Checks.** `verify_overview.py` 8/8; `audit_register.py` at its 24-finding baseline; workbook and
+`streams_export.csv` unchanged (this session read them only). Report artifact:
+`https://claude.ai/code/artifact/95fa6e87-1fd1-45d3-88f9-071881f67bc1`.
+
 ### 2026-09-01 (evening) — aggregate decisions taken in a copy, and the 80/20 coverage audit
 
 **No source extracted.** The reviewer asked for the open decision sheet to be filled provisionally
