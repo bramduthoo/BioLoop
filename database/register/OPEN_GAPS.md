@@ -117,3 +117,20 @@ method:
 
 **Not in this file:** the eight gaps that can be closed by re-levelling rows the register already
 holds. Those live on the gap desk and are decided there, not here.
+
+---
+
+## Where the fixable eight are decided
+
+The eight gaps that **can** be closed by re-levelling live in
+**`crosswalks/GAP_DECISIONS.csv`** — same convention as every other human gate here:
+`;`-delimited, UTF-8 BOM, blank `DECISION` and `NOTES` columns for you to fill in Excel or VS Code.
+Each row carries the claim ids, the mass, why it is a gap and the proposed fix, so it stands on its
+own without the artifact.
+
+There is also a browser version of the same eight with the evidence tables and charts —
+the **Gap Desk** artifact — but note that anything typed there lives in that browser only.
+**`crosswalks/GAP_DECISIONS.csv` is the file of record.** If the two disagree, the CSV wins.
+
+`GAP-6` is marked `fixable_internally = partly`: its internal half (promoting zetmeel) is decided in
+the CSV, its external half is **G-03** above.
