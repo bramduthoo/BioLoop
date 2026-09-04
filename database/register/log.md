@@ -145,6 +145,29 @@ across sources at L4 and **1,0× on loof, 1,0× on pulp**; Aardappel 8,3× at L4
 `uit andere` rows the fix now catches); workbook untouched. Report artifact:
 `https://claude.ai/code/artifact/4a899558-975e-400e-a69b-3d277cc9b5d2`.
 
+**Completed 2026-09-04 — the register made usable.** The reviewer's response to the first version
+was that it *"only shows parts of the actual output … nothing concrete to work upon"*, and that was
+fair: it narrated the findings and cited the evidence without ever printing it. The screens are now
+emitted in full by a committed script, **`gap_sweep.py`**, and the artifact renders every one of
+them as a table rather than a summary:
+
+- all **49** rows above L4 with the proposal per row, filterable, with a `branch L4` column saying
+  whether that source has any selectable detail in the same branch;
+- the **41-stream checklist** with its status, hit count, largest tonnage and claim ids — so
+  *absent* can be checked rather than believed;
+- **34 commodities with a production figure and no residual figure** (`prod_only_l4`), a screen that
+  was run but never surfaced. It is the cleanest statement of a data gap the corpus can make:
+  Voedermais 5.395.992 t, Koemelk 4.450.280, Gras en hooi 3.939.458, Mout 1.027.663, Varken
+  1.253.312 — volumes known, residue unmeasured;
+- all **26 branches** with reported / reaches-L4 / unresolved, the five reconciled ones marked;
+- all **50 MONBIO** and **25 OVAM** food-industry residual rows, which is the evidence for the
+  Prodcom mechanism rather than an assertion of it;
+- all **30** production look-alikes and all **63** retired rows, so both dismissals are checkable;
+- all **91 sources** with the on-disk status (the sheet's own `extraction_status` is stale and reads
+  *NOT EXTRACTED* for every row, so it was ignored) and a gap mapping per source.
+
+No number changed; nothing was re-analysed. `gap_sweep.py` reproduces the JSON the page renders.
+
 ### 2026-09-03 (later) — the 80/20 selection re-run after two defects were found in the analysis
 
 **No source extracted; no claim in the workbook was touched.** The reviewer rejected the first
