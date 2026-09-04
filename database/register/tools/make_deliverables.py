@@ -17,7 +17,8 @@ from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
 HERE = pathlib.Path(__file__).resolve().parent
-OUT = HERE / "deliverables"; OUT.mkdir(exist_ok=True)
+ROOT = HERE.parent                      # register/ - HERE is register/tools/
+OUT = ROOT / "deliverables"; OUT.mkdir(exist_ok=True)
 TODAY = datetime.date.today().isoformat()
 SH = lambda e: (e.replace("OVAM Monitor voedselverlies ", "OVAM ")
                  .replace(" ILVO 165", "").replace(" tuinbouw", ""))
@@ -116,12 +117,12 @@ def selection(raw):
 
 
 # ---------------------------------------------------------------- gaps
-GAPS = json.loads(io.open(HERE / "deliverables" / "gaps.json", encoding="utf-8").read()) \
-    if (HERE / "deliverables" / "gaps.json").exists() else None
+GAPS = json.loads(io.open(ROOT / "deliverables" / "gaps.json", encoding="utf-8").read()) \
+    if (ROOT / "deliverables" / "gaps.json").exists() else None
 
 
 def gaps():
-    src = json.load(io.open(HERE / "deliverables" / "gaps.json", encoding="utf-8"))
+    src = json.load(io.open(ROOT / "deliverables" / "gaps.json", encoding="utf-8"))
     wb = Workbook(); ws = wb.active; ws.title = "Gaps"
     ws["A1"] = "BIOLOOP — negen gaps, in volgorde van belang"
     ws["A1"].font = Font(bold=True, size=15)

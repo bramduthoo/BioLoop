@@ -28,7 +28,8 @@ import pathlib, re, sys
 import openpyxl
 
 HERE = pathlib.Path(__file__).resolve().parent
-WB = HERE / "BIOLOOP_streams_and_sources.xlsx"
+ROOT = HERE.parent                      # register/ - HERE is register/tools/
+WB = ROOT / "BIOLOOP_streams_and_sources.xlsx"
 SHEET = "Streams"
 DRY = "--dry-run" in sys.argv
 PREFIX = "AGGREGAAT - "

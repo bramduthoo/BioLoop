@@ -280,7 +280,7 @@ rather than drop it.
 5. **Self-check** (checklist below) before the write is final, then **run the structural audit**:
 
    ```
-   database/.venv/Scripts/python database/register/audit_register.py --source S0xx
+   database/.venv/Scripts/python database/register/tools/audit_register.py --source S0xx
    ```
 
    It checks the five placement rules of v2.5 plus provenance and registry consistency, and exits
@@ -290,7 +290,7 @@ rather than drop it.
    Then regenerate the aggregate registry and decide the new rows:
 
    ```
-   database/.venv/Scripts/python database/register/make_aggregate_coverage.py
+   database/.venv/Scripts/python database/register/tools/make_aggregate_coverage.py
    ```
 
 6. **Export for diffing.** Write a plain-CSV copy of the `Streams` sheet to
@@ -305,7 +305,7 @@ rather than drop it.
    plus an anomaly note if the source needs one. Then regenerate the HTML view:
 
    ```
-   database/.venv/Scripts/python database/register/render_log.py
+   database/.venv/Scripts/python database/register/tools/render_log.py
    ```
 
    It reads `log.md` and rewrites `log.html` in place; it never writes to the markdown.
@@ -554,11 +554,14 @@ processing sectors under `Varia` (`Bakkerij`, `Dranken`, `Olien, vetten`, `Choco
 cereal, refined sugar is not a beet, melasse is not a suikerbiet. Keep the crop ladder for material
 that is still the crop (straw, haulm, the tuber itself).
 
-**Which scripts run for every source, and which are finished migrations.** Run for each new source:
-`prep_data.py`, `build_overview.py`, `promote_totals.py`, `make_aggregate_coverage.py`,
-`audit_register.py`, `apply_fixes.py`. **Do not re-run** the one-off migrations — `make_varia_reclass.py`,
-`apply_reclass.py`, `apply_exclusions.py`, `make_fixes.py`, `make_fixes_round2.py` — they exist for
-provenance; `Gemengd` is retired and their work is done.
+**Where the scripts live, and which run for every source.** Every script is in **`tools/`** and every
+generated file in **`build/`** (restructured 2026-09-04). Run for each new source, in this order:
+`tools/prep_data.py`, `tools/promote_totals.py`, `tools/make_aggregate_coverage.py`,
+`tools/audit_register.py`, **`tools/find_hidden_streams.py`**, `tools/export_streams.py`,
+`tools/build_overview.py`, then **`tools/final_check.py`** and `tools/verify_overview.py` as the
+closing checks. `find_hidden_streams.py` is not optional: it catches a residual row parked at L2/L3
+with an ordinary name, which every name-based check in `audit_register.py` structurally misses.
+**Do not re-run anything in `migrations/`** — those are finished one-offs kept for provenance.
 
 ## Invariants (never break)
 

@@ -31,9 +31,10 @@ Exit code is 0 when nothing is found, 1 otherwise, so it can gate a session.
 import argparse, csv, io, json, pathlib, re, sys, collections
 
 HERE = pathlib.Path(__file__).resolve().parent
-EXPORT = HERE / "streams_export.csv"
-REGISTRY = HERE / "crosswalks" / "aggregate_coverage.csv"
-OUT_CSV = HERE / "crosswalks" / "AUDIT_findings.csv"
+ROOT = HERE.parent                      # register/ - HERE is register/tools/
+EXPORT = ROOT / "streams_export.csv"
+REGISTRY = ROOT / "crosswalks" / "aggregate_coverage.csv"
+OUT_CSV = ROOT / "crosswalks" / "AUDIT_findings.csv"
 AGG = "AGGREGAAT"
 
 # A row that cites a statistical product code is naming an ARTICLE, not a subgroup, so it belongs
@@ -201,7 +202,7 @@ def main():
             w.writeheader()
             for f in F:
                 w.writerow(dict(f, DECISION_fix=""))
-        print(f"\nwrote {OUT_CSV.relative_to(HERE.parent)}")
+        print(f"\nwrote {OUT_CSV.relative_to(ROOT.parent)}")
     return 1 if F else 0
 
 

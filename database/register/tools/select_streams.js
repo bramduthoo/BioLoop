@@ -32,7 +32,7 @@
 //    ceiling; L1 is shown alongside so the shortfall stays visible.
 //    envelope = sum over streams of M(k) -> the corpus-wide size estimate the ranking runs on.
 // ---------------------------------------------------------------------------------------------
-const D = require("./derive.js"), P = require("./streams.json");
+const D = require("./derive.js"), P = require("../build/streams.json");
 
 const byId = new Map(P.claims.map(c => [c.id, c]));
 const fmt = n => n == null ? "-" : Math.round(n).toLocaleString("en-US").replace(/,/g, ".");

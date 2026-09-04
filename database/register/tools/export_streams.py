@@ -11,8 +11,9 @@ Importable (`from export_streams import export`) and runnable:
 import csv, io, pathlib, sys
 
 HERE = pathlib.Path(__file__).resolve().parent
-WB = HERE / "BIOLOOP_streams_and_sources.xlsx"
-EXPORT = HERE / "streams_export.csv"
+ROOT = HERE.parent                      # register/ - HERE is register/tools/
+WB = ROOT / "BIOLOOP_streams_and_sources.xlsx"
+EXPORT = ROOT / "streams_export.csv"
 SHEET = "Streams"
 
 

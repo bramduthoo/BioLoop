@@ -27,9 +27,10 @@ The distinction matters because they were being confused: the first coverage aud
 
 ## How the sweep was run
 
-Five screens over `streams_export.csv`. **`gap_sweep.py` runs all five and dumps every one of them
-in full** — `database/.venv/Scripts/python gap_sweep.py out.json` — so this file's claims can be
-re-derived from the workbook rather than trusted. The browser version of the same output, with the
+Five screens over `streams_export.csv`. The script that ran them, `gap_sweep.py`, is archived in
+`migrations/` — its recurring part now lives in `tools/final_check.py`, which runs the same
+partition on every claim and asserts it. So this file's claims can be re-derived from the
+workbook rather than trusted. The browser version of the same output, with the
 raw tables, is the **Gap Register** artifact at
 `https://claude.ai/code/artifact/4a899558-975e-400e-a69b-3d277cc9b5d2`.
 

@@ -1,110 +1,106 @@
-# BIOLOOP — stream overview (register/)
+# BIOLOOP — the candidate stream register (`register/`)
 
-Interactive, English-language overview of the `Streams` claim register. It is a **pure
-function of the workbook** and regenerates deterministically after each extraction — no
-manual editing, so it cannot drift.
+The claim-level corpus of Flemish agri-food side-stream figures, and the pipeline that turns it into
+a browsable overview and a selectable stream list. Everything derived here is a **pure function of
+the workbook**: it regenerates deterministically after each extraction, so it cannot drift.
+
+## Layout
+
+```
+register/
+  BIOLOOP_streams_and_sources.xlsx   the corpus — 801 claims, edit only Streams and Sources
+  streams_export.csv                 its git-diffable export; the committed audit trail
+  destination_index.csv              where each source keeps its destination/route volumes
+  CLAUDE.md                          the extraction protocol (v2.5) — the rulebook
+  log.md                             the per-session record
+  OPEN_GAPS.md                       the gap record
+  CLEANUP.md                         how this folder was closed out, and how to do it again
+  README.md                          this file
+  archive/  inbox/                   verified source PDFs (gitignored)
+  dictionaries/                      the three binding vocabularies
+  crosswalks/                        the live human gates
+  tools/                             every script — nothing else runs
+  build/                             generated output — never hand-edit, safe to delete
+  deliverables/                      the shareable .xlsx / .html, plus the gap text they read
+  migrations/                        finished one-offs, kept for provenance — do not re-run
+```
 
 ## Regenerate
-Put `BIOLOOP_streams_and_sources.xlsx` in this folder, then run it with the repo's venv
-interpreter (`database/.venv`, which already carries `pandas` + `openpyxl`).
 
-Windows (PowerShell or Git Bash), from `database/register/`:
-```
-../.venv/Scripts/python.exe build_overview.py            # auto-finds the workbook here
-../.venv/Scripts/python.exe build_overview.py /path/to/workbook.xlsx
-```
-macOS / Linux:
+Run with the repo's venv interpreter (`database/.venv`, which carries `pandas` + `openpyxl`).
+From `database/register/`:
+
 ```bash
-../.venv/bin/python build_overview.py
+../.venv/Scripts/python tools/build_overview.py          # auto-finds the workbook
+../.venv/Scripts/python tools/build_overview.py /path/to/workbook.xlsx
 ```
-There is no `python3` on Windows — use the path above (or `py -3`), not `python3`.
 
-Open the generated `stream_overview.html` in a browser (no server needed).
+macOS / Linux: `../.venv/bin/python tools/build_overview.py`. There is no `python3` on Windows —
+use the path above, or `py -3`.
 
-Outside the venv it needs any Python 3 with `pandas` + `openpyxl`:
-```bash
-pip install pandas openpyxl
-```
+Open `build/stream_overview.html` in a browser; no server needed. Outside the venv any Python 3
+with `pandas` + `openpyxl` will do.
 
 ## Files
 
-Everything here runs again for every new source. Finished one-off migrations live in
+Everything in `tools/` runs again for every new source. Finished one-off migrations live in
 `migrations/` and must not be re-run — see `migrations/README.md`.
+
+### The view pipeline
 
 | File | Role |
 |------|------|
-| `build_overview.py` | Generator. Runs `prep_data.py`, then injects `derive.js` + `streams.json` into `template.html` → `stream_overview.html`. |
-| `prep_data.py` | Reads the `Streams` sheet + `crosswalks/aggregate_coverage.csv` → `streams.json`. Honours `DECISION_expert`: a retired claim leaves the derivation entirely. |
-| `derive.js` | Pure, DOM-free derivation (also runnable in Node). Builds the commodity tree, places the aggregates, computes coverage. |
-| `template.html` | The view. Placeholders `/*__DERIVE__*/` and `/*__DATA__*/` are filled by the generator. |
-| `make_aggregate_coverage.py` | Proposes what each `AGGREGAAT` row totals → `crosswalks/aggregate_coverage.csv` (human-gated). Owns the residual-class rule. `--refresh` re-proposes placements and carries decisions forward. |
-| `promote_totals.py` | Gives the `AGGREGAAT - ` prefix to rows that are totals, on name or arithmetic evidence. Idempotent. |
-| `audit_register.py` | **Run after every extraction.** Seven structural checks; exits non-zero while anything is open. `--source S0xx` to scope it, `--csv` to write a fix sheet. |
-| `apply_fixes.py` | Applies `DECISION_fix = ok` rows from any decision sheet in `crosswalks/`. |
-| `export_streams.py` | Writes `streams_export.csv` in canonical column order. Importable. |
-| `verify_overview.py` | Regression test for the derivation — eight arithmetic identities from the sources themselves. Run after any change to `derive.js`. |
-| `render_log.py` | `log.md` → `log.html` (derived, gitignored, never hand-edited). |
-| `stream_overview.html` | The generated, self-contained deliverable. |
-| `streams.json` | Generated intermediate (gitignored). |
+| `tools/build_overview.py` | Generator. Runs `prep_data.py`, then injects `derive.js` + `build/streams.json` into `template.html` → `build/stream_overview.html`. |
+| `tools/prep_data.py` | Reads the `Streams` sheet + `crosswalks/aggregate_coverage.csv` → `build/streams.json`. Honours `DECISION_expert`: a retired claim leaves the derivation entirely. `BIOLOOP_REGISTRY` overrides the registry path, `BIOLOOP_XLSX` the workbook. |
+| `tools/derive.js` | Pure, DOM-free derivation (also runnable in Node). Builds the commodity tree, places the aggregates, computes coverage. |
+| `tools/template.html` | The view. Placeholders `/*__DERIVE__*/` and `/*__DATA__*/` are filled by the generator. |
+| `tools/export_streams.py` | Writes `streams_export.csv` in canonical column order. Importable. |
+| `tools/render_log.py` | `log.md` → `build/log.html` (derived, gitignored, never hand-edited). |
 
-**Source-specificity.** The whole view pipeline — `prep_data.py`, `derive.js`, `template.html`,
-`build_overview.py`, `apply_fixes.py`, `export_streams.py`, `render_log.py` — contains **zero**
-source names and **zero** claim ids: it is a pure function of the workbook. Per-claim judgement is
-confined to the `OVERRIDE` table in `make_aggregate_coverage.py` and two entries in
-`promote_totals.py`, both grouped and commented so a new source does not inherit them. An explicit
-`OVERRIDE` entry always beats the residual-class pattern, so there is one place a judgement lives.
+### The selection
 
-## The two open review sheets
+| File | Role |
+|------|------|
+| `tools/select_streams.js` | The 80/20 selection. Ranks streams by the largest tonnage any one source gives them, never summing across sources; prints the ranking, per-source coverage, the fraction breakdown and the divergence list. `node tools/select_streams.js 24 --json out.json`. Its header comment states the four method choices. |
+| `tools/make_deliverables.py` | Writes the shareable `.xlsx` of the selection and of the gap list into `deliverables/`, reading `deliverables/gaps.json` for the gap text. |
 
-Both live in `crosswalks/`, are `;`-delimited with a UTF-8 BOM, and are filled in Excel. They are
-disjoint on purpose: one reviews *decisions*, the other reviews *defects*.
+### The checks — run these after every extraction
 
-| Sheet | Rows | Column to fill | What you are deciding |
-|---|---|---|---|
-| `REVIEW_2026-08-31.csv` | 189 | `DECISION_review` | every provisional decision Claude took while the reviewer was away — exclusions, `AGGREGAAT` promotions, aggregate placements, one override of an explicit human decision |
-| `FIXES_2026-09-01.csv` | 103 | `DECISION_fix` | three structural defects in the register itself, found by the integrity audit |
+| File | Role |
+|------|------|
+| `tools/audit_register.py` | Seven structural checks; exits non-zero while anything is open. `--source S0xx` to scope it, `--csv` to write a fix sheet. **24 findings is the known baseline**, all of them `Productievolume` rows. |
+| `tools/find_hidden_streams.py` | Catches what `audit_register.py` structurally cannot: a live residual row sitting at L2/L3 with an *ordinary* name, which passes every name-based check and is invisible to the selection. Writes `crosswalks/HIDDEN_STREAMS.csv` as a human gate. |
+| `tools/final_check.py` | Partitions **every** claim into one disposition and asserts the property that makes it safe. This is what answers *"could anything still be a selectable stream that is not one?"* with evidence rather than confidence. |
+| `tools/verify_overview.py` | Regression test for the derivation — eight arithmetic identities from the sources themselves. Run after any change to `derive.js`. |
 
-`FIXES_2026-09-01.csv` carries three classes, each with its own evidence:
+### Shaping the register
 
-- **`A-prodcom-level`** (75 rows) — a Prodcom row names a *product*, so it belongs at L4 under its
-  subgroup; these sit at L3 with no L4. Pre-existing, from the S091/S007 extractions: the same rule
-  was applied to the Prodcom rows that went through `varia_reclass` and never to those filed under
-  real commodity groups. Set `level_1to5 = 4` and `L4_ingredient` to the product name.
-- **`B-level-mismatch`** (14 rows) — `level_1to5` does not match the columns actually filled.
-  Introduced by Claude on 2026-08-31: `level` was set to the level the aggregate *totals*, which
-  belongs in `aggregate_coverage.totals_level`, not to the row's own commodity depth.
-- **`C-unmarked-total`** (14 rows) — `Nevenstromen en productieresiduen <gewasgroep>` rows that are
-  exact totals of the fraction rows beneath them but carry no `AGGREGAAT - ` prefix, so they sum
-  with their own parts. `promote_totals.py` missed them because their name never says *totaal*.
-  Worth ~2.8 Mt of double counting. Note the two cross-partition cases (C-240, C-421): their
-  fractions sit under a *different* L3, because MONBIO's gewasgroepen cut across the OVAM subgroups.
+| File | Role |
+|------|------|
+| `tools/make_aggregate_coverage.py` | Proposes what each `AGGREGAAT` row totals → `crosswalks/aggregate_coverage.csv` (human-gated). Owns the residual-class rule and the `PHYSICAL_BUNDLE` exceptions to it. `--refresh` re-proposes placements and carries decisions forward. |
+| `tools/promote_totals.py` | Gives the `AGGREGAAT - ` prefix to rows that are totals, on name or arithmetic evidence. Idempotent. |
 
-**Round 2** (`FIXES_ROUND2.csv`, 86 rows, `make_fixes_round2.py`). The reviewer's answers to
-round 1 showed that "is this Prodcom row at the wrong level?" was three questions in one, so
-round 2 asks them separately:
+**Source-specificity.** The view pipeline contains **zero** source names and **zero** claim ids: it
+is a pure function of the workbook. Per-claim judgement is confined to the `OVERRIDE` and
+`PHYSICAL_BUNDLE` tables in `make_aggregate_coverage.py`, two entries in `promote_totals.py`, and
+the `D_DISPOSED` table in `final_check.py` — all grouped and commented so a new source does not
+inherit them. An explicit `OVERRIDE` entry always beats the residual-class pattern, so a judgement
+lives in exactly one place.
 
-- **`A -> aggregate`** (46 rows) — the name is a *collection*, not a product: `Andere ...`,
-  `... en andere ...`, `van alle soorten`, `n.e.g.`, or several species in one cell. Prodcom
-  residual categories are nomenclature buckets. These get the `AGGREGAAT - ` prefix, not an L4.
-- **`A -> move to a Varia sector`** (8 rows) — the register has two partitions, crops *and*
-  processing sectors, and a processing product filed under the crop it came from belongs under the
-  sector. Bread is not a cereal; refined sugar is not a beet.
-- **`A -> L4`** (13 rows) — genuine single products. The dairy rows here are marked `medium`: they
-  also pair two products, but round 1 approved the analogous rows as L4, so they follow that
-  precedent rather than a fresh judgement.
-- **`B - give the row its real L2`** (12 rows) — re-proposed as the reviewer asked. Setting
-  `L2 = Varia` instead of the placeholder `Aggregaat` makes `level 2` mean *"this row sits at L2"*,
-  while the level it *totals* stays in `aggregate_coverage.totals_level`.
-- **`review-fix`** (7 rows) — the placement corrections written on `REVIEW_2026-08-31.csv`.
+## The live human gates
 
-Round 2 introduces one new L3 member, **`Varia > Suiker`**, because glucose/fructose/invertsuiker,
-refined sugar and melasse are sugars and were sitting under starch or under a crop.
+Both in `crosswalks/`, `;`-delimited with a UTF-8 BOM, filled in Excel.
 
-Apply approved rows with `apply_fixes.py` (reads both fix sheets, applies only `DECISION_fix = ok`).
+| Sheet | What it is |
+|---|---|
+| `aggregate_coverage.csv` | 242 rows, **0 blank decisions** — what each `AGGREGAAT` row totals, which parent it attaches to, and whether competing values are variants or a `component_set`. The overview reads this on every build. |
+| `GAP_LIST.csv` | 15 sectors/products where a large total exists and the detail beneath it was never published. The worklist for hunting new sources — not a decision sheet. |
 
-Regenerate either proposal with `make_fixes.py` — it is idempotent and preserves any decision
-already entered. **Applying `C-unmarked-total` will drop MONBIO's L1 residual total by roughly
-2.8 Mt**, so every coverage figure moves; rebuild the overview afterwards.
+`HIDDEN_STREAMS.csv` appears here only while a screen is open: regenerate it with
+`find_hidden_streams.py` when a new source is extracted, decide its rows, apply, then archive it to
+`migrations/`. The decision sheets from earlier rounds — `REVIEW_2026-08-31.csv`,
+`FIXES_2026-09-01.csv`, `FIXES_ROUND2.csv`, `varia_reclass.csv`, `GAP_DECISIONS.csv`,
+`FIX_LIST.csv` — are all applied and live in `migrations/`.
 
 ## The two axes
 
@@ -155,7 +151,7 @@ unreliable on `file://` URLs). Use **copy ids** in the bar to paste a decision i
 
 ## Test the derivation without a browser
 ```bash
-node -e 'const D=require("./derive.js"),P=require("./streams.json");
+node -e 'const D=require("./tools/derive.js"),P=require("./build/streams.json");
 const r=D.derive(P.claims,{year:2023,editions:new Set(["OVAM Monitor voedselverlies 2023"])});
 const rest=r.roots.find(x=>x.label==="Reststroom");
 console.log(rest.coverage, r.unallocated.length, r.severeCount);'

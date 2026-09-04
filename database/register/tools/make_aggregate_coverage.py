@@ -17,8 +17,9 @@ are extracted.
 import csv, io, pathlib, re, sys
 
 HERE = pathlib.Path(__file__).resolve().parent
-SRC = HERE / "streams_export.csv"
-OUT = HERE / "crosswalks" / "aggregate_coverage.csv"
+ROOT = HERE.parent                      # register/ - HERE is register/tools/
+SRC = ROOT / "streams_export.csv"
+OUT = ROOT / "crosswalks" / "aggregate_coverage.csv"
 SEP = " ¦ "                                    # the path separator derive.js builds
 PREFIX = "AGGREGAAT"
 
@@ -363,7 +364,7 @@ def main():
     blank = [r["claim_id"] for r in out if not (r.get("DECISION") or "").strip()]
     how = (f"{len(out)} re-proposed, decisions carried forward" if refresh
            else f"{len(added)} newly proposed, {len(existing)} preserved")
-    print(f"{OUT.relative_to(HERE.parent)}: {len(out)} aggregates ({how})")
+    print(f"{OUT.relative_to(ROOT.parent)}: {len(out)} aggregates ({how})")
     print(f"awaiting DECISION: {len(blank)}" + (f"  e.g. {', '.join(blank[:6])}" if blank else ""))
 
 

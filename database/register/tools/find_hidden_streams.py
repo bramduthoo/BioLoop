@@ -36,8 +36,9 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from make_aggregate_coverage import is_collection   # one rule, one place
 
 HERE = pathlib.Path(__file__).resolve().parent
-EXPORT = HERE / "streams_export.csv"
-OUT = HERE / "crosswalks" / "HIDDEN_STREAMS.csv"
+ROOT = HERE.parent                      # register/ - HERE is register/tools/
+EXPORT = ROOT / "streams_export.csv"
+OUT = ROOT / "crosswalks" / "HIDDEN_STREAMS.csv"
 
 COLS = ["claim_id", "source_short", "reference_year", "volume_t_per_yr", "level_1to5",
         "chain_L2", "L2_commodity_group", "L3_commodity_subgroup", "stream_name_NL",

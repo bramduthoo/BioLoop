@@ -32,18 +32,18 @@ Ten build the overview and the selection; two are the checks that keep it honest
 
 | file | role |
 |---|---|
-| `prep_data.py` | workbook + registry → `streams.json` |
-| `derive.js` | the derivation: aggregates, variants, coverage |
-| `build_overview.py` + `template.html` | → `stream_overview.html` |
-| `export_streams.py` | writes `streams_export.csv` |
-| `promote_totals.py` | run per source, per the protocol |
-| `make_aggregate_coverage.py` | proposes registry lines when a new source adds aggregates |
-| `render_log.py` | `log.md` → `log.html` |
-| `select_streams.js` | the 80/20 selection |
-| `verify_overview.py` | the 8 arithmetic identities |
-| `audit_register.py` | the structural audit, run per source |
-| **`find_hidden_streams.py`** | **keep — see below** |
-| **`final_check.py`** | **keep — see below** |
+| `tools/prep_data.py` | workbook + registry → `streams.json` |
+| `tools/derive.js` | the derivation: aggregates, variants, coverage |
+| `tools/build_overview.py` + `tools/template.html` | → `stream_overview.html` |
+| `tools/export_streams.py` | writes `streams_export.csv` |
+| `tools/promote_totals.py` | run per source, per the protocol |
+| `tools/make_aggregate_coverage.py` | proposes registry lines when a new source adds aggregates |
+| `tools/render_log.py` | `log.md` → `log.html` |
+| `tools/select_streams.js` | the 80/20 selection |
+| `tools/verify_overview.py` | the 8 arithmetic identities |
+| `tools/audit_register.py` | the structural audit, run per source |
+| **`tools/find_hidden_streams.py`** | **keep — see below** |
+| **`tools/final_check.py`** | **keep — see below** |
 
 ### Why `find_hidden_streams.py` stays
 
@@ -82,9 +82,9 @@ evidence rather than confidence. Run it after any structural change, and after e
 
 | file | why it can go |
 |---|---|
-| `analyse.js` | superseded by `select_streams.js` |
-| `gap_sweep.py` | its findings are in `OPEN_GAPS.md` and `GAP_LIST.csv`; `final_check.py` covers the recurring part |
-| `make_gap_lists.py` | it wrote `FIX_LIST.csv` and `GAP_LIST.csv`; both are committed |
+| `tools/analyse.js` | superseded by `select_streams.js` |
+| `tools/gap_sweep.py` | its findings are in `OPEN_GAPS.md` and `GAP_LIST.csv`; `final_check.py` covers the recurring part |
+| `tools/make_gap_lists.py` | it wrote `FIX_LIST.csv` and `GAP_LIST.csv`; both are committed |
 | `crosswalks/aggregate_coverage_CLAUDE.csv` | **now safe** — merged into the official registry |
 | `crosswalks/AUDIT_findings.csv` | regenerable: `audit_register.py --csv` |
 | `streams.json`, `log.html` | gitignored, rebuilt on demand |
@@ -105,13 +105,13 @@ cd database/register
 V=../.venv/Scripts/python
 
 # 0 — confirm the state the cleanup assumes
-$V final_check.py            # must print PASS
-$V verify_overview.py        # must print 8/8
-$V audit_register.py         # 24 findings is the known baseline, all Productievolume rows
+$V tools/final_check.py            # must print PASS
+$V tools/verify_overview.py        # must print 8/8
+$V tools/audit_register.py         # 24 findings is the known baseline, all Productievolume rows
 
 # 1 — confirm the pipeline no longer needs the working copy of the registry
-$V prep_data.py              # note: NO BIOLOOP_REGISTRY override
-node select_streams.js 24    # envelope 7.292.982 t, 80% at 13 streams, 90% at 20
+$V tools/prep_data.py              # note: NO BIOLOOP_REGISTRY override
+node tools/select_streams.js 24    # envelope 7.292.982 t, 80% at 13 streams, 90% at 20
 
 # 2 — archive the finished gates
 git mv apply_fixes.py migrations/
@@ -125,7 +125,7 @@ git rm crosswalks/aggregate_coverage_CLAUDE.csv crosswalks/AUDIT_findings.csv
 rm -rf __pycache__
 
 # 4 — the last check: everything must still pass with the folder as it now is
-$V prep_data.py && $V verify_overview.py && $V final_check.py && node select_streams.js 24
+$V tools/prep_data.py && $V tools/verify_overview.py && $V tools/final_check.py && node tools/select_streams.js 24
 
 # 5 — commit
 git add -A && git commit -m "register: close phase 2b — archive the gates, drop the scaffolding"
@@ -189,3 +189,42 @@ audit_register.py    24 findings over 736 live claims
 select_streams.js    7.292.982 t over 67 streams; 80% at 13, 90% at 20
 prep_data.py         runs with no BIOLOOP_REGISTRY override
 ```
+
+---
+
+# The restructure — 2026-09-04, after the reviewer looked at the folder
+
+The close-out above deleted and archived, but it never touched the **shape** of the folder, and
+that was the real complaint: 32 entries at the top level with 13 loose scripts sitting between the
+workbook and the documents. Deleting three files does not make that tidy.
+
+Two new folders, and nothing else changed:
+
+- **`tools/`** — every script and `template.html`. Fourteen files. Nothing else in the register
+  is executable.
+- **`build/`** — every generated file: `streams.json`, `log.html`, `stream_overview.html`. Derived,
+  never hand-edited, safe to delete.
+
+Top level went from **32 entries to 17**, eight of them folders.
+
+**What that cost.** Every script resolved its paths from `HERE = Path(__file__).parent`, so all
+fourteen had to be rewired: `HERE` now means `register/tools/` and a new `ROOT = HERE.parent` means
+`register/`. Data paths point at `ROOT`, sibling scripts and `template.html` stay on `HERE`,
+generated files go to `ROOT/"build"`. `select_streams.js` requires `../build/streams.json`;
+`verify_overview.py` now passes two directories to the node snippet it generates, because
+`derive.js` and `streams.json` no longer live together. `.gitignore`, `README.md`, `CLAUDE.md` and
+`OPEN_GAPS.md` were updated to match.
+
+**Verified the same way as the cleanup:** every script re-run from the new layout, every number
+identical.
+
+```
+final_check.py       PASS       801 claims, all dispositioned
+verify_overview.py   8/8
+audit_register.py    24 findings over 736 live claims
+select_streams.js    7.292.982 t over 67 streams; 80% at 13, 90% at 20
+```
+
+One bug surfaced and was fixed on the way: `make_deliverables.py` held a dead module-level constant
+that read `deliverables/gaps.json` at import time; it broke on the move and has been removed —
+`gaps()` reads the file itself.

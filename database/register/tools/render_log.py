@@ -20,7 +20,8 @@ import re
 import subprocess
 import sys
 
-HERE = os.path.dirname(os.path.abspath(__file__))
+HERE = os.path.dirname(os.path.abspath(__file__))        # register/tools/
+ROOT = os.path.dirname(HERE)                             # register/
 
 
 # --------------------------------------------------------------- markdown
@@ -319,8 +320,8 @@ __STATS__
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--in", dest="src", default=os.path.join(HERE, "log.md"))
-    ap.add_argument("--out", dest="dst", default=os.path.join(HERE, "log.html"))
+    ap.add_argument("--in", dest="src", default=os.path.join(ROOT, "log.md"))
+    ap.add_argument("--out", dest="dst", default=os.path.join(ROOT, "build", "log.html"))
     a = ap.parse_args()
 
     if not os.path.exists(a.src):
@@ -335,9 +336,9 @@ def main():
         nav_html.append('<a class="n%d" href="#%s">%s</a>'
                         % (lvl, sid, html.escape(label)))
 
-    commit = head_commit(HERE)
+    commit = head_commit(ROOT)
     stamp = (" at commit <code>%s</code>" % commit) if commit else ""
-    stats = build_stats(sessions, counts, corpus_claims(HERE), commit)
+    stats = build_stats(sessions, counts, corpus_claims(ROOT), commit)
 
     page = (PAGE.replace("__CSS__", CSS)
                 .replace("__STATS__", stats)

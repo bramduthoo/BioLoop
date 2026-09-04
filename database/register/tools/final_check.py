@@ -35,8 +35,9 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from make_aggregate_coverage import is_collection
 
 HERE = pathlib.Path(__file__).resolve().parent
-EXPORT = HERE / "streams_export.csv"
-REGISTRY = HERE / "crosswalks" / "aggregate_coverage.csv"
+ROOT = HERE.parent                      # register/ - HERE is register/tools/
+EXPORT = ROOT / "streams_export.csv"
+REGISTRY = ROOT / "crosswalks" / "aggregate_coverage.csv"
 TOTAL_RE = re.compile(r"\btotaal\b|\btotale\b", re.I)
 
 # Bucket-D rows the reviewer has dispositioned. Anything NOT here and not a subgroup wording is a

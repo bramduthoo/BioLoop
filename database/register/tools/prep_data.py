@@ -19,10 +19,11 @@ Workbook location is resolved in this order:
 """
 import pandas as pd, json, re, pathlib, sys, os, csv, io
 HERE = pathlib.Path(__file__).resolve().parent
+ROOT = HERE.parent                      # register/ - HERE is register/tools/
 # BIOLOOP_REGISTRY lets a session build the overview from an alternative decision sheet
 # (e.g. a reviewer's working copy) without overwriting the canonical one.
 REGISTRY = pathlib.Path(os.environ["BIOLOOP_REGISTRY"]).expanduser() \
-    if os.environ.get("BIOLOOP_REGISTRY") else HERE / "crosswalks" / "aggregate_coverage.csv"
+    if os.environ.get("BIOLOOP_REGISTRY") else ROOT / "crosswalks" / "aggregate_coverage.csv"
 AGG_PREFIX = "AGGREGAAT"
 REVIEWED_OK = {"ok", "include", "yes", "j", "ja"}
 # A reviewer's DECISION_expert starting with one of these retires the claim: it leaves the
@@ -33,16 +34,16 @@ EXPERT_EXCLUDES = ("no", "nee", "exclude", "uitsluiten", "drop")
 def find_workbook():
     if len(sys.argv) > 1:                       return pathlib.Path(sys.argv[1]).expanduser()
     if os.environ.get("BIOLOOP_XLSX"):          return pathlib.Path(os.environ["BIOLOOP_XLSX"]).expanduser()
-    named = HERE / "BIOLOOP_streams_and_sources.xlsx"
+    named = ROOT / "BIOLOOP_streams_and_sources.xlsx"
     if named.exists():                          return named
-    xls = sorted(HERE.glob("*.xlsx"))
+    xls = sorted(ROOT.glob("*.xlsx"))
     if len(xls) == 1:                           return xls[0]
     raise SystemExit(
         "Workbook not found. Put BIOLOOP_streams_and_sources.xlsx next to this script, "
         "or pass its path:  python prep_data.py /path/to/workbook.xlsx")
 
 SRC = find_workbook()
-OUT = HERE / "streams.json"
+OUT = ROOT / "build" / "streams.json"
 print(f"reading workbook: {SRC}")
 df = pd.read_excel(SRC, sheet_name="Streams")
 

@@ -11,10 +11,11 @@ Exit code 0 when every case passes.
 import json, pathlib, subprocess, sys, tempfile, textwrap
 
 HERE = pathlib.Path(__file__).resolve().parent
+ROOT = HERE.parent                      # register/ - HERE is register/tools/
 
 JS = r"""
 const D = require(process.argv[2] + "/derive.js");
-const P = require(process.argv[2] + "/streams.json");
+const P = require(process.argv[3] + "/streams.json");
 const out = [];
 const ok = (name, got, want, tol) => out.push(
   {name, got, want, pass: want === null ? !!got : Math.abs(got - want) <= (tol || 0)});
@@ -102,13 +103,13 @@ console.log(JSON.stringify(out));
 
 
 def main():
-    if not (HERE / "streams.json").exists():
+    if not (ROOT / "build" / "streams.json").exists():
         sys.exit("streams.json missing - run build_overview.py first")
     with tempfile.NamedTemporaryFile("w", suffix=".js", delete=False, encoding="utf-8") as fh:
         fh.write(JS)
         script = fh.name
     try:
-        p = subprocess.run(["node", script, str(HERE)], capture_output=True, text=True)
+        p = subprocess.run(["node", script, str(HERE), str(ROOT / "build")], capture_output=True, text=True)
     finally:
         pathlib.Path(script).unlink(missing_ok=True)
     if p.returncode:
