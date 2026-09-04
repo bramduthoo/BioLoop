@@ -175,9 +175,8 @@ links production to offal yield. Inferring the split from production would be a 
 protocol forbids, which is exactly why the reviewer declined it on GAP-2.
 
 **What would close it.** A source that reports slaughter by-products per species, or a
-species-resolved rendering-sector figure. The nearest candidates are the retired Marktanalyse
-editions (**S001**, animal by-product sector at ~860 kt for 2021) and the S087 geography decision.
-Failing that, a slaughterhouse-federation source.
+species-resolved rendering-sector figure. **No candidate exists in the `Sources` sheet** that is not retired, so this needs a search: a
+slaughterhouse or rendering-sector source reporting by-products per species.
 
 ---
 
@@ -465,10 +464,9 @@ supplies exactly one beverage side stream, *Bostel* (134.653 t, Prodcom 110210) 
 **Absent from the whole workbook: draf / DDGS, vinasse, biergist, sapresidu.** *Gist* appears only
 as a 138.901 t **production** row (`C-376`, retired).
 
-**What would close it. S005 (MONBIO 1.0) is the named owner and is already in the folder** — its
-`Sources`-sheet verdict reads *"Confirmed to carry NAMED stream tonnages (bietenpulp+melasse 458 kt,
-bostel 80 kt, **gries/zemelen/DDGS 646 kt**)"*. It is currently marked `_RETIRED` in `inbox/`.
-Un-retiring it is the cheapest move available on this gap.
+**What would close it.** A brewers' or distillers' federation figure, or a biomethane-potential
+study that lists its input streams. In the sheet: **S053** (Biogas-E input streams) and **S012**
+(Vlaco) touch it but are destination-side and partial; **S058** is the better bet. Neither has a PDF.
 
 ---
 
@@ -514,8 +512,9 @@ Both are in the `Sources` sheet without a PDF.
 meal sits in a different branch and is Belgian (**G-06**). *Frituurvet / afgewerkt vet* is **absent
 from the workbook**.
 
-**What would close it. S001** (OVAM *Marktanalyse Biomassareststromen* 2022) explicitly covers
-*"used frying fats/oils"* per its own `Sources`-sheet verdict. It is in `inbox/` marked `_RETIRED`.
+**What would close it.** Used-oil collector or federation data, or a NACE/EURAL-carved waste
+statistic — **S025** (OVAM *bedrijfsafval*, ref. yr 2022) is the candidate in the sheet, without a
+PDF yet.
 
 ---
 
@@ -579,8 +578,9 @@ schaal-/weekdieren. Seven claims that have no counterpart in the 2021 edition."*
 reason alone** — not because the register missed it. A confidential Prodcom cell is an absence, never
 a zero, so no re-reading of S091 will produce it.
 
-**What would close it.** Any further MONBIO edition (S005, S006, S078 portal) may un-suppress a
-different subset; a cell is suppressed per year, not permanently.
+**What would close it.** Suppression is per year, not permanent, so a later edition may release a
+different subset — **S078** is the MONBIO web portal (a scraping route, not a PDF). Eurostat's own
+Prodcom tables are the other route.
 
 ---
 
@@ -599,76 +599,74 @@ different subset; a cell is suppressed per year, not permanently.
 
 ### Class B — not in the corpus (only a new source will help)
 
-| id | Gap | Size | Best candidate source | In hand? |
-|----|-----|------|----------------------|----------|
-| G-10 | Aardappelverwerking — no named residue | 621.063 t block, 0 components | Belgapom / VLAM; **S058** | no PDF |
-| G-11 | Dranken — only bostel is named | 378.539 t | **S005 (MONBIO 1.0) — carries DDGS** | **in `inbox/`, `_RETIRED`** |
-| G-04 | Slaughter offal below species level | 471.361 t | **S001** (animal by-product sector, ~860 kt) | **in `inbox/`, `_RETIRED`** |
-| G-06 | Oilseed meal is a Belgian figure | 1,15–1,31 Mt | a Flemish crush figure; S058 | no PDF |
-| G-13 | Bakkerij | 122.276 t | **S067** (Comeos), **S025** (OVAM NACE) | no PDF |
-| G-01 | Retail below sector level | 132.082 t | **S067**, S035, S041 | no PDF |
-| G-14 | Oliën, vetten + frituurvet | 95.895 t | **S001** (covers used frying fats) | **in `inbox/`, `_RETIRED`** |
-| G-15 | MONBIO fodder / fibre / pulse field residue | 203.387 t | S077 (re-tabulation), or a new field-ratio source | no PDF |
-| G-09 | Zuivelverwerking — whey absent entirely | unmeasured | BCZ / dairy sector — **no candidate in the sheet** | **none** |
-| G-12 | Cacao en chocolade — no residual figure | unmeasured | Choprabisco / plant study — **no candidate** | **none** |
-| G-18 | Seven MONBIO 4.0 cells suppressed as confidential | 284.549 t on zetmeel | S005 / S006 / S078 may un-suppress a different subset | S005, S006 in `inbox/` |
-| G-17 | Visverwerking — 839 t is the whole selectable fish mass | ~0 | an ILVO fisheries source | no PDF |
-| G-02 | PO's & veilingen implausibly small | 15.189 t | **fact-check first** — VBT / one auction's jaarverslag | n/a |
-| G-16 | Eieren en eierschalen | 1.282 t | a poultry/egg sector source | no PDF |
-| G-03 | *(umbrella, superseded)* food-industry detail | 1,7–2,2 Mt | **now decomposed into G-09…G-14** | — |
+**The full list, with what is missing and what kind of source would supply it, is
+`crosswalks/GAP_LIST.csv`** — one row per sector or product, carrying the claim ids, the total that
+exists, the detail that does not, and the candidate. The table below is its index.
 
-## The plan — four phases, in order
+| id | sector / product | size | candidate in the sheet |
+|----|-----|------|----------------------|
+| G-10 | Aardappelverwerking — no named residue | 621.063 t block, 0 components | S058 (no PDF); otherwise Belgapom / VLAM, **not in the sheet** |
+| G-04 | Vlees per diersoort | 631.000 t sector; 217.672 t offal total | **none** — needs a slaughter/rendering source |
+| G-11 | Dranken — only bostel is named | 378.539 t | S053, S012, S058 — all without a PDF |
+| G-12 | Cacao en chocolade — no residual figure at all | aggregate is provably all sugar | **none** — Choprabisco is not in the sheet |
+| G-09 | Zuivelverwerking — wei absent entirely | only 70.000 t measured | **none** — no dairy-processing source in the sheet |
+| G-06 | Oliezaadschroot is a Belgian figure | 1,15–1,31 Mt, incl. the #2 stream | S058 (no PDF) |
+| G-01 | Retail below sector level | 132.082 t | S067, S035, S041 — none has a PDF |
+| G-13 | Bakkerij | 122.276 t | S025, S067 — no PDF |
+| G-15 | Fodder / fibre / pulse field residue | 203.387 t | S077 — a re-aggregation, not a measurement |
+| G-14 | Oliën, vetten + frituurvet | 95.895 t | S025 — no PDF |
+| G-18 | Seven MONBIO 4.0 cells suppressed | 284.549 t on zetmeel | S078 portal, or Eurostat Prodcom |
+| G-02 | PO's & veilingen implausibly small | 15.189 t | **fact-check first**, do not commission |
+| G-17 | Visverwerking | 839 t is the whole selectable fish mass | one sheet row flags fisheries side streams — locate it |
+| G-16 | Eieren en eierschalen | 1.282 t | none |
 
-*Written 2026-09-04, after the reviewer asked how all of this turns into action. The ordering is by
-cost, and phase 0 is what tells you the rest is worth doing.*
+**Sources carrying `_RETIRED` in `inbox/` are excluded from every candidate above and must not be
+proposed.** They were retired deliberately; if that judgement is ever revisited it is the reviewer's
+call, not a gap-list recommendation.
 
-**Phase 0 — close class A. One session, no new data.** Decide the six rows in
-`HIDDEN_STREAMS.csv`, including the melasse-basis call above, apply, re-run
-`select_streams.js` and `verify_overview.py`. **Expected result: the shortlist of 24 is unchanged
-and MONBIO's L1 rises ~1 Mt with the >100% artefact gone.** That is the finish line for what the
-current corpus can deliver — after it, the selection is stable and every remaining improvement needs
-a source.
+---
 
-**Phase 1 — extract the two sources already on disk. Two sessions.** `S005` (MONBIO 1.0) and `S001`
-(Marktanalyse 2022) are in `inbox/` marked `_RETIRED`, and that retirement was wrong for three gaps:
-S005's own verdict names *gries/zemelen/**DDGS** 646 kt* (**G-11**) and may carry Prodcom cells that
-2021 suppressed (**G-18**); S001 covers the **animal by-product sector, ~860 kt processed in 2021**
-(**G-04**) and **used frying fats** (**G-14**). Nothing needs to be found — un-retire and extract.
+## What to do with these two lists
 
-**Phase 2 — one fact-check, not an extraction.** **G-02**: read S065's §5.2 method note against
-OVAM's and check 15.189 t against VBT or one auction's jaarverslag. It costs an afternoon and
-decides whether the producentenorganisatie stage is a gap at all. Do it before commissioning
-anything for that stage.
+**1. Work `FIX_LIST.csv` first — it is free.** Seven decisions, no new data, and two of them put a
+new stream into the shortlist:
 
-**Phase 3 — the actual source hunt.** Ranked by how much a source would change the BioMobi stream
-list, not by the size of the gap:
+| fix | what | effect |
+|---|---|---|
+| **F1** | promote `C-298`/`C-483` *Niet-eetbare ruwe slachtafvallen* to L4 | **enters the shortlist at rank 11** (169.051 t) |
+| **F2** | promote `C-295`/`C-480` *Eetbare slachtafvallen (rood vlees)* to L4 | **enters the shortlist at rank 22** (82.576 t) |
+| F3 | melasse: one basis, grondgebied or export-proxy | stays in either way — **do not apply mechanically** |
+| F4 | promote *Teruggegooide vis* | selectable at rank 39; it is all the `Visserij` stage has |
+| F5 | mark the oilseed leftover class + registry line | repairs MONBIO's L1 by ~1 Mt, kills the >100% ceilings |
+| F6 | re-parent the two `Varia` sector totals | makes them reconcilable; same decision as G-05 |
+| F7 | **leave `C-342`/`C-532` alone** | recorded so it is not proposed again — it double-counts |
 
-| rank | hunt for | closes | why it ranks here |
-|---|---|---|---|
-| 1 | Belgapom / VLAM potato-processing volumes | **G-10** | 621.063 t block with zero components, in Flanders' signature sector, and peel / stoomschil / vezel / eiwit would each be a named L4 stream. **No candidate in the sheet.** |
-| 2 | BCZ or a Flemish dairy-processing study | **G-09** | whey is absent from all 801 claims and would very likely enter the top ten on its own. **No candidate in the sheet.** |
-| 3 | Comeos **S067** + OVAM **S025** | **G-01**, **G-13** | retail and bakery together, both named candidates, neither has a PDF yet. |
-| 4 | Choprabisco or a cocoa plant study | **G-12** | smaller, but a complete absence in a sector Flanders dominates. **No candidate in the sheet.** |
-| 5 | a Flemish oilseed crush figure | **G-06** | adds no new stream, but it is the geography of the corpus's **#2** entry. |
+F1 and F2 are the answer to *"a row marked AGGREGAAT because its name bundles two items, when the
+bundle is itself an acceptable stream."* They are the same case as `Zemelen, slijpsel en andere
+resten van het bewerken van granen`, which was promoted for exactly that reason. **251.627 t has
+been sitting in the register the whole time, marked unselectable.**
 
-**The screening rule for any candidate, and it comes straight from the mechanism:** *does it carve
-by process?* A source that carves by NACE class, by Prodcom code, or by a monitor's own
-loss definition will reproduce the gaps the register already has — that is precisely how they arose.
-S025 is the interesting exception: it carves legally (EURAL) rather than by product, which is why it
-is worth having even though it stops at ~113 stream groupings.
+**2. Then hunt sources with `GAP_LIST.csv`, in this order.** Ranked by how much a source would
+change the BioMobi stream list, not by the size of the gap:
 
-### The cheapest three moves
+1. **Aardappelverwerking (G-10)** — 621.063 t with zero components, in the sector Flanders leads;
+   peel, stoomschil, vezel and eiwit would each be a named L4. No candidate in the sheet.
+2. **Zuivel / wei (G-09)** — absent from all 801 claims and would very likely enter the top ten on
+   its own. No candidate in the sheet.
+3. **Vlees per diersoort (G-04)** — F1 and F2 give two usable streams today; the species split needs
+   a source. No candidate in the sheet.
+4. **Retail + bakkerij (G-01, G-13)** — two gaps, two named candidates (S067, S025), neither with a
+   PDF.
+5. **Cacao (G-12)** and **Flemish oilseed crush (G-06)** — smaller, but the first is a complete
+   absence and the second is the geography of the #2 entry.
 
-1. **Un-retire S005 (MONBIO 1.0).** It is already in `inbox/` and its own verdict says it carries
-   named tonnages including **DDGS** — the one thing that would put a second stream into G-11.
-2. **Un-retire S001 (Marktanalyse 2022).** Already in `inbox/`; covers the **animal by-product
-   sector (~860 kt, 2021)** and **used frying fats** — that is G-04 and G-14 together.
-3. **Decide the six rows in `HIDDEN_STREAMS.csv`.** Costs nothing and recovers 255.818 t, including
-   the entire residual content of the `Visserij` stage.
+**3. Fact-check G-02 before commissioning anything for that stage.** An afternoon against VBT or one
+auction's jaarverslag decides whether it is a gap at all.
 
-*S001, S005, S006 and S086 were retired on the expectation that they would repeat later editions.
-For G-04, G-11 and G-14 that expectation is wrong: the later editions do not carry these streams,
-which is precisely why the gaps exist.*
+**The screening rule for any candidate, and it falls straight out of the mechanism above:
+does it carve by process?** A source that carves by NACE class, by Prodcom code, or by a monitor's
+own loss definition will reproduce the gaps the register already has — that is exactly how they
+arose. `S025` is the interesting exception: it carves legally, by EURAL.
 
 ---
 
@@ -676,8 +674,13 @@ which is precisely why the gaps exist.*
 
 Same convention as every other human gate here — `;`-delimited, UTF-8 BOM, blank `DECISION`:
 
-- **`crosswalks/HIDDEN_STREAMS.csv`** — the 49 residual rows above L4, with a proposal per row
-  (`promote` | `subgroup-figure` | `aggregate`) and the reason. Regenerate with
-  `find_hidden_streams.py`; it refuses to overwrite once any `DECISION` is filled.
-- **`crosswalks/GAP_DECISIONS.csv`** — the earlier eight, all decided and applied on 2026-09-03.
-  Kept for provenance; do not re-run its generator.
+- **`crosswalks/FIX_LIST.csv`** — the seven fixes above, each with its claim ids, the proposed
+  change, the simulated effect on the shortlist and the caution that goes with it. Regenerate with
+  `make_gap_lists.py`; it refuses to overwrite once any `DECISION` is filled.
+- **`crosswalks/GAP_LIST.csv`** — the fourteen genuine gaps, for source hunting. Not gated; it is a
+  worklist, not a decision sheet.
+- **`crosswalks/HIDDEN_STREAMS.csv`** — the raw screen behind F3–F5: all 49 live residual rows above
+  L4, with a proposal per row. 43 of them are legitimate subgroup figures and become the class-B
+  gaps above.
+- **`crosswalks/GAP_DECISIONS.csv`** — the earlier eight, decided and applied on 2026-09-03. Kept
+  for provenance; do not re-run its generator.

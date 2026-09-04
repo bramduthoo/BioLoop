@@ -168,6 +168,53 @@ them as a table rather than a summary:
 
 No number changed; nothing was re-analysed. `gap_sweep.py` reproduces the JSON the page renders.
 
+**The two lists, 2026-09-04 — and a correction to my own screening.** The reviewer's objection was
+that the sweep never produced the thing it existed to produce: *the items in the current data that
+should be fixed, and a clear list of the other gaps*. Two failures behind that, both mine.
+
+**Failure 1 — I only swept one side.** Every screen looked at rows *without* an `AGGREGAAT` prefix.
+I never swept the rows that *carry* the prefix, which is precisely where the reviewer's own example
+lives: `Zemelen, slijpsel en andere resten van het bewerken van granen` was promoted because the
+bundle is one physical stream, and nothing checked whether other rows qualify. Sweeping all **144**
+live aggregate rows found **two that do**, both in meat:
+
+- `C-298`/`C-483` **Niet-eetbare ruwe slachtafvallen** (Prodcom 101160), 169.051 / 142.405 t — a
+  defined material category collected and rendered as one stream, not a nomenclature leftover.
+- `C-295`/`C-480` **Eetbare slachtafvallen van runderen, varkens, schapen, geiten en paarden**,
+  82.576 / 75.397 t — saleable as one red-meat offal stream.
+
+Simulated on a copy: they **enter the shortlist at ranks 11 and 22**, MONBIO's ceiling coverage goes
+89,3% → 93,1% (4.0) and 90,6% → 93,6% (3.0), and Appel and Melasse move to 26 and 25. **251.627 t
+was sitting in the register marked unselectable.** That is the answer the sweep owed.
+
+One row was checked and deliberately **not** promoted, and it is recorded so it is not proposed
+again: `C-342`/`C-532` *Perskoeken en andere vaste afvallen van plantaardige oliën en vetten*
+(1,0–1,35 Mt) looks like the same case and is not — it is a rival Prodcom measurement of material
+already selectable as Kool- en raapzaad, Lijnzaad, Soja and Zonnebloem. Promoting it double-counts;
+this was tried on 2026-09-03 and reverted.
+
+**Failure 2 — I kept proposing retired sources.** S001, S005, S006 and S086 carry `_RETIRED` in
+`inbox/` for a reason, and recommending them as the cheapest next move ignored a decision the
+reviewer had already taken. Every mention is gone from `OPEN_GAPS.md` and the register page, and
+`make_gap_lists.py` states the exclusion in its own docstring so it does not creep back. Where a gap
+had no other candidate, the honest answer replaces it: **G-04, G-09 and G-12 have no candidate
+anywhere in the 91-row sheet** and need a search, not a queue.
+
+**The output.** Two committed files, and the register page now leads with them:
+
+- **`crosswalks/FIX_LIST.csv`** — 7 fixes, human-gated. F1/F2 add a stream each; F3 melasse (pick
+  one basis — applying it mechanically inflates melasse 51%); F4 discards; F5 the oilseed leftover
+  class, which repairs MONBIO's L1 by ~1 Mt; F6 the two orphaned `Varia` totals; F7 the do-not-touch
+  record.
+- **`crosswalks/GAP_LIST.csv`** — 14 sectors/products, each with what exists, the claim ids, what
+  detail is missing, and what *kind* of source would supply it.
+
+`make_gap_lists.py` writes both and carries the test that separates them: **a bundled name is one
+selectable stream when the items arise together and cannot be separated in practice; it is a gap
+when the bundle hides a distinction only a new source can supply.** Some rows are on both lists on
+purpose — promoting the offal bundles gives two usable streams today while the per-species split
+stays open as G-04.
+
 **The question the whole sweep existed to answer, answered 2026-09-04 by simulation.** The reviewer
 asked how any of this turns into action, and the honest way to find out was to apply the six class-A
 edits to a **copy** of the workbook, re-run the selection, and measure. Three results:
