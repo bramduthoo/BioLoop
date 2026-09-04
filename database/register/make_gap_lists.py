@@ -192,12 +192,13 @@ GAP_ROWS = [
 
  dict(gap_id="G-12", sector_or_product="Cacao en chocolade", chain_stage="Voedingsindustrie",
    what_exists_now="an aggregate NAMED for the sector that contains none of it",
-   claim_ids="C-286; C-471", mass_t_per_yr="403000; 394000",
+   claim_ids="C-286; C-471 (MONBIO); C-097; C-198 (OVAM)",
+   mass_t_per_yr="403000; 394000; 191054; 130271",
    what_detail_is_missing="cacaodoppen, cacaoschillen, cacaoperskoek - absent from the workbook. "
      "The 'suiker EN CHOCOLADE' aggregate is provably all sugar: melasse 56.806 + bietenpulp "
      "337.649 = 394.455 against a printed 394 kton.",
    why_it_matters="Belgium is one of Europe's largest cocoa processors and the plants are in "
-     "Flanders. Cocoa shell is clean, dry and has an established market.",
+     "Flanders. Cocoa shell is clean, dry and has an established market. OVAM lumps it with sugar and prepared meals (C-097, 191.054 t) and never goes below that lump either.",
    source_type_to_find="a cocoa/chocolate sector source or a plant-level study",
    named_candidate_in_sheet="none - Choprabisco is not in the sheet",
    status="open"),
@@ -292,6 +293,23 @@ GAP_ROWS = [
    why_it_matters="Small in tonnage, but a complete absence in a sector Flanders has.",
    source_type_to_find="a poultry / egg sector source", named_candidate_in_sheet="none",
    status="open"),
+
+ dict(gap_id="G-19", sector_or_product="Deegwaren, bereide maaltijden en dieetvoeding",
+   chain_stage="Voedingsindustrie",
+   what_exists_now="two OVAM subgroup lumps, no components; MONBIO resolves only the maalderij and "
+     "zetmeel part of them (Zemelen, Gries, Zetmeel)",
+   claim_ids="C-099; C-199 (deegwaren/dieetvoeding/zetmeel/maalderijen); C-097; C-198 (suiker/"
+     "chocolade/bereide maaltijden)",
+   mass_t_per_yr="167446; 78995; 191054; 130271",
+   what_detail_is_missing="anything below the lump for deegwaren, bereide maaltijden, dieetvoeding "
+     "and sauzen. Their PRODUCTION rows exist but were retired by the reviewer, so the register "
+     "carries neither side.",
+   why_it_matters="Completes the OVAM food-industry partition: its eight subgroups sum to 2.017.721 "
+     "against a printed 2.017.748, so nothing else is hiding there. This is the last unclaimed "
+     "piece. LOW PRIORITY - prepared-food waste is heterogeneous and a poor BioMobi candidate; it "
+     "is listed so the partition is complete, not because it should be hunted.",
+   source_type_to_find="a NACE- or EURAL-carved waste statistic",
+   named_candidate_in_sheet="S025 - no PDF yet", status="open, low priority"),
 
  dict(gap_id="G-18", sector_or_product="Zeven MONBIO 4.0 cellen, vertrouwelijk",
    chain_stage="Voedingsindustrie",
