@@ -332,6 +332,36 @@ and is in the selection; the melasse half does not.
 **Fix.** Decide the three pairs in `crosswalks/HIDDEN_STREAMS.csv` (`aggregate` for the oilseed
 class, `promote` for melasse and discards) and apply.
 
+### What applying it actually changes — simulated on a copy, 2026-09-04
+
+The six edits were applied to a **copy** of the workbook and the selection re-run, so the effect is
+measured rather than assumed. Three results, and the second is the valuable one:
+
+1. **The selection does not move.** *Teruggegooide vis* becomes selectable at **rank 39** — real,
+   but outside the working set of 24. No stream enters the top 24 and none leaves. **This is the
+   answer to "is there hidden data still missing from the selection": there was hidden data, and it
+   does not change the selection.** The shortlist is as good as the current corpus can make it, and
+   everything further is class B.
+2. **MONBIO's denominators are repaired.** Giving `C-334`/`C-523` an `AGGREGAAT` prefix *and a
+   registry line* raises MONBIO 3.0's reported residual total from **5.944.027 to 6.935.676 t** and
+   MONBIO 4.0's from **5.451.052 to 6.341.552 t**, and the impossible ceiling ratios
+   (**104,6% and 102,8% of L1**) fall to **90,6% and 89,3%**. The oilseed food-industry branch was
+   not covered by any registered aggregate, so derive had been understating MONBIO's own L1 by about
+   1 Mt. Coverage-against-L1 becomes a meaningful number for MONBIO for the first time.
+3. **One genuine decision is hiding inside the melasse row — do not apply it naively.**
+   `C-381`/`C-574` (grondgebiedbasis) and `C-362`/`C-554` (Prodcom, export-proxy) are **two
+   accountings of one material**, and within *one* edition. Promoting the grondgebied row onto the
+   same L4 node makes them siblings and `derive.js` **adds them**: melasse reads
+   111.298 + 56.806 = **168.104 t**, a 51% inflation, and jumps from rank 15 to 11. Promoting it to
+   the crop ladder instead is worse — it creates a *second* "Melasse" stream at rank 24 and pushes
+   Appel out of the working set.
+
+   The register already has the precedent, from the bietenpulp pair: one basis is the selectable
+   row, the other is an aggregate cross-referenced to it. **The reviewer picks the basis.** For
+   BioMobi, *grondgebied* is arguably the right one — it measures what physically arises on Flemish
+   sites, where the export proxy is a share of Belgian production — but that is a scope call, not a
+   placement one.
+
 ---
 
 ## G-A2 · The audit could not see this class, by construction
@@ -586,6 +616,46 @@ different subset; a cell is suppressed per year, not permanently.
 | G-02 | PO's & veilingen implausibly small | 15.189 t | **fact-check first** — VBT / one auction's jaarverslag | n/a |
 | G-16 | Eieren en eierschalen | 1.282 t | a poultry/egg sector source | no PDF |
 | G-03 | *(umbrella, superseded)* food-industry detail | 1,7–2,2 Mt | **now decomposed into G-09…G-14** | — |
+
+## The plan — four phases, in order
+
+*Written 2026-09-04, after the reviewer asked how all of this turns into action. The ordering is by
+cost, and phase 0 is what tells you the rest is worth doing.*
+
+**Phase 0 — close class A. One session, no new data.** Decide the six rows in
+`HIDDEN_STREAMS.csv`, including the melasse-basis call above, apply, re-run
+`select_streams.js` and `verify_overview.py`. **Expected result: the shortlist of 24 is unchanged
+and MONBIO's L1 rises ~1 Mt with the >100% artefact gone.** That is the finish line for what the
+current corpus can deliver — after it, the selection is stable and every remaining improvement needs
+a source.
+
+**Phase 1 — extract the two sources already on disk. Two sessions.** `S005` (MONBIO 1.0) and `S001`
+(Marktanalyse 2022) are in `inbox/` marked `_RETIRED`, and that retirement was wrong for three gaps:
+S005's own verdict names *gries/zemelen/**DDGS** 646 kt* (**G-11**) and may carry Prodcom cells that
+2021 suppressed (**G-18**); S001 covers the **animal by-product sector, ~860 kt processed in 2021**
+(**G-04**) and **used frying fats** (**G-14**). Nothing needs to be found — un-retire and extract.
+
+**Phase 2 — one fact-check, not an extraction.** **G-02**: read S065's §5.2 method note against
+OVAM's and check 15.189 t against VBT or one auction's jaarverslag. It costs an afternoon and
+decides whether the producentenorganisatie stage is a gap at all. Do it before commissioning
+anything for that stage.
+
+**Phase 3 — the actual source hunt.** Ranked by how much a source would change the BioMobi stream
+list, not by the size of the gap:
+
+| rank | hunt for | closes | why it ranks here |
+|---|---|---|---|
+| 1 | Belgapom / VLAM potato-processing volumes | **G-10** | 621.063 t block with zero components, in Flanders' signature sector, and peel / stoomschil / vezel / eiwit would each be a named L4 stream. **No candidate in the sheet.** |
+| 2 | BCZ or a Flemish dairy-processing study | **G-09** | whey is absent from all 801 claims and would very likely enter the top ten on its own. **No candidate in the sheet.** |
+| 3 | Comeos **S067** + OVAM **S025** | **G-01**, **G-13** | retail and bakery together, both named candidates, neither has a PDF yet. |
+| 4 | Choprabisco or a cocoa plant study | **G-12** | smaller, but a complete absence in a sector Flanders dominates. **No candidate in the sheet.** |
+| 5 | a Flemish oilseed crush figure | **G-06** | adds no new stream, but it is the geography of the corpus's **#2** entry. |
+
+**The screening rule for any candidate, and it comes straight from the mechanism:** *does it carve
+by process?* A source that carves by NACE class, by Prodcom code, or by a monitor's own
+loss definition will reproduce the gaps the register already has — that is precisely how they arose.
+S025 is the interesting exception: it carves legally (EURAL) rather than by product, which is why it
+is worth having even though it stops at ~113 stream groupings.
 
 ### The cheapest three moves
 

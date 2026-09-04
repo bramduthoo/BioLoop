@@ -168,6 +168,35 @@ them as a table rather than a summary:
 
 No number changed; nothing was re-analysed. `gap_sweep.py` reproduces the JSON the page renders.
 
+**The question the whole sweep existed to answer, answered 2026-09-04 by simulation.** The reviewer
+asked how any of this turns into action, and the honest way to find out was to apply the six class-A
+edits to a **copy** of the workbook, re-run the selection, and measure. Three results:
+
+1. **The shortlist does not move.** *Teruggegooide vis* becomes selectable at **rank 39** — outside
+   the working set of 24. No stream enters the top 24 and none leaves. So there *was* hidden data
+   and it does not change the selection: **the shortlist is as good as the current corpus can make
+   it, and every further improvement is a class-B source problem.** That is a clean negative result
+   and it is what makes the source hunt the right next activity.
+2. **MONBIO's denominators are repaired, which was not expected.** Giving `C-334`/`C-523` the
+   `AGGREGAAT` prefix **and a registry line** raises MONBIO 3.0's reported residual total from
+   5.944.027 to **6.935.676 t** and 4.0's from 5.451.052 to **6.341.552 t**, and the impossible
+   ceiling ratios 104,6% / 102,8% fall to **90,6% / 89,3%**. The oilseed food-industry branch was
+   covered by no registered aggregate, so derive had been understating MONBIO's own L1 by about
+   1 Mt. **G-06 was blamed for that artefact; it is actually class A.**
+3. **A trap inside the melasse row, found only because it was simulated.** `C-381`/`C-574`
+   (grondgebiedbasis) and `C-362`/`C-554` (Prodcom export-proxy) are two accountings of one material
+   *within one edition*. Promoting the grondgebied row onto the same L4 node makes them siblings and
+   `derive.js` **adds them** — melasse reads 111.298 + 56.806 = **168.104 t**, a 51% inflation, rank
+   15 → 11. Promoting it to the crop ladder instead creates a **second** "Melasse" stream at rank 24
+   and pushes Appel out of the working set. Neither is right; the reviewer picks one basis, exactly
+   as the bietenpulp pair already does. **Do not apply that row mechanically.**
+
+`OPEN_GAPS.md` gained the four-phase plan this produces — phase 0 close class A, phase 1 extract
+S005 and S001 (both already on disk, wrongly retired), phase 2 the G-02 fact-check, phase 3 the
+source hunt ranked by how much each source would change the BioMobi list — plus the screening rule
+that falls out of the Prodcom mechanism: **does the candidate carve by process?** A source carving
+by NACE, by Prodcom or by a monitor's own loss definition reproduces the gaps we already have.
+
 ### 2026-09-03 (later) — the 80/20 selection re-run after two defects were found in the analysis
 
 **No source extracted; no claim in the workbook was touched.** The reviewer rejected the first
