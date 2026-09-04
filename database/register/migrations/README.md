@@ -39,3 +39,20 @@ Two of the reviewer's remarks in `FIXES_ROUND2.csv` were phrased as principles a
 
 If a future source raises a case these rules get wrong, fix the rule and re-validate it against the
 sheets here — they are the regression set.
+
+## Added at close-out, 2026-09-04
+
+The September gap analysis and the fix round it produced. Same rule: kept for provenance, not for
+running.
+
+| File | What it did |
+|---|---|
+| `apply_fixes.py` | Applied the reviewer's round-1 structural fixes, 2026-09-01. |
+| `gap_sweep.py` | Ran the five screens behind the gap analysis (rows above L4, retired rows, production look-alikes, aggregate reconciliation, a 41-stream absence checklist) and dumped each in full. Its recurring part now lives in `../final_check.py`; its findings are in `../OPEN_GAPS.md`. |
+| `make_gap_lists.py` | Wrote `FIX_LIST.csv` and `GAP_LIST.csv`. It carries the test that separates them — a bundled name is one selectable stream when the items arise together, and a gap when the bundle hides a distinction only a new source can supply. |
+| `GAP_DECISIONS.csv` | 8 gaps, decided and applied 2026-09-03. |
+| `FIX_LIST.csv` | 7 fixes, decided and applied 2026-09-04 — the round that recovered the two slaughter-residue streams. |
+| `HIDDEN_STREAMS.csv` | The screen behind fixes F3–F5: 49 residual rows sitting above L4, with a proposal per row. Regenerate a fresh one with `../find_hidden_streams.py` when a new source is extracted. |
+| `gap_decisions_2026-09-03_export.md` | The reviewer's browser export of the gap-desk decisions. |
+| `aggregate_coverage.csv.pre-FIXLIST` | The registry as it stood before the fix round. |
+| `BIOLOOP_streams_and_sources_pre-FIXLIST_2026-09-04.xlsx` | The workbook before the ten fix-list edits. |

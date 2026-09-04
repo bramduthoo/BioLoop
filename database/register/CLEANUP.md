@@ -136,3 +136,56 @@ git add -A && git commit -m "register: close phase 2b — archive the gates, dro
 
 After that the folder is: the workbook, its export, the PDFs, three dictionaries, two registries,
 twelve scripts, four documents, and `migrations/`.
+
+---
+
+# Close-out log — run 2026-09-04
+
+The plan above was executed. It passed, and running step 4 caught a real bug, which is what step 4
+is for.
+
+**What moved** (8 items, to `migrations/`, all documented in its README): `apply_fixes.py`,
+`gap_sweep.py`, `make_gap_lists.py`, `GAP_DECISIONS.csv`, `FIX_LIST.csv`, `HIDDEN_STREAMS.csv`,
+`gap_decisions_2026-09-03_export.md`, `aggregate_coverage.csv.pre-FIXLIST`. The empty `decisions/`
+folder was removed.
+
+**What was deleted**: `analyse.js`, `crosswalks/aggregate_coverage_CLAUDE.csv`,
+`crosswalks/AUDIT_findings.csv`, `__pycache__/`.
+
+**Three deviations from the plan, all deliberate.**
+
+1. `gap_sweep.py` and `make_gap_lists.py` were **moved, not deleted**. Both generated something that
+   is still live — `GAP_LIST.csv` and the gap-register page — so their provenance is worth keeping,
+   and `migrations/` is exactly the designated home for a generator that has done its job.
+   `analyse.js` was deleted rather than archived: its output was *wrong* (it dropped an L4's own
+   tonnage), so keeping it invites someone to run it.
+2. The Excel lock file `~$BIOLOOP_streams_and_sources.xlsx` was **left alone** — the workbook was
+   open at the time. It is gitignored and harmless; delete it when Excel is closed.
+3. `stream_overview.html` was **left tracked**, since it is the shareable artefact. The
+   commented-out `.gitignore` line stays commented; that call is still open if you would rather
+   regenerate it on demand.
+
+**One side effect to know about.** Running `find_hidden_streams.py` in step 4 regenerated a blank
+`crosswalks/HIDDEN_STREAMS.csv` with 45 undecided rows. It was removed: those 45 rows are all
+dispositioned in `final_check.py` (43 are a source's own finest published grain, 2 are the discards
+rows the reviewer skipped), so a blank gate sitting in `crosswalks/` would wrongly imply open work.
+**Regenerate it when a new source is extracted, not before.**
+
+**The bug step 4 caught.** `make_aggregate_coverage.py` wrote the registry with a hard-wired
+15-column header and `extrasaction="ignore"`, so **any column a reviewer added was silently dropped
+on every run** — the `--refresh` branch even carried extras forward into each row and the writer then
+threw them away. Running it during the check erased `RATIONALE_claude` from 45 rows, which is 45
+paragraphs of why each aggregate is placed where it is. Restored from git, and the writer now
+derives its fieldnames from `COLUMNS` plus whatever the file already has, and writes LF endings, so
+it round-trips the registry byte-identically. **A script we were keeping had a silent data-loss bug
+that only running it end-to-end would reveal.**
+
+**Final state — identical to before the cleanup, which is the point:**
+
+```
+final_check.py       PASS       (801 claims, all dispositioned)
+verify_overview.py   8/8
+audit_register.py    24 findings over 736 live claims
+select_streams.js    7.292.982 t over 67 streams; 80% at 13, 90% at 20
+prep_data.py         runs with no BIOLOOP_REGISTRY override
+```

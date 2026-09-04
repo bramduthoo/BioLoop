@@ -345,9 +345,18 @@ def main():
         added = [propose(r) for r in aggregates if r["claim_id"] not in existing]
         out = [existing[c] for c in order] + added
 
+    # Write COLUMNS plus any column the reviewer added to the file, in the order the file had them.
+    # FIXED 2026-09-04: fieldnames was hard-wired to COLUMNS and the writer used
+    # extrasaction="ignore", so a reviewer-added column was silently DROPPED on every run - the
+    # --refresh branch above carries extras forward into the row dict and the writer then threw
+    # them away. Running the script during the close-out erased RATIONALE_claude from 45 rows.
+    extras = [c for c in (order and next(iter(existing.values())) or {}) if c and c not in COLUMNS]
+    fields = COLUMNS + extras
+
     OUT.parent.mkdir(parents=True, exist_ok=True)
     with io.open(OUT, "w", encoding="utf-8-sig", newline="") as fh:
-        w = csv.DictWriter(fh, fieldnames=COLUMNS, delimiter=";", extrasaction="ignore")
+        w = csv.DictWriter(fh, fieldnames=fields, delimiter=";", extrasaction="ignore",
+                           lineterminator="\n")
         w.writeheader()
         w.writerows(out)
 
