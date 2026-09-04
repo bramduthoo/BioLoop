@@ -257,6 +257,13 @@ PHYSICAL_BUNDLE = {
     "C-548": "gries en griesmeel are one milling fraction (GAP-4)",
     "C-397": "bostel en branderijafval are collected as one stream (GAP-5)",
     "C-590": "bostel en branderijafval are collected as one stream (GAP-5)",
+    # FIX_LIST F1/F2, reviewer 2026-09-04. Both are collected and sold as one material even though
+    # the Prodcom label enumerates species; the per-species split is a DATA gap (G-04), not a
+    # placement one, so the bundles are streams and the split stays open.
+    "C-298": "Prodcom 101160 - non-edible raw offal is rendered as one stream (F1)",
+    "C-483": "Prodcom 101160 - non-edible raw offal is rendered as one stream (F1)",
+    "C-295": "edible red-meat offal is traded as one stream; the species split is G-04 (F2)",
+    "C-480": "edible red-meat offal is traded as one stream; the species split is G-04 (F2)",
 }
 
 

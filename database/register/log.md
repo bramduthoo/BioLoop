@@ -57,6 +57,66 @@ clean v2 re-run and supersedes it entirely.*
 
 ## Tooling & model sessions (no source extracted)
 
+### 2026-09-04 — FIX_LIST applied; the register closed with a full-corpus completeness proof
+
+**The reviewer returned `FIX_LIST.csv`.** Four fixes accepted, two skipped, one confirmed as
+do-not-touch. Ten cell edits, on a backed-up workbook (`migrations/BIOLOOP_streams_and_sources_
+pre-FIXLIST_2026-09-04.xlsx`).
+
+- **F1 · OK** — `C-298`/`C-483` *Niet-eetbare ruwe slachtafvallen* promoted to L4. **Rank 11.**
+- **F2 · OK** — `C-295`/`C-480` *Eetbare slachtafvallen (rood vlees)* promoted to L4. **Rank 22.**
+- **F3 · OK, with the basis chosen** — all four melasse rows to L4 `Melasse` under `Varia › Suiker`,
+  and the reviewer picked the **grondgebied** basis *"since it is pure for Flanders"*. So
+  `C-381`/`C-574` (47.805 / 56.806) are the claim and `C-362`/`C-554` (91.958 / 111.298) are retired
+  via `DECISION_expert` with a cross-reference each way. Melasse reads 56.806 t at rank 25.
+- **F4 · skipped** — discards. *"If it is thrown back in the sea it's not really useful in a biomass
+  database for valorisation."* A scope decision, recorded in `final_check.py` so the row stays
+  dispositioned rather than becoming an unexplained gap.
+- **F5 · OK**, and **the reviewer's challenge was right.** They asked how a 68.000 t row could move
+  MONBIO's L1 by ~890.000 t, and it cannot — my attribution was wrong. Traced properly: unmarked at
+  L3, `C-334` was read by `derive.js` as *a figure reported at branch level*, i.e. a **rival total**
+  to `C-335`'s 1.149.000, and the two were **averaged**: (68.000 + 1.149.000) / 2 = **608.500**.
+  Marking it the leftover class it is removes it from that set and the branch reads 1.149.000 again.
+  **F5 alone is +540.500 t, not +890.500 — and it is not the row's mass, it is the half of a 1,15 Mt
+  branch that a 68.000 t mislabel was averaging away.** The rest of the earlier figure came from
+  other fixes in the same simulation. Recorded on the registry line.
+- **F6 · skipped** — *"this is a total across way too many components, leave it as it is."* Fair, and
+  it had been settled before; I should not have re-raised it.
+- **F7 · OK** — `C-342`/`C-532` left alone.
+
+**The registry is now official.** `aggregate_coverage_CLAUDE.csv` was merged into
+`crosswalks/aggregate_coverage.csv`: 242 rows, **0 blank `DECISION`**, the four promoted rows
+dropped and the two `C-334`/`C-523` lines added. **The whole pipeline now builds with no
+`BIOLOOP_REGISTRY` override**, which is what licenses deleting the working copy.
+
+**The closing check: `final_check.py`.** The reviewer asked for one final, thorough verification that
+nothing in the workbook could still be a selectable stream. It is now a committed script that
+partitions **all 801 claims** into eight dispositions and asserts the property that makes each safe —
+nothing sampled, nothing assumed:
+
+| A retired 65 · B productievolume 344 · C **selectable 205** · D above L4 45 · E declared total 53 ·
+F whole-stage total 30 · G nomenclature leftover 13 · H branch total 46 |
+
+Seven assertions, all passing: the buckets partition the claims; no row claims level 4/5 with an
+empty commodity column; no residual row carries a commodity under the `Aggregaat` placeholder; every
+aggregate has a registry line; **every one of the 45 rows above L4 is dispositioned** — either a
+reviewer decision (the two discards rows) or the source's own subgroup wording, i.e. its finest
+published grain; every leftover was read against the zemelen test; and every branch total reads as a
+total rather than a material. Buckets D and G are printed in full on every run, so the judgement
+stays visible instead of being buried in a pass/fail. **PASS.**
+
+**The result.** 67 selectable streams, envelope **7.292.982 t**, **80% at 13 streams, 90% at 20**.
+`verify_overview.py` 8/8; `audit_register.py` back to its **24-finding baseline** (down from 26 — the
+two `uit andere` rows are now correctly prefixed, and the four promoted offal rows were added to
+`PHYSICAL_BUNDLE`). Two deliverables published: the selection list
+(`https://claude.ai/code/artifact/fd0f972f-170c-48c6-940a-c46e06e31937`) and the nine-gap list
+(`https://claude.ai/code/artifact/98be53fe-4f1f-432d-922a-7652605ba14a`).
+
+`CLEANUP.md` now carries the runnable close-out, and records why **`find_hidden_streams.py` and
+`final_check.py` are kept**: the first is the only screen that catches a residual row above L4 with
+an ordinary name, which `audit_register.py` structurally cannot; the second is what makes the
+completeness claim checkable rather than asserted.
+
 ### 2026-09-03 (last) — full-corpus gap sweep; the gap list split into two classes
 
 **No source extracted; no claim changed.** The reviewer asked for the gap analysis to be redone
