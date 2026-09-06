@@ -1,135 +1,28 @@
 ## Status
 - **Workstream:** Database (BioMobi)
-- **Current objective:** **phase 2 IN PROGRESS — not finished.** Seed the legacy internal Excel into the schema. Loader is built and tested; **paused awaiting human curation of the manifests.**
-- **Last session:** 2026-07-30 — inspected the workbook, agreed the mapping, built + tested an idempotent loader. No data loaded into any database yet.
-- **Last session (2b):** 2026-09-04 — **`FIX_LIST` applied and the register closed with a full-corpus completeness proof.** The reviewer returned the seven fixes: four applied, two skipped, one confirmed do-not-touch. **Two meat streams recovered from data that was already there** — `C-298`/`C-483` *Niet-eetbare ruwe slachtafvallen* at **rank 11** and `C-295`/`C-480` *Eetbare slachtafvallen (rood vlees)* at **rank 22**, 251.627 t that had been marked unselectable. Melasse went to L4 with the reviewer choosing the **grondgebied** basis as the Flemish claim (the export-proxy twins `C-362`/`C-554` retired, cross-referenced both ways). Discards skipped as non-valorisable. **The reviewer's challenge on F5 was right and my attribution was wrong:** a 68.000 t row cannot move MONBIO's L1 by 890.000 t. Traced — unmarked at L3, `C-334` was read as a *rival total for the whole branch* and **averaged against `C-335`'s 1.149.000**, giving 608.500. Marking it the leftover class it is restores the branch. **F5 alone is +540.500 t, and it is not the row's mass but the half of a 1,15 Mt branch that one mislabel was averaging away.** **`aggregate_coverage.csv` is now the official registry** — 242 rows, **0 blank `DECISION`** — so the pipeline builds with no `BIOLOOP_REGISTRY` override. **New `final_check.py`** partitions all **801 claims** into eight dispositions and asserts seven properties (buckets partition; no level/column mismatch; no commodity under the `Aggregaat` placeholder; every aggregate has a registry line; every one of the 45 rows above L4 dispositioned; every leftover read against the zemelen test; every branch total reads as a total) — **PASS**, with buckets D and G printed in full every run. **Result: 67 selectable streams, envelope 7.292.982 t, 80% at 13 streams and 90% at 20.** `verify_overview.py` 8/8; `audit_register.py` back to its **24-finding baseline**. Deliverables: the selection list https://claude.ai/code/artifact/fd0f972f-170c-48c6-940a-c46e06e31937 and the nine-gap list https://claude.ai/code/artifact/98be53fe-4f1f-432d-922a-7652605ba14a . `CLEANUP.md` carries the runnable close-out and records why `find_hidden_streams.py` and `final_check.py` are kept. No schema or database touched.
-- **Earlier session (2b):** 2026-09-03 (last) — **full-corpus gap sweep; the gap list rebuilt around two classes.** No source extracted, no claim changed. Five screens over `streams_export.csv`. **(1) 49 live residual rows sit at L2/L3 with no `AGGREGAAT` prefix — 2.367.761 t invisible to any selection.** 43 are legitimate (OVAM publishes *Dranken*, *Bakkerij*, *groenten openlucht* at subgroup level and nothing finer — so those 43 *are* the data gaps); **six are misplacements**: `C-334`/`C-523` *Meel/schroot uit andere oliehoudende zaden* (68.000 each), `C-381`/`C-574` *Melasse grondgebiedbasis* (47.805 / 56.806), `C-273`/`C-457` *Teruggegooide vis* (7.500 / 7.707) — the last being **the entire residual content of the `Visserij` stage**, against a total selectable fish mass of 839 t. **The audit could not have caught any of them**: it identifies a misplaced row from its *name* (a product code, or a leftover-class phrase), so an ordinary name at L3 passes everything. One concrete hole fixed — `COLLECTION_SIGNALS` had *en/of/van andere* but not ***uit andere***, which is exactly how C-334 escaped; audit baseline 24 → **26**. Durable fix: new **`find_hidden_streams.py`** → `crosswalks/HIDDEN_STREAMS.csv`, a human gate. **(2)** retired rows: nothing large lost. **(3)** 30 `Productievolume` rows whose names read like residue — **all false positives; the "waste filed as production" hypothesis is closed**. **(4)** aggregate reconciliation found the `Varia` sector totals parented away from their components (`C-284`/`C-469` 671.000/563.000; `C-286`/`C-471` 403.000/394.000) — G-05 with numbers. **(5)** an absence checklist of 41 named Flemish side streams: **wei/kaaswei, cacaodoppen, aardappelschillen/-vezel/-eiwit, draf/DDGS, vinasse, frituurvet, eierschalen, veren, categorie 1/2/3, visafval are absent from the workbook entirely.** **Four suspected gaps checked and dismissed**, two of which would have made the list wrong — notably `Suiker- en zetmeelgewassen` (1,2 Mt, no components) is MONBIO's own gewasgroep whose parts sit under two register L3s and reconcile **exactly** (744.945 + 462.224 = 1.207.169). **The mechanism, stated for the source hunt: MONBIO's food-industry residual detail *is* the set of Prodcom codes that happen to name a waste product, plus one FEDIOL crush table — a stream with no such code is invisible to it however large.** Hence ten new class-B entries (G-09…G-18) including **zuivel/wei absent entirely** and **cacao with no residual figure at all** (the "suiker en chocolade" aggregate is provably all sugar). *(A recommendation made here to un-retire S005 and S001 was **rejected by the reviewer on 2026-09-04** — sources carrying `_RETIRED` were retired deliberately and are not to be proposed. Every mention was removed from `OPEN_GAPS.md`, `GAP_LIST.csv` and the register page; where that left a gap with no candidate, G-04, G-09 and G-12 now say so.)* **G-07 resolved by reviewer decision**: a bundled L4 stays one item but is reported at its lowest detail level, which collapses Suikerbiet's 34× spread to 1,0× on loof and 1,0× on pulp. Artifact: https://claude.ai/code/artifact/4a899558-975e-400e-a69b-3d277cc9b5d2 . No schema or database touched.
-- **Earlier session (2b):** 2026-09-03 (later) — **the 80/20 selection re-run after the reviewer rejected the first shortlist; two defects found, both in the analysis code, neither in the register.** No source extracted, no claim touched. The reviewer named the symptom exactly: raapzaadschroot at 681.000 t/yr missing while bonen at 1.783–68.600 t/yr was in, along with gries, bostel and the bietenpulp aggregate. **Defect 1 — `analyse.js` deleted an L4's own tonnage.** It kept the L5 fraction where one existed and the L4 otherwise, so whenever *any* source named a fraction the commodity's unfractioned mass was discarded: `Kool- en raapzaad` carries a 7.818 t *stro* L5, and that was enough to delete 681.000 t of schroot — the corpus's **second-largest stream** — from the pool being ranked. Restored **737.585 t** on MONBIO 4.0 (681.000 C-331 + 56.585 C-314) and **906.913 t** on MONBIO 3.0. **Defect 2 — the ranking rewarded ubiquity, not mass**: the greedy maximised *mean coverage across six sources*, so a stream only MONBIO reports was diluted by four zeros the register's own invariant says do not exist. Ranking is now `M = max over sources`, monotone in mass, so the inversion cannot recur; the method and its denominators are stated in the header of the new committed script **`select_streams.js`**. **Result: 65 selectable streams, envelope 7.095.847 t; 80% falls at rank 12** (18,5% of entries, or 25,5% once the 18 fish species — 578 t between them — are set aside). Recommended working set **24 streams: 96,0% of the envelope, 100% of *both* MONBIO ceilings, OVAM 2020 99,9%, OVAM 2023 92,9%, GeNeSys 77,6%, ILVO 239 73,8%.** Against the first pass's 16: fifteen survive, **nine enter** (Kool- en raapzaad **at rank 2**, Zetmeel, Soja, Dierlijk vet, Bostel, Melasse, Gries, Gevogelte, Zonnebloem) and one drops (Spinazie, now rank 28). Coverage percentages are *lower* than the first pass reported, which is the fix working — its ceilings were short by those 737.585 / 906.913 t. **Three gaps raised, all corpus properties only visible once the ranking was right:** **G-06** the oilseed-meal block (~18% of the envelope, incl. the #2 stream) is `geography = Belgie`, which also explains MONBIO's L4 ceiling exceeding its own L1 total (104,6% / 102,8% — a denominator artefact, not double counting); **G-07** three of the top four L4 rows bundle two unrelated streams (Suikerbiet = loof + pulp, Aardappel = loof + industrieel, Kool- en raapzaad = stro VL + schroot BE) and need a registration rule, not new data; **G-08** GeNeSys measures *oogstresten* where ILVO 239 measures *voedselreststromen*, collapsing one crop name into a single stream with spreads to 50,5×. Report artifact: https://claude.ai/code/artifact/95fa6e87-1fd1-45d3-88f9-071881f67bc1 . `verify_overview.py` 8/8; `audit_register.py` at its 24-finding baseline. No schema or database touched.
-- **Earlier session (2b):** 2026-09-01 (evening) — **the 42 open aggregate decisions taken provisionally in a COPY, and the first full 80/20 coverage audit.** No source extracted. `crosswalks/aggregate_coverage.csv` is untouched — the decisions live in `aggregate_coverage_CLAUDE.csv` with a `RATIONALE_claude` column per row, and `prep_data.py` gained a `BIOLOOP_REGISTRY` override so the overview builds from it without overwriting anything. 16 residual classes shelved per v2.5 rule 2 (which is what drops S066's tuinbouw from a flattering 100% to an honest **90,8%** resolved), plus four generator fields corrected — C-689/C-767 were marked `full` when they cover only the groenten subgroups, and C-691/C-692 are channel halves that must be a `component_set`, not averaged variants. One data defect fixed: `prep_data.py` reads the first year-like number out of the free-text `reference_year`, so two S065 rows carrying *"onbekend (data uit … 2012)"* were being filed under **citation** years. **Audit published as an artifact** (https://claude.ai/code/artifact/d005bbbc-20a7-4797-9c75-6fe22de1c337). **Headline: the selection is possible for plants and not for animals.** On MONBIO 4.0, **13 L4/L5 streams reach 80,9%** of the reported L1 residual total and 6 of 20 items carry 80,6% of the selectable pool — but **15,9% of L1 has no L4/L5 detail at any price**, almost all of it animal and processing mass. Resolution per edition: GeNeSys 100%, ILVO 239 90,8%, MONBIO 3.0 84,9%, MONBIO 4.0 84,1%, **OVAM 2023 19,8%, OVAM 2020 5,9%** — the monitors carry the mass and none of the depth. **Two gaps:** `Dierlijk - vee` is 769.000 t behind a single row (gevogelte) at 10,9% resolved, and OVAM's `Varia` is its largest group at 596.710 t resolving to **nothing**. **Sources converge within a series and not across it:** on the same year 2020 MONBIO reads 5.499.135 t against OVAM's 2.583.633 t (2,1x; akkerbouw 24x, vee 5,4x, vis 38x), because MONBIO counts *productieresiduen* and OVAM only food-linked *voedselreststromen* — the same split that puts GeNeSys 3,2x above ILVO 239 on horticulture. Ten of the thirteen selected streams are straw, leaf, pulp and stalk, i.e. outside OVAM's scope by construction, so a MONBIO-based selection **cannot be cross-checked against OVAM and the two must never be summed**. **Neither gap has a queued owner** (checked across the whole 91-row `Sources` sheet): S004 is the only live PDF left and adds no L4/L5 depth. The vee gap needs either the **S087 geography call reopened** (its 698.000 t, reversible in one edit) or **S001 un-retired**; the Varia gap points at S025, S041 and S067, none of which has a PDF yet. No schema or database touched.
-- **Earlier session (2b):** 2026-09-01 — **S065 (GeNeSys, ILVO Mededeling 165) extracted under protocol v2.5: 98 claims (C-704…C-801), awaiting verification. With S066 the same day, the tuinbouw side now runs field-to-processing.** S065 is the **superset** to S066, not a rival: it covers three chain stages (oogstresten, doordraai bij veilingen, productieverliezen in de industrie) and includes what S066 deliberately excludes — pre-harvest, and non-food-associated material such as stro, spruitstokken and loof. That is why the same crop differs by a factor 25 (spruiten 5.452 t in S066, 138.000 t in S065). **Never sum or average across the two.** **Where the data is matters:** the numbered tables hold 19 rows between them; **62 of the 98 claims come from an unnumbered Bijlage 1 on p.68** that is absent from the source's own table list — a session working from that list would miss two-thirds of the source. **One layout trap, caught by arithmetic:** in Bijlage 1 each band-header row carries the *previous* block's total, so 1.009.182 is printed on the *Glasgroenten* row but is the openluchtgroenten sum, and 340.570 sits on *Fruit* but is glasgroenten; both verified by summing the blocks exactly, and captured under the block they actually measure. Three scope decisions: everything → `agri-food waste` with **`type_assumed = TRUE`** (the source's Box 1 says it uses *reststromen* as an umbrella precisely because it does not split edible/inedible — the sharp contrast with S066's FALSE on every row); **Tabel 4 at `geography = Belgie`**, and more than Belgian, since its residual tonnages derive from *productie in Belgie én buitenland voor verwerking in Belgie* (verified: 76.000 × 5% = 3.800), with both production columns kept as parallel accountings; and the **akkerbouw 3 Mt** row captured, cross-referenced as a rival of MONBIO's measured stro (1.590.919 t) and never to be summed with it. Wet tonnages throughout, recorded on every row. Two audit findings were resolved by **fixing my own row names rather than weakening the rule** (the *Bonen* footnote had been put in the name, tripping the several-species signal); S065 now audits **0 findings**. `verify_overview.py` 8/8. 12 new L4 members and 6 new L5 fractions — the largest intake so far; `Kool` gained the three siblings the S066 note predicted, and `Cichorei` and `Courgette` now sit under two L3 parents each, following each source's own placement. **42 aggregate rows await a `DECISION`.** No schema or database touched.
-- **Earlier session (2b):** 2026-09-01 — **S066 (ILVO Mededeling 239, voedselreststromen Vlaamse tuinbouw) extracted under protocol v2.5: 111 claims (C-593…C-703), awaiting verification. The per-crop L4 gap is closed on the tuinbouw side.** This is the source the 80/20 analysis was asking for: Tabel 7 gives 23 crop×channel rows with **productie, voedselreststroom, voedselverlies and nevenstroom on every row**, so the edible/inedible split arrives already made. **It is also the first source whose vocabulary matches the register's axis exactly** — S066 defines voedselverlies as the *eetbare* fractie and nevenstroom as the *niet-eetbare* fractie, which is what `quantity_type.csv` means, where MONBIO's split is economic and OVAM's is absent; all 111 rows therefore carry **`type_assumed = FALSE`**, against `TRUE` on every MONBIO residual row. Three scope decisions by the user: all four Tabel 7 quantity columns captured (incl. the ~30 hoofdstroom production rows at reference year **2014**, the residual columns at **2015**); the ten **printed zeros** in the nevenstroom column captured as readings, since a nil measurement is not an absent one; and **Tabel 1 skipped** as a restatement of S004. One trap recorded: the `Afzetkanaal` column is a destination channel, **not** a chain stage — §2.1 fixes the boundary at entry into processing, so every row including the *industrie* ones is `Primaire productie`. **One suspected source error with arithmetic evidence (C-685):** Tabel 7's TOTAAL productie prints 2.108.932 while its own column sums to 2.119.885 — short by exactly *overig fruit* (10.953 t), which the same row's residual columns do include; captured as recorded, flagged for `DECISION_expert`. Two rounding variants in Tabel 9. **The reconciliation is the cleanest in the corpus:** components against Tabel 9's subsector totals leave a residue equal *to the tonne* to the four residual-class rows held out as `allocatable = no` (openlucht 23.038 = 15.618 + 7.420; fruit 548 = overig fruit), which is v2.5 rule 2 doing exactly what it was written for. One new dictionary member (`Kool`, with the rule-2 judgement recorded). `audit_register.py` clean on S066 (0 findings); corpus-wide 24 findings unchanged, all pre-existing MONBIO rows. `verify_overview.py` 8/8. **35 aggregate rows await a `DECISION`.** Also found from here: **S010 mis-transcribed this source** — it prints spruiten 5.542 where S066 reads 5.452 — evidence for this morning's decision that a consolidation is no substitute for its primary sources. No schema or database touched.
-- **Earlier session (2b):** 2026-09-01 — **S010 (ILVO/KU Leuven, verkennende haalbaarheidsstudie biomassahub) read under protocol v2.5: 0 claims. A consolidation with no original measurement.** Right topic, wrong kind of source: all volume data sits in four tables (Tabel 2-5, pp.17-22) and **every cell carries a superscript attributing it to an upstream study the register already owns or has queued** — S002 (extracted), S065, S066 and S006 (all priority-1 CORE, all queued in `inbox/`), plus COMEOS 2018 which is in no source. Skipped in full under the cross-source restatement rule; S010's own three figures (a ~11.000 t single-auction interview figure, a ~15.000 t fruitveilingen estimate, and the 64.271 t COMEOS retail cell) were **also** left uncaptured by user decision, retiring the source at zero rather than holding it open for three rows. **The consequence is the finding worth carrying forward: the register's single largest known gap is now explicitly blocked on three named sources.** The 2026-08-31 analysis found the food industry (2,02 Mt, largest stage) has no L4/L5 detail at all — and Tabel 3 of this source is precisely that missing detail, per crop and per fraction (bloemkoolloof, spruitstokken, uienschillen, preiloof, witloofwortelen). It is deferred to **S065, S066 and S006**, not abandoned: all four tables are enumerated in `log.md` so S010 can serve as fallback if any is retired the way S001/S086 were. Two further things recorded for those sessions: **the superscript legend changes between adjacent tables** (`C` means Monitor Voedselverlies in Tabel 2, ILVO 2015 in Tabel 3, MONBIO in Tabel 5), and **S010 has already done the cross-source comparison** — GeNeSys and MONBIO diverge widely on the same streams (spruitstokken 57.542 vs 138.000 t, a factor 2.4; groenteteelt 534.952 vs 800.000 t), which will surface as genuine contradictions once those sources are extracted. `audit_register.py --source S010` clean; `streams_export.csv` re-exported byte-identical. No schema or database touched.
-- **Earlier session (2b):** 2026-09-01 — **S087 (OVAM Marktanalyse Biomassareststromen 2024) extracted under protocol v2.5: 0 claims. The source is agri-food-empty.** Read cover-to-cover, archived, and fully accounted for — which is the point: the register now records this edition as *checked and empty* rather than *not checked*. Despite the title, the report's own afbakening (Tabel 1) is woody biomass, groenafval and houtafval plus the rendering sector; chapters 3 and 4 (~44 of ~60 content pages) are the same non-agri-food sectors S091's decision 4 excluded, and chapter 5 is almost entirely `afgeleid product`. Four scope decisions by the user removed everything: **(1)** chapters 3-4 out entirely; **(2)** the 698.000 t dierlijk afval (2023) **not captured**, because it measures material *received by Vlaamse verwerkers* and Figuur 24 splits its herkomst over Vlaanderen / Wallonië / Brussel / Buitenland with no Flemish-only counterpart — neither `Vlaanderen` nor `Belgie` would be honest, so the row was dropped rather than mislabelled; **(3)** all six afgeleide-producten tonnages excluded per `quantity_type.csv` (43.500 / 122.600 / 137.500 / 48.000 / 15.000 t and the 338 kton samenvattingstotaal) — the first source where that dictionary line is load-bearing; **(4)** the 4.000 t GFVO voedingsmiddelenindustrie **2020** left to S001 under the cross-source restatement rule. **All eight tonnages are named in `log.md` with page and reason, so every decision is reversible without re-opening the PDF.** Also recorded: the source's own *Lijst van tabellen en figuren* is wrong (claims 16 tabellen, body has 9; omits Tabel 5 and Figuur 8 and is off by one thereafter), so the completeness sweep was built on an own enumeration — 9 tables and 27 figures, all dispositioned. 5 destination/herkomst locations indexed, none carrying printed values (three unlabelled pies). `audit_register.py --source S087` clean; `streams_export.csv` re-exported byte-identical, confirming no claim was touched. **Expect the same thin yield from S086 and S001** — earlier editions of this same report. No schema or database touched.
-- **Earlier session (2b):** 2026-08-31 — **the two human gates were reviewed and applied; a register-wide aggregate error was corrected; first 80/20 gap analysis produced.** No source extracted. The reviewer's crosswalk decisions were applied (41 of 100 `Gemengd` rows kept, 59 excluded; 62 aggregate placements `ok`, 7 EU-definition totals shelved as `unallocated` — which resolves the retail contradiction structurally, retail now reading 132.082 from C-105 alone). Three corrections of substance. **(1) Exclusions were not reaching the overview at all** — `prep_data.py` never read `DECISION_expert`, so claims the reviewer had already excluded were still being counted; wired up, and with the 44 further claims flagged in the crosswalk remarks this retires **58 claims / 66,1 Mt**, dominated by mengvoeder and beer rows that had been inflating every food-industry figure. **(2) 40 rows the source itself calls a *totaal* were sitting in the register as ordinary components**, so every sector total was added to its own parts — the cause of 132% coverage on akkerbouw and 165% on the primary stage; they now carry the v2.4 `AGGREGAAT - ` prefix (`promote_totals.py`), plus C-043 promoted on arithmetic. **(3) `Gemengd` is retired for `Varia`**, with the two NACE lumps split into `Chocolade` and `Zetmeel en zetmeelproducten`; five of the eleven proposed L3 buckets turned out empty once the exclusions applied, so the split shrinks the vocabulary rather than growing it, and both previously-proposed new members are withdrawn. Retail's channel rows became `component_set` aggregates, and `derive.js` learned that a component_set reproducing a total already in its group is a **restatement**, not a rival measurement. **The 80/20 analysis is the headline result: against an addressable 9.327.369 t/yr, only 44,1% is resolved to L4/L5 and all of it is primary-production field residue.** Five Flemish items carry 80% of that pool but just 33,8% of the addressable total; the food industry (2,02 Mt, the largest single stage) has no L4/L5 detail at all. **Recommended next extractions: S005 (MONBIO 1.0), then S087 (Marktanalyse 2024), then S066 and S065.** Because the reviewer was away, the remaining decisions were **taken provisionally by Claude and stamped `AUTO-DECIDED` in the files** — including one deliberate `AUTO-OVERRIDE` of an explicit reviewer decision (C-201, aligned with its 2023 twin C-098). None is settled; all are reversible. No schema or database touched.
-- **Earlier session (2b):** 2026-08-26 — **the derived stream overview learned that an aggregate is not a commodity; protocol raised to v2.4.** No source extracted, no claim's value changed. `stream_overview.html` had been summing the 78 `AGGREGAAT - ` rows together with the components they are the total of, which double-counted and, where a source printed two definitions of one total, added those to each other as well — OVAM 2023 retail read 192,166 t (the EU figure plus the Belgian one, wearing the Belgian split). Aggregates are now a **second axis**: never summed, they become the reported total the level below is checked against, which is also what gives L1 and L2 a coverage line for the first time. An aggregate is placeable only when everything it covers sits under one parent row at one level; one that is not — a total of three L3 entries under two different L2 parents — goes to an *unallocated* band, visible but never compared. Competing definitions are averaged and listed with a per-value exclude toggle; every displayed number now states whether it is a reading, a sum (`Σ`) or an average (`ø`); a coverage above 150% raises a `⚠ CHECK`. The change surfaced three reconciliations that were previously invisible, two of them exact: OVAM 2023 voedingsindustrie components make 2,017,721 against a printed 2,017,748, and retail's two components make C-105's 132,082 precisely. **Two human gates are now open and blocking**: `crosswalks/aggregate_coverage.csv` (78 rows — what each aggregate totals) and `crosswalks/varia_reclass.csv` (100 rows — retiring `Gemengd` for `Varia`, with 4 rows becoming aggregates and 2 new dictionary members proposed). `apply_reclass.py` refuses to run while any `DECISION` is blank and was tested end-to-end on a copy of the workbook. No schema or database touched.
-- **Earlier session (2b):** 2026-08-17 — **review pass on S091 and S007, applied to S091 and S007 alike; protocol raised to v2.3.** No new source. The reviewer's remarks on S091 produced **six rule changes** and 44 corrected rows across both MONBIO extractions. The substantive one is **geography**: a figure sitting in a column headed *"Productie Vlaanderen"* was in fact the output of a company with sites in Flanders *and* Wallonia, so three sugar rows were re-read (only the 35%-grondgebied figure is Flemish) and the rule is now *the column header is not the definition, and where both levels exist the Flemish figure is the claim*. Also: a source's own product name saying *eetbaar*/*niet-eetbaar* now overrides a source-wide `quantity_type` default (9 rows reclassified to `voedselverlies`/`nevenstroom`); `level_1to5` is documented as a commodity-breadth label that never implies nesting; the conversion factor must be legible in Excel and its arithmetic spelled out; meaning-changing caveats belong in `stream_name_NL`; and a captured table whose cells were partly dropped must be accounted for cell by cell. Reviewer `DECISION_expert` entries were preserved untouched. **S007 was checked against v2.3 rule by rule** and one further gap was closed in both sources: the consolidated-table oil rows (C-279/C-280, C-464/C-465) carried a Belgian FEDIOL figure at `geography = Vlaanderen` — the same header-is-not-a-definition pattern as the sugar rows — and they turn out to restate the FEDIOL totals exactly, so both pairs are now cross-referenced for the reviewer to collapse. No schema or database touched.
-- **Previous session (2b):** 2026-08-16 — **S007 (MONBIO 3.0) extracted under protocol v2.2: 195 claims (C-398…C-592), awaiting human verification.** Same series as S091, one edition back, reference year **2020**. The four S091 scope decisions were applied unchanged and none needed revisiting, so the session was mostly mechanical — but it produced one finding that only a second edition could: **three of S091's Tabel 34 cells (C-339, C-340, C-341) are reprinted unchanged from this edition and are arithmetically impossible on S091's own data** (one Flemish figure exceeds its Belgian parent). Captured as recorded in both sources, cross-referenced on the rows, flagged for `DECISION_expert`. Also: S007's Tabel 15 TOTAAL is **not** capturable where S091's was (it spans bosbouw and landschapsbeheer); its visserij figure and text measure genuinely different things (total landing vs hoofdstroom subset, reconciling exactly via the auction withdrawals); and seven Prodcom cells confidential in 2021 carry a value here. 3 new dictionary members, 4 destination locations indexed. **The stale `extraction_status` on S005/S006 was corrected** (user decision) — both had wrongly read EXTRACTED. No schema or database touched.
-- **Earlier session (2b):** 2026-08-16 — **S091 (MONBIO 4.0, ILVO/VITO bio-economiemonitor) extracted under protocol v2.2: 183 claims (C-215…C-397), awaiting human verification.** First non-OVAM source, and a very different animal: a 297-page, economy-wide biomass monitor (96 tables, 68 figures) reporting productie / import / export / aanbod and hoofdstromen / nevenstromen / productieresiduen across the whole bio-economy. Four scope decisions taken by the user at session open did most of the work — **mest excluded** (the hub's manure exclusion treated as binding on the register), **productie-only** (import/export/aanbod are not arising volumes), **MONBIO's nevenstroom *and* productieresidu both → `agri-food waste` with `type_assumed = TRUE`** (MONBIO's split is economic, not edible/inedible), and **agri-food sectors only** (bosbouw, landschapsbeheer, hout, papier, chemie, bio-energie, afvalsectoren out). Reference year **2021**, which needed no negotiation: MONBIO editions do not reprint each other's years, so S007→2020, S006→2019, S005→2018 fall out cleanly; the one overlap (the 2018 OVAM/IMJV waste tables T62–T65) was verified present in the S005 PDF and skipped. **No suspected source errors**; 5 variant readings, all from the source printing two definitions side by side. 15 new dictionary members, including a second, deliberately **overlapping** crop partition (MONBIO's own gewasgroepen) with a never-sum-across warning. 4 destination/route locations indexed. `render_log.py` gained a bug fix (bold containing an italic was left unrendered). No schema or database touched.
-- **Earlier session (2b):** 2026-08-15 — **S002 (OVAM Monitor voedselverlies 2020) extracted under protocol v2.1: 100 claims (C-115…C-214), awaiting human verification.** Reference year **2020 only** (user decision at session open): S080 owns 2023 and left 2020 to this edition; the 2015 and 2017 columns were skipped for S004 and S003 and logged table-by-table. Two suspected source errors flagged with arithmetic evidence (C-193, a 1.999.983/1.999.383 digit transposition in Tabel 5; C-185, a "22.000 ton" veehouderij sentence that appears to be unrevised 2015 text). No new dictionary members were needed — the v2.1 vocabularies absorbed the source as-is. 19 destination/route locations indexed. No schema or database touched.
-- **Earlier session (2b):** 2026-08-15 — **S080 extracted and human-verified the same day: 114 claims (C-001…C-114), 1 retired.** The review found no misread value, but it did find a rule error that was costing `quantity_type` data (+4 claims once fixed); it also retired one row (C-074, a source typo), re-levelled akkerbouw in the dictionary, relabelled the Belgian-ports geography, and drove **protocol v2.1** (below). PDF archived; 18 destination/route locations indexed. No schema or database touched. *(Earlier that day: protocol v2 itself was settled and the withdrawn v1 trial run of S080 — 310 claims, 2026-08-14, which captured horeca/catering and lacked per-row provenance — was discarded.)*
+- **Current objective:** between sessions. Two threads: **2a — phase 2 paused**, awaiting the human `DECISION` columns before the legacy-Excel load; **2b — the candidate stream register, closed 2026-09-04** and handed over as a reviewed deliverable.
+- **Last session:** 2026-09-06 — register findings consolidated into the backbone (this hub, `state.md`, `flags.md`, `charter.md`). No extraction, no schema, no database touched.
 - **Progress:**
-  - done: phase 1 (baseline migration); phase-2 workbook inspection; column→schema mapping; curation-manifest design; `load_biomobi_excel.py` written and verified against the local stack (idempotency, convergence, spot-checks all pass).
-  - in progress: **phase 2 — awaiting the `DECISION` columns in `database/crosswalks/`, then the real load.**
-  - in progress (2b, parallel): candidate stream register — **rebuilt in-repo** under `database/register/` (26-column `Streams` schema, three binding dictionaries, `destination_index.csv`, `inbox/` → `archive/` PDF flow, per-session `log.md` + its derived `log.html`). **Protocol at v2.5; eight sources read — 114 claims from S080 (human-verified, 1 retired), 100 from S002, 183 from S091, 195 from S007, 111 from S066 and **98 from S065** (five awaiting verification), plus S087 and S010, both read, archived and retired at 0 claims. Corpus: 801 claims.** 4 verified PDFs still wait in `register/inbox/`, one source per session. Pre-database artifact; populates no table.
+  - done: phase 1 (baseline migration, verified); phase-2 workbook inspection, column→schema mapping, curation-manifest design, `load_biomobi_excel.py` written and verified against the local stack.
+  - done: **2b — the candidate stream register.** Eight sources read, 801 claims, protocol settled at v2.5, pipeline reproducible, deliverables issued. See "2b — the candidate stream register" below.
+  - in progress: **phase 2 (2a) — awaiting the `DECISION` columns in `database/crosswalks/`, then the real load.** Nothing is loaded into any database.
   - not started: phases 3–4 (composition harvesting, classification facets).
 - **Key artifacts:**
   - `database/supabase/migrations/20260727114134_remote_schema.sql` — the baseline; schema of record. **Phase 2 required no schema change.**
   - `database/ingest/load_biomobi_excel.py` — the phase-2 loader (+ `requirements.txt`).
   - `database/crosswalks/biomobi_excel_{streams,sources,parameters}.csv` — curation manifests. **The two `DECISION` columns are unfilled.**
-  - `database/data/raw/BioMobi_Biomass_RevA.xlsx` — the input. **Deliberately not versioned** (see decisions below).
-- **Next action:** fill the `DECISION` cells, resolve the `Sugar_beet` naming blocker, then run the loader and verify. See **"Where we are / what's next"** below.
+  - `database/data/raw/BioMobi_Biomass_RevA.xlsx` — the input. **Deliberately not versioned.**
+  - `database/register/` — the candidate stream register: the corpus, its protocol (`CLAUDE.md` v2.5), the pipeline (`tools/`), the gap record (`OPEN_GAPS.md`) and the shareable deliverables. `register/README.md` is its entry point.
+- **Next action:** fill the `DECISION` cells, resolve the `Sugar_beet` naming blocker, then run the loader and verify. See **"Where we are / what's next"** below. The register's own next action is not a database session — it is the source hunt, raised as **F-003**.
 
-<!-- Everything below this line is LOCAL to the database workstream. -->
+<!-- Everything below this line is LOCAL to the database workstream.
+     The per-session narrative for 2b lives in `register/log.md`, not here. -->
 
 ## Where we are / what's next (read this first on reopening)
 
-**State:** nothing has been loaded into any database. The local stack was used for testing and then truncated back to empty. The live Supabase project is untouched. No migration was needed — the phase-1 schema absorbed the data as-is, which is itself a useful result.
+**State (2a):** nothing has been loaded into any database. The local stack was used for testing and then truncated back to empty. The live Supabase project is untouched. No migration was needed — the phase-1 schema absorbed the data as-is, which is itself a useful result.
 
-**S002 session outcome (2026-08-15), relevant to the sources still queued.** The v2.1 protocol
-held up without amendment on a second source: no rule change was needed, no dictionary member was
-added, and the self-check caught only one mechanical slip (a lower-case `chain_L2` value). Two
-things are worth carrying forward. First, **the cross-source restatement rule did real work here** —
-S002 is the middle edition of a four-edition series and roughly half its tables are 2015/2020
-evolution tables; the rule kept the corpus clean, at the cost that **S003 (2017) is in the `Sources`
-sheet but has no PDF and is not queued**, so 2017 stays uncaptured until that is resolved. Second,
-unlike S080, **every quantity-type total in S002 is printed outside a route cross-tab**, so the
-v2.1 "read by axis, not by table" correction changed nothing here — it is a monitor-specific
-hazard, not a universal one.
-
-**State (2b — candidate stream register):** a parallel workstream builds a standalone, claim-level corpus of Flemish agri-food side-stream figures for expert review — the "literature review + monitors → candidate stream register" half of build-plan step 2. Each row is one figure exactly as a source reported it; contradictions are preserved, never averaged, and nothing is silently deleted (unverifiable claims are downgraded + flagged for the user, who decides). It now lives **in the repo** at `database/register/` — `BIOLOOP_streams_and_sources.xlsx` (the only canonical copy; the older root-level file of the same name is superseded and must not be used), `dictionaries/` (three binding vocabularies), `destination_index.csv`, `inbox/` → `archive/` for verified PDFs, `log.md`, and the git-diffable `streams_export.csv`. **Corpus holds 114 claims from one source (S080), human-verified, 1 retired by the reviewer**: protocol v2 settled after the S080 trial run, extraction restarted from scratch under it, and the review then produced v2.1 (below) — 11 sources still queued in `inbox/`. Touches no schema or database.
-
-**S007 session outcome (2026-08-16) — what a second edition of the same series is worth.** S007 is
-MONBIO 3.0, one edition behind S091. The four S091 scope decisions carried over unchanged and the
-reference years partitioned cleanly (2020 here, 2021 there), so almost nothing had to be decided
-again. Three things are worth carrying forward:
-
-- **Reading two editions side by side is what caught the only source error in either.** S091's
-  Tabel 34 reprints three Flemish cells verbatim from S007's Tabel 82 (34.401 / 66.426 / 395.511 t)
-  beside *different* Belgian quantities, and one of them makes the Flemish figure larger than its
-  Belgian parent — impossible. Neither edition alone shows this. **S005 and S006 are the same series
-  and should be extracted with the same comparison in mind.**
-- **Editions of one series are not interchangeable, even where they look it.** S007's consolidated
-  Tabel 15 carries bosbouw and landschapsbeheer rows and S091's does not, so the TOTAAL row is
-  capturable in one and not the other. Its visserij figure is the hoofdstroom subset where S091's is
-  the whole landing. Its Tabel 28 puts gries/griesmeel in the hoofdstromen where S091's puts it in
-  the nevenstromen. Assume nothing from the sibling edition; re-derive per source.
-- **Older editions are not strictly poorer.** Seven Prodcom cells confidential in 2021 carry a value
-  in 2020 — bietenpulp, afvallen van zetmeelfabrieken, gebrande koffie, two juices, smoked fish and
-  prepared shellfish. Confidentiality moves between editions, so a later edition does not supersede
-  an earlier one even for the same product.
-
-**S091 session outcome (2026-08-16) — the first non-OVAM source, and what it taught.** MONBIO is an
-economy-wide bio-economy monitor, not a food-loss monitor, and it broke none of the v2.2 rules —
-but it needed **four scope decisions the protocol does not itself settle**, all taken by the user
-at session open and all likely to recur on S005/S006/S007 and on the OVAM Marktanalyse sources:
-
-1. **Mest is out of the register**, on the strength of this hub's own "excluding manure and OFMSW"
-   scope line. Roughly 23,4 Mton of 2021 animal side stream was excluded on this ground alone, so
-   it is the single largest judgement in the corpus so far. Every tonnage is named in `log.md`.
-2. **Only the *productie* column is a claim.** Import, export and *aanbod* (production + import −
-   export, computed by the source) are not volumes arising in Flanders. This removed about
-   two-thirds of MONBIO's numbers, including its richest nevenstroom table (T38, feed-industry
-   input) — named in the log so a reviewer can pull it back.
-3. **MONBIO's `nevenstroom` / `productieresidu` split is *economic*, not edible/inedible**, so it
-   cannot be mapped onto the register's `nevenstroom`. Both map to `agri-food waste` with
-   `type_assumed = TRUE`; both terms are now recorded in `quantity_type.csv`. Consequence worth
-   knowing: **every** residual row in this source carries `type_assumed = TRUE` (50 of them).
-4. **Agri-food sectors only** — bosbouw, landschapsbeheer, hout, papier, textiel, chemie,
-   bio-energie and the afvalsectoren are not agri-food chain stages, so about half the report is out.
-
-Two further things carry forward. **The cross-source restatement rule was nearly free here**:
-unlike the OVAM series, MONBIO editions do not print evolution tables of their predecessors'
-years, so S091→2021, S007→2020, S006→2019, S005→2018 partition cleanly. The one overlap — the
-2018 OVAM/IMJV waste tables every edition reprints — was checked against the S005 PDF before being
-skipped. And **MONBIO's crop groups are a second, overlapping partition** of the commodity
-hierarchy (`Suiker- en zetmeelgewassen` straddles two existing L3s; `Groenten` straddles
-openlucht/beschut). They were added as members with an explicit never-sum-across warning rather
-than re-cut onto the OVAM partition, which would have been a derivation.
-
-*(Tooling: `render_log.py` was fixed to render bold that contains an italic — it previously left
-both markers raw. Protocol version unchanged.)*
-
-**Register protocol v2.1 (2026-08-15) — from the human review of S080.** The review found **no
-misread value** in 110 claims, but it did find a **rule error**: the destination/route ban had
-been swallowing `quantity_type` data, because sources print the voedselverlies/nevenstroom
-split as a cross-tab against a collection route. Such tables are now read **by axis, not by
-table**, which recovered 4 claims here (C-111…C-114) and would have cost data on every monitor
-source. The remaining fixes tighten rules where a reviewer had to catch something by hand:
-- **Completeness sweep** — the self-check now walks the source's own *Tabellen*/*Figuren* index
-  and accounts for every entry (captured / excluded-with-reason / no numbers). A 2020 twin of a
-  captured infographic had slipped out of the log unmentioned.
-- **`also_stated_in` (new 26th column)** — a figure repeated in four places is still one claim,
-  captured from the most specific location, but the other locations, and cross-references
-  between variant claims, now sit on the row. The reviewer had reported a captured figure as
-  missing because the row gave no hint it also appeared in the synthesis chapter.
-- **Canonical export order** — the sheet is read and written by column header, and
-  `streams_export.csv` always follows the schema order, so a reviewer rearranging columns no
-  longer produces a diff in which every row changed.
-- **`stream_name_NL` must disambiguate siblings** (incl./excl., subset, definition), not just
-  `source_type_label`.
-- **Parallel accountings** (a national vs an EU definition of the same stream) are captured
-  twice, named apart, and reconciled in the log.
-- **`chain_L2` follows the measured event, not the chapter** the table sits in.
-- **Cross-source restatement rule** — a series edition does not re-own figures it carries
-  forward from an edition already in the `Sources` sheet; skip and log those, capture what it
-  measured or revised, and capture the lot if no source owns them. Replaces the earlier,
-  over-fitted "one reference year per source" wording.
-- **`geography`** gained exactly one sanctioned exception: Belgian fishing ports are Flemish.
-  Explicitly not generalisable.
-
-**S080 session decisions (2026-08-15), binding on the sources still queued unless revisited:**
-- **Evolution-table years belong to the edition that measured them.** For S080 that meant capturing 2023 only, leaving the 2015 and 2020 columns to S004 and S002, which are queued as their own sources. This is now generalised in the protocol as the **cross-source restatement rule** — the check is against the `Sources` sheet, not against a fixed year, so a source that genuinely measures several years keeps all of them. One documented exception was made here (a 2020-referenced correction unique to S080) — see `log.md`.
-- **EU-definition `levensmiddelenafval` figures are captured** for Flemish in-scope chain links, as a parallel accounting to the Flemish monitoring figures (`source_type_label` records which definition applies). Belgian and other-region rows are not.
+**State (2b):** the candidate stream register is **closed**. It is a pre-database artifact and still populates no table; its output is a reviewed stream selection plus a gap record, both of which feed the volume half of phase 2 once 2a lands. The consolidated account is the next section.
 
 **To finish phase 2, in order:**
 
@@ -148,19 +41,141 @@ source. The remaining fixes tighten rules where a reviewer had to catch somethin
    (Requires the local stack up: `supabase start`. Never target the live project.)
 5. **Verify**, then update this hub, `state.md`, and commit.
 
-> **2b (parallel register) — goal still open; ASK THE USER.** No tangible completion steps could be written here because 2b has no defined end-state yet: "when is the sweep exhaustive enough / where does it hand off?" is an expert-curation scoping call, not something to hard-code. Ask the user to define the end-state (target sources, saturation rule, hand-off point) before writing concrete 2b steps. What *is* queued in the meantime: finish the remaining tier-1 sources — **S078** (MONBIO 4.0, web portal — different scraping route), **S086** (Marktanalyse ~2020, user's last priority, expected low yield), **S066** (blocked: no retrievable URL, 18 claims still inherited via S010 only; may need a direct ILVO request).
+**Expected result (2a)** under the proposed decisions: ~271 measurements across 5 streams, 19 sources, ~25 parameters.
 
-**Expected result** under the proposed decisions: ~271 measurements across 5 streams, 19 sources, ~25 parameters.
+---
 
-**Expected result (2b)** — *open; ask the user.* No tangible target was set because the register's goal is still undefined (how wide/exhaustive the sweep must be is an expert-curation decision). Current standing: **592 claims from four sources** — S080 (114, human-verified), S002 (100), S091 (183) and S007 (195; the last three awaiting verification); **S066 (111) and S065 (98) were both extracted on 2026-09-01**, closing the per-crop L4 gap on the tuinbouw side from field to processing; S087 and S010 were read the same day and both yielded 0 claims (S087 agri-food-empty; S010 a consolidation — see `register/log.md`). Corpus **801 claims from six sources**. 4 verified PDFs still queued in `register/inbox/` (S001, S004, S005, S006, S086), one source per session. **S004 (Monitoring Vlaanderen 2015) is now the highest-value remaining source** — it owns the chain-wide 2015 baseline that S066 restates and this session skipped, and it is the only zero-point for the whole monitor series. **S003 (Monitoring Vlaanderen 2017) has no PDF and is not queued** — while that holds, the 2017 figures skipped from S002 and S080 belong to no source in the register.
+## 2b — the candidate stream register (closed 2026-09-04)
 
-**Register protocol v2 (2026-08-15) — settled from the S080 trial run.** The v1 output was withdrawn, not patched, because the scope change touched most rows. What changed:
-- **Chain-stage scope is now explicit and gated in `chain_L2.csv` (`in_scope` column).** In: primary production, visserij, veilingen/PO's, voedingsindustrie, retail. Out: **horeca, catering, households**. An aggregate is capturable only if *every* stage it spans is in scope — which is now the stated reason the depth rule has no level 1.
-- **`Streams` grew 20 → 25 columns.** Per-row provenance (`source_page`, `source_table_figure`) and per-row unit audit (`value_as_reported`, `unit_as_reported`, `conversion_factor_to_t_per_yr`, mandatory, factor must be a pure unit conversion or one the source itself supplies — never derived).
-- **`destination_index.csv`** — destination / collection-route volumes are still not extracted, but every source now records *where* they live, so the metadata is findable later.
-- **A source's own scope exclusions are not inherited** — a named tonnage the source excludes from its totals (slaughterhouse hides/bones, pre-harvest losses) is captured, with the source's framing kept in `source_type_label`.
-- **Contradictions split two ways** — *variant readings* (captured, listed, not called errors) versus *suspected source errors* (arithmetic evidence required; captured as recorded, flagged for `DECISION_expert`).
+*The consolidated account. Detail lives in `database/register/`: `README.md` (what each file is), `CLAUDE.md` (the extraction protocol, v2.5), `log.md` (the per-session record and every anomaly note), `OPEN_GAPS.md` (the gap record), `CLEANUP.md` (how the folder was closed out). The per-session narrative is **not** repeated here.*
 
+### What it is
+
+A standalone, claim-level corpus of Flemish agri-food side-stream figures, built for expert review. **One row = one figure exactly as one source reported it.** Contradictions are preserved, never averaged; nothing is silently dropped or harmonised; every row carries a page and a table/figure so it can be re-checked against the archived PDF in seconds.
+
+It exists to answer one question the charter asks and BioMobi cannot answer for itself: **which Flemish agri-food side streams carry ~80% of the volume, and can that be shown rather than asserted?** It is a *pre-database* artifact — it populates no BioMobi table and is not a BioMobi input in its raw form.
+
+### The corpus — eight sources, 801 claims
+
+| Source | What it is | Claims | Status |
+|---|---|---:|---|
+| S080 | OVAM Monitor voedselverlies 2023 | 114 | **human-verified** (1 row retired by the reviewer) |
+| S002 | OVAM Monitor voedselverlies 2020 | 100 | awaiting verification |
+| S091 | MONBIO 4.0 (ILVO/VITO bio-economiemonitor) | 183 | awaiting verification |
+| S007 | MONBIO 3.0 | 195 | awaiting verification |
+| S066 | ILVO Mededeling 239 — voedselreststromen Vlaamse tuinbouw | 111 | awaiting verification |
+| S065 | GeNeSys — ILVO Mededeling 165 | 98 | awaiting verification |
+| S087 | OVAM Marktanalyse Biomassareststromen 2024 | **0** | read, archived, **retired — agri-food-empty** |
+| S010 | ILVO/KU Leuven, verkennende haalbaarheidsstudie biomassahub | **0** | read, archived, **retired — a consolidation, every cell restates a source we already own** |
+
+**801 claims; 736 live** after the reviewer's exclusions. The two zero-yield sources are kept deliberately: *checked and empty* must stay distinguishable from *not checked*, and every tonnage they were refused is named in `log.md` with its page and reason, so each decision is reversible without re-opening the PDF.
+
+**Still queued:** `register/inbox/` holds **one live PDF — S004** (Monitoring Vlaanderen 2015), the chain-wide zero point of the OVAM monitor series. Four PDFs carry `_RETIRED` (S001, S005, S006, S086) — retired deliberately by the reviewer on 2026-09-04 and **not to be proposed again**; a `PhD_MvantLand_2019.pdf` sits there unregistered, with no row in the `Sources` sheet. **S003 (Monitoring Vlaanderen 2017) has no retrievable PDF, so 2017 is owned by no source** — both S080 and S002 skipped their 2017 columns to it under the cross-source restatement rule.
+
+### The result — the 80/20 selection
+
+Reproducible from the workbook with `node tools/select_streams.js 24`:
+
+```
+envelope   7.292.982 t/yr over 67 selectable L4/L5 streams
+80%        at rank 13     90%   at rank 20     94,6%  at rank 24
+```
+
+The top of the ranking — the streams a BioMobi volume layer should hold first:
+
+| # | Stream | t/yr | # | Stream | t/yr |
+|--:|---|---:|--:|---|---:|
+| 1 | Mais | 1.456.062 | 8 | Lijnzaad | 245.000 |
+| 2 | Kool- en raapzaad | 857.931 | 9 | Bloemkool | 201.311 |
+| 3 | Aardappel | 855.393 | 10 | Soja | 170.000 |
+| 4 | Suikerbiet | 812.224 | 11 | Niet-eetbare slachtafvallen | 169.051 |
+| 5 | Zetmeel | 284.549 | 12 | Dierlijk vet | 145.498 |
+| 6 | Zemelen | 278.865 | 13 | Spruiten | 138.000 |
+| 7 | Tarwe | 255.836 | | *(80% line)* | |
+
+**How much of each source the selection actually resolves** — the honest measure of the corpus, and the reason the gap list exists:
+
+| Source edition | reported residual total (L1) | resolved to selectable L4/L5 |
+|---|---:|---:|
+| GeNeSys ILVO 165 | 990.130 | **100,0%** |
+| MONBIO 3.0 | 6.824.378 | 93,5% |
+| MONBIO 4.0 | 6.249.594 | 93,0% |
+| ILVO 239 tuinbouw | 282.821 | 90,8% |
+| OVAM Monitor 2023 | 2.891.823 | **24,6%** |
+| OVAM Monitor 2020 | 2.583.633 | **11,1%** |
+
+The monitors carry the mass and none of the depth; ILVO's studies carry the depth. That asymmetry is structural, not a defect of the extraction — see the mechanism below.
+
+### The method, and the four choices it rests on
+
+Stated in the header of `tools/select_streams.js` so the ranking can be argued with:
+
+1. **A stream is ranked by the largest tonnage any *one* source gives it — `M = max over sources`, never a sum and never a mean.** Summing across sources would double-count the same material; averaging rewarded ubiquity over mass and once ranked a 1.783 t stream above a 681.000 t one, because the sources that never measured it were being counted as zeros, which the register's own "absence = not measured" invariant says do not exist.
+2. **Selection reaches L4/L5 only.** An L4 row is a named product or crop; an L3 row is a subgroup. A figure parked at L3 is invisible to any selection however large it is — which is why placement (below) turned out to matter as much as extraction.
+3. **A row named `AGGREGAAT - …` is a total, not a commodity.** It never enters a sum; it becomes the reported total the level below is measured against. This is what makes a coverage percentage mean anything.
+4. **Sources are never merged.** Where several report the same entry it stays several tagged rows with a spread badge. MONBIO and OVAM measure different things and **must never be summed**: on the same year 2020, MONBIO reads 5.499.135 t against OVAM's 2.583.633 t (2,1×; akkerbouw 24×, vee 5,4×, vis 38×), because MONBIO counts *productieresiduen* and OVAM only food-linked *voedselreststromen*.
+
+### Decisions that bind any future register or volume work
+
+Project-level ones (supply-side scope, *productie*-only, manure excluded, source-vocabulary mapping) are in `state.md`; the ones below are this workstream's.
+
+- **The five placement rules (protocol v2.5), and why they exist.** They were learned over three review rounds and now decide whether a figure is usable at all: (1) a row naming a **product** sits at L4, never L3 — this alone accounted for 75 rows and ~17 Mt across the first four sources; (2) a **residual class of a nomenclature** (*Andere …*, *n.e.g.*, *van alle soorten*) is an aggregate, not a component; (3) a row that **totals other rows** carries the `AGGREGAAT - ` prefix, on the source's wording or on arithmetic; (4) `level_1to5` is the row's **own** commodity depth, never the level an aggregate totals; (5) a **processing product goes under its sector**, not the crop it came from — bread is not a cereal. `tools/audit_register.py` enforces all five.
+- **One mislabel can move a branch by half.** `C-334`, an oilseed leftover class left unmarked at L3, was read as a *rival total for its whole branch* and averaged against `C-335`'s 1.149.000 t, giving 608.500. Marking it what it is returned **+540.500 t** — not the row's own mass, but the half of a 1,15 Mt branch that the mislabel was averaging away. **The lesson generalises: a misplacement is not a small error proportional to the row.**
+- **The audit is structurally blind to one class of defect.** `audit_register.py` recognises a misplaced row from its *name* (a product code, a leftover-class phrase), so a residual row sitting at L2/L3 with an ordinary name passes every check. `tools/find_hidden_streams.py` exists for exactly that and **is not optional** on a new source.
+- **251.627 t sat in the register marked unselectable the whole time.** Two meat streams (`C-298`/`C-483` *Niet-eetbare ruwe slachtafvallen*, rank 11; `C-295`/`C-480` *Eetbare slachtafvallen (rood vlees)*, rank 22) were recovered by a placement decision, not by new data. Where a name bundles two items and the bundle is itself an acceptable stream, promote it.
+- **`_RETIRED` sources are not to be re-proposed** (reviewer, 2026-09-04). A recommendation to un-retire S005/S001 was rejected; every mention was removed from the gap list, and where that left a gap with no candidate, the gap now says so.
+- **Reading two editions of one series side by side is what catches source errors.** S091's Tabel 34 reprints three Flemish cells verbatim from S007, one of which makes a Flemish figure larger than its Belgian parent. Neither edition alone shows this. Conversely, **an older edition is not strictly poorer**: seven Prodcom cells confidential in 2021 carry a value in 2020.
+- **A source's own scope exclusions are not inherited, and a column header is not a definition.** A tonnage the source names and then excludes from its totals is still captured; a column headed *"Productie Vlaanderen"* whose text defines it as a company's multi-region output is not a Flemish figure.
+- **Verification is a human gate.** Only S080 has been checked against its PDF by the reviewer. The other five extracted sources are `awaiting verification` — that is the register's largest open item, and no amount of tooling closes it.
+
+### The two gap classes — `OPEN_GAPS.md`
+
+The first coverage audit reported *"the food industry has no L4/L5 detail"* as one 2 Mt data gap. It was two different problems, needing opposite responses, and separating them is the gap record's main contribution:
+
+- **Class A — hiding in the current data.** The figure is in the register but the selection cannot see it: wrong level, wrong marker, wrong parent. **No new source helps.** All class-A rows are now decided and applied; the residue is placement judgement (G-05, G-A3), not missing data.
+- **Class B — not in the corpus at all.** No source the register holds measures it. **Only a new source helps.** Fifteen entries, in `crosswalks/GAP_LIST.csv`, each carrying the claim ids, the total that exists, the detail that does not, and a candidate — or an explicit *none*.
+
+**The mechanism behind most of class B, and it is what makes the gap list actionable.** MONBIO's food-industry residual detail is exactly *the set of Prodcom product codes that happen to name a waste or by-product* (106132 gries, 110210 bostel, 108114 melasse, 101150 dierlijk vet…), plus one FEDIOL crush table. **A side stream with no such code is invisible to MONBIO however large it is** — which is why bostel and zemelen are present while whey, cacaodoppen and potato peel are absent. OVAM has the mirror-image limit: it publishes the food industry at subgroup level and nothing finer. **Hence the screening rule for any candidate source: does it carve by *process*?** A source that carves by NACE class, by Prodcom code, or by a monitor's own loss definition will reproduce the gaps the register already has — that is how they arose.
+
+Priority order for the hunt (by how much a source would change the stream list, not by gap size): **aardappelverwerking** (621.063 t, zero components, in the sector Flanders leads — no candidate) → **zuivel/wei** (absent from all 801 claims, would likely enter the top ten on its own — no candidate) → **vlees per diersoort** → **retail + bakkerij** (S067, S025, neither with a PDF) → **cacao** and **Flemish oilseed crush**. One gap should be **fact-checked before anything is commissioned**: G-02, the PO's/veilingen stage at 15.189 t, looks too small to be true and an afternoon against VBT decides it. Raised for the literature workstream as **F-003**.
+
+### The human gates, and what "closed" means
+
+Everything judgement-bearing is a `;`-delimited, UTF-8-BOM CSV with a `DECISION` column, proposed by script and decided by the reviewer — the same convention as `database/crosswalks/`.
+
+| Gate | State |
+|---|---|
+| `crosswalks/aggregate_coverage.csv` | **242 rows, 0 blank decisions** — what each `AGGREGAAT` row totals. The overview reads it on every build; the pipeline needs no override. |
+| `crosswalks/GAP_LIST.csv` | 15 rows. A **worklist, not a decision sheet** — the input to the source hunt. |
+| `crosswalks/HIDDEN_STREAMS.csv` | Not present, deliberately. Regenerate it **when a new source is extracted, not before**; a blank gate sitting there would wrongly imply open work. |
+| `migrations/` | Every applied gate and its generator, kept for provenance. **Do not re-run.** |
+
+### The checks that make the close-out a proof rather than a claim
+
+All four reproduce from the workbook alone:
+
+```
+tools/final_check.py       PASS   801 claims, every one dispositioned into 1 of 8 buckets, 7 properties asserted
+tools/verify_overview.py   8/8    arithmetic identities taken from the sources themselves
+tools/audit_register.py    24 findings over 736 live claims — the known baseline, all Productievolume rows
+tools/select_streams.js    7.292.982 t over 67 streams; 80% at 13, 90% at 20
+```
+
+`final_check.py` is the one that answers *"could anything still be a selectable stream that is not one?"* with evidence rather than confidence. **The whole view pipeline contains zero source names and zero claim ids** — it is a pure function of the workbook, so it cannot drift and a new source inherits no per-claim judgement.
+
+Two things the close-out itself taught, both worth keeping: **running a kept script end-to-end is the only way to find a silent data-loss bug** (`make_aggregate_coverage.py` was dropping any reviewer-added column on every run — it erased 45 rationale paragraphs during the check, restored from git and fixed), and **a wrong tool is deleted, not archived** (`analyse.js` dropped an L4's own tonnage; keeping it would invite someone to run it).
+
+### What happens to this when 2a lands
+
+The register is not loaded as-is. Its hand-off into BioMobi is three separate things:
+
+1. **The selection** decides which `stream` rows BioMobi registers first, at the grain the register settled (L4/L5, finest grain any source distinguishes).
+2. **The claims** become `supply_observation` rows *after* per-claim curation — the `DECISION_expert` column is the gate, and five of the six extracted sources have not been verified yet. Contradictions stay as separate rows with separate sources; nothing is averaged on the way in.
+3. **The gap record** is a harvesting worklist, not data. It belongs to the source hunt (F-003), not to a load.
+
+Blocked on the same thing everything else is: **F-002** — no Zotero MCP is declared in `.mcp.json`, so all eight archived PDFs have a blank `citation_key`, and BioMobi's `source_key NOT NULL` will need real BBT keys before any of this loads.
+
+---
 ## Scope (compressed — see `charter.md` for the full version)
 Flemish **agri-food biomass side streams**, excluding manure and OFMSW. Inclusion is **expert-curated**: cast a wide but *bounded* net, then narrow. The 80/20 is a **prioritisation sort**, not a hard gate.
 
@@ -168,7 +183,7 @@ Flemish **agri-food biomass side streams**, excluding manure and OFMSW. Inclusio
 1. **Version the schema.** — done (phase 1).
 2. **Streams + canonical dictionary + volumes.** — *tackled as two parallel workstreams (2026-08-11): (2a) the loader seed, and (2b) the literature/monitor register sweep. 2b stays a pre-database artifact and populates no table until 2a is committed.*
    - *2a (in progress):* seed the old internal Excel via a committed loader. Note the scope correction: this seed exercises **6 of the 11 tables** (`source`, `unit`, `basis`, `parameter`, `stream`, `property_measurement`). The volume/geography and classification halves are **not** touched, because the workbook's only volume figures are fabricated placeholders. Earlier wording claiming this "validates the schema end-to-end" was overstated.
-   - *2b (in progress — the workstream advanced in the 2026-08-11 session):* literature review + OVAM Inventaris (+ voedselverlies monitor) + AgroCycle → candidate stream register → expert curation → populate `stream`, `supply_observation`, `source`, `unit`/`basis`/`geography`. Currently a standalone workbook corpus; curation and DB population come after 2a lands.
+   - *2b (**closed 2026-09-04**):* monitors + ILVO studies → candidate stream register → 80/20 selection + gap record. **801 claims from eight sources; 67 selectable streams, 7.292.982 t envelope, 80% at 13.** It remains a standalone workbook corpus populating no table; per-claim curation (`DECISION_expert`) and DB population come after 2a lands, and need real citation keys (F-002). See "2b — the candidate stream register" above.
 3. **Composition.** FoodWasteEXplorer, FOWCUS, AgroCycle, gap-fill literature → `property_measurement`.
 4. **Classification facets.** EWC likely first, plus a sector facet.
 
@@ -213,16 +228,21 @@ Source keys are renameable to real Zotero BBT keys later — all source FKs are 
 
 | Source | Tier | Access | Status | Notes |
 |--------|:----:|--------|--------|-------|
-| Old internal Excel | C | file (not versioned) | **in progress** | Loader built + tested; awaiting manifest curation. Composition only — its volume figures are fabricated. |
-| OVAM Inventaris Biomassa | V | PDF (non-commercial licence) | not started | Biennial; sector-aggregated. |
-| OVAM voedselverlies monitor | V | PDF / dashboard | not started | Food-loss volumes. |
-| MONBIO (ILVO / VITO) | V | PDF | not started | Volumes + stream taxonomy. |
+| Old internal Excel | C | file (not versioned) | **in progress (2a)** | Loader built + tested; awaiting manifest curation. Composition only — its volume figures are fabricated. |
+| OVAM voedselverlies monitor | V | PDF / dashboard | **read into the register (2b)** | 2023 = S080 (verified), 2020 = S002. 2015 = S004 queued; **2017 = S003 has no PDF and is unowned**. |
+| MONBIO (ILVO / VITO) | V | PDF | **read into the register (2b)** | 4.0 = S091, 3.0 = S007. 1.0/2.0 (S005/S006) **retired by the reviewer**. Carries the mass, and 93% of it resolves to L4/L5. |
+| ILVO studies — Mededeling 239, GeNeSys 165 | V | PDF | **read into the register (2b)** | S066, S065. The depth the monitors lack; the tuinbouw side runs field-to-processing. |
+| OVAM Marktanalyse Biomassareststromen | V | PDF | **read, retired at 0 claims** | 2024 = S087, agri-food-empty by its own afbakening. 2022/2020 (S001/S086) retired unread. |
+| OVAM Inventaris Biomassa | V | PDF (non-commercial licence) | not started | Biennial; sector-aggregated. Not yet assessed against the register. |
 | AgroCycle reports | R/C | PDF (downloaded) | not started | Characterisation + conversion %. |
 | FoodWasteEXplorer | C | web export | not started | Try filtered export before scraping. |
 | FOWCUS (2025) | C | open dataset | not started | Evaluate at phase 3. |
 | Literature (gap-fill) | C | Zotero / BBT | not started | Values carry BBT citation keys. |
+| **The class-B gap candidates** | V | mostly no PDF yet | **hunt not started — F-003** | 15 sectors/products in `register/crosswalks/GAP_LIST.csv`. Screening rule: **does the source carve by process?** |
 
 *Ruled out / subsumed:* **Symbiose** (no DB access) · **Fevia** (no data) · **Noshan** (folded into FoodWasteEXplorer) · **MATIS** (regulatory reporting channel; only route is a data request to OVAM).
+
+*The register's own source sheet is the fuller list* — `register/BIOLOOP_streams_and_sources.xlsx`, `Sources` tab, 91 rows with an `extraction_status` per row. This table is the database workstream's view of it.
 
 ## Crosswalks
 `database/crosswalks/<source>.csv` maps each source's naming to canonical `stream.code`, and (from phase 2) carries the human `DECISION` gate. Cross-lingual (NL canonical ↔ EN sources) and semantic (peel / pomace / pulp), so **LLM-proposed + human-verified**, never fuzzy-string.
@@ -237,6 +257,18 @@ Source keys are renameable to real Zotero BBT keys later — all source FKs are 
 - **Every ingestion script is idempotent via its own source-key namespace.**
 
 ## Open questions (local)
+
+*Register (2b) — carried forward now that the workstream is closed:*
+- **Five of the six extracted sources have never been verified against their PDF.** Only S080 has. 687 of the 801 claims sit at `awaiting verification`, and `DECISION_expert` is blank on almost all of them. **This is the register's largest open item and no tooling closes it.** Decide whether verification happens per source before the claims are loaded, or as a curation pass at load time.
+- **What grain does a register claim become in BioMobi?** The register's L4/L5 is the finest grain any source distinguishes, which is the hub's own canonical-grain rule — but three of the top four L4 rows **bundle two physically unrelated streams** (Suikerbiet = loof + pulp; Aardappel = loof + industrieel; Kool- en raapzaad = stro VL + schroot BE). The register's answer was "one item, reported at its lowest detail level"; BioMobi will need them **split into separate `stream` rows**, and the split needs a source that measures the halves.
+- **Two of the largest streams are Belgian figures, not Flemish** (G-06: the oilseed-meal block, ~1,15–1,31 Mt, including the corpus's #2 entry). The register captured them honestly as `geography = Belgie`. BioMobi must decide whether a Belgian figure may stand as a Flemish stream volume, or whether those streams enter with no volume until a Flemish figure exists.
+- **The same crop can carry two incompatible quantities** (G-08): GeNeSys measures *oogstresten* where ILVO 239 measures *voedselreststromen*, collapsing one crop name into one stream with spreads up to 50,5×. Two measurements of different material, not a contradiction — but BioMobi needs the fraction marked, or it will look like one.
+- **`Varia` sector aggregates are parented away from their components** (G-05, G-A3, ~1,07 Mt of aggregate). A placement decision, not missing data — `Granen` currently mixes field residue with mill and brewery residue.
+- **Is the OVAM Inventaris Biomassa worth reading into the register at all?** It is still `not started` in the source table, but the mechanism above predicts it carves the way OVAM's monitors do — sector-aggregated, no L4. Check before spending a session on it.
+- **S003 (Monitoring Vlaanderen 2017) has no retrievable PDF — 2017 is unowned.** Both S080 and S002 skipped their 2017 columns to it under the cross-source restatement rule, but S003 is not in `inbox/`. Either source it, or decide that the next series edition captures 2017 too. Concretely recoverable from the archived S002 PDF: Tabel 12 (visserij) and Tabel 13 (aanvoer + opgehouden per vissoort) both carry a full 2017 column.
+- **`register/inbox/PhD_MvantLand_2019.pdf` is unregistered** — no `S0xx` row, no decision. Either give it a `Sources` row or remove it.
+
+*Phase 2 (2a) and general:*
 - ~~**Is compound animal feed (mengvoeder) in scope?**~~ — **resolved 2026-08-17: it is not a rule.**
   The reviewer marked S091's BFA mengvoeder block `NO` (C-384…C-390) because **mengvoeder was
   irrelevant for that source**, not because compound feed is out of scope for the register. **Do not
@@ -247,7 +279,6 @@ Source keys are renameable to real Zotero BBT keys later — all source FKs are 
   S091's C-393 and C-394 `NO`. Protocol v2.3 now forbids capturing such rows in future, and the
   S007 twins (C-586, C-587) carry a cross-reference so they can be retired the same way; they were
   left unmarked because `DECISION_expert` is the human gate.
-- **S003 (Monitoring Vlaanderen 2017) has no retrievable PDF — 2017 is currently unowned.** Both S080 and S002 skipped their 2017 columns to it under the cross-source restatement rule, but S003 is not in `inbox/` and not queued. Either source it (so 2017 gets extracted properly) or decide that the next series edition to be extracted captures 2017 too. Concretely recoverable from the archived S002 PDF: Tabel 12 (visserij) and Tabel 13 (aanvoer + opgehouden per vissoort) both carry a full 2017 column.
 - **`Sugar_beet` grain — BLOCKS the phase-2 load.** Beet, pulp, or tops? The 10× DS spread suggests fresh vs dried material conflated, so this may need **two** streams rather than one rename.
 - **`Pig_SH_WW`** — is a liquid slaughterhouse effluent a BioMobi stream?
 - **4 in-scope duplicate rows** — copy-paste artifact or two genuine agreeing measurements? Kept by default; `--dedupe` collapses them.
@@ -259,4 +290,4 @@ Source keys are renameable to real Zotero BBT keys later — all source FKs are 
 - ~~**Commit raw source data?**~~ — resolved 2026-07-28: **no.** `**/data/raw/` is gitignored.
 - ~~**80/20 ranking basis**~~ — resolved 2026-07-28: **not applicable to already-collected data.** The 80/20 is a rule for *prospective* harvesting. This dataset is small and already collected, so selection is manual, per stream, checking (a) the name, to exclude manure/OFMSW, and (b) the source, to validate the entry. Hence the manifest gate.
 
-*Last updated: 2026-08-17.*
+*Last updated: 2026-09-06.*

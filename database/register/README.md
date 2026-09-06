@@ -4,6 +4,12 @@ The claim-level corpus of Flemish agri-food side-stream figures, and the pipelin
 a browsable overview and a selectable stream list. Everything derived here is a **pure function of
 the workbook**: it regenerates deterministically after each extraction, so it cannot drift.
 
+**Status: closed 2026-09-04.** The workstream's consolidated account — what it produced, the
+decisions that bind future work, the gap classes and the hand-off into BioMobi — now lives one
+level up, in **`database/hub.md` → "2b — the candidate stream register"**, with the project-level
+items routed to `state.md`, `flags.md` (F-002, F-003) and `charter.md`. This file stays the
+technical entry point to the folder; `log.md` stays the per-session record.
+
 ## Layout
 
 ```
