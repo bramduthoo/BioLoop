@@ -10,8 +10,7 @@
   - not started: volumes (`supply_observation`), phase 3 (composition harvesting), EWC facet.
 - **Key artifacts:**
   - `database/supabase/migrations/20260727114134_remote_schema.sql` — the baseline; schema of record. **Nothing since has needed a schema change.**
-  - `database/ingest/load_register_streams.py` — the stream-vocabulary loader (+ `requirements.txt`).
-  - `database/crosswalks/register_streams.csv` — its curation manifest: 21 rows, all `include`, each carrying the register claim ids it rests on.
+  - `database/streams/` — the selection → BioMobi transfer: the loader (`tools/load_streams.py`), its curation manifest (`crosswalks/register_streams.csv`, 21 rows all `include`), and its own `README.md` + `CLAUDE.md`. **The live project has not had it applied.**
   - `database/register/` — the candidate stream register: the corpus, its protocol (`CLAUDE.md` v2.5), the pipeline (`tools/`), the gap record (`OPEN_GAPS.md`) and the shareable deliverables. `register/README.md` is its entry point.
 - **Next action:** decide how register **claims** become `supply_observation` rows — which needs F-002 (citation keys) closed and the 687 unverified claims curated. The register's own next action is not a database session — it is the source hunt, raised as **F-003**.
 
@@ -31,7 +30,7 @@
 **Next, in order:**
 
 1. **Decide the claims hand-off.** The register's 736 live claims are candidate `supply_observation` rows, but two gates stand in front of them: **F-002** (all eight source PDFs have a blank `citation_key`, and `source_key` is `NOT NULL`) and **per-claim curation** (687 of 801 claims are `awaiting verification`; only S080 has been checked). Neither is a session task on its own.
-2. **Split-grain follow-through.** Every one of the 21 streams rests on claims of its own — 9 on claims the source itself named as a fraction (L5: `stro`, `loof`, `pulp`, `harten`, `stengelmassa`), 12 on L4 claims that already name a material (`Sojaschroot`, `Zemelen`, `Dierlijk vet`, …). When volumes load, each claim must attach to the material it measures rather than to the commodity; `crosswalks/register_streams.csv` carries that mapping in `claim_ids`.
+2. **Split-grain follow-through.** Every one of the 21 streams rests on claims of its own — 9 on claims the source itself named as a fraction (L5: `stro`, `loof`, `pulp`, `harten`, `stengelmassa`), 12 on L4 claims that already name a material (`Sojaschroot`, `Zemelen`, `Dierlijk vet`, …). When volumes load, each claim must attach to the material it measures rather than to the commodity; `streams/crosswalks/register_streams.csv` carries that mapping in `claim_ids`.
 3. **Phase 3 — composition.** The registered streams are exactly the `stream_code` values a composition harvest will hang `property_measurement` rows from.
 
 ---
@@ -47,44 +46,25 @@ Deleted, not archived (a superseded tool invites someone to run it — the same 
 **Two things from 2a are worth keeping, and they are the reason the thread was not wasted:**
 
 - **The `Dummy` column partitioned the workbook perfectly, and `source_key NOT NULL` reproduced that partition on its own.** Zero `Dummy=Yes` rows carried a source; all 456 rows with both a value and a source were `Dummy=No`. The schema's provenance constraint filtered every fabricated row without being told which they were. That is the strongest validation phase 1 has received, and it survives the input being discarded.
-- **The idempotent ownership-namespace pattern** — a loader prefixes the rows it creates, deletes only that namespace, and reloads in one transaction, so a re-run converges on removals as well as additions. Carried forward into `load_register_streams.py`, which owns a set of stream codes rather than a source-key prefix.
+- **The idempotent ownership-namespace pattern** — a loader prefixes the rows it creates, deletes only that namespace, and reloads in one transaction, so a re-run converges on removals as well as additions. Carried forward into `streams/tools/load_streams.py`, which owns a set of stream codes rather than a source-key prefix.
 
 ## 2c — the selection in BioMobi (2026-09-07)
 
-The register's 80% selection is now BioMobi vocabulary. **Names and classification only; no volumes.**
+*Detail, decisions and how to run it live in **`database/streams/`** (`README.md` + `CLAUDE.md`). Not repeated here.*
 
-**What loaded:** 21 `stream` rows, 2 `classification_scheme` rows, 7 `classification_term` rows, 44 `stream_classification` links. Manifest `crosswalks/register_streams.csv`, loader `ingest/load_register_streams.py`.
+The register's 80% selection is now BioMobi vocabulary — **names and classification only, no volumes**. First data of any kind in the database.
 
-**Why 21 rows and not 13 — grain.** The hub's canonical-grain rule ("the finest grain any target source distinguishes") makes four of the 13 selected commodities more than one stream, and the register measures the halves separately, which is precisely what the earlier open question said was missing:
+**Loaded:** 21 `stream` rows · 2 `classification_scheme` · 7 `classification_term` · 44 `stream_classification` links. Local stack only; **the live project is untouched.**
 
-| commodity | registered as |
-|---|---|
-| Aardappel | `aardappel-loof` · `aardappel-primair` (the tuber) · `aardappel-industrie` (Prodcom 103113) |
-| Suikerbiet | `suikerbiet-loof` · `suikerbiet-pulp` · `suikerbiet-primair` (the beet) |
-| Kool- en raapzaad | `raapzaad-stro` (VL) · `raapzaad-schroot` (BE crush) |
-| Bloemkool | `bloemkool-loof` · `bloemkool-harten` · `bloemkool-primair` |
-| Spruiten | `spruiten-stengelmassa` · `spruiten-primair` |
+**13 commodities became 21 streams.** The selection ranks commodities; BioMobi stores materials, and four of the 13 bundle materials sharing nothing but a crop name (Suikerbiet = loof + pulp + beet; Aardappel = loof + tuber + processing residue; Kool- en raapzaad = stro + schroot; Spruiten = stengelmassa + sprout; Bloemkool = loof + harten + kool). The register already measured those halves, so the split needed no new source — which closes the "what grain does a register claim become in BioMobi?" question that had been waiting on exactly that.
 
-**Stream identity is the material, never the chain stage.** Rejected cauliflower at the auction and at the processor is one stream carrying two `bioloop-keten` terms — which is what the faceted bridge table is for. This also splits apart the G-08 confusion: *oogstresten* and *voedselreststromen* of one crop were never contradictory figures, they were **measurements of different materials**, and they now sit in different rows.
+**The rule it settled** (now in `database/CLAUDE.md`, and project-level in `state.md`): a stream is a **material** — never a commodity standing in for its fractions, never a chain stage. One material arising at several stages stays one stream carrying several classification terms. This also dissolves **G-08**: *oogstresten* and *voedselreststromen* of one crop were measurements of different materials, not contradictory figures.
 
-**The two facets**, taken from the register's own binding vocabularies rather than invented here:
+**Two facets**, both the register's own vocabularies rather than new schemes: `bioloop-tak` (commodity branch) and `bioloop-keten` (chain stage). **EWC untouched** — still the phase-4 question, and adding it is `INSERT`s, not a migration.
 
-- `bioloop-tak` — commodity branch (register L2): akkerbouw 13 · tuinbouw 5 · vee 2 · Varia 1.
-- `bioloop-keten` — chain stage (`dictionaries/chain_L2.csv`): primaire productie 12 · voedingsindustrie 10 · PO's/veilingen 1.
+**Not loaded: `supply_observation`.** `source_key` is `NOT NULL` and all eight register PDFs still carry a blank `citation_key` (**F-002**, now the single gate on the volume side); 687 of 801 claims are also unverified. The claim→stream mapping that load needs is already in `streams/crosswalks/register_streams.csv`.
 
-EWC is still the phase-4 question and is untouched; these two are the register's axes, not a waste-code scheme.
-
-**The tonnages in the manifest must not be summed.** The register's 80/20 arithmetic runs at *commodity* level — the largest figure any one source gives a commodity — so a sum across split rows is a different and unsupported quantity. Each manifest row therefore carries its commodity's authoritative rank and figure (from `select_streams.js`) beside its own largest single claim, and the loader computes no total of its own. A first attempt at this loader did derive a per-material total; it disagreed with `derive.js` on Aardappel (429.871 vs 548.305, because OVAM's *voedselverlies* and *nevenstroom* are additive components there) and was removed rather than reconciled. **One derivation, in the register.**
-
-**The manifest is authored, not generated**, so `load_register_streams.py` re-checks every claim id against `register/build/streams.json` on each run: the claim must exist, sit under the L4 the manifest names, be used by exactly one stream, and match the recorded largest figure. A retired or re-levelled claim fails the load rather than drifting silently.
-
-**Verified on the local stack:** `supabase db reset` from migrations, then three consecutive loads holding at 21/7/44. Flipping `spruiten-primair` to `exclude` withdrew its 2 classification links and **kept** its `stream` row — reference vocabulary is never deleted, because `stream_classification` cascades on stream delete.
-
-**What deliberately did not load:** `supply_observation`. A volume row needs `source_key NOT NULL`, and all eight archived register PDFs still carry a blank `citation_key` (**F-002**); 687 of 801 claims are also still `awaiting verification`. The claim→stream mapping the eventual load needs is already in the manifest's `claim_ids` column.
-
-**The `DECISION` column was filled by the session, not typed by the reviewer** (2026-09-07): the reviewer approved the split grain and the top-13 scope in conversation, and all 21 rows were set to `include` on that instruction. The gate itself is intact and enforced — it refused the first dry run with 21 blank cells.
-
----
+**Open for the reviewer:** four streams (`aardappel-primair`, `suikerbiet-primair`, `bloemkool-primair`, `spruiten-primair`) rest on this session's reading of a crop's *voedselverliezen* as "the crop itself, rejected or unharvested" — no source says it in those words. Stream names are still cheap to change; they stop being cheap once phase 3 hangs composition off these codes.
 
 ## 2b — the candidate stream register (closed 2026-09-04)
 
@@ -182,7 +162,7 @@ Priority order for the hunt (by how much a source would change the stream list, 
 
 ### The human gates, and what "closed" means
 
-Everything judgement-bearing is a `;`-delimited, UTF-8-BOM CSV with a `DECISION` column, proposed by script and decided by the reviewer — the same convention as `database/crosswalks/`.
+Everything judgement-bearing is a `;`-delimited, UTF-8-BOM CSV with a `DECISION` column, proposed by script and decided by the reviewer — the workstream-wide crosswalk convention.
 
 | Gate | State |
 |---|---|
@@ -242,15 +222,15 @@ Flemish **agri-food biomass side streams**, excluding manure and OFMSW. Inclusio
 
 ## Curation manifests (the approval gate)
 
-Ingestion is **gated on human review**, by explicit decision (2026-07-28). Every manifest under `database/crosswalks/` carries a machine proposal beside a human `DECISION`, and the loader exits non-zero listing every unreviewed row while any cell is blank. This extends the crosswalk convention (LLM-proposed, human-verified) from name-mapping to *inclusion*. Files are `;`-delimited with a UTF-8 BOM so Belgian Excel opens them in columns.
+Ingestion is **gated on human review**, by explicit decision (2026-07-28). Every manifest carries a machine proposal beside a human `DECISION`, and the loader exits non-zero listing every unreviewed row while any cell is blank. This extends the crosswalk convention (LLM-proposed, human-verified) from name-mapping to *inclusion*. Files are `;`-delimited with a UTF-8 BOM so Belgian Excel opens them in columns. Each manifest lives in its sub-project's `crosswalks/`, next to the loader that reads it.
 
-Live: `register_streams.csv` — 21 rows, all `include` (2026-09-07).
+Live: `streams/crosswalks/register_streams.csv` — 21 rows, all `include` (2026-09-07); `register/crosswalks/` — the register's own gates.
 
 ## Idempotency — each loader owns a namespace
 
 A loader must be safe to re-run: it deletes only what it owns, then reloads, in one transaction, so a re-run converges on removals as well as additions. What "owns" means is per loader:
 
-- `load_register_streams.py` owns **a set of stream codes and two classification schemes**. It rebuilds those `stream_classification` links each run. Verified: three consecutive runs at 21 streams / 7 terms / 44 links; an `exclude` withdrew that stream's links.
+- `streams/tools/load_streams.py` owns **a set of stream codes and two classification schemes**. It rebuilds those `stream_classification` links each run. Verified: three consecutive runs at 21 streams / 7 terms / 44 links; an `exclude` withdrew that stream's links.
 - For the fact tables, the namespace is a **source-key prefix** — both use `generated always as identity` PKs with no natural unique key, so a naive re-run duplicates silently. A UNIQUE constraint was rejected: it needs a migration, the natural key is full of NULL-ables, and sources contain rows that are *legitimately* identical.
 
 **Reference vocabulary (`unit`/`basis`/`parameter`/`stream`) is upserted and never deleted**, deliberately: `stream_classification` cascades on stream delete, and an ingestion script must not be able to destroy classification work. A row withdrawn by a `DECISION` flip loses its classifications and is reported; its `stream` row stays.
@@ -279,7 +259,7 @@ Source keys are renameable to real Zotero BBT keys later — all source FKs are 
 *The register's own source sheet is the fuller list* — `register/BIOLOOP_streams_and_sources.xlsx`, `Sources` tab, 91 rows with an `extraction_status` per row. This table is the database workstream's view of it.
 
 ## Crosswalks
-`database/crosswalks/<source>.csv` maps each source's naming to canonical `stream.code`, and (from phase 2) carries the human `DECISION` gate. Cross-lingual (NL canonical ↔ EN sources) and semantic (peel / pomace / pulp), so **LLM-proposed + human-verified**, never fuzzy-string.
+`<sub-project>/crosswalks/<source>.csv` maps each source's naming to canonical `stream.code`, and carries the human `DECISION` gate. Cross-lingual (NL canonical ↔ EN sources) and semantic (peel / pomace / pulp), so **LLM-proposed + human-verified**, never fuzzy-string.
 
 ## Design invariants (local reminders)
 - Facts only — rules/transformations live in the model layers, never here.
