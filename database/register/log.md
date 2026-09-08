@@ -57,6 +57,98 @@ clean v2 re-run and supersedes it entirely.*
 
 ## Tooling & model sessions (no source extracted)
 
+### 2026-09-09 — the gap-control review round: four coverage defects, and three "gaps" that were not
+
+**The reviewer worked through all 95 aggregates.** One row marked *moet wijzigen*, and a set of
+questions that turned out to be worth more than the flag: four of them found real defects in the
+coverage layer, and three found gaps that do not exist. Everything below is verified arithmetic, not
+judgement.
+
+**Defect 1 — `displayOf` discards siblings, and it cost the meat sector 335.768 t of coverage.**
+`node.childAgg[st]` summed each quantity type across the children and then folded the columns with
+`displayOf` (*agri-food waste wins over its own nevenstroom + voedselverlies split*). That fold is
+right for **one source's rows about one material**, where the split restates the total. Across
+**siblings** it is wrong: a child reporting `afwE` and a child reporting only `nev` are different
+materials. On the `Vlees` node it returned **145.498** — Dierlijk vet alone — instead of the true
+**481.266** (niet-eetbare slachtafvallen 169.051 + dierlijk vet 145.498 + gevogelte 84.141 + eetbare
+slachtafvallen 82.576), scoring the sector total at **23% when it is 76%**. Fixed in `derive.js`:
+the roll-up's total is now the sum of the children's totals. **Exactly two nodes in the corpus are
+affected, both `Vlees`, and no L4 node** — so `verify_overview.py` still passes 8/8 and the stream
+selection does not move (7.301.257 t over 69 streams, 80% at 13).
+
+**Defect 2 — a quantity-type aggregate was scored against the folded node.** `Eetbare
+slachtafvallen, totaal` is a **voedselverlies** row, but it was reconciled against the whole `Vlees`
+node's folded figure — which both inflated it past 100% and, as the reviewer noticed, listed
+*Niet-eetbare slachtafvallen* as a child of an **edible** total. A `nev`/`voe` aggregate now takes
+the children's figure **for that type** and its **own** reported value: 82.576 + 84.141 =
+**166.717 of 217.672 = 77%**.
+
+**Consequence for G-04.** The meat gap is far smaller than recorded: 76% and 74% explained, and once
+the source's own anomaly is allowed for — it counts **100.000 'stuks' huiden as tonnes**, so the real
+totals are 531.159 and 494.819 — **90,6% and 89,1%**. The gap was understated from both sides at
+once, exactly as the reviewer put it. **G-04 stays open, but for the species split, not for the
+mass.**
+
+**Defect 3 — three quantity-type totals had been borrowing a figure that was not theirs.** With the
+fix, `nevenstromen voedingsindustrie` (1.770.143), `voedselverlies voedingsindustrie` (472.557) and
+`voedselverliezen voedingsindustrie` (229.240) drop from 28-33% to **0%** — because the food-industry
+children report only as `agri-food waste`, so there are genuinely **no components of their own type**
+beneath them. That reads worse and is more honest; it is what G-03 has always described.
+
+**Defect 4 — the third way a total can be resolved: across parents.** `derive` checks children, this
+tool added siblings, and the reviewer found the third. The `suiker en chocolade` sector total is
+**not** 12-14% explained — it is **100%**: melasse 56.806 (`Varia > Suiker`) + bietenpulp 337.649
+(`Plantaardig - akkerbouw > Suikerbieten`) = **394.455** against a printed 394 kton; the 4.0 edition
+gives 47.805 + 350.000 = 397.805 against 403 kton (98,7%). The two explaining rows sit under
+**different parents**, and no rule can find them, because what makes beet pulp a sugar-industry
+residue filed under the crop is domain knowledge. Recorded as a small, human-confirmed
+`CROSS_PARENT` table in `gap_review.js` — deliberately not automated. **And it proves what G-12
+actually claims:** cacao contributes essentially nothing to that sector total.
+
+**Three questions, three "gaps" that are not gaps.**
+
+- **C-555 bietenpulp, the missing 49%.** Not sugar cane and not other sugar-industry waste — the
+  same beet pulp on a different basis. The rows say so: C-555 is a **69% exportproxy**, C-575 the
+  **35% grondgebiedbasis**. 35/69 = 0,507, and the measured ratio is **0,510**. Melasse does exactly
+  the same in both editions (0,510 and 0,520). Three independent pairs, one ratio: this is the
+  source's Belgium→Flanders conversion, not missing material.
+- **C-523/C-334 versus C-524, "an immense difference".** Not a difference at all: **C-524 (1.376.000)
+  is the FEDIOL table's TOTAAL row and C-523 (68.000) is one line in it** — the residual class
+  *andere oliehoudende zaden*. The five lines sum exactly: 852.000 + 237.000 + 170.000 + 68.000 +
+  49.000 = **1.376.000**.
+- **C-532/C-342 perskoeken, "I don't see how these two can both be a total".** Correct, and they
+  cannot: **98,1%** and **88,7%** of C-524/C-335. Two measurements of one quantity — Prodcom 104141
+  against the FEDIOL crush statistic — and the row already records that *the source used the FEDIOL
+  table for its own totals*. The shelving stands; promoting them would double-count.
+- **C-242/C-423 voedergewassen, "does maize belong here?"** MONBIO splits the two maizes:
+  **voedermais** (5.395.992 t) *is* under Voedergewassen with gras 3.939.458 and voederbiet 360.547;
+  **korrelmais** (497.204) is under Granen, and **maisstro is korrelmais's residue**, so it is filed
+  correctly. The branch has no residual components for a structural reason: fodder maize, grass and
+  fodder beet are **whole-crop harvested**, so no separate residue is reported. 101.780 t against
+  9,7 Mt of production is about 1%.
+
+**Where the gap mass actually stands after the corrections.**
+
+| dispositie | rijen | t/jaar | was |
+|---|---:|---:|---|
+| ondoorzichtig | 11 | 3.124.589 | 8 · 652.649 |
+| dun | 2 | 4.017.131 | 12 · 10.490.892 |
+| deels | 15 | 9.400.404 | 11 · 7.740.774 |
+| delen > totaal | 9 | 5.192.667 | 12 · 5.985.116 |
+| niet te plaatsen | 14 | 6.756.700 | — |
+| geparkeerd | 10 | 3.898.975 | — |
+| opgelost | 33 | 18.079.906 | 28 · 16.490.457 |
+
+**The real gap mass falls from 11,1 Mt to 7,1 Mt**, and it concentrates where the gap record already
+points: the food industry (G-03) and retail (G-01).
+
+**Still open: the unharvested potatoes.** The reviewer's instruction — always work *excl.* the
+308.000 t and keep it as a separate selectable stream outside the sum — cannot be implemented as
+stated, because a component row that stays in the commodity tree still rolls up. Split out as its own
+L4 it lands **inside** akkerbouw and the excl. totals read 214%; taken out of the tree it needs a
+mechanism the register does not have. Put to the reviewer with the arithmetic rather than guessed at.
+
+
 ### 2026-09-08 — the gap control: every reported total reconciled against what sits beneath it
 
 **The mirror of the selection review.** The selection ranks what the register *can see*; this asks

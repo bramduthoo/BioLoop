@@ -116,6 +116,27 @@ function readGaps() {
 }
 const GAPS = readGaps();
 
+/* CROSS-PARENT RECONCILIATIONS — the third way a total can be resolved, and the only one that
+ * cannot be computed. derive checks an aggregate against its children; gap_review adds its
+ * siblings; but a total is sometimes explained by rows filed under a DIFFERENT parent, and no
+ * rule in the register can find them, because what makes them belong is domain knowledge.
+ *
+ * Beet pulp is a sugar-industry residue that the register files under the CROP (Suikerbieten),
+ * while molasses sits under the SECTOR (Varia > Suiker). So the `suiker en chocolade` sector
+ * total looks 12-14% explained and is in fact ~100% explained — which also proves the thing
+ * G-12 actually claims: cacao contributes essentially nothing to it.
+ *
+ * Each entry is a reviewer-confirmed arithmetic identity, not a guess. Keep it that way: add a
+ * row only when the sum has been checked against the printed figure and a human has agreed.
+ */
+const CROSS_PARENT = {
+  "C-471": { by: ["C-574", "C-575"], why: "melasse 56.806 (Varia > Suiker) + bietenpulp 337.649 " +
+    "(Plantaardig - akkerbouw > Suikerbieten) = 394.455 tegen een gedrukte 394 kton" },
+  "C-286": { by: ["C-381", "C-382"], why: "melasse 47.805 (Varia > Suiker) + bietenpulp 350.000 " +
+    "(Plantaardig - akkerbouw > Suikerbieten) = 397.805 tegen een gedrukte 403 kton" },
+};
+const claimV = id => { const c = byId.get(id); return c ? c.v : 0; };
+
 function disposition(ratio, components) {
   if (ratio == null) return "unallocated";
   if (!(components > 0)) return "opaque";
@@ -141,10 +162,13 @@ function record(items, node, stages, qtKey, rep, components, kids, covLabel) {
   for (const it of expand(items)) {
     const c = byId.get(it.id) || {};
     const selfComp = selfOf(node, it.ed, stages, qtKey);
-    const best = Math.max(components || 0, selfComp);
-    const ratio = rep > 0 ? (components == null && !selfComp ? null : best / rep) : null;
+    const xp = CROSS_PARENT[it.id];
+    const xpComp = xp ? xp.by.reduce((a, id) => a + claimV(id), 0) : 0;
+    const best = Math.max(components || 0, selfComp, xpComp);
+    const ratio = rep > 0 ? (components == null && !selfComp && !xpComp ? null : best / rep) : null;
     const explainedBy = !(best > 0) ? "none"
-      : (selfComp > (components || 0) ? "siblings" : "children");
+      : xpComp === best ? "cross-parent"
+      : selfComp > (components || 0) ? "siblings" : "children";
     recs.set(it.id, {
       id: it.id, name: it.name, ed: it.ed, yr: c.yr, v: it.v,
       stage: (stages || []).join(" + "), qt: c.qt, lvl: c.lvl,
@@ -153,7 +177,8 @@ function record(items, node, stages, qtKey, rep, components, kids, covLabel) {
       node: node ? node.path : null,
       nodeLevel: node ? node.level : null,
       cov: covLabel,
-      reported: rep, components, selfComponents: selfComp, explained: best, ratio, explainedBy,
+      reported: rep, components, selfComponents: selfComp, crossParent: xpComp || null,
+      crossWhy: xp ? xp.why : null, explained: best, ratio, explainedBy,
       disp: disposition(ratio, best),
       gap: GAPS[it.id] || null,
       kids: (kids || []).filter(k => k.v > 0).sort((a, b) => b.v - a.v),
@@ -180,12 +205,24 @@ EDS.forEach(ed => {
         if (!g || !g.values) return;
         const items = g.values.filter(v => v.isAgg);
         if (!items.length) return;
-        const kids = (node.children || [])
-          .map(c => ({ label: c.label, v: (c.repAgg[st] || {}).display || 0 }));
-        record(items, node, [st], k,
-               cov ? cov.reported : g.rep,
-               cov ? cov.components : null,
-               kids, "full");
+        /* An aggregate carrying a SPECIFIC quantity type must be scored against the children's
+           figure FOR THAT TYPE, not against the node's folded total. `Eetbare slachtafvallen,
+           totaal` is a voedselverlies row: its components are the children's voedselverlies
+           (82.576 + 84.141), not the whole Vlees node. Scoring it on the fold both inflated it
+           past 100% and listed `Niet-eetbare slachtafvallen` as a child of an EDIBLE total
+           (reviewer, 2026-09-08). Only an `agri-food waste` aggregate takes the fold, because
+           that is what the fold means. */
+        const folded = k === "afwE";
+        const kids = (node.children || []).map(c => ({
+          label: c.label,
+          v: folded ? ((c.repAgg[st] || {}).display || 0) : ((c.repAgg[st] || {})[k] || 0)
+        }));
+        // ... and against its OWN reported value, not the node's folded one, for the same reason
+        const comp = folded
+          ? (cov ? cov.components : null)
+          : kids.reduce((a, x) => a + x.v, 0);
+        const rep = folded ? (cov ? cov.reported : g.rep) : g.rep;
+        record(items, node, [st], k, rep, comp, kids, "full");
       });
     });
     // All-stage totals (derive's "Total column"): an aggregate spanning every stage at once.

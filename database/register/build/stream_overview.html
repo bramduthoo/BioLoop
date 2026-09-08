@@ -361,7 +361,16 @@ select.sel{font:inherit;font-size:12.5px;border:1px solid var(--line);background
       const kids = node.children.map(c=>c.repAgg[st]).filter(Boolean);
       const cs = emptyStage();
       for (const k of QT_ORDER) cs[k] = sum(kids.map(x=>x[k]));
-      cs.display = displayOf(cs);
+      /* The roll-up's own total is the sum of the CHILDREN's totals, not `displayOf` of the
+         summed columns. `displayOf` says "agri-food waste wins over its own nevenstroom +
+         voedselverlies split", which is right for ONE source's rows about ONE material — there
+         the split restates the total. Across SIBLINGS it is wrong: a child reporting afwE and a
+         child reporting only nev are different materials, so folding the summed columns keeps
+         the first and silently discards the second. On the Vlees node that returned 145.498
+         (Dierlijk vet alone) instead of 481.266, scoring the sector total at 23% when it is 76%
+         (reviewer, 2026-09-08). Two nodes in the corpus are affected; no L4 node is, so the
+         stream selection is untouched. */
+      cs.display = sum(kids.map(x=>x.display));
       // provenance is transitive: a roll-up of a roll-up is still arithmetic, not a reading
       cs.prov = prov(kids.length>1 || kids.some(x=>x.prov.sum), kids.some(x=>x.prov.avg));
       node.childAgg[st] = cs;
