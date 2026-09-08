@@ -80,10 +80,11 @@ L3 and this alias must be re-examined.
 `supply_observation`.
 
 **Facets are additive.** EWC remains the phase-4 question and enters as a *second* scheme when
-chosen — `INSERT`s into `classification_scheme` / `classification_term`, never a migration, and
-never a change to these rows. That is the whole point of the three-table design: `scheme` names
-the axis, `term` holds its vocabulary (nested via `parent_term_id`), `stream_classification` tags
-objects, and a new axis touches none of the existing ones.
+chosen — `INSERT`s into `classification_scheme` / `classification_term`, shipped as their own data
+migration, needing **no DDL and no change to any row loaded here**. That is the whole point of the
+three-table design: `scheme` names the axis, `term` holds its vocabulary (nested via
+`parent_term_id`), `stream_classification` tags objects, and a new axis touches none of the
+existing ones.
 
 ## What is judgement here, and therefore open to challenge
 
@@ -92,12 +93,17 @@ objects, and a new axis touches none of the existing ones.
 processing that no source in the corpus names as an object. It sits on `aardappel` because objects,
 not stages, are rows, and because inventing `aardappelschillen` would put a word in a source's
 mouth. **The corpus has no potato-processing object at all** — that is gap **G-10**, the
-register's top-priority hunt.
+register's top-priority hunt, and closing it is what will split this row properly.
 
 **`zetmeel-reststroom` is named after the factory it leaves**, not after what it is: the source
 says only *"afvallen van zetmeelfabrieken" (Prodcom 106220)*. It is the one row that still fails
 the object test, kept because there is no better name in the corpus and the tonnage is real
-(284.549 t, rank 5). Rename it the moment a source says what the material is.
+(284.549 t, rank 5). **This resolves with gap G-19** (deegwaren / dieetvoeding / zetmeel /
+maalderijen) — rename it in a new migration the moment a source says what the material is.
+
+**Both of the above are gap questions, not modelling questions** (reviewer, 2026-09-08). Do not
+re-litigate the object model over them: they resolve when **G-10** and **G-19** close, and the fix
+arrives as a new migration built from an updated selection.
 
 **`spruitstokken` and `bloemkool-loof` each merge two source names** — GeNeSys's *stengelmassa*
 and MONBIO's *spruitstokken*; GeNeSys's *blad- en stengelmassa* and MONBIO's *bloemkoolloof*.
@@ -129,6 +135,31 @@ names, be used by exactly one object, and match the recorded largest figure. A r
 re-levelled claim fails the load instead of drifting silently. `--skip-register-check` exists for
 the case where the register's `build/` has not been generated; do not use it to get past a real
 disagreement.
+
+## The migration is the deliverable; the loader generates it
+
+These rows reach a database **through `database/supabase/migrations/`**, like every other change
+in this workstream — `supabase db reset` reproduces them from git alone, `supabase db push`
+applies them to live. `tools/load_streams.py --emit-migration <path>` writes that file; the loader
+running directly against a DSN is a development convenience, not the route to live.
+
+The chain is: **register selection → `crosswalks/register_streams.csv` (human gate) → generated
+migration → database.** Each link is committed, so the whole transfer replays from git.
+
+**When the selection changes, emit a NEW migration; never edit an applied one.** The expected
+trigger is a resolved gap — the two judgement rows below both dissolve when their gap closes, and
+so will the object list when G-10 finally names a potato-processing stream. Every statement is
+`ON CONFLICT`-guarded, so migrations stack: a later one supersedes an earlier value harmlessly.
+
+Two things the generator will not do for you, because both are deliberate acts:
+
+- **Removing an object** dropped from the selection. Write that `DELETE` by hand, knowing
+  `stream_classification` cascades on stream delete — and knowing the workstream rule is that a
+  loader must never be able to do it.
+- **Renaming a `stream.code`.** Safe as an `UPDATE` while no fact row references it (`ON UPDATE
+  CASCADE`), which is exactly the window we are in now and will not be after phase 3.
+
+Applied so far: `20260908143000_bioloop_streams_selection.sql` — 20 objects, 1 scheme, 11 terms.
 
 ## Idempotency — what this loader owns
 
