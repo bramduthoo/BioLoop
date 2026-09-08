@@ -1,7 +1,7 @@
 # `streams/` — the register's stream selection, turned into BioMobi vocabulary
 
 The one job of this folder: take the **stream selection produced by `database/register/`** and
-register it in BioMobi as `stream` rows plus classification facets. Nothing else. It holds no
+register it in BioMobi as **object-grain** `stream` rows plus one commodity facet. Nothing else. It holds no
 corpus of its own and settles no question the register already settled.
 
 **Input (the truth):** the register's selection — `../register/tools/select_streams.js` and the
@@ -10,12 +10,14 @@ are generated and gitignored, so regenerate rather than expect a particular date
 from there and never recomputed here.
 
 **The manifest is re-checked against the register on every run**, so a change in the register that
-touches one of these 21 streams fails the load instead of drifting. The 2026-09-08 selection-control
-round changed 20 claims and added 2, and this loader's `--dry-run` passed unchanged — none of the 21
-rests on a touched claim.
+touches one of these objects fails the load instead of drifting. The 2026-09-08 selection-control round
+changed 20 claims and added 2, and the check passed unchanged — none of these objects rests on a
+touched claim.
 
-**Output:** rows in `stream`, `classification_scheme`, `classification_term`,
-`stream_classification`. **No `supply_observation`** — volumes are blocked on **F-002**.
+**Output:** 20 objects in `stream`, plus the `bioloop-commodity` ladder in
+`classification_scheme` / `classification_term` / `stream_classification`.
+**No `supply_observation`** — volumes are blocked on **F-002**, and the chain stage each claim
+carries belongs on those rows, never on the object.
 
 ## Layout
 
@@ -23,7 +25,7 @@ rests on a touched claim.
 streams/
   README.md                      this file
   CLAUDE.md                      the rules and decisions local to this transfer
-  crosswalks/register_streams.csv  the human gate: 21 rows, one per stream, with DECISION
+  crosswalks/register_streams.csv  the human gate: 20 rows, one per object, with DECISION
   tools/load_streams.py          the loader (idempotent; refuses a non-local DSN by default)
   build/                         generated, gitignored, safe to delete
 ```
@@ -66,8 +68,9 @@ names, inside the two schemes it owns, in one transaction. It never deletes a `s
 
 ## Status
 
-Loaded and verified on the local stack (2026-09-07): 21 streams, 2 schemes, 7 terms, 44 links.
+Loaded and verified on the local stack (2026-09-08): **20 objects, 1 scheme, 11 terms, 20 links.**
 **Not yet applied to the live project.**
 
-See `CLAUDE.md` here for why 21 rows and not 13, and for the decisions this transfer rests on.
+See `CLAUDE.md` here for the object rule, the commodity facet, and the judgement calls this
+transfer rests on.
 The consolidated account for the workstream is `database/hub.md` → "2c".

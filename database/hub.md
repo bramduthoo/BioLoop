@@ -1,17 +1,17 @@
 ## Status
 - **Workstream:** Database (BioMobi)
 - **Current objective:** between sessions. **2a is abandoned** (the legacy Excel was judged unusable, 2026-09-07); **2b closed 2026-09-04**; its 80%-selection is now registered as BioMobi vocabulary.
-- **Last session:** 2026-09-07 — closed 2a by abandoning the legacy Excel, and registered the register's 80% selection into BioMobi as **21 `stream` rows over two classification facets**. First data of any kind in the database.
+- **Last session:** 2026-09-08 — restructured 2c on reviewer challenge: BioMobi's streams are now **20 object-grain rows under one commodity facet**, replacing 21 rows under a chain-stage facet. First data of any kind in the database.
 - **Progress:**
   - done: phase 1 (baseline migration, verified).
   - done: **2b — the candidate stream register.** Eight sources read, 803 claims, protocol at v2.6, pipeline reproducible, deliverables issued; full selection control run 2026-09-08. See "2b — the candidate stream register" below.
-  - done: **2c — the selection registered.** The 13 commodities carrying 80% of the envelope entered BioMobi as 21 material-grain `stream` rows plus the `bioloop-tak` / `bioloop-keten` facets. **Names and classification only — no volumes** (see F-002).
+  - done: **2c — the selection registered.** The 13 commodities carrying 80% of the envelope entered BioMobi as **20 object-grain `stream` rows** under the `bioloop-commodity` ladder (L2→L3). **Names and classification only — no volumes** (see F-002).
   - **abandoned: 2a — the legacy-Excel seed.** The workbook is not a usable input; the loader and its manifests were deleted. See "2a — abandoned" below.
   - not started: volumes (`supply_observation`), phase 3 (composition harvesting), EWC facet.
 - **Key artifacts:**
   - `database/supabase/migrations/20260727114134_remote_schema.sql` — the baseline; schema of record. **Nothing since has needed a schema change.**
-  - `database/streams/` — the selection → BioMobi transfer: the loader (`tools/load_streams.py`), its curation manifest (`crosswalks/register_streams.csv`, 21 rows all `include`), and its own `README.md` + `CLAUDE.md`. **The live project has not had it applied.**
-  - `database/register/` — the candidate stream register: the corpus, its protocol (`CLAUDE.md` v2.5), the pipeline (`tools/`), the gap record (`OPEN_GAPS.md`) and the shareable deliverables. `register/README.md` is its entry point.
+  - `database/streams/` — the selection → BioMobi transfer: the loader (`tools/load_streams.py`), its curation manifest (`crosswalks/register_streams.csv`, 20 rows all `include`), and its own `README.md` + `CLAUDE.md`. **The live project has not had it applied.**
+  - `database/register/` — the candidate stream register: the corpus, its protocol (`CLAUDE.md` v2.6), the pipeline (`tools/`), the gap record (`OPEN_GAPS.md`) and the shareable deliverables. `register/README.md` is its entry point.
 - **Next action:** decide how register **claims** become `supply_observation` rows — which needs F-002 (citation keys) closed and the 687 unverified claims curated. The register's own next action is not a database session — it is the source hunt, raised as **F-003**.
 
 <!-- Everything below this line is LOCAL to the database workstream.
@@ -19,7 +19,7 @@
 
 ## Where we are / what's next (read this first on reopening)
 
-**BioMobi now holds data.** 21 `stream` rows, 2 classification schemes, 7 terms, 44 classification links. Nothing else — no `source`, no `property_measurement`, no `supply_observation`, no `parameter`, no `geography`. The vocabulary is in; the facts are not.
+**BioMobi now holds data.** 20 object-grain `stream` rows, 1 classification scheme, 11 terms (7 nested), 20 links. Nothing else — no `source`, no `property_measurement`, no `supply_observation`, no `parameter`, no `geography`. The vocabulary is in; the facts are not.
 
 **State (2a):** abandoned 2026-09-07. The legacy internal Excel is not a usable input and nothing from it was ever loaded. Loader and manifests deleted. See "2a — abandoned" below.
 
@@ -29,9 +29,9 @@
 
 **Next, in order:**
 
-1. **Decide the claims hand-off.** The register's 736 live claims are candidate `supply_observation` rows, but two gates stand in front of them: **F-002** (all eight source PDFs have a blank `citation_key`, and `source_key` is `NOT NULL`) and **per-claim curation** (687 of 801 claims are `awaiting verification`; only S080 has been checked). Neither is a session task on its own.
-2. **Split-grain follow-through.** Every one of the 21 streams rests on claims of its own — 9 on claims the source itself named as a fraction (L5: `stro`, `loof`, `pulp`, `harten`, `stengelmassa`), 12 on L4 claims that already name a material (`Sojaschroot`, `Zemelen`, `Dierlijk vet`, …). When volumes load, each claim must attach to the material it measures rather than to the commodity; `streams/crosswalks/register_streams.csv` carries that mapping in `claim_ids`.
-3. **Phase 3 — composition.** The registered streams are exactly the `stream_code` values a composition harvest will hang `property_measurement` rows from.
+1. **Decide the claims hand-off.** The register's live claims are candidate `supply_observation` rows, but two gates stand in front of them: **F-002** (all eight source PDFs have a blank `citation_key`, and `source_key` is `NOT NULL`) and **per-claim curation** (most claims are still `awaiting verification`; only S080 has been checked). Neither is a session task on its own. **Each claim's chain stage lands on the observation, not on the object** — that is what the 2026-09-08 restructure freed up.
+2. **Apply 2c to the live project.** It has had nothing applied. Review `streams/build/streams.sql` (`--emit-sql`), then run the loader with `--allow-remote` against the pooler DSN.
+3. **Phase 3 — composition.** The 20 registered objects are exactly the `stream_code` values a composition harvest will hang `property_measurement` rows from.
 
 ---
 
@@ -48,23 +48,23 @@ Deleted, not archived (a superseded tool invites someone to run it — the same 
 - **The `Dummy` column partitioned the workbook perfectly, and `source_key NOT NULL` reproduced that partition on its own.** Zero `Dummy=Yes` rows carried a source; all 456 rows with both a value and a source were `Dummy=No`. The schema's provenance constraint filtered every fabricated row without being told which they were. That is the strongest validation phase 1 has received, and it survives the input being discarded.
 - **The idempotent ownership-namespace pattern** — a loader prefixes the rows it creates, deletes only that namespace, and reloads in one transaction, so a re-run converges on removals as well as additions. Carried forward into `streams/tools/load_streams.py`, which owns a set of stream codes rather than a source-key prefix.
 
-## 2c — the selection in BioMobi (2026-09-07)
+## 2c — the selection in BioMobi (2026-09-07, restructured 2026-09-08)
 
 *Detail, decisions and how to run it live in **`database/streams/`** (`README.md` + `CLAUDE.md`). Not repeated here.*
 
-The register's 80% selection is now BioMobi vocabulary — **names and classification only, no volumes**. First data of any kind in the database.
+The register's 80% selection is BioMobi vocabulary — **names and classification only, no volumes**. First data of any kind in the database.
 
-**Loaded:** 21 `stream` rows · 2 `classification_scheme` · 7 `classification_term` · 44 `stream_classification` links. Local stack only; **the live project is untouched.**
+**Loaded:** 20 `stream` rows · 1 `classification_scheme` · 11 `classification_term` (7 with a parent) · 20 `stream_classification` links. Local stack only; **the live project has had nothing applied.**
 
-**13 commodities became 21 streams.** The selection ranks commodities; BioMobi stores materials, and four of the 13 bundle materials sharing nothing but a crop name (Suikerbiet = loof + pulp + beet; Aardappel = loof + tuber + processing residue; Kool- en raapzaad = stro + schroot; Spruiten = stengelmassa + sprout; Bloemkool = loof + harten + kool). The register already measured those halves, so the split needed no new source — which closes the "what grain does a register claim become in BioMobi?" question that had been waiting on exactly that.
+**A stream row is an OBJECT** — a thing you could put in a bag. 13 selected commodities became 20 objects, split where a crop name covers materials that share no composition (`suikerbiet` / `-loof` / `-pulp`; `aardappel` / `-loof`; `bloemkool` / `-loof` / `-harten`; `spruiten` / `spruitstokken`; `raapzaad-stro` / `-schroot`). **Chain stage is never part of identity** — where a material arises is a property of an observation, and `supply_observation` carries it. This closes the "what grain does a register claim become in BioMobi?" question, and dissolves **G-08**: *oogstresten* and *voedselreststromen* of one crop were measurements of different objects, not contradictory figures.
 
-**The rule it settled** (now in `database/CLAUDE.md`, and project-level in `state.md`): a stream is a **material** — never a commodity standing in for its fractions, never a chain stage. One material arising at several stages stays one stream carrying several classification terms. This also dissolves **G-08**: *oogstresten* and *voedselreststromen* of one crop were measurements of different materials, not contradictory figures.
+**One facet: `bioloop-commodity`**, the register workbook's own commodity levels loaded as a ladder — L2 terms are parents, L3 terms carry `parent_term_id`, each object links to its L3 only, and rolling up to the branch is a recursive walk. Chosen to be cheap and revisable; **EWC enters later as a second scheme**, which is `INSERT`s, not a migration.
 
-**Two facets**, both the register's own vocabularies rather than new schemes: `bioloop-tak` (commodity branch) and `bioloop-keten` (chain stage). **EWC untouched** — still the phase-4 question, and adding it is `INSERT`s, not a migration.
+**Not loaded: `supply_observation`.** `source_key` is `NOT NULL` and all eight register PDFs still carry a blank `citation_key` (**F-002**, the single gate on the volume side). The claim→object mapping that load needs is in `streams/crosswalks/register_streams.csv`, and each claim's chain stage belongs on those rows.
 
-**Not loaded: `supply_observation`.** `source_key` is `NOT NULL` and all eight register PDFs still carry a blank `citation_key` (**F-002**, now the single gate on the volume side); 687 of 801 claims are also unverified. The claim→stream mapping that load needs is already in `streams/crosswalks/register_streams.csv`.
+**What the first attempt got wrong, and why it is worth remembering.** It registered 21 rows over two facets, `bioloop-tak` (register L2) and `bioloop-keten` (chain stage) — chosen because those were the two columns the register's *deliverable* happened to expose. Letting the input's shape dictate the data layer's shape produced stage-named pseudo-objects (`aardappel-industrie`, `aardappel-primair`, `suikerbiet-primair`, `bloemkool-primair`, `spruiten-primair`), left `parent_term_id` unused on all 7 terms, and ignored `state.md`'s standing instruction to decide the classification scheme *before* loading. Corrected on reviewer challenge, 2026-09-08. The design intent was recoverable the whole time — the DDL's own `COMMENT ON` lines say "origin sector, material type, EWC" and "Type → Klasse → Subclasse", and `vault/BioMobi/` holds seven empty notes named *Aardappelen · Brouwerij · Fruit · Granen · Groenten · Vis & vlees · Overige*. **Read `vault/` before modelling anything.**
 
-**Open for the reviewer:** four streams (`aardappel-primair`, `suikerbiet-primair`, `bloemkool-primair`, `spruiten-primair`) rest on this session's reading of a crop's *voedselverliezen* as "the crop itself, rejected or unharvested" — no source says it in those words. Stream names are still cheap to change; they stop being cheap once phase 3 hangs composition off these codes.
+**Open for the reviewer:** `zetmeel-reststroom` is still named after the factory it leaves rather than what it is (the source says only *"afvallen van zetmeelfabrieken"*), and `aardappel` absorbs a Prodcom 103113 processing residue because the corpus names no finer potato object — that absence is gap **G-10**. Names remain cheap to change until phase 3 hangs composition off these codes.
 
 ## 2b — the candidate stream register (closed 2026-09-04)
 
@@ -224,7 +224,7 @@ Flemish **agri-food biomass side streams**, excluding manure and OFMSW. Inclusio
 
 Ingestion is **gated on human review**, by explicit decision (2026-07-28). Every manifest carries a machine proposal beside a human `DECISION`, and the loader exits non-zero listing every unreviewed row while any cell is blank. This extends the crosswalk convention (LLM-proposed, human-verified) from name-mapping to *inclusion*. Files are `;`-delimited with a UTF-8 BOM so Belgian Excel opens them in columns. Each manifest lives in its sub-project's `crosswalks/`, next to the loader that reads it.
 
-Live: `streams/crosswalks/register_streams.csv` — 21 rows, all `include` (2026-09-07); `register/crosswalks/` — the register's own gates.
+Live: `streams/crosswalks/register_streams.csv` — 20 rows, all `include` (2026-09-08); `register/crosswalks/` — the register's own gates.
 
 ## Idempotency — each loader owns a namespace
 
@@ -274,7 +274,7 @@ Source keys are renameable to real Zotero BBT keys later — all source FKs are 
 
 *Register (2b) — carried forward now that the workstream is closed:*
 - **Five of the six extracted sources have never been verified against their PDF.** Only S080 has. 687 of the 801 claims sit at `awaiting verification`, and `DECISION_expert` is blank on almost all of them. **This is the register's largest open item and no tooling closes it.** Decide whether verification happens per source before the claims are loaded, or as a curation pass at load time.
-- ~~**What grain does a register claim become in BioMobi?**~~ — **resolved 2026-09-07 for the selected streams.** The bundled L4 rows were split at material grain: 13 selected commodities became 21 `stream` rows. The split did not need a new source — the register already measured the halves as separate claims. The rule applied, and it binds the rest: **stream identity is the material, never the chain stage.** Unselected streams (ranks 14–67) are not yet registered and will need the same treatment when they enter.
+- ~~**What grain does a register claim become in BioMobi?**~~ — **resolved 2026-09-08.** 13 selected commodities became **20 object-grain `stream` rows**. The split needed no new source — the register already measured the parts as separate claims. The rule binds the rest: **a stream is an object; identity is never a chain stage and never a commodity standing in for its own fractions.** Unselected streams (ranks 14–69) are not yet registered and will need the same treatment when they enter.
 - **Two of the largest streams are Belgian figures, not Flemish** (G-06: the oilseed-meal block, ~1,15–1,31 Mt, including the corpus's #2 entry). The register captured them honestly as `geography = Belgie`. BioMobi must decide whether a Belgian figure may stand as a Flemish stream volume, or whether those streams enter with no volume until a Flemish figure exists.
 - ~~**The same crop can carry two incompatible quantities** (G-08)~~ — **resolved 2026-09-07 by the split.** *Oogstresten* and *voedselreststromen* of one crop are now different `stream` rows (`aardappel-loof` vs `aardappel-primair`, `spruiten-stengelmassa` vs `spruiten-primair`, `bloemkool-loof` vs `bloemkool-primair`), so the two figures no longer collapse into an apparent 50,5× contradiction. The residual work is on the *claims*: each must attach to the material it measures when volumes load.
 - **`Varia` sector aggregates are parented away from their components** (G-05, G-A3, ~1,07 Mt of aggregate). A placement decision, not missing data — `Granen` currently mixes field residue with mill and brewery residue.
