@@ -57,6 +57,135 @@ clean v2 re-run and supersedes it entirely.*
 
 ## Tooling & model sessions (no source extracted)
 
+### 2026-09-08 — the selection-control review round applied
+
+**A full rij-voor-rij control of all 801 claims against the 80/20 selection**, run in a review
+console the reviewer worked through end to end (801/801 judged, 14 rows marked *moet wijzigen*,
+44 with remarks). The mechanical layer came back **clean and exhaustive, not sampled**:
+`value_as_reported × conversion_factor = volume_t_per_yr` 801/801 · `L1_role` ↔ `quantity_type`
+801/801 · `level_1to5` = deepest filled commodity column 801/801 · page, table, value, unit and
+factor present 801/801 · `geography` in vocabulary 801/801 · `verify_overview.py` 8/8 ·
+`final_check.py` PASS. All 344 `Productievolume` rows were re-screened for names that read as
+residuals: 32 hits, all 32 false positives. **The arithmetic was never the problem.** Placement
+was, in three places.
+
+**Three findings, each confirmed against the archived PDF before anything was changed.**
+
+- **`Zuivel` is a NACE sector row, not milk — and it was ranked as a stream.** OVAM Tabel 30
+  (S002 p.54) is titled *"Bestemmingen van voedselreststromen in de voedingsindustrie"*; its rows
+  are the eight food-industry sub-sectors and they sum to its 1.999.383 t total: Bakkerij 37.755,
+  Aardappelen/groenten/fruit 653.463, Dranken 343.166, Oliën-vetten 57.723, Suiker-chocolade
+  130.271, Deegwaren-zetmeel 78.995, **Zuivel 123.219**, Vlees-vis-gevogelte 574.792. MONBIO S091
+  p.94 puts it in words: *"De grootste productie in deze sector is natuurlijk de melk zelf.
+  Typische nevenstromen en productieresiduen in deze sector zijn melkwei en behandeld
+  zuiveringsslib."* C-100/C-200 nonetheless sat on `L4 = Melk`, so the node **added 12.378 t of
+  farm milk to 123.219 t of factory residue** and ranked the sum at #14. Its seven sibling sector
+  rows were all left above L4, so one row of a family of eight had been singled out.
+  Reviewer's decision: **split into two materials**, not move to sector level. `Melk` now means
+  milk; **`Zuivelnevenstroom`** is the new L4 for what comes off dairy processing.
+
+- **Melkwei existed, was quantified, and belonged to nobody.** S091 p.168 Tabel 65 and S007 p.160
+  Tabel 47 both print `NACE 10.5 zuivelfabrieken → 70.167 t, waarvan melkwei 49.722 en
+  zuiveringsslib 20.445`. The split had been skipped under the cross-source restatement rule
+  because S005 (MONBIO 1.0) owns the 2018 estimate — **and that was correct**: S005 p.131 carries
+  the identical table row, verified this session. But S005 is `_RETIRED`, so the owner will never
+  be extracted and the figure landed nowhere, while `state.md` recorded whey as *"absent from all
+  801 claims"* and F-003 sent the literature workstream hunting a new source for it.
+  Reviewer's decision: **capture it now**, as C-802/C-803.
+
+- **Six egg rows had been invisible for four review rounds.** Every egg row in the corpus sat at
+  L3 with `L4` blank — which line 25 of `commodity_hierarchy.md` forbids outright (*a single crop,
+  species or product is never an L3*) — and `Dierlijk - vee / Eieren` was the **only** bucket-D
+  group naming a product rather than a genuine subgroup or sector.
+
+**The exception on the wei claims, and its limit.** Capturing C-802/C-803 knowingly breaks the
+cross-source restatement rule, which assigns the 2018 estimate to S005. It is justified by the
+gap, not by the rule: the figure is a named material stream the corpus otherwise lacks entirely,
+and its owner is retired, so *"skip it, S005 has it"* resolves to *"lose it"*. **The exception is
+the zuivel cell only, never Tabel 65 as a whole** — the rest of that table is genuinely S005's and
+re-capturing it would duplicate ~1,8 Mt. A later session must not "complete" it.
+
+**A correction to the gap record's stated mechanism.** `OPEN_GAPS.md` explained whey's absence as
+*"a side stream with no Prodcom code is invisible to MONBIO no matter how large it is"*. That is
+wrong for whey: **Prodcom 105155 "Wei" exists** and is printed in both editions with `C` —
+confidential, not absent. A suppressed cell and a missing code are different failure modes needing
+different responses (a data request or a sector source, versus a source that carves by process),
+and this one feeds the F-003 screening rule, so the correction reaches beyond the entry.
+
+**The `(totaal)` rows were never commodity aggregates.** C-154 (suikerbiet 48.662), C-157 (melk
+12.007) and C-158 (eieren 982) each equal *exactly* their own `voedselverlies + nevenstroom` —
+which is the definition of `agri-food waste`, not evidence of aggregation. They carried the
+`AGGREGAAT - ` prefix only because the 2020 edition wrote "(totaal)" in the label while the 2023
+edition wrote nothing, so **one construct got two treatments from one word**. Prefix removed;
+proved to change no figure, because `derive.js:43` already prefers the agri-food-waste value over
+the split. `promote_totals.py` now owns the distinction, and `audit_register.py` imports the same
+function rather than keeping a rival copy — which also retired **C-006**, a long-standing false
+`unmarked-total` finding of exactly this kind.
+
+**Anomalies recorded so they are not re-litigated.**
+- **C-554/C-362 (melasse)** — the reviewer confirmed retiring the Prodcom rows (111.298 / 91.958)
+  in favour of the grondgebied basis (56.806 / 47.805). It is the one place in the corpus where
+  competing *bases* are resolved by retiring rather than by keeping both, so it is recorded as a
+  deliberate exception: at two readings of one quantity, the one closest to Flemish territory wins.
+- **C-555 (bietenpulp, 661.550)** stays an aggregate and is NOT treated like melasse: the row is
+  *"Bietenpulp, uitgeperst suikerriet en andere afvallen van de suikerindustrie"*, a genuine
+  collection rather than a rival reading of one material.
+- **C-141/C-032 (`Andere demersale soorten`, 94 t)** knowingly stay at L4 although v2.5 rule 2
+  would make them an aggregate — immaterial, and `audit_register.py` cannot see them anyway
+  because the pattern sits mid-name.
+- **C-186/C-212 (PO's)** stay as two parallel accounting definitions (15.954 vs 3.191 t) that must
+  never sum. They point at GAP-02, which is already open.
+- **C-204** was marked *moet wijzigen* but the remark attached to it describes melk. Left
+  untouched pending the reviewer's word; it is OVAM's *detailhandel voeding* sub-total and a
+  genuine `component_set` component (C-203 74.642 + C-204 11.160 = C-205 85.802).
+
+**Four tooling gaps closed** — each one is why a defect above survived earlier rounds.
+`audit_register.py` check 1 fired only on rows citing a *product code*, so "Voedselreststromen
+eieren" was structurally invisible; a new check **1b** catches a residual row whose L3 is itself
+one product. `final_check.py` auto-dispositioned any `Voedselreststromen X` as "the source's own
+subgroup wording", which is exactly how six egg rows were filed as a data gap; it now refuses that
+disposition when the L3 names a single product. `promote_totals.py` learned the quantity-type
+rule. `make_deliverables.py` printed one `[BE]` marker meaning "Belgian somewhere", so
+`Kool- en raapzaad` (99,3% of its value a Belgian figure) and `Bloemkool` (1,9%) read identically;
+a mixed node is now **`[BE+VL]`** and always opens its fractions so the Flemish and Belgian halves
+are visible — the reviewer's own request.
+
+**Also fixed:** `streams_export.csv` was one cell stale against the workbook (C-345's
+`also_stated_in` still held a leftover Excel formula `=SUM(P345:P349)`), and C-277 carried a loose
+English note in `also_stated_in`, a column meant for restatement locations. The hides caveat
+(100.000 'stuks' counted as tonnes) and the slib caveat (20.445 t of C-282/C-467's 70.167 out of
+scope) moved into `stream_name_NL`, per the v2.3 rule that a caveat changing *what* a figure
+measures belongs in the name where a reviewer actually reads it.
+
+**Result — the selection moved where it should and nowhere else.**
+
+| | before | after |
+|---|---|---|
+| selectable streams | 67 | **69** |
+| envelope | 7.292.982 t | **7.301.257 t** (+0,11%) |
+| 80% of the envelope | 13 streams | **13 — the identical list** |
+| 90% of the envelope | 20 streams | **20** |
+| `Melk` | #14, 135.226 t | **#33, 19.000 t** — now actually milk |
+| `Zuivelnevenstroom` | — | **#15, 123.219 t**, reported by all four sources |
+| `Eieren` | — | **#48, 1.282 t** |
+
+Claims 801 → 803; bucket C 205 → 215, bucket D 45 → 40. **`audit_register.py` baseline moves
+24 → 23** (C-006 retired as a false finding). The README's description of that baseline as *"all
+of them `Productievolume` rows"* was already inaccurate and is corrected: three findings — C-186,
+C-314, C-501 — are and were `Reststroom`.
+
+**Checks.** `verify_overview.py` 8/8 · `final_check.py` PASS · `audit_register.py` 23 (baseline) ·
+`find_hidden_streams.py` 40 rows, eggs gone · **`database/streams/tools/load_streams.py --dry-run`
+passes unchanged**, which is the regression test that matters: it re-validates all 21 BioMobi
+stream rows against the changed register, and none of them rests on a touched claim.
+
+**Still open for the reviewer:** the name `Zuivelnevenstroom` (it becomes a `stream.code` and
+renames get expensive once composition attaches); C-204's intended remark; C-375/C-568
+(*Vogeleieren uit de schaal*, hoofdstroom, sitting under `Eieren` where placement rule 5 would
+send a processing product to its `Varia` sector); and **S005**, which remains the complete answer
+to the dairy gap and also holds gries/zemelen/DDGS ~646 kt and bietenpulp+melasse ~458 kt.
+
+
 ### 2026-09-04 — FIX_LIST applied; the register closed with a full-corpus completeness proof
 
 **The reviewer returned `FIX_LIST.csv`.** Four fixes accepted, two skipped, one confirmed as

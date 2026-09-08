@@ -57,6 +57,31 @@ that lives in `aggregate_coverage.totals_level`; (5) a **processing product goes
 not under the crop it came from — the register has two partitions, crops and `Varia` sectors, and
 bread is not a cereal.*
 
+*Protocol v2.6 (2026-09-08) — **three rules from the full-corpus selection control.** All 801
+claims were judged one by one against the selection; the arithmetic was flawless and the placement
+was not. Each rule below is now enforced, so none of them can recur silently:*
+*(6) a **sub-sector row is not the commodity**. A source's NACE/processing sub-sector figure may sit
+on the commodity branch its material comes from, but it must **never occupy that commodity's own L4
+slot** — give it its own L4 naming the material. OVAM's* Zuivel *row (123.219 t, one of eight
+sub-sector rows in the same table) had been placed on `L4 = Melk`, so the node added farm milk to
+factory residue and the selection ranked the sum as a stream. Its seven sibling rows were left above
+L4, which is the tell: **when one row of a family is treated differently from the other seven, that
+is the defect.***
+*(7) an **`agri-food waste` row equal to its own `voedselverlies` + `nevenstroom` is a quantity-type
+total, not a commodity aggregate**, and it does not take the `AGGREGAAT - ` prefix however loudly
+the source says* totaal*. The vocabulary defines the equality, so it is never evidence of
+aggregation. The test that separates the two: a genuine commodity total also has **same-quantity-type
+siblings** it could be totalling. `promote_totals.py` owns this rule and `audit_register.py` imports
+it, so the two cannot drift apart.*
+*(8) **check the ownership chain before recording a figure as absent.** A figure skipped under the
+cross-source restatement rule is only safe if its owner will actually be extracted. Melkwei
+(49.722 t) was printed in two extracted sources, correctly assigned to S005 — and S005 is retired,
+so the figure landed nowhere while the gap record called it "absent from all 801 claims" and sent
+the literature workstream hunting a new source. **When a skip points at a retired or unqueued
+source, say so on the row and in the gap record.** The same discipline applies to a gap's stated
+*mechanism*: whey was the example for "no Prodcom code, so MONBIO cannot see it", yet Prodcom 105155
+exists and is merely **confidential** — a suppressed cell and a missing code need opposite responses.*
+
 ## What this workstream produces
 
 `BIOLOOP_streams_and_sources.xlsx` — a standalone, claim-level corpus of Flemish agri-food

@@ -74,7 +74,7 @@ Everything in `tools/` runs again for every new source. Finished one-off migrati
 
 | File | Role |
 |------|------|
-| `tools/audit_register.py` | Seven structural checks; exits non-zero while anything is open. `--source S0xx` to scope it, `--csv` to write a fix sheet. **24 findings is the known baseline**, all of them `Productievolume` rows. |
+| `tools/audit_register.py` | Eight structural checks; exits non-zero while anything is open. `--source S0xx` to scope it, `--csv` to write a fix sheet. **23 findings is the known baseline** (2026-09-08). Twenty are `Productievolume`; three — C-186, C-314, C-501 — are `Reststroom` and always were, so the earlier "all of them `Productievolume`" was wrong. |
 | `tools/find_hidden_streams.py` | Catches what `audit_register.py` structurally cannot: a live residual row sitting at L2/L3 with an *ordinary* name, which passes every name-based check and is invisible to the selection. Writes `crosswalks/HIDDEN_STREAMS.csv` as a human gate. |
 | `tools/final_check.py` | Partitions **every** claim into one disposition and asserts the property that makes it safe. This is what answers *"could anything still be a selectable stream that is not one?"* with evidence rather than confidence. |
 | `tools/verify_overview.py` | Regression test for the derivation — eight arithmetic identities from the sources themselves. Run after any change to `derive.js`. |

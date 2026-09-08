@@ -4,9 +4,15 @@ The one job of this folder: take the **stream selection produced by `database/re
 register it in BioMobi as `stream` rows plus classification facets. Nothing else. It holds no
 corpus of its own and settles no question the register already settled.
 
-**Input (the truth):** `../register/deliverables/BIOLOOP_stream_selection_2026-09-04.xlsx`, and
-the pipeline that generates it (`../register/tools/select_streams.js`). Figures are read from
-there and never recomputed here.
+**Input (the truth):** the register's selection — `../register/tools/select_streams.js` and the
+dated `BIOLOOP_stream_selection_<date>.xlsx` it feeds in `../register/deliverables/` (those files
+are generated and gitignored, so regenerate rather than expect a particular date). Figures are read
+from there and never recomputed here.
+
+**The manifest is re-checked against the register on every run**, so a change in the register that
+touches one of these 21 streams fails the load instead of drifting. The 2026-09-08 selection-control
+round changed 20 claims and added 2, and this loader's `--dry-run` passed unchanged — none of the 21
+rests on a touched claim.
 
 **Output:** rows in `stream`, `classification_scheme`, `classification_term`,
 `stream_classification`. **No `supply_observation`** — volumes are blocked on **F-002**.

@@ -53,9 +53,18 @@ Screens 1 and 5 are what produced almost everything new below.
 name a waste or by-product** — 106132 gries, 106220 zetmeelafvallen, 108114 melasse, 110210 bostel,
 101150 dierlijk vet, 101240 slachtafval van gevogelte — plus one FEDIOL crush table for oilseed
 meal. **A side stream with no such code is invisible to MONBIO no matter how large it is.** That is
-why whey, cacaodoppen and potato peel are absent while bostel and zemelen are present, and it
+why cacaodoppen and potato peel are absent while bostel and zemelen are present, and it
 predicts where to look: not another monitor edition, but a sector source that carves by *process*
 instead of by product code.
+
+**Correction, 2026-09-08 — whey is not an instance of this mechanism, and was the example used to
+state it.** `Prodcom 105155 "Wei"` **exists** and is printed in both MONBIO editions; its value is
+`C`, confidential. That is a *suppressed cell*, not a missing code, and the two need opposite
+responses: a suppressed cell is closed by a data request or a sector source that publishes the same
+quantity, while a missing code needs a source that carves by process. The whey tonnage itself was
+never absent either — 49.722 t (2018) is printed in S091 Tabel 65 and S007 Tabel 47 and is now
+captured as C-802/C-803; see G-09. **Before citing this mechanism for a stream, check whether the
+code exists and is suppressed.**
 
 OVAM's monitors have the mirror-image limit: they publish the food industry at **subgroup level and
 nothing finer** (`Dranken`, `Bakkerij`, `Oliën en vetten`, `Aardappelen, groenten en fruit`), so
@@ -413,25 +422,49 @@ cannot be checked against anything.
 
 *Ordered by mass. Each entry names what would close it.*
 
-## G-09 · Zuivelverwerking — wei (whey) is absent from the register entirely
+## G-09 · Zuivelverwerking — wei: the figure exists, but it is from 2018 and its owner is retired
 
-**Status:** open · **Class:** B · **Size:** unknown; the only measured figure is 70.000–89.593 t
+**Status:** partly closed 2026-09-08 · **Class:** was recorded as B; it was neither B nor A ·
+**Size:** melkwei **49.722 t** (2018); the NACE 10.5 sector row it sits in is 70.167 t
 
-**Evidence.** The absence checklist finds **no row anywhere in the workbook** — any role, any status
-— containing *wei*, *kaaswei*, *weipoeder*, *melkserum*, *permeaat*, *retentaat* or *lactose*. The
-only dairy-processing residual figures in the register are `C-282`/`C-467` *Vervaardiging van
-zuivelproducten, productie nevenstromen* (**70.000 t**, L3, **no component rows**) and OVAM's
-`Melk` rows (135.226 t in 2020, 89.593 t in 2023, spanning primary production and industry).
+**This entry was wrong, and the way it was wrong is worth keeping.** It read *"no row anywhere in
+the workbook contains wei"* and concluded that nothing measured it, so only a new source could
+help. The word was indeed absent from all 801 rows — but the **figure was not**. Both MONBIO
+editions print it in a table: `S091 p.168 Tabel 65` and `S007 p.160 Tabel 47`, NACE 10.5
+zuivelfabrieken en kaasmakerijen → **70.167 t, waarvan melkwei 49.722 en zuiveringsslib 20.445**.
+`C-282`/`C-467` captured only the rounded 70 kton sector line; the split sat in their
+`source_type_label` and never reached a claim.
 
-**Why it is a gap.** The register does hold the production side: **koemelk 4.450.280 t** (`C-261`)
-and **kaas en wrongel 101.256 t** (`C-348`). Cheese-making separates roughly nine parts whey to one
-part curd — *an industry rule of thumb, not a register figure, and deliberately not derived here* —
-so a 70.000 t dairy nevenstroom cannot be counting whey. It is counted as a **product**, not a loss,
-and both monitors measure losses and Prodcom-coded by-products.
+**Why it was skipped, and why that was correct.** The cross-source restatement rule: the 49.722 t
+is an OVAM/IMJV estimate for **2018** that MONBIO carries forward unchanged, and 2018 belongs to
+**S005 (MONBIO 1.0)**, which is in the `Sources` sheet. Verified this session — S005 p.131 carries
+the identical table row. The rule was applied correctly.
 
-**What would close it.** A dairy-sector source: BCZ/CBL (Belgische Confederatie van de Zuivelindustrie)
-volumes, or a Flemish dairy-processing study. **Nothing in the 91-row `Sources` sheet covers dairy
-processing** — this gap has no candidate at all and needs a search.
+**Why it was still a hole.** S005 is `_RETIRED`. So the owner is never extracted, "skip it, S005
+has it" resolves to "lose it", and a real 49.722 t stream fell between a correct rule and a
+correct decision. Captured 2026-09-08 as **C-802/C-803** under `Dierlijk - vee / Melk /
+Zuivelnevenstroom`, as a narrow exception — **the zuivel cell only, never Tabel 65 as a whole**,
+whose remaining ~1,8 Mt is genuinely S005's.
+
+**The stated mechanism was also wrong.** This gap was the example for *"a side stream with no
+Prodcom code is invisible to MONBIO"*. **Prodcom 105155 "Wei" exists** and is printed in both
+editions with `C` — confidential. A suppressed cell is a different failure mode from a missing
+code, and it needs a different answer. See the corrected note at the top of this file.
+
+**What is still missing.** A **recent** and unambiguously Flemish measurement. The captured figure
+describes 2018 and is carried forward by both editions, so the corpus has no post-2018 dairy
+residual measurement at all. Nor is the sector line an upper bound for whey alone: 20.445 t of the
+70.167 is `zuiveringsslib`, which `quantity_type.csv` puts out of scope. For scale, the register
+holds **koemelk 4.450.280 t** (`C-261`) and **kaas en wrongel 101.256 t** (`C-348`); cheese-making
+separates roughly nine parts whey to one part curd — *an industry rule of thumb, deliberately not
+derived here* — so 49.722 t is small against that and probably counts only the fraction reported
+as a residual rather than sold as a product.
+
+**What would close it, in order.** (1) Decide **S005**: un-retiring it is the complete answer and
+it also holds gries/zemelen/DDGS ~646 kt and bietenpulp+melasse ~458 kt. (2) Failing that, a
+dairy-sector source — BCZ/MilkBE volumes, or an FOD Economie request to release Prodcom 105155.
+**Nothing in the 91-row `Sources` sheet covers dairy processing** other than the retired MONBIO
+editions.
 
 ---
 
@@ -610,7 +643,7 @@ exists, the detail that does not, and the candidate. The table below is its inde
 | G-04 | Vlees per diersoort | 631.000 t sector; 217.672 t offal total | **none** — needs a slaughter/rendering source |
 | G-11 | Dranken — only bostel is named | 378.539 t | S053, S012, S058 — all without a PDF |
 | G-12 | Cacao en chocolade — no residual figure at all | aggregate is provably all sugar | **none** — Choprabisco is not in the sheet |
-| G-09 | Zuivelverwerking — wei absent entirely | only 70.000 t measured | **none** — no dairy-processing source in the sheet |
+| G-09 | Zuivelverwerking — wei captured, but 2018 and owned by a retired source | 49.722 t (2018) | **S005**, retired — decide it; else BCZ/MilkBE or an FOD request for Prodcom 105155 |
 | G-06 | Oliezaadschroot is a Belgian figure | 1,15–1,31 Mt, incl. the #2 stream | S058 (no PDF) |
 | G-01 | Retail below sector level | 132.082 t | S067, S035, S041 — none has a PDF |
 | G-13 | Bakkerij | 122.276 t | S025, S067 — no PDF |
@@ -652,8 +685,9 @@ change the BioMobi stream list, not by the size of the gap:
 
 1. **Aardappelverwerking (G-10)** — 621.063 t with zero components, in the sector Flanders leads;
    peel, stoomschil, vezel and eiwit would each be a named L4. No candidate in the sheet.
-2. **Zuivel / wei (G-09)** — absent from all 801 claims and would very likely enter the top ten on
-   its own. No candidate in the sheet.
+2. **Zuivel / wei (G-09)** — no longer absent: 49.722 t (2018) captured as C-802/C-803 on
+   2026-09-08, entering at #15 together with the OVAM sector figure. What is still missing is a
+   *recent* Flemish measurement. The candidate is **S005**, which is retired — a decision, not a search.
 3. **Vlees per diersoort (G-04)** — F1 and F2 give two usable streams today; the species split needs
    a source. No candidate in the sheet.
 4. **Retail + bakkerij (G-01, G-13)** — two gaps, two named candidates (S067, S025), neither with a

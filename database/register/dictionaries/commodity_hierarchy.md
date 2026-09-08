@@ -64,7 +64,10 @@ Reststroom
 │   ├─ Suikerbieten en nijverheidsgewassen  → Suikerbiet, Cichorei, Vlas, Koolzaad
 │   ├─ Peulvruchten en eiwitgewassen        → Erwt, Boon, …
 │   └─ Voedergewassen
-├─ Dierlijk – vee          → Melk, Vlees, Eieren, Rund, Varken, Gevogelte
+├─ Dierlijk – vee
+│   ├─ Melk                → Melk (de melk zelf), Zuivelnevenstroom (fabrieksresidu: wei, …)
+│   ├─ Vlees               → Rund, Varken, Gevogelte, Dierlijk vet, (niet-)eetbare slachtafvallen
+│   └─ Eieren              → Eieren
 ├─ Dierlijk – vis
 │   └─ Vis                 → Schelvis, Wijting, Heek, Steenbolk, Schol, Bot, Schar, Roggen,
 │                            Ponen, Kongeraal, Haaien, Andere demersale soorten,
@@ -103,8 +106,16 @@ source labels its own subsectors.
   supermarkten` and `Detailhandel voeding`. These are NACE-style processing/distribution
   groupings, not commodity groups.
 - **`Zuivel` is the exception** among those subsectors: it is unambiguously dairy, so it takes
-  `L2 = Dierlijk - vee`, `L3 = Melk`, `level = 3` rather than `Gemengd`. Judgement call —
-  flagged in `log.md` for the reviewer.
+  `L2 = Dierlijk - vee`, `L3 = Melk` rather than `Gemengd`.
+  **Resolved 2026-09-08 (reviewer decision) — the exception places the row on the dairy branch,
+  it does NOT make the row milk.** `Zuivel` is one of eight NACE sub-sector rows in OVAM's
+  Tabel 30/23, beside `Bakkerij` and `Dranken`, and MONBIO p.94 says plainly that the sector's
+  residuals are melkwei and zuiveringsslib while *"de grootste productie in deze sector is
+  natuurlijk de melk zelf"*. The sector figure had been placed on `L4 = Melk`, so one node added
+  12.378 t of farm milk to 123.219 t of factory residue. The two are now **separate L4 members
+  under `L3 = Melk`**: `Melk` for the milk itself (farm losses, rejected milk) and
+  **`Zuivelnevenstroom`** for what comes off dairy processing (C-100, C-200, and the melkwei
+  claims C-802/C-803). Identity is the material, never the chain stage.
 - **Chain-stage sector totals take `Aggregaat`**: a whole-schakel total (landbouw,
   voedingsindustrie, retail, primaire sector, "landbouw en PO's") is `L2 = Aggregaat` with the
   `AGGREGAAT - ` prefix. A total that *is* one commodity group keeps that group — so the PO's
@@ -291,3 +302,24 @@ stream. Both rows are retired in `DECISION_expert`, not deleted.
 **Not added: no per-oilseed and no per-animal split.** Both were considered and both founder on the
 same problem the reviewer identified — the register has production volumes per species/oilseed but
 no measured waste ratio, and inferring one would be a derivation.
+
+## Members added 2026-09-08 (selection-control review round)
+
+Two L4 members, both from the same review round, both closing a hole the earlier rounds had
+looked straight past.
+
+| new L4 | under L3 | claims | why |
+|---|---|---|---|
+| `Eieren` | `Eieren` | C-047, C-060, C-071, C-158, C-170, C-182 (+ production C-262, C-443) | Every egg row in the corpus sat at L3 with `L4` blank, which line 25 of this file forbids outright: *a single crop, species or product is never an L3*. `Dierlijk - vee / Eieren` was the only bucket-D group naming a product, so eggs were the one commodity in 801 claims that no selection could reach. Same shape as the `Melk` fix below it: the subgroup and the ingredient carry the same name. |
+| `Zuivelnevenstroom` | `Melk` | C-100, C-200, C-802, C-803 | What comes off dairy **processing** — melkwei above all — as distinct from the milk itself. See the resolved `Zuivel` exception above: OVAM's sector figure was sitting on `L4 = Melk` and adding factory residue to farm milk. |
+
+**Why `Melk` stayed and did not become `Koemelk`.** The note above records that L3 `Melk` had only
+species members at L4 while no source reports dairy waste by species. That is still true, and it is
+why the residual side keeps the unsplit `Melk`. What changed is only that the *sector* residue moved
+off it — the species question is untouched.
+
+**The generalisable rule from this round.** A source's sub-sector row belongs on the commodity branch
+its material comes from, but it is **not** the commodity. Placing it there was defensible; letting it
+occupy the commodity's own L4 slot was not, because the selection then ranks a sector lump as if it
+were a stream. When a sector row lands on a branch, give it its own L4 name saying what the material
+is — never the commodity's.

@@ -13,6 +13,10 @@ Checks
 1  product-at-wrong-level   A row naming a product (a Prodcom/PRODCOM code, or an L3 whose name is
                             clearly one article) sits at L3 with no L4. It is then invisible to a
                             selection, which only reaches L4/L5.
+1b product-subgroup-at-L3   A residual row whose L3 is itself one product ("Eieren", "Melk"), so
+                            the row is a stream sitting where no selection can reach it. Check 1
+                            only fires on a row citing a nomenclature code, which is how six egg
+                            rows survived four review rounds.
 2  level-mismatch           `level_1to5` disagrees with the deepest commodity column filled. The
                             level is the row's own depth; what an aggregate totals belongs in
                             aggregate_coverage.totals_level.
@@ -46,6 +50,17 @@ PRODUCT_CODE_RE = re.compile(
     re.I)
 TOTAL_RE = re.compile(r"\btotaal\b|\btotale\b", re.I)
 
+# Check 1 above only fires on a row that CITES a nomenclature code, so a source that names a
+# product in plain words slipped through: "Voedselreststromen eieren" sat at L3 for six rows and
+# 3.546 t across two OVAM editions, invisible to the selection, and neither the audit nor
+# final_check.py's bucket-D disposition could see it (2026-09-08 review).
+#
+# `commodity_hierarchy.md` line 25 is the rule being enforced: "A single crop, species or product
+# is never an L3". Most L3 values are genuine subgroups (Granen, Fruit, Groenten openlucht) or
+# processing sectors (Bakkerij, Dranken); only a few name one commodity. ADD A NAME HERE when a
+# source brings a new single-product subgroup.
+SINGLE_PRODUCT_L3 = {"Melk", "Eieren"}
+
 
 def _load_collection_rule():
     """Reuse the residual-class rule that the registry proposer already owns."""
@@ -54,6 +69,19 @@ def _load_collection_rule():
     mac = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mac)
     return mac.is_collection
+
+
+def _load_quantity_type_rule():
+    """Reuse the quantity-type-total rule that promote_totals owns, so the two cannot disagree.
+
+    Without this the audit reports as `unmarked-total` exactly the rows promote_totals correctly
+    refuses to promote, and every run carries three permanent false findings.
+    """
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("pt", HERE / "promote_totals.py")
+    pt = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(pt)
+    return pt.is_quantity_type_total, pt.GROUP_COLS
 
 
 def depth_of(r):
@@ -91,11 +119,22 @@ def main():
     if args.source:
         live = [r for r in live if r.get("source_short") == args.source]
     is_collection = _load_collection_rule()
+    is_quantity_type_total, GROUP_COLS = _load_quantity_type_rule()
+
+    def qt_key(r):
+        return tuple((r.get(c) or "") for c in GROUP_COLS)
+
+    qt_groups = {}
+    for r in live:
+        qt_groups.setdefault(qt_key(r), []).append(r)
 
     reg = {}
     if REGISTRY.exists():
         reg = {r["claim_id"]: r for r in
                csv.DictReader(io.open(REGISTRY, encoding="utf-8-sig"), delimiter=";")}
+
+    # every name the register itself uses as an ingredient - see check 1b
+    l4_names = {(r.get("L4_ingredient") or "").strip() for r in rows} - {""}
 
     F = []
 
@@ -116,14 +155,29 @@ def main():
             flag("product-at-wrong-level", r, f"names a product but sits at L{d}",
                  "set level_1to5 = 4 and L4_ingredient to the product name")
 
+        # 1b — a residual row whose SUBGROUP is itself one product, so the row is a stream that
+        # no selection can reach. Two ways to know: the curated list, and the register's own
+        # usage (the same name already serves as an L4_ingredient somewhere).
+        # an AGGREGAAT row legitimately sits at L3: a branch total of the L4s beneath it
+        l3 = (r.get("L3_commodity_subgroup") or "").strip()
+        if d == 3 and l3 and r.get("L1_role") == "Reststroom" and not agg:
+            if l3 in SINGLE_PRODUCT_L3 or l3 in l4_names:
+                flag("product-subgroup-at-L3", r,
+                     f"'{l3}' is one product, not a subgroup, so this row sits at L3 and is "
+                     f"invisible to a selection",
+                     f"set L4_ingredient = '{l3}' and level_1to5 = 4")
+
         # 2 — level vs filled columns
         lvl = (r.get("level_1to5") or "").strip()
         if lvl and lvl.isdigit() and int(lvl) != d:
             flag("level-mismatch", r, f"level_1to5 = {lvl} but the deepest filled column is L{d}",
                  f"set level_1to5 = {d}")
 
-        # 3 — says it is a total but is not marked
-        if TOTAL_RE.search(name) and not agg:
+        # 3 — says it is a total but is not marked. A quantity-type total is exempt: agri-food
+        # waste equals its own nevenstroom+voedselverlies split by definition, so the word
+        # "totaal" there describes the vocabulary, not an aggregation of other rows.
+        if TOTAL_RE.search(name) and not agg \
+                and not is_quantity_type_total(r, qt_groups[qt_key(r)]):
             flag("unmarked-total", r, "the source calls this a total",
                  "prefix the name with 'AGGREGAAT - '")
 

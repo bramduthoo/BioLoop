@@ -4,7 +4,7 @@
 - **Last session:** 2026-09-07 — closed 2a by abandoning the legacy Excel, and registered the register's 80% selection into BioMobi as **21 `stream` rows over two classification facets**. First data of any kind in the database.
 - **Progress:**
   - done: phase 1 (baseline migration, verified).
-  - done: **2b — the candidate stream register.** Eight sources read, 801 claims, protocol settled at v2.5, pipeline reproducible, deliverables issued. See "2b — the candidate stream register" below.
+  - done: **2b — the candidate stream register.** Eight sources read, 803 claims, protocol at v2.6, pipeline reproducible, deliverables issued; full selection control run 2026-09-08. See "2b — the candidate stream register" below.
   - done: **2c — the selection registered.** The 13 commodities carrying 80% of the envelope entered BioMobi as 21 material-grain `stream` rows plus the `bioloop-tak` / `bioloop-keten` facets. **Names and classification only — no volumes** (see F-002).
   - **abandoned: 2a — the legacy-Excel seed.** The workbook is not a usable input; the loader and its manifests were deleted. See "2a — abandoned" below.
   - not started: volumes (`supply_observation`), phase 3 (composition harvesting), EWC facet.
@@ -98,7 +98,7 @@ It exists to answer one question the charter asks and BioMobi cannot answer for 
 Reproducible from the workbook with `node tools/select_streams.js 24`:
 
 ```
-envelope   7.292.982 t/yr over 67 selectable L4/L5 streams
+envelope   7.301.257 t/yr over 69 selectable L4/L5 streams   (2026-09-08 control; top-13 unchanged)
 80%        at rank 13     90%   at rank 20     94,6%  at rank 24
 ```
 
@@ -158,7 +158,7 @@ The first coverage audit reported *"the food industry has no L4/L5 detail"* as o
 
 **The mechanism behind most of class B, and it is what makes the gap list actionable.** MONBIO's food-industry residual detail is exactly *the set of Prodcom product codes that happen to name a waste or by-product* (106132 gries, 110210 bostel, 108114 melasse, 101150 dierlijk vet…), plus one FEDIOL crush table. **A side stream with no such code is invisible to MONBIO however large it is** — which is why bostel and zemelen are present while whey, cacaodoppen and potato peel are absent. OVAM has the mirror-image limit: it publishes the food industry at subgroup level and nothing finer. **Hence the screening rule for any candidate source: does it carve by *process*?** A source that carves by NACE class, by Prodcom code, or by a monitor's own loss definition will reproduce the gaps the register already has — that is how they arose.
 
-Priority order for the hunt (by how much a source would change the stream list, not by gap size): **aardappelverwerking** (621.063 t, zero components, in the sector Flanders leads — no candidate) → **zuivel/wei** (absent from all 801 claims, would likely enter the top ten on its own — no candidate) → **vlees per diersoort** → **retail + bakkerij** (S067, S025, neither with a PDF) → **cacao** and **Flemish oilseed crush**. One gap should be **fact-checked before anything is commissioned**: G-02, the PO's/veilingen stage at 15.189 t, looks too small to be true and an afternoon against VBT decides it. Raised for the literature workstream as **F-003**.
+Priority order for the hunt (by how much a source would change the stream list, not by gap size): **aardappelverwerking** (621.063 t, zero components, in the sector Flanders leads — no candidate) → **zuivel/wei** (no longer absent: 49.722 t captured 2026-09-08 from a table both MONBIO editions print; what is missing is a *recent* figure, and the candidate is the retired S005 — a decision, not a search) → **vlees per diersoort** → **retail + bakkerij** (S067, S025, neither with a PDF) → **cacao** and **Flemish oilseed crush**. One gap should be **fact-checked before anything is commissioned**: G-02, the PO's/veilingen stage at 15.189 t, looks too small to be true and an afternoon against VBT decides it. Raised for the literature workstream as **F-003**.
 
 ### The human gates, and what "closed" means
 
@@ -176,10 +176,10 @@ Everything judgement-bearing is a `;`-delimited, UTF-8-BOM CSV with a `DECISION`
 All four reproduce from the workbook alone:
 
 ```
-tools/final_check.py       PASS   801 claims, every one dispositioned into 1 of 8 buckets, 7 properties asserted
+tools/final_check.py       PASS   803 claims, every one dispositioned into 1 of 8 buckets, 7 properties asserted
 tools/verify_overview.py   8/8    arithmetic identities taken from the sources themselves
 tools/audit_register.py    24 findings over 736 live claims — the known baseline, all Productievolume rows
-tools/select_streams.js    7.292.982 t over 67 streams; 80% at 13, 90% at 20
+tools/select_streams.js    7.301.257 t over 69 streams; 80% at 13, 90% at 20
 ```
 
 `final_check.py` is the one that answers *"could anything still be a selectable stream that is not one?"* with evidence rather than confidence. **The whole view pipeline contains zero source names and zero claim ids** — it is a pure function of the workbook, so it cannot drift and a new source inherits no per-claim judgement.
@@ -204,7 +204,7 @@ Flemish **agri-food biomass side streams**, excluding manure and OFMSW. Inclusio
 1. **Version the schema.** — done (phase 1).
 2. **Streams + canonical dictionary + volumes.** — *ran as three threads. The names are in; the volumes are not.*
    - *2a (**abandoned 2026-09-07**):* seed the old internal Excel. The workbook was judged unusable and the thread was closed with nothing loaded. See "2a — abandoned" above.
-   - *2b (**closed 2026-09-04**):* monitors + ILVO studies → candidate stream register → 80/20 selection + gap record. **801 claims from eight sources; 67 selectable streams, 7.292.982 t envelope, 80% at 13.** The corpus itself remains a standalone workbook populating no table. See "2b — the candidate stream register" above.
+   - *2b (**closed 2026-09-04**):* monitors + ILVO studies → candidate stream register → 80/20 selection + gap record. **803 claims from eight sources; 69 selectable streams, 7.301.257 t envelope, 80% at 13.** The corpus itself remains a standalone workbook populating no table. See "2b — the candidate stream register" above.
    - *2c (**done 2026-09-07**):* the selection registered as BioMobi vocabulary — 21 material-grain `stream` rows and two classification facets. **Volumes still outstanding:** per-claim curation (`DECISION_expert`) and real citation keys (F-002) gate them. See "2c — the selection in BioMobi" above.
 3. **Composition.** FoodWasteEXplorer, FOWCUS, AgroCycle, gap-fill literature → `property_measurement`.
 4. **Classification facets.** EWC likely first, plus a sector facet.

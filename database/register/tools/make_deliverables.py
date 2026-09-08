@@ -39,6 +39,11 @@ def autosize(ws, widths):
 
 
 # ---------------------------------------------------------------- selection
+def GEO(r):
+    """Geography marker. A mixed row is flagged apart from a wholly Belgian one."""
+    return "  [BE+VL]" if r.get("mixed") else ("  [BE]" if r.get("be") else "")
+
+
 def selection(raw):
     d = json.load(io.open(raw, encoding="utf-8"))
     cum = 0.0; n80 = n90 = 0; rows = []
@@ -53,14 +58,23 @@ def selection(raw):
             p = sorted(({"src": SH(e), "v": r["by"][e]} for e in d["EDS"] if e in r["by"]),
                        key=lambda x: x["v"])
             un = r["label"].startswith("— ")
+            rgeo = r.get("geo") or []
             fr.append(dict(label="geen fractie benoemd" if un else r["label"], unfrac=un,
                            stage=r["label"][2:] if un else " · ".join(r.get("st") or []),
                            mn=p[0], mx=p[-1], n=len(p),
-                           be="Belgie" in (r.get("geo") or [])))
+                           be="Belgie" in rgeo,
+                           mixed="Belgie" in rgeo and "Vlaanderen" in rgeo))
         fr.sort(key=lambda x: -x["mx"]["v"])
+        # A plain [BE] marker said only "Belgian somewhere", so Kool- en raapzaad (99,3% of the
+        # node's value is a Belgian figure) and Bloemkool (1,9%) read identically. A node whose
+        # value ADDS a Flemish and a Belgian figure is a different thing from a wholly Belgian
+        # one, and the reviewer has to be able to see which is which (2026-09-08 review).
+        mixed = "Belgie" in s["geo"] and "Vlaanderen" in s["geo"]
         rows.append(dict(rank=i + 1, name=s["l4"], l2=s["l2"], stages=" · ".join(s["stages"]),
-                         be="Belgie" in s["geo"], n=s["nSrc"], mn=per[0], mx=per[-1],
-                         cum=cum / d["TOT"], frac=fr if len(fr) > 1 else []))
+                         be="Belgie" in s["geo"], mixed=mixed, n=s["nSrc"], mn=per[0], mx=per[-1],
+                         cum=cum / d["TOT"],
+                         # always open a mixed node, so its Flemish and Belgian halves are visible
+                         frac=fr if (len(fr) > 1 or mixed) else []))
 
     wb = Workbook(); ws = wb.active; ws.title = "Selectie"
     ws["A1"] = "BIOLOOP — BioMobi kandidaat-stroomselectie"
@@ -71,7 +85,9 @@ def selection(raw):
     ws["A2"].font = Font(size=9, color=MUT)
     ws["A3"] = ("Cijfers worden NOOIT opgeteld over bronnen heen: waar twee bronnen dezelfde stroom "
                 "meten staan beide er. Een inspringende rij is een fractie van de stroom erboven; "
-                "de ouderrij is per bron de som van haar fracties.")
+                "de ouderrij is per bron de som van haar fracties.  ·  [BE] = het cijfer is Belgisch; "
+                "[BE+VL] = de ouderrij telt een Vlaams en een Belgisch cijfer bij elkaar op, dus het "
+                "getal is geen van beide — de fracties eronder tonen welke helft welke is.")
     ws["A3"].font = Font(size=9, color=MUT); ws["A3"].alignment = Alignment(wrap_text=True)
     ws.merge_cells("A3:I3"); ws.row_dimensions[3].height = 28
 
@@ -86,7 +102,7 @@ def selection(raw):
 
     for r in rows:
         band = FILL_80 if r["rank"] <= n80 else FILL_90 if r["rank"] <= n90 else None
-        ws.append([r["rank"], r["name"] + ("  [BE]" if r["be"] else ""),
+        ws.append([r["rank"], r["name"] + GEO(r),
                    r["mn"]["v"] if r["n"] > 1 else None, r["mn"]["src"] if r["n"] > 1 else "",
                    r["mx"]["v"], r["mx"]["src"], r["l2"], r["stages"], r["n"], r["cum"]])
         i = ws.max_row
@@ -100,7 +116,7 @@ def selection(raw):
         if r["rank"] in (n80, n90):
             for c in range(1, 11): ws.cell(i, c).border = Border(bottom=Side(style="medium", color="FF3D6B4E"))
         for f in r["frac"]:
-            ws.append(["", "     └ " + f["label"] + ("  [BE]" if f["be"] else ""),
+            ws.append(["", "     └ " + f["label"] + GEO(f),
                        f["mn"]["v"] if f["n"] > 1 else None, f["mn"]["src"] if f["n"] > 1 else "",
                        f["mx"]["v"], f["mx"]["src"], "",
                        (f["stage"] + "  (hele stroom bij deze schakel)") if f["unfrac"] else f["stage"],

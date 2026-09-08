@@ -50,6 +50,14 @@ SUBGROUP_RE = re.compile(
     r"voedselreststro|voedselverlie|nevenstro|levensmiddelenafval|reststromen|"
     r"niet verkocht product|opgehouden vis", re.I)
 
+# SUBGROUP_RE matches the residual-type PREFIX only, never what follows it, so it read
+# "Voedselreststromen eieren" as subgroup wording and dispositioned six egg rows as a data gap -
+# when `Eieren` is one product and the rows simply sat at the wrong level (2026-09-08 review).
+# A row whose L3 names a single commodity is never "the source's finest published grain": the
+# source published a product, and the register filed it above L4. Keep this in step with
+# `audit_register.SINGLE_PRODUCT_L3`.
+SINGLE_PRODUCT_L3 = {"Melk", "Eieren"}
+
 
 def num(s):
     try: return float((s or "0").replace(",", "."))
@@ -114,6 +122,12 @@ def main():
         name = r["stream_name_NL"]
         if r["claim_id"] in D_DISPOSED:
             why = D_DISPOSED[r["claim_id"]]
+        elif (r["L3_commodity_subgroup"] or "").strip() in SINGLE_PRODUCT_L3:
+            why = "*** L3 NAMES ONE PRODUCT - a placement defect, not a data gap ***"
+            findings.append("assertion 5: %s (%s t) sits at L3 on '%s', which is one product, "
+                            "not a subgroup: %s"
+                            % (r["claim_id"], r["volume_t_per_yr"],
+                               r["L3_commodity_subgroup"], name[:50]))
         elif SUBGROUP_RE.search(name):
             why = "the source's own subgroup wording - its finest published grain (a DATA gap)"
         else:
