@@ -1,0 +1,10 @@
+register_l4;fractie;merge_naar;code;canonical_name;reden
+Bloemkool;blad- en stengelmassa;loof;;;GeNeSys schrijft 'blad- en stengelmassa' waar MONBIO 'bloemkoolloof' schrijft - een materiaal, twee nomenclaturen.
+Spruiten;stengelmassa;stokken;;;GeNeSys schrijft 'stengelmassa' waar MONBIO 'spruitstokken' schrijft - een materiaal, twee nomenclaturen.
+Spruiten;stokken;;spruitstokken;Spruitstokken;Het object heet spruitstokken; de afgeleide code spruiten-stokken leest slechter.
+Kool- en raapzaad;;;raapzaad-schroot;Kool- en raapzaadschroot;De L4 is het zaad; het object in deze groep is het schroot uit de FEDIOL-crush.
+Kool- en raapzaad;stro;;raapzaad-stro;;Kortere code; de L4-naam is een dubbele gewasnaam.
+Lijnzaad;;;lijnzaad-schroot;Lijnzaadschroot;De L4 is het zaad; het object in deze groep is het schroot uit de FEDIOL-crush.
+Soja;;;soja-schroot;Sojaschroot;De L4 is de boon; het object in deze groep is het schroot uit de FEDIOL-crush.
+Zetmeel;;;zetmeel-reststroom;Zetmeelreststroom;De L4 is het product; het object is de reststroom van de zetmeelfabriek. Benoemd naar de fabriek omdat geen bron zegt wat het is - lost op met gap G-19.
+Niet-eetbare slachtafvallen;;;slachtafval-niet-eetbaar;Niet-eetbare ruwe slachtafvallen;Leesbaarder als slachtafval-*; de bron schrijft 'ruwe slachtafvallen'.

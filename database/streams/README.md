@@ -23,13 +23,45 @@ carries belongs on those rows, never on the object.
 
 ```
 streams/
-  README.md                      this file
-  CLAUDE.md                      the rules and decisions local to this transfer
-  crosswalks/register_streams.csv  the human gate: 20 rows, one per object, with DECISION
-  tools/load_streams.py          the loader (idempotent; refuses a non-local DSN by default)
+  README.md                          this file
+  CLAUDE.md                          the rules and decisions local to this transfer
+  crosswalks/object_decisions.csv    THE HUMAN FILE -- the exceptions, 9 rows today
+  crosswalks/register_streams.csv    generated manifest, one row per object (DECISION gate)
+  tools/build_manifest.py            register selection + corpus -> the manifest
+  tools/load_streams.py              manifest -> migration (and a dev loader)
   build/                         generated, gitignored, safe to delete
                                  (the migration lives in ../supabase/migrations/)
 ```
+
+## The pipeline
+
+```
+register selection + corpus                     (register/, the truth)
+  -> tools/build_manifest.py                    mechanical: one object per commodity/fraction
+  -> crosswalks/register_streams.csv            generated manifest, DECISION is the gate
+  -> tools/load_streams.py --emit-migration     generated SQL
+  -> supabase/migrations/                       what reaches a database
+```
+
+**Rebuilding from a new selection**, when a resolved gap changes the list:
+
+```bash
+cd database/register && ../.venv/Scripts/python tools/build_overview.py   # refresh the corpus
+cd ../streams        && ../.venv/Scripts/python tools/build_manifest.py   # regenerate objects
+```
+
+`build_manifest.py` derives everything it can from the register — the objects themselves (one
+per commodity/fraction group), their commodity levels, rank, tonnage, claim ids, geography, and
+a proposed code and name. It **preserves** every `omschrijving` and `DECISION` already in the
+manifest, keyed on the object's code, and reports what appeared or vanished. A new object arrives
+with a blank `DECISION`, which blocks the loader until you fill it.
+
+It **exits non-zero** rather than guess when it meets a group it cannot name safely, a stale
+decision row, or a group spanning several commodity levels. Settle those in
+`crosswalks/object_decisions.csv` — never by editing the generated manifest.
+
+`crosswalks/object_decisions.csv` is the only file a human owns: fraction synonyms to merge, and
+codes or names where the derived one is wrong. Nine rows today, for 22 raw groups → 20 objects.
 
 ## Review the SQL before anything is applied
 

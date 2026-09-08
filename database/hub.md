@@ -10,7 +10,7 @@
   - not started: volumes (`supply_observation`), phase 3 (composition harvesting), EWC facet.
 - **Key artifacts:**
   - `database/supabase/migrations/20260727114134_remote_schema.sql` — the baseline; schema of record. **Nothing since has needed a schema change.**
-  - `database/streams/` — the selection → BioMobi transfer: the loader (`tools/load_streams.py`), its curation manifest (`crosswalks/register_streams.csv`, 20 rows all `include`), and its own `README.md` + `CLAUDE.md`. **The live project has not had it applied.**
+  - `database/streams/` — the selection → BioMobi transfer, now a generated pipeline: `tools/build_manifest.py` (register → objects) → `crosswalks/register_streams.csv` (generated, `DECISION` gate) → `tools/load_streams.py --emit-migration` → `supabase/migrations/`. The only human-owned file is `crosswalks/object_decisions.csv` (9 exception rows). **Nothing pushed to live.**
   - `database/register/` — the candidate stream register: the corpus, its protocol (`CLAUDE.md` v2.6), the pipeline (`tools/`), the gap record (`OPEN_GAPS.md`) and the shareable deliverables. `register/README.md` is its entry point.
 - **Next action:** decide how register **claims** become `supply_observation` rows — which needs F-002 (citation keys) closed and the 687 unverified claims curated. The register's own next action is not a database session — it is the source hunt, raised as **F-003**.
 
@@ -57,6 +57,8 @@ The register's 80% selection is BioMobi vocabulary — **names and classificatio
 **Loaded:** 20 `stream` rows · 1 `classification_scheme` · 11 `classification_term` (7 with a parent) · 20 `stream_classification` links. **Committed as a migration** (`20260908143000_bioloop_streams_selection.sql`), so `db reset` rebuilds them from git alone and `db push` is the route to live. **Nothing has been pushed to live yet.**
 
 **A stream row is an OBJECT** — a thing you could put in a bag. 13 selected commodities became 20 objects, split where a crop name covers materials that share no composition (`suikerbiet` / `-loof` / `-pulp`; `aardappel` / `-loof`; `bloemkool` / `-loof` / `-harten`; `spruiten` / `spruitstokken`; `raapzaad-stro` / `-schroot`). **Chain stage is never part of identity** — where a material arises is a property of an observation, and `supply_observation` carries it. This closes the "what grain does a register claim become in BioMobi?" question, and dissolves **G-08**: *oogstresten* and *voedselreststromen* of one crop were measurements of different objects, not contradictory figures.
+
+**The objects are derived, not enumerated.** `tools/build_manifest.py` groups the selected commodities' claims by the register's own L5 fraction field — a fraction is its own object, the no-fraction claims are the commodity itself — giving 22 raw groups → 20 objects. A human owns only `crosswalks/object_decisions.csv`: two fraction-synonym merges and seven code/name overrides. Rebuilding the reviewed manifest reproduced every code, name and description **and found a claim the hand-mapping had missed** (`C-154`, 48.662 t, where the hand version used the smaller `C-178`). A new selection is therefore: refresh the corpus, regenerate, decide only what is new.
 
 **One facet: `bioloop-commodity`**, the register workbook's own commodity levels loaded as a ladder — L2 terms are parents, L3 terms carry `parent_term_id`, each object links to its L3 only, and rolling up to the branch is a recursive walk. Chosen to be cheap and revisable; **EWC enters later as a second scheme**, which is `INSERT`s, not a migration.
 

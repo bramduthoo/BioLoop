@@ -1,47 +1,47 @@
-"""Register the 80%-selection streams of the candidate stream register into BioMobi.
+"""Load the object manifest into BioMobi as `stream` rows plus one commodity facet.
 
-The register (`database/register/`, closed 2026-09-04) ranked 67 selectable streams and found
-80% of a 7.292.982 t/yr envelope in the top 13 commodities. This loader turns that selection
-into BioMobi vocabulary: `stream` rows, plus two classification facets.
+    register selection + corpus
+        -> tools/build_manifest.py           (mechanical: one object per commodity/fraction)
+        -> crosswalks/register_streams.csv   (generated; DECISION is the human gate)
+        -> THIS SCRIPT --emit-migration      (generated SQL)
+        -> database/supabase/migrations/     (what actually reaches a database)
 
-WHAT THIS LOADS, AND WHAT IT DELIBERATELY DOES NOT
+This script is the last generated step, not the route to live: `supabase db push` is. Running
+it against a DSN loads the local stack directly, which is a development convenience.
+
+WHAT IT LOADS, AND WHAT IT DELIBERATELY DOES NOT
     Loads:      stream, classification_scheme, classification_term, stream_classification.
     Does NOT:   supply_observation. The tonnages in the manifest are context for the human
                 decision, not data. A volume row needs `source_key NOT NULL`, and all eight
-                archived register PDFs still carry a blank citation_key (flag F-002). Loading
-                the numbers would also skip the per-claim curation gate: 687 of the register's
-                801 claims are still `awaiting verification`.
+                archived register PDFs still carry a blank citation_key (flag F-002); most
+                claims are also still `awaiting verification`.
 
-GRAIN -- why 21 rows and not 13
-    The hub's canonical-grain rule is "define each canonical stream at the finest grain any
-    target source distinguishes". Four of the 13 selected commodities are not one material:
-    Suikerbiet is loof + pulp + the beet itself, Aardappel is loof + tuber + processing
-    residue, Kool- en raapzaad is straw + crush meal, Spruiten is stem mass + the sprout.
-    The register measures those halves separately, so they enter as separate streams.
-    Stream identity is the MATERIAL, never the chain stage: rejected cauliflower at the
-    auction and at the processor is one stream carrying two `bioloop-keten` terms.
+GRAIN. A `stream` row is an OBJECT -- a thing you could put in a bag. Never a chain stage
+(where a material arises belongs to an observation), and never a commodity standing in for
+its own fractions. `tools/build_manifest.py` derives that grouping from the register's own
+L5 fraction field; `crosswalks/object_decisions.csv` holds the handful of exceptions.
 
-    Consequence, and it matters: the manifest's per-stream figures MUST NOT be summed. The
-    register's 80/20 arithmetic runs at commodity level (largest figure any one source gives
-    a commodity), so a sum over split rows is a different and unsupported quantity. Each row
-    carries its commodity's authoritative rank and figure alongside its own largest claim.
+    The manifest's per-object figures MUST NOT be summed. The register's 80/20 arithmetic runs
+    at commodity level (the largest figure any one source gives a commodity), so a sum across
+    an object's siblings is a different and unsupported quantity. Each row carries its
+    commodity's authoritative rank and figure alongside its own largest claim.
 
-WHAT LOADS IS NOT THIS SCRIPT'S DECISION. Every row must be marked `include` / `exclude` by
-a human in the DECISION column of database/crosswalks/register_streams.csv. The script
-refuses to run while any cell is blank.
+WHAT LOADS IS NOT THIS SCRIPT'S DECISION. Every row must be marked `include` / `exclude` by a
+human in the DECISION column of crosswalks/register_streams.csv. The script refuses to run
+while any cell is blank.
 
-Idempotency. This loader owns exactly the stream codes named in the manifest and the two
-classification schemes below. Each run rebuilds their `stream_classification` rows inside one
-transaction, so flipping a DECISION to `exclude` withdraws the classifications rather than
-orphaning them. Reference vocabulary is never deleted -- `stream_classification` cascades on
-stream delete, and an ingestion script must not be able to destroy classification work. An
-excluded stream therefore keeps its row and is reported, not removed.
+Idempotency. This loader owns exactly the stream codes named in the manifest, inside the one
+scheme below. Each run rebuilds their `stream_classification` rows in one transaction, so
+flipping a DECISION to `exclude` withdraws the classification rather than orphaning it.
+Reference vocabulary is never deleted -- `stream_classification` cascades on stream delete,
+and an ingestion script must not be able to destroy classification work. An excluded object
+keeps its row and is reported, not removed.
 
 Usage (from database/streams/):
     python tools/load_streams.py --dry-run                       # parse + check, touch nothing
-    python tools/load_streams.py --emit-sql build/streams.sql    # write the SQL, run nothing
-    python tools/load_streams.py                                 # load into the local stack
-    python tools/load_streams.py --dsn ... --allow-remote        # deliberate: the live project
+    python tools/load_streams.py --emit-migration <path>         # the deliverable
+    python tools/load_streams.py --emit-sql build/streams.sql    # a review rendering
+    python tools/load_streams.py                                 # load the local stack
 """
 from __future__ import annotations
 
@@ -129,8 +129,9 @@ def check_gate(rows: list[dict]) -> tuple[list[dict], list[dict]]:
 def check_against_register(rows: list[dict]) -> list[str]:
     """Re-read every claim id in the manifest against the register corpus.
 
-    The manifest is authored, not generated, so this is what stops it drifting away from the
-    corpus it claims to summarise: a renamed, retired or re-levelled claim shows up here.
+    build_manifest.py generates the manifest, but the file is committed and can be stale (or
+    hand-edited). This is what catches that: a renamed, retired or re-levelled claim fails the
+    load instead of drifting into a migration.
     """
     if not REGISTER_JSON.exists():
         return [f"register corpus not built ({REGISTER_JSON} missing); "
@@ -195,7 +196,9 @@ def notes_for(r: dict) -> str:
             f"Commodity '{r['register_l4']}' staat op rang {r['l4_rank']} met "
             f"{nl(int(r['l4_t_per_jaar']))} t/jaar (register-methode: het grootste cijfer dat een "
             f"enkele bron aan de commodity geeft; NIET optelbaar over de fracties heen). "
-            f"Fractie '{r['fractie']}'; grootste eigen claim {nl(int(r['grootste_claim_t']))} t "
+            + (f"Fractie '{r['fractie']}'; " if r['fractie'].strip()
+               else "Geen fractie: dit is de commodity zelf. ")
+            + f"Grootste eigen claim {nl(int(r['grootste_claim_t']))} t "
             f"({r['grootste_claim']}). Claims: {r['claim_ids']}. Geografie: {geo}.{caveat} "
             f"Nog geen supply_observation -- zie F-002.")
 

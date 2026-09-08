@@ -113,14 +113,45 @@ Judged the same material under two nomenclatures.
 row will reference. The FKs are `ON UPDATE CASCADE`, so a rename is mechanically safe while no
 measurements exist — that stops being comfortable once phase 3 hangs composition off these codes.
 
+## The manifest is generated, and the human file is tiny
+
+**The objects are derived, not enumerated.** `tools/build_manifest.py` groups the selected
+commodities' claims by the register's own **L5 fraction** field: a fraction (`stro`, `loof`,
+`pulp`, `harten`, `stokken`) is its own object; the claims with no fraction are the commodity
+itself. That grouping *is* the grain rule, applied by the data. Today it yields **22 raw groups →
+20 objects**, and everything a row needs — commodity levels, rank, tonnage, claim ids, geography,
+a proposed code and name — falls out of the register with it.
+
+**What a human owns is `crosswalks/object_decisions.csv`: nine rows.** Two fraction merges
+(GeNeSys's *blad- en stengelmassa* = MONBIO's *loof*; *stengelmassa* = *stokken*) and seven code
+or name overrides, four of which exist because a no-fraction group is really a specific processed
+product wearing the commodity's name — the FEDIOL schroot trio, and `zetmeel-reststroom`.
+
+**The generator refuses rather than guesses.** It exits non-zero on a group it cannot name safely
+(a no-fraction group whose claims never mention the commodity), a stale decision row matching no
+group, or a group spanning several commodity levels. Settle those in `object_decisions.csv` —
+**never by editing the generated manifest**, which the next rebuild overwrites.
+
+**What it preserves across a rebuild**, keyed on the object's `code` (stable; the fraction label
+is not, because a merge moves it): the `omschrijving` prose and the `DECISION`. It reports which
+objects appeared and which vanished. A new object arrives undecided, which blocks the loader.
+
+**The generator is better than the hand-mapping it replaced.** Rebuilding the reviewed 20 objects
+reproduced every code, name and description — and found `C-154` (*Voedselreststromen suikerbieten
+(totaal)*, 48.662 t), which the hand-built manifest had missed in favour of the smaller `C-178`.
+That is the argument for deriving rather than enumerating: a person reading claim lists misses one.
+
 ## The manifest and its gate
 
-`crosswalks/register_streams.csv` — `;`-delimited, UTF-8 BOM (Belgian Excel). One row per object,
-carrying its commodity L2/L3, the register claim ids it rests on, its commodity's rank and figure,
-its own largest claim, and a human `DECISION`.
+`crosswalks/register_streams.csv` — generated, `;`-delimited, UTF-8 BOM (Belgian Excel). One row
+per object, carrying its commodity L2/L3, the register claim ids it rests on, its commodity's rank
+and figure, its own largest claim, and a human `DECISION`.
 
 - **The loader exits non-zero, naming every offending row, while any `DECISION` is blank or is not
   `include`/`exclude`.** It did refuse the first dry run of each rebuild.
+- **`fractie` is the register's L5 verbatim, and empty means "the commodity itself".** It is data,
+  not a label to invent: an earlier hand-built manifest put descriptive words there (`knol`,
+  `biet`, `verwerkingsrest`) which looked like fractions but matched no source.
 - **The gate is about the *objects*, not about the selection.** The selection was reviewed and
   closed when 2b closed; re-approving it here would be ceremony. What the column actually gates is
   the commodity → object mapping and the judgement rows above.
@@ -129,8 +160,8 @@ its own largest claim, and a human `DECISION`.
   Recorded here because the difference matters if anyone later reads the file as evidence of a
   per-row human review.
 
-**The manifest is authored, not generated**, so the loader re-checks it against
-`../register/build/streams.json` on every run: each claim must exist, sit under the L4 the manifest
+**The manifest is generated but committed**, so it can still go stale or be hand-edited; the
+loader re-checks it against `../register/build/streams.json` on every run: each claim must exist, sit under the L4 the manifest
 names, be used by exactly one object, and match the recorded largest figure. A retired or
 re-levelled claim fails the load instead of drifting silently. `--skip-register-check` exists for
 the case where the register's `build/` has not been generated; do not use it to get past a real
@@ -160,6 +191,11 @@ Two things the generator will not do for you, because both are deliberate acts:
   CASCADE`), which is exactly the window we are in now and will not be after phase 3.
 
 Applied so far: `20260908143000_bioloop_streams_selection.sql` — 20 objects, 1 scheme, 11 terms.
+**Not yet pushed to live.** It was regenerated in place once, on the day it was written, after
+`build_manifest.py` corrected `suikerbiet`'s largest claim. That is only safe because it had
+reached no database but a throwaway local stack: **once a migration has been pushed, or has landed
+in another clone, it is frozen** — Supabase records the version and will not re-run an edited
+file, so a correction must be a new migration.
 
 ## Idempotency — what this loader owns
 
