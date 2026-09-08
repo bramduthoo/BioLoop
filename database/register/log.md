@@ -142,11 +142,33 @@ actually claims:** cacao contributes essentially nothing to that sector total.
 **The real gap mass falls from 11,1 Mt to 7,1 Mt**, and it concentrates where the gap record already
 points: the food industry (G-03) and retail (G-01).
 
-**Still open: the unharvested potatoes.** The reviewer's instruction — always work *excl.* the
-308.000 t and keep it as a separate selectable stream outside the sum — cannot be implemented as
-stated, because a component row that stays in the commodity tree still rolls up. Split out as its own
-L4 it lands **inside** akkerbouw and the excl. totals read 214%; taken out of the tree it needs a
-mechanism the register does not have. Put to the reviewer with the arithmetic rather than guessed at.
+**The unharvested potatoes — settled.** The reviewer's instruction had two halves that pull
+against each other in the current machinery: use *excl.* everywhere, **and** keep the 308.000 t as a
+separate selectable stream outside the sum. A component row that stays in the commodity tree always
+rolls up — split out as its own L4 it lands **inside** akkerbouw and the excl. totals read **214%**,
+worse than the 136% we started with — and the one mechanism that does take a row out of the sum
+(`allocatable = no`) also makes it unselectable. Both routes were put to the reviewer with the
+arithmetic.
+
+**Decision: the incl. reading is the basis** (option C, 2026-09-09). Once the unharvested potatoes
+sit in the tree as their own component, *incl.* is not "contaminated with something extra" — it is
+simply the sum of the parts, which is what a total should be. The four excl. totals (**C-044, C-049,
+C-075, C-076**) are parked with `allocatable = no`: still in the corpus as the source's second
+reading, steering nothing. No data changed and nothing was split.
+
+**Result: the twelve `over` rows became two, and coverage is exactly 100% at akkerbouw and landbouw.**
+The two that remain — C-004 and C-111, the *primary-sector* totals — are over by **exactly 308.000 t
+and 308.001 t**. They are `ingezameld` figures, and potatoes that were never harvested were never
+collected. Explained to the tonne, noted on both registry rows, and deliberately left alone.
+
+**Nothing moved downstream:** selection unchanged at 7.301.257 t over 69 streams with 80% at 13,
+`verify_overview.py` 8/8, `final_check.py` PASS, and `database/streams/tools/load_streams.py
+--dry-run` still exits 0 on all 21 BioMobi rows.
+
+**G-04 rewritten rather than closed** (reviewer, 2026-09-09). At 90,6% / 89,1% explained the mass is
+largely accounted for, so the entry now asks a different question: **which animal**, not **how much**.
+Rund / varken / kip per slachtafvalcategorie. That drops its priority in the source hunt sharply,
+because the tonnage is already selectable as four named streams.
 
 
 ### 2026-09-08 — the gap control: every reported total reconciled against what sits beneath it

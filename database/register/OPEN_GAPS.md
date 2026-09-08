@@ -15,27 +15,50 @@ entries.
 Every `AGGREGAAT` row in the corpus (224 of them) was reconciled against what the register captured
 beneath it, with the 95 residual aggregates ≥ 50.000 t/yr reviewed one by one
 (`tools/gap_review.js`; console at
-`https://claude.ai/code/artifact/9f9bec09-dd33-48e6-af8a-7328da51fc9d`). **The list survived**: no
-entry below turned out to be imaginary, and nothing large surfaced that is not already named here.
-Three things did change how the list should be read.
+`https://claude.ai/code/artifact/9f9bec09-dd33-48e6-af8a-7328da51fc9d`), then reviewed again by the
+reviewer on 2026-09-09, which found four defects in the coverage layer and three "gaps" that do not
+exist. **The list survived**: no entry turned out to be imaginary, and nothing large surfaced that is
+not already named here. Four things changed how it should be read.
 
 1. **A total can be resolved by its SIBLINGS, not only by its children.** `derive.js` scores an
    aggregate against the node's children only, so `C-043` (*Voedselreststromen aardappelen*,
    548.305 t) — which is exactly `C-005` + `C-042` sitting beside it — scored 0% and read as
    *"nothing beneath it"*. Eleven aggregates were mis-read this way. **Before calling a total
    unexplained, check its siblings.**
-2. **Every "parts exceed the total" is one artefact, not a data error.** The 308.000 t niet-geoogste
-   aardappelen of 2023 are reported by OVAM both inside and outside its totals, and the registry
-   averages the pair as if the two scopes were variants — producing a denominator the source never
-   printed. Twelve rows, 5,99 Mt. **A registry decision is pending:** mark incl./excl. pairs as scope
-   variants that are not averaged, or choose one.
+2. **Every "parts exceed the total" was one artefact, and it is now settled.** The 308.000 t
+   niet-geoogste aardappelen of 2023 are reported by OVAM both inside and outside its totals, and the
+   registry averaged the pair as if two scopes were two measurements — producing a denominator the
+   source never printed (akkerbouw: 423.389 t). **Reviewer decision, 2026-09-09: the incl. reading is
+   the basis**, because the unharvested potatoes sit in the tree as a component (C-005), so the total
+   that includes them is simply the sum of the parts. The four excl. totals (C-044, C-049, C-075,
+   C-076) are parked with `allocatable = no` — still in the corpus as the source's second reading,
+   but steering nothing. **Twelve rows became two, and coverage is now exactly 100% at akkerbouw and
+   landbouw.** The two that remain, C-004 and C-111, are the *primary-sector* totals and they are
+   over by **exactly 308.000 t**: those are `ingezameld` figures, and potatoes never harvested were
+   never collected. Explained to the tonne — leave them.
 3. **"Unallocated" hides two different states.** A row the derivation *could not place* is not a row
    the registry *deliberately shelved*. `C-532`/`C-342` (perskoeken, 1,35 / 1,02 Mt) are the largest
-   rows in the corpus that look like gaps and are not — promoting them double-counts oilseed schroot
-   already selectable elsewhere.
+   rows in the corpus that look like gaps and are not: they are **98,1%** and **88,7%** of `C-524` /
+   `C-335`, i.e. two measurements of one quantity — Prodcom 104141 against the FEDIOL crush statistic —
+   and the source itself uses the FEDIOL table for its totals. Promoting them double-counts.
+4. **A total can also be resolved ACROSS PARENTS, and no rule can find that.** The `suiker en
+   chocolade` sector total is not 12-14% explained but **~100%**: melasse (`Varia > Suiker`) +
+   bietenpulp (`Plantaardig - akkerbouw > Suikerbieten`) = 394.455 against a printed 394 kton. Beet
+   pulp is a sugar-industry residue the register files under the *crop*, so the two explaining rows
+   sit under different parents and only domain knowledge connects them. Held as a small,
+   human-confirmed `CROSS_PARENT` table in `gap_review.js`, deliberately not automated.
 
-**Where the gap mass actually is:** 11,1 Mt sits behind a total with too little or nothing beneath
-it, almost all of it in the food industry and retail — G-01, G-03, G-04, G-10, G-12 and G-19.
+**Where the gap mass actually is:** after the 2026-09-09 corrections, **7,1 Mt** sits behind a total
+with too little or nothing beneath it — down from 11,1 Mt, because the meat sector turned out to be
+~90% explained and the sugar/chocolate total ~100%. What remains is concentrated in the food industry
+and retail: G-01, G-03, G-10 and G-19.
+
+**Two coverage defects were fixed in the process, and both had been overstating gaps.** `displayOf`
+folded the summed quantity-type columns of a roll-up, which discards every child that reports a
+*different* type than its sibling — on the `Vlees` node it returned 145.498 t (Dierlijk vet alone)
+instead of 481.266 t, scoring a sector total at 23% when it is 76%. And a quantity-type aggregate was
+being scored against the whole node's folded figure rather than its own type. Both are fixed;
+`verify_overview.py` stays 8/8 and the stream selection did not move.
 
 ## The two classes
 
@@ -193,29 +216,28 @@ method:
 
 ---
 
-## G-04 · Dierlijk – vee — 471 kt still unresolved after the re-levelling
+## G-04 · Vlees — de massa is gedekt, de diersoort niet
 
-**Status:** open · **Kind:** granularity · **Size:** 471.361 t/yr (65,5% of the group, MONBIO 4.0)
-*Opened 2026-09-03, after the gap-desk fixes were applied.*
+**Status:** herschreven 2026-09-09 · **Kind:** granularity, niet missing data · **Size:** de
+soortsplitsing over ~481.000 t (MONBIO 4.0) / ~441.000 t (3.0)
 
-**Evidence.** The GAP-2/3/8 fixes lifted `Dierlijk – vee` from **10,9% to 34,5%** resolved — Melk
-(19.000), Dierlijk vet (145.498) and Gevogelte (84.141) now sit at L4. The remaining **471.361 t**
-does not move, because it is held in genuine slaughter-offal aggregates: `C-308` *Eetbare
-slachtafvallen, totaal* (217.672), `C-298` *Niet-eetbare ruwe slachtafvallen* (169.051), `C-295`
-*Eetbare slachtafvallen van runderen, varkens, schapen, geiten en paarden* (82.576), `C-296` *Ander
-vlees en andere eetbare slachtafvallen* (49.893).
+**Dit was tot 2026-09-09 geboekt als een massagat van 23% dekking. Dat was een meetfout van ons,
+niet van de bron.** `displayOf` vouwde de kinderen van de `Vlees`-knoop weg zodra één kind
+`agri-food waste` rapporteerde, zodat alleen dierlijk vet (145.498 t) meetelde. De echte som van de
+kinderen is **481.266 t** — niet-eetbare slachtafvallen 169.051 + dierlijk vet 145.498 + gevogelte
+84.141 + eetbare slachtafvallen 82.576 — dus **76%**, niet 23%.
 
-**Why it is a gap and why re-levelling cannot close it.** These are real category totals, not
-mislabelled streams. Splitting them per animal needs a **measured waste ratio per species**, and no
-source in the register gives one — the register has production volumes per species but nothing that
-links production to offal yield. Inferring the split from production would be a derivation the
-protocol forbids, which is exactly why the reviewer declined it on GAP-2.
+**En het sectortotaal zelf is te hoog.** De bron telt **100.000 'stuks' huiden als tonnen** mee
+(`C-277`: 531.159 + 100.000 = 631.159). Tegen het werkelijke totaal van 531.159 t is de dekking
+**90,6%**; voor MONBIO 3.0 **89,1%** tegen 494.819 t.
 
-**What would close it.** A source that reports slaughter by-products per species, or a
-species-resolved rendering-sector figure. **No candidate exists in the `Sources` sheet** that is not retired, so this needs a search: a
-slaughterhouse or rendering-sector source reporting by-products per species.
+**Wat er dus werkelijk ontbreekt.** Niet de tonnage — die is al selecteerbaar als vier benoemde
+stromen. Wat geen bron geeft is **van welk dier**: rund, varken en kip afzonderlijk, per
+slachtafvalcategorie. Dat is een granulariteitsvraag, en ze verlaagt de prioriteit van deze entry in
+de zoeklijst fors ten opzichte van G-10 en G-01, waar de massa zelf ontbreekt.
 
----
+**Wat zou het sluiten.** Een slachterij- of vleessectorbron die per diersoort rapporteert — FEBEV,
+of een Vlaamse slachtafvalstudie. Niet in het 91-rijen `Sources`-blad.
 
 ## G-05 · `Granen` now mixes field residue with mill and brewery residue
 
