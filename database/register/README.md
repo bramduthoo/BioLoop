@@ -68,7 +68,8 @@ Everything in `tools/` runs again for every new source. Finished one-off migrati
 | File | Role |
 |------|------|
 | `tools/select_streams.js` | The 80/20 selection. Ranks streams by the largest tonnage any one source gives them, never summing across sources; prints the ranking, per-source coverage, the fraction breakdown and the divergence list. `node tools/select_streams.js 24 --json out.json`. Its header comment states the four method choices. |
-| `tools/make_deliverables.py` | Writes the shareable `.xlsx` of the selection and of the gap list into `deliverables/`, reading `deliverables/gaps.json` for the gap text. |
+| `tools/make_gap_list.js` | **Derives** the gap list from the data as the mirror of the selection: asserted mass minus reachable mass per (place × chain stage), de-nested, merged only within a monitor family. `--min` sets the threshold (50.000 t default), `--json` writes `build/gaps_derived.json`. |
+| `tools/make_deliverables.py` | Renders both lists into `deliverables/` as `.xlsx` **and** `.html`, from `select_streams.js` and `make_gap_list.js` output. Layout only — it computes no figure of its own. |
 
 ### The checks — run these after every extraction
 
@@ -163,3 +164,42 @@ const r=D.derive(P.claims,{year:2023,editions:new Set(["OVAM Monitor voedselverl
 const rest=r.roots.find(x=>x.label==="Reststroom");
 console.log(rest.coverage, r.unallocated.length, r.severeCount);'
 ```
+
+## The two deliverables — how they are made
+
+Both are **renderings**, and both are regenerated from the workbook; neither is hand-maintained.
+
+```bash
+node tools/select_streams.js 69 --json build/sel_raw.json
+node tools/make_gap_list.js        --json build/gaps_derived.json
+../.venv/Scripts/python tools/make_deliverables.py build/sel_raw.json
+```
+
+That writes four files into `deliverables/` — the selection and the gap list, each as `.xlsx` and
+`.html`. They are gitignored: regenerate rather than expect a particular date on disk.
+
+**The gap list is derived, not curated.** It is the mirror of the selection: for every place in the
+data, *asserted mass* (the largest total any one source reports there) minus *reachable mass* (what
+the selection could actually pick at L4/L5). Three rules keep it honest, and all three came from
+getting it wrong first:
+
+- **Reachability follows `select_streams.js` exactly.** A node at or below L4 sits inside a
+  selectable stream and is fully reached; above L4 it is the sum of the L4 nodes beneath. Score it
+  any other way and every L5 fraction looks like a gap — Maisstro would read as 1,4 Mt unreachable
+  while its parent Mais is the #1 selected stream.
+- **Nested places are never summed.** Each row carries only the gap its own branches do not already
+  carry, so the rows are a decomposition and not a pile; they add up to the stage total by
+  construction.
+- **Sources merge only within a monitor family.** OVAM's editions merge with each other and
+  MONBIO's with each other, but never across: `state.md` (2026-09-01) records that the two are 2,1×
+  apart by construction and cannot cross-check each other, so letting MONBIO's processing detail
+  cancel OVAM's sector lump would erase a real gap by comparing two different things.
+
+Where a stage's residual belongs to no commodity branch, the sector rows that *name* it are listed
+beneath it — otherwise the largest gap in the corpus reads as "unattributable", which is true and
+useless. Rows marked `PARALLELLE TELLING` are a second accounting of the same material and are
+never part of a sum.
+
+**A previous version of this list was hand-written in `deliverables/gaps.json`.** That file has been
+deleted. A gap list must fall out of the data, or it silently preserves whatever the last one
+happened to say.
