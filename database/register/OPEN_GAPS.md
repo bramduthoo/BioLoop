@@ -10,6 +10,33 @@ extracted that resolves it, or (b) it is fact-checked and turns out not to be a 
 the entry stays with its status flipped to `closed`, so the check is not repeated. Do not delete
 entries.
 
+## How the list was last checked — the gap control of 2026-09-08
+
+Every `AGGREGAAT` row in the corpus (224 of them) was reconciled against what the register captured
+beneath it, with the 95 residual aggregates ≥ 50.000 t/yr reviewed one by one
+(`tools/gap_review.js`; console at
+`https://claude.ai/code/artifact/9f9bec09-dd33-48e6-af8a-7328da51fc9d`). **The list survived**: no
+entry below turned out to be imaginary, and nothing large surfaced that is not already named here.
+Three things did change how the list should be read.
+
+1. **A total can be resolved by its SIBLINGS, not only by its children.** `derive.js` scores an
+   aggregate against the node's children only, so `C-043` (*Voedselreststromen aardappelen*,
+   548.305 t) — which is exactly `C-005` + `C-042` sitting beside it — scored 0% and read as
+   *"nothing beneath it"*. Eleven aggregates were mis-read this way. **Before calling a total
+   unexplained, check its siblings.**
+2. **Every "parts exceed the total" is one artefact, not a data error.** The 308.000 t niet-geoogste
+   aardappelen of 2023 are reported by OVAM both inside and outside its totals, and the registry
+   averages the pair as if the two scopes were variants — producing a denominator the source never
+   printed. Twelve rows, 5,99 Mt. **A registry decision is pending:** mark incl./excl. pairs as scope
+   variants that are not averaged, or choose one.
+3. **"Unallocated" hides two different states.** A row the derivation *could not place* is not a row
+   the registry *deliberately shelved*. `C-532`/`C-342` (perskoeken, 1,35 / 1,02 Mt) are the largest
+   rows in the corpus that look like gaps and are not — promoting them double-counts oilseed schroot
+   already selectable elsewhere.
+
+**Where the gap mass actually is:** 11,1 Mt sits behind a total with too little or nothing beneath
+it, almost all of it in the food industry and retail — G-01, G-03, G-04, G-10, G-12 and G-19.
+
 ## The two classes
 
 Every gap below is one of two kinds, and they need opposite responses:

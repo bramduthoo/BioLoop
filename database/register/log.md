@@ -57,6 +57,83 @@ clean v2 re-run and supersedes it entirely.*
 
 ## Tooling & model sessions (no source extracted)
 
+### 2026-09-08 — the gap control: every reported total reconciled against what sits beneath it
+
+**The mirror of the selection review.** The selection ranks what the register *can see*; this asks
+the opposite question of every `AGGREGAAT` row: how much of this total is explained by named streams
+underneath, and how much is still a lump? A total that is fully explained is not a gap however large;
+a total with nothing beneath it is one however small. New tool: **`tools/gap_review.js`**, run over
+all **224** aggregate claims, with the **95 residual aggregates ≥ 50.000 t/yr** (52,0 Mt) reviewed
+one by one. Console:
+`https://claude.ai/code/artifact/9f9bec09-dd33-48e6-af8a-7328da51fc9d`.
+
+**The engine is `derive.js`.** Per `database/CLAUDE.md`, a sub-project owns one derivation and
+consumers read it. Every reported / components / ratio figure is lifted off the node derive already
+built (`covByStage` for a stage total, `group.check` for a subset); nothing is recomputed. Where a
+per-child breakdown *is* comparable to derive's own number, the tool asserts equality and treats a
+drift as a hard error — which is how the three bugs below were caught rather than shipped.
+
+**Three defects in the first cut, each worth recording because each would have produced a confident
+wrong answer.**
+
+- **`covByStage` reconciles at the *folded* level, not per quantity type.** A first version compared
+  a per-quantity-type breakdown against it and produced 36 phantom mismatches. Fixed by reading
+  derive's own numbers for stage totals and treating the child list as context.
+- **`totalSets` also carries the node's own component claims** (`own:` pseudo-ids, `isAgg: false`).
+  Recording them inflated the count to 271 "aggregates" out of 224 real ones.
+- **`variantSet` folds a `component_set` into ONE synthetic entry** with the members hidden in
+  `.members`, so eight retail rows and two production totals never appeared at top level and would
+  have gone silently unreviewed.
+
+**The finding that matters most: derive only scores one of the two ways a total can be resolved.**
+It checks an aggregate against the node's **children** — deeper commodity detail. But a total can
+equally be resolved by its own **siblings**: `C-043` (*Voedselreststromen aardappelen*, 548.305 t) is
+exactly `C-005` (niet-geoogst 308.000) + `C-042` (excl. niet-geoogst 240.305), two component claims
+beside it on a node that has no children. derive scores that **0%** and marks it `indicative`, which
+reads as *"nothing beneath it"* — the opposite of the truth, on one of the best-resolved rows in the
+corpus. `gap_review.js` therefore computes a second measure from `node.ownBySource` and takes
+whichever explains more. **That moved 11 aggregates from `opaque` to `resolved`.** The same blind
+spot is live in the browsable overview, where those rows still show as `indicative`.
+
+**Every "parts exceed the total" traces to one thing.** Twelve rows, 5,99 Mt, all from the **308.000 t
+niet-geoogste aardappelen** of the wet 2023 autumn. OVAM prints its totals twice — *incl.* and
+*excl.* that figure — and the registry treats the pair as **variants**, so they are averaged:
+akkerbouw becomes `(269.389 + 577.389) / 2 = 423.389`, **a number the source never printed**, while
+the children sum to exactly **577.389**, the incl. figure. Against the right denominator the coverage
+is **100%, not 136%**. Landbouw repeats it over three rows; the primary-sector rows add a second
+definition clash, since an *ingezameld* total cannot contain potatoes that were never harvested.
+**This is a registry decision, not a data error** — mark the incl./excl. pairs as scope variants that
+must not be averaged, or pick one. Until then the overview flags red coverage on rows that are fine.
+
+**`unallocated` was hiding two different things**, now split. A row the derivation *could not place*
+(spans two parents or levels) is not the same as one the registry *deliberately took out*
+(`allocatable = no`). Both surfaced as "no row in the tree". Of the 95 reviewed, 14 are genuinely
+unplaceable and 10 are shelved by decision — including `C-532`/`C-342` (perskoeken, 1,35 / 1,02 Mt),
+the two largest rows in the corpus that *look* like gaps and are not: promoting them would
+double-count oilseed schroot already selectable as Kool- en raapzaad, Lijnzaad, Soja and Zonnebloem.
+
+**What the 95 rows come to.**
+
+| dispositie | rijen | t/jaar | |
+|---|---:|---:|---|
+| opgelost | 28 | 16.490.457 | verklaard door wat eronder staat |
+| deels | 11 | 7.740.774 | echte detaillering, niet alles |
+| dun | 12 | 10.490.892 | symbolisch bedrag onder een grote klomp |
+| ondoorzichtig | 8 | 652.649 | **niets** eronder |
+| delen > totaal | 12 | 5.985.116 | de incl./excl.-middeling hierboven |
+| niet te plaatsen | 14 | 6.756.700 | spant twee ouders of niveaus |
+| geparkeerd | 10 | 3.898.975 | registrybeslissing |
+
+**11,1 Mt staat achter een totaal met te weinig of niets eronder** — that is the real gap mass, and
+it lands almost entirely in the food industry and retail, exactly where `GAP_LIST.csv` already points
+(G-01, G-03, G-04, G-10, G-12, G-19). The gap record survives this control: no entry turned out to be
+imaginary, and nothing large was found that the list does not already name.
+
+**One entry improved by the previous session's work.** `C-282`/`C-467` (zuivelsector, 70.167 t) went
+from **0% to 71%** explained, because melkwei is now captured as `C-802`/`C-803`. The remaining 29%
+is `zuiveringsslib`, which is out of scope — so **71% is the ceiling here, not a shortfall**.
+
+
 ### 2026-09-08 — the selection-control review round applied
 
 **A full rij-voor-rij control of all 801 claims against the 80/20 selection**, run in a review
