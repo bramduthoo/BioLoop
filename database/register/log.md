@@ -57,6 +57,93 @@ clean v2 re-run and supersedes it entirely.*
 
 ## Tooling & model sessions (no source extracted)
 
+### 2026-09-09 — round 1 of the volume source hunt (F-003): the biggest gap is unpublished, not missing
+
+**Objective:** for each of the twelve derived gaps, name a concrete candidate; open and verify the
+three largest. Reviewer decisions taken at the top of the session: sources that publish a production
+volume or a loss fraction are **in scope but recorded as their own class, never as a claim**; depth
+is "name all twelve, open the top three"; output goes to a new file pair rather than into the
+workbook. **Nothing was extracted and no claim was added.**
+
+**Output:** `SOURCE_HUNT_VOLUMES.md` (the writeup) + `crosswalks/VOLUME_SOURCE_CANDIDATES.csv`
+(29 candidates over 12 gap anchors, `DECISION` blank on every row, `;` + UTF-8 BOM). Candidates are
+anchored on **place × chain stage + claim ids**, never on the gap row number, because the derived
+list renumbers on every run.
+
+**The `source_class` column is the session's structural contribution.** Six values —
+`direct` / `denominator` / `conversion` / `allocation` / `datarequest` / `restatement` — of which
+**only `direct` can ever become a `supply_observation`**. The register already filed S015, S018,
+S019 and AgroCycle this way informally; the column makes it explicit and extends it to the leads
+that prompted the session. Of 29 candidates, **11 are `direct`, 18 are not**.
+
+**Finding 1 — the 1.293.823 t food-industry gap is a data request, not a commission.** OVAM's
+*Bedrijfsafval en secundaire grondstoffen* Excel (Flanders, production years 2012-2022, 126 kB) was
+downloaded and read end to end. Its two mapping sheets settle the grain: `Indeling sectoren` is
+**944 rows of NACE-4 → one of 52 OVAM sectors** and `Indeling stromen` is **993 rows of EURAL-6 →
+one of 56 streams**. So the underlying data is `NACE-4 × EURAL-6`, and inside the single sector
+`e-p-voeding` sit NACE 10.2-12 as separate classes — dranken (11010-11060), bakkerij (10711/10712/
+10720), oliën en vetten (10410/10420), aardappel-groente-fruitverwerking (10310-10393). On the other
+axis **EURAL 02 07 *is* the drinks branch and 02 06 *is* bakery**, and its leaf codes carve by
+process (`020702 afval van de destillatie van alcoholische dranken`), which is exactly what F-003's
+screening rule demands and what every Prodcom-keyed candidate has failed to give. **What the
+publication does not contain is the cross-tab:** `Afval per sector` and `Afval per stroom` are two
+independent marginals, with no `e-p-voeding × plant&dier` cell. One cross-tabulation request to
+OVAM/MATIS therefore addresses **five gap rows and the largest screened finding at once**. MATIS was
+already S026 `HOLD - GATED`; what is new is knowing precisely what to ask for.
+
+Two cautions recorded with it. **(a) It is a third school** — `bedrijfsafval` counts what was
+declared under an EURAL code, which is neither `voedselverlies` nor `productieresidu`, and a sector
+total also carries packaging, sludge and waste water, so it is not a claim about a biomass stream at
+any grain. **(b) The series breaks at 2022** — MATIS replaced the IMJV sample, and `e-p-vlees` falls
+from 817.448 t (2020) to 169.900 t (2022), a 4,8× method artefact.
+
+**Finding 2 — a latent mis-filing in the gap tool, found by consequence.** `tools/make_gap_list.js`
+assigns schools by name: `e.startsWith("OVAM") → voedselverlies-school`. Correct for the two
+voedselverlies monitors, **wrong for the Marktanalyse Biomassareststromen** (S001/S086/S087), which
+shares the IMJV/waste-declaration lineage of `bedrijfsafval`. It costs nothing today because S087
+produced zero claims; it becomes a real defect the moment a Marktanalyse or bedrijfsafval figure is
+captured. **Fix the `FAMILY` map before that, not after.**
+
+**Finding 3 — the meat gap needs one number, and this log already wrote down how to get it.**
+Chasing `Dierlijk - vee > Vlees` (149.734 t) led to a B2BE Facilitator dossier reporting **698.000 t
+dierlijk bijproduct, Vlaanderen, 2023, 78% categorie 3**. That is S087 p.55 verbatim, cited to OVAM
+and MONBIO 3.0 — a **restatement**, which re-owns nothing under the cross-source rule settled on
+2026-08-16, and it carries no split per diersoort or per materiaal. The S087 entry above already
+records why the figure was dropped (Figuur 24 spreads the *herkomst* over VL/WA/BR/buitenland in an
+unlabelled 3-D pie with no printed numbers) and names the reversal as a one-edit recovery. **So the
+gap wants the Flemish share of that tonnage, not a source.** This hunt confirms no third party
+publishes a better figure; routes for the share are Rendac/Darling Ingredients BE, FEBEV, or OVAM's
+own dierlijke-bijproducten page.
+
+**Finding 4 — the two horticulture gaps can be sized with what the corpus already holds.** ILVO 239
+is extracted (111 claims) and carries loss fractions per horticultural crop; Landbouwcijfers
+Vlaanderen carries area and production per crop. Together they cover the unnamed branches under
+*Groenten* and *Groenten openlucht* at zero retrieval cost — as a `conversion` that re-computes a
+source we own, so **never as a new claim**, but enough to size the gap before anyone pays to close it.
+
+**What came back empty.** **FGBB** — `absent`: no statistics, no annual report with tonnages, no
+return figure; bakkerij has no published sector source at all. **VEGEBE** — no public tonnage, only
+a member profile, confirming S020's gate; and fruit processing still has zero rows in the entire
+register, which VEGEBE would not fix. **Fevia** — the only findable quantity is >4.500.000 t of
+Belgian food-industry by-products going to animal feed: destination-side, Belgian, undated, unsplit,
+so it closes nothing, but it is a useful order-of-magnitude check against OVAM's 2.017.748 t
+assertion and suggests the food-industry gap is under- rather than over-stated. S011 stays
+`HOLD - CANNOT VERIFY`. **S058 ILVO TransBio** — searched, no public location found; unchanged since
+F-003 named it, and still the one candidate that would hit potato processing, dranken and the Flemish
+crush share together. **Bread2B (HOGent/UGent)** — the juridical deliverable was located and
+downloaded but its text layer would not extract, and the volume deliverable was not located at all:
+a retrieval problem of the same kind as F-005.
+
+**Leads that need a person, not a search** — and therefore deliberately not entered as candidate
+rows: Belorta (NDA, with Nathan), REO, REJUICE, BCZ-CBL, Fenavian. BCZ does publish processed-milk
+volumes (4,9 bn l BE, 2023), a clean `denominator` for the whey question F-003 raises, but no
+residual tonnage.
+
+**Result.** All twelve gaps now carry at least one concrete candidate; 11 of 29 candidates were
+opened and read, 5 are `listed`, 12 `named`, 1 `absent`. **Only three gaps have a `direct` candidate
+that is public and merely needs fetching** (VBT, Comeos S067, the Bread2B volume report). Everything
+else runs through a data request or a derivation — which is the honest headline of the round, and the
+reason the `source_class` column had to exist before the list could be read correctly.
 ### 2026-09-09 — the gap list becomes derived, and the hand-maintained records are retired
 
 **The gap list stopped being a document and became an output.** It had been hand-maintained in

@@ -19,6 +19,7 @@ register/
   destination_index.csv              where each source keeps its destination/route volumes
   CLAUDE.md                          the extraction protocol (v2.6) — the rulebook
   log.md                             the per-session record
+  SOURCE_HUNT_VOLUMES.md             the volume source hunt (F-003) — round 1 worklist
   README.md                          this file
   archive/  inbox/                   verified source PDFs (gitignored)
   dictionaries/                      the three binding vocabularies
@@ -100,6 +101,7 @@ Both in `crosswalks/`, `;`-delimited with a UTF-8 BOM, filled in Excel.
 | Sheet | What it is |
 |---|---|
 | `aggregate_coverage.csv` | 239 rows, **0 blank decisions** — what each `AGGREGAAT` row totals, which parent it attaches to, and whether competing values are variants or a `component_set`. The overview reads this on every build. |
+| `VOLUME_SOURCE_CANDIDATES.csv` | 29 rows, **all decisions blank** — the volume source hunt's candidates, one row per (gap × candidate), anchored on place × chain stage + claim ids because the derived gap rows renumber on every run. Its `source_class` column says whether a candidate can become a claim at all: only `direct` can. Written up in `SOURCE_HUNT_VOLUMES.md`. |
 | ~~`GAP_LIST.csv`~~ | **Retired 2026-09-09** to `migrations/GAP_LIST_retired_2026-09-09.csv`. It was hand-maintained, so each round edited the previous version. The gap list is now **derived** by `tools/make_gap_list.js`; the method is written up in `deliverables/README.md`. |
 
 `HIDDEN_STREAMS.csv` appears here only while a screen is open: regenerate it with
