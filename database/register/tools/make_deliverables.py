@@ -176,7 +176,8 @@ def gaps():
                  "--json build/gaps_derived.json")
     src = json.load(io.open(GAPSRC, encoding="utf-8"))
     rows = _gaprows(src)
-    total = sum(r["ownGap"] for _, r in rows)
+    total = (sum(r["ownGap"] for _, r in rows)
+             + sum(f["t"] for f in src.get("findings", []) if f["kind"] == "additive"))
 
     wb = Workbook(); ws = wb.active; ws.title = "Gaps"
     ws["A1"] = "BIOLOOP — waar de data massa beweert die geen selecteerbare stroom dekt"
@@ -207,9 +208,10 @@ def gaps():
     for i, (depth, r) in enumerate(rows, 1):
         ctx = r.get("unplaced", [])
         claims = ", ".join(c["id"] for c in (r.get("claims") or [])[:6])
+        what = r["what"] + (("   —   " + r["note"]) if r.get("note") else "")
         ws.append([i, ("      " * depth) + r["place"], r["stage"], r["family"],
                    r["asserted"], r["reached"], r["ownGap"],
-                   r["what"], r["close"], claims])
+                   what, r["close"], claims])
         j = ws.max_row
         ws.cell(j, 2).font = Font(bold=depth == 0)
         for c in range(1, len(hdr) + 1):
@@ -232,6 +234,24 @@ def gaps():
                 cell.font = Font(size=10, color="FF454A41")
                 cell.alignment = Alignment(wrap_text=c == 2, vertical="top")
                 if c == 7: cell.number_format = "#.##0"
+    # Screened findings from the unallocatable aggregates. `nested` names part of a residual the
+    # list already counts, so it adds detail and never tonnage; `additive` is mass no row carries.
+    for fnd in src.get("findings", []):
+        ws.append([])
+        add = fnd["kind"] == "additive"
+        ws.append(["", "[%s] %s" % (fnd["id"], fnd["place"]), fnd["stage"], fnd["family"],
+                   "", "", fnd["t"],
+                   ("TELT MEE — " if add else "GENEST, telt niet mee — ") + fnd["what"],
+                   fnd["close"], fnd["claims"]])
+        j = ws.max_row
+        ws.cell(j, 2).font = Font(bold=True)
+        for c in range(1, len(hdr) + 1):
+            cell = ws.cell(j, c)
+            cell.alignment = Alignment(wrap_text=c in (2, 8, 9, 10), vertical="top")
+            cell.border = Border(top=Side(style="medium", color="FF3D6B4E"))
+            if c == 7: cell.number_format = "#.##0"
+        ws.cell(j, 7).font = Font(bold=True)
+        ws.row_dimensions[j].height = 76
     autosize(ws, [4, 40, 26, 14, 13, 13, 13, 52, 52, 22])
     out = OUT / ("BIOLOOP_gap_list_%s.xlsx" % TODAY); wb.save(out)
     print("wrote", out.name, "-", len(rows), "gap rows,",
@@ -288,6 +308,7 @@ def html_page(title, sub, note, head, body_rows, name):
 
 
 def gaps_html(src, rows, total):
+    total = total + sum(f["t"] for f in src.get("findings", []) if f["kind"] == "additive")
     body = []
     for i, (depth, r) in enumerate(rows, 1):
         body.append(
@@ -295,7 +316,8 @@ def gaps_html(src, rows, total):
             "<td class=n>%s</td><td class='n gapn'>%s</td><td>%s</td><td>%s</td></tr>"
             % (depth, _esc(r["place"]), _esc(r["stage"]), _esc(r["family"]),
                _n(r["asserted"]), _n(r["reached"]), _n(r["ownGap"]),
-               _esc(r["what"]), _esc(r["close"])))
+               _esc(r["what"]) + (("<br><b>" + _esc(r["note"]) + "</b>") if r.get("note") else ""),
+               _esc(r["close"])))
         for u in r.get("unplaced", []):
             body.append("<tr class='sub d%d'><td colspan=4>~ %s <span class=tag>%s</span>%s</td>"
                         "<td class=n></td><td class=n>%s</td>"
@@ -303,6 +325,14 @@ def gaps_html(src, rows, total):
                         % (depth + 1, _esc(u["name"]), _esc(u["id"]),
                            " <span class=tag>parallelle telling</span>" if u.get("parallel") else "",
                            _n(u["v"])))
+    for fnd in src.get("findings", []):
+        add = fnd["kind"] == "additive"
+        body.append(
+            "<tr><td class=b>[%s] %s</td><td>%s</td><td>%s</td><td class=n></td><td class=n></td>"
+            "<td class='n gapn'>%s</td><td><b>%s</b> %s</td><td>%s</td></tr>"
+            % (_esc(fnd["id"]), _esc(fnd["place"]), _esc(fnd["stage"]), _esc(fnd["family"]),
+               _n(fnd["t"]), "TELT MEE" if add else "GENEST — telt niet mee",
+               _esc(fnd["what"]), _esc(fnd["close"])))
     return html_page(
         "BIOLOOP — gaplijst",
         "%s t/jaar over %d plekken · afgeleid uit de stroomselectie: per plek het grootste totaal "

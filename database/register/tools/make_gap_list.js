@@ -100,6 +100,57 @@ function reachedAt(node, stage) {
     .reduce((a, x) => a + ((x.repAgg[stage] || {}).display || 0), 0);
 }
 
+/* ---- reviewer-confirmed additions from the unallocated screening -----------------------------
+ * An unallocatable aggregate can never enter the arithmetic - its 0% is structural. But screening
+ * them one by one (tools/screen_unallocated.js, then read by hand) does turn up mass the
+ * arithmetic cannot see. Those findings enter HERE, explicitly, so the list stays complete
+ * without the arithmetic being bent to produce them.
+ *
+ * Two kinds, and the difference decides whether the total moves:
+ *   nested    - names part of a residual that is ALREADY counted. Adds detail, never tonnage.
+ *   additive  - mass no row in the list carries, because the aggregate that asserts it cannot be
+ *               placed and the branch it belongs to has no node at all. Adds to the total.
+ *
+ * Reviewer decisions, 2026-09-09: C-094/C-195 nested under the food-industry residual, since that
+ * is what they are part of; voedergewassen added; industriele gewassen (C-424/C-243, ~57.000 t)
+ * deliberately left out as too small to act on.
+ */
+const FINDINGS = [
+  { id: "S1", kind: "nested", family: "voedselverlies-school", stage: "Voedingsindustrie",
+    under: "Reststroom", t: 621063, claims: "C-094 (2023), C-195 (2020)",
+    place: "Aardappel-, groente- en fruitverwerking",
+    what: "Van het onverklaarde deel van deze schakel is dit het grootste benoemde stuk. "
+        + "Aardappelverwerking heeft in deze school geen enkele reststroom - de twee MONBIO-rijen "
+        + "zijn Prodcom-cijfers voor gedroogde-aardappelmeel, een product en een andere school. "
+        + "FRUITVERWERKING heeft nul rijen in het hele register. ILVO 239 helpt niet: die monitor "
+        + "heeft geen enkele rij op de voedingsindustrie-schakel.",
+    close: "een aardappelverwerkingsbron die per processtroom snijdt (schil, stoomschil, vezel, "
+         + "eiwit) en een fruitverwerkingsbron (perskoek, schillen, pitten)" },
+  { id: "S2", kind: "additive", family: "productieresidu-school", stage: "Primaire productie",
+    t: 101780, claims: "C-242 (MONBIO 4.0), C-423 (MONBIO 3.0)",
+    place: "Plantaardig - akkerbouw ¦ Voedergewassen",
+    what: "MONBIO stelt 101.780 t nevenstromen en productieresiduen van voedergewassen, en er "
+        + "staat GEEN ENKELE reststroomrij onder, in geen enkele bron. De gewassen zelf zijn "
+        + "groot: voedermais 5.395.992, gras en hooi 3.939.458, voederbiet 360.547 t productie. "
+        + "Onzichtbaar voor de rekensom omdat het aggregaat niet plaatsbaar is - er bestaat geen "
+        + "Voedergewassen-knoop aan de reststroomkant om iets tegen af te rekenen.",
+    close: "een bron die de residuen van voedermais, gras en voederbiet apart rapporteert; let op "
+         + "dat deze gewassen als hele plant geoogst worden, dus het residu wordt zelden apart "
+         + "gemeten" },
+];
+
+/* Annotations that a reviewer asked for on a specific place: what the corpus DOES know about a
+ * gap, even when it sits in the other school and therefore cannot reduce it. */
+const PLACE_NOTES = {
+  "Reststroom ¦ Varia ¦ Dranken": "Bostel is de enige benoemde drankenreststroom in het corpus: "
+    + "134.653 t (MONBIO 4.0) / 113.637 t (3.0), oftewel 36% van dit cijfer. Het staat in de "
+    + "andere school, dus het verkleint dit gat niet rekenkundig - maar het is wel verreweg het "
+    + "grootste identificeerbare deel ervan, en plausibel naast 1,7-1,8 Mt Vlaamse bierproductie. "
+    + "De overige ~244.000 t heeft geen enkele benoemde stroom: sapperskoek, koffiedik, gist en "
+    + "trub, frisdrankresidu. Appelsap (34.219 t) en koffie (36.953 t) staan wel als productie in "
+    + "het register, hun residu niet.",
+};
+
 // ---- collect asserted / reached per (family, place, stage) -----------------------------------
 const fams = new Map();
 EDS.forEach(ed => {
@@ -317,8 +368,21 @@ fams.forEach(F => {
     });
   });
 });
-const tot = rows.reduce((a, p) => a + p.ownGap, 0);
-console.log(`\n${rows.length} gaprijen boven de drempel, samen ${fmt(tot)} t/jaar`);
+console.log("\n" + "=".repeat(104));
+console.log("GESCREENDE BEVINDINGEN - uit de onplaatsbare aggregaten, door de reviewer bevestigd");
+console.log("=".repeat(104));
+FINDINGS.forEach(f => {
+  console.log(`\n  [${f.id}] ${f.kind === "additive" ? "TELT MEE" : "genest, telt NIET mee"}  `
+    + `${fmt(f.t)} t   ${f.place}`);
+  console.log(`       ${f.family} / ${f.stage}   claims: ${f.claims}`);
+  console.log(`       ${f.what.slice(0, 92)}`);
+});
+
+const tot = rows.reduce((a, p) => a + p.ownGap, 0)
+  + FINDINGS.filter(f => f.kind === "additive").reduce((a, f) => a + f.t, 0);
+console.log(`\n${rows.length} gaprijen + ${FINDINGS.length} gescreende bevindingen`
+  + ` (waarvan ${FINDINGS.filter(f => f.kind === "additive").length} meetellend)`
+  + `, samen ${fmt(tot)} t/jaar`);
 
 const jf = process.argv[process.argv.indexOf("--json") + 1];
 if (process.argv.includes("--json") && jf) {
@@ -334,6 +398,7 @@ if (process.argv.includes("--json") && jf) {
         } : null;
       }).filter(Boolean)
     })),
+    findings: FINDINGS,
     rows: rows.map(p => ({
       family: p.family, key: p.key, parentKey: p.parentKey, stage: p.stage,
       place: p.depth === 1 ? "(geen commoditytak)" : p.path.replace("Reststroom ¦ ", ""),
@@ -342,6 +407,7 @@ if (process.argv.includes("--json") && jf) {
       assertedEd: p.assertedEd, reachedEd: p.reachedEd, hybrid: !!p.hybrid,
       sameSourceGap: p.sameSourceGap, sameSourceEd: p.sameSourceEd,
       claims: p.claims, unplaced: p.unplaced || [],
+      note: PLACE_NOTES[p.path] || null,
       what: p.what, close: p.close
     }))
   };

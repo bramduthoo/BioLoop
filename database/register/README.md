@@ -102,7 +102,7 @@ Both in `crosswalks/`, `;`-delimited with a UTF-8 BOM, filled in Excel.
 | Sheet | What it is |
 |---|---|
 | `aggregate_coverage.csv` | 242 rows, **0 blank decisions** — what each `AGGREGAAT` row totals, which parent it attaches to, and whether competing values are variants or a `component_set`. The overview reads this on every build. |
-| `GAP_LIST.csv` | 15 sectors/products where a large total exists and the detail beneath it was never published. The worklist for hunting new sources — not a decision sheet. |
+| ~~`GAP_LIST.csv`~~ | **Retired 2026-09-09** to `migrations/GAP_LIST_retired_2026-09-09.csv`. It was hand-maintained, so each round edited the previous version. The gap list is now **derived** by `tools/make_gap_list.js`; the method is written up in `deliverables/README.md`. |
 
 `HIDDEN_STREAMS.csv` appears here only while a screen is open: regenerate it with
 `find_hidden_streams.py` when a new source is extracted, decide its rows, apply, then archive it to

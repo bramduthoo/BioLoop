@@ -99,9 +99,11 @@ function selfOf(node, ed, stages, k) {
   return sts.reduce((a, st) => a + qtValue(per[st], k), 0);
 }
 
-// which GAP_LIST entry, if any, already names this claim
+// Which entry of the RETIRED hand-maintained gap list named this claim. The G-01..G-19 ids are
+// legacy as of 2026-09-09 - the gap list is now derived by tools/make_gap_list.js - but the
+// mapping is still useful context when re-reading an old note. Absent file degrades to {}.
 function readGaps() {
-  const f = path.join(ROOT, "crosswalks", "GAP_LIST.csv");
+  const f = path.join(ROOT, "migrations", "GAP_LIST_retired_2026-09-09.csv");
   if (!fs.existsSync(f)) return {};
   const raw = fs.readFileSync(f, "utf8").replace(/^﻿/, "");
   const out = {};
