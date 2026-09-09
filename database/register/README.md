@@ -195,10 +195,17 @@ getting it wrong first:
   apart by construction and cannot cross-check each other, so letting MONBIO's processing detail
   cancel OVAM's sector lump would erase a real gap by comparing two different things.
 
-Where a stage's residual belongs to no commodity branch, the sector rows that *name* it are listed
-beneath it — otherwise the largest gap in the corpus reads as "unattributable", which is true and
-useless. Rows marked `PARALLELLE TELLING` are a second accounting of the same material and are
-never part of a sum.
+Where a stage's residual belongs to no commodity branch, the sector rows the source gives for it are
+listed beneath as **context, never as its composition** — because the only rows that cover it are
+**unallocatable by design**, and *an unallocatable aggregate's 0% coverage is a structural artefact,
+not a measurement*. `C-094` mixes an L4 (`Aardappel`, under `Aardappelen en knolgewassen`) with two
+L3s (`Groenten`, `Fruit`) across two L2 groups, so it has no parent row at one level and part of its
+mass is reachable in a different branch entirely; `crosswalks/aggregate_coverage.csv` records this on
+the rows themselves (*"unallocatable by design"*, *"the coverage % is a floor"*). Summing such rows
+against a residual compares an artefact with a figure — the first version of this list did exactly
+that. They are kept because they are the only thing that *names* the largest gap in the corpus, and
+they are labelled `structureel onplaatsbaar — context, geen meting`. Rows marked
+`parallelle telling` are a second accounting of the same material. **Neither kind is ever summed.**
 
 **A previous version of this list was hand-written in `deliverables/gaps.json`.** That file has been
 deleted. A gap list must fall out of the data, or it silently preserves whatever the last one
