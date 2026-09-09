@@ -56,9 +56,21 @@ const MIN = argMin > -1 ? Number(process.argv[argMin + 1]) : 50000;
 const walk = (n, o) => { o.push(n); (n.children || []).forEach(c => walk(c, o)); return o; };
 const fmt = n => Math.round(n || 0).toLocaleString("de-DE");
 
-// Editions of one monitor measure the same thing; different monitors do not. See rule 2 above.
-const FAMILY = e => e.startsWith("OVAM") ? "OVAM-monitor"
-  : e.startsWith("MONBIO") ? "MONBIO"
+// A family is sources that measure THE SAME THING, not sources with the same name. Grouping by
+// name prefix left ILVO 239 and GeNeSys as singletons, so OVAM's `Groenten openlucht` lump
+// (291.180 t, no L4 rows of its own) read as a gap even though ILVO 239 resolves it with 36 named
+// rows - a scoping artefact reported as missing data (reviewer, 2026-09-09).
+//
+// The register already settled which school each source belongs to (log.md, 2026-09-03):
+//   "OVAM 2020 (330.089) and ILVO 239 2015 (282.821) agree within 17% on tuinbouw, as they should
+//    - ILVO 239 IS that monitor's agriculture chapter worked out"
+//   "GeNeSys (894.535) against ILVO 239 (282.821) on horticulture, 3,2x, same institute"
+// So the split is on WHAT COUNTS AS A RESIDUAL, exactly as state.md says of MONBIO vs OVAM:
+//   voedselverlies    - food-linked losses only        OVAM monitors + ILVO 239
+//   productieresidu   - everything that arises         MONBIO + GeNeSys (straw, leaf, oogstresten)
+// Cross-family cancellation stays forbidden; within a family it is the same measurement twice.
+const FAMILY = e => (e.startsWith("OVAM") || e.startsWith("ILVO 239")) ? "voedselverlies-school"
+  : (e.startsWith("MONBIO") || e.startsWith("GeNeSys")) ? "productieresidu-school"
   : e;
 
 // the registry's own words about each aggregate - why a row is unplaceable travels with it
@@ -159,6 +171,10 @@ EDS.forEach(ed => {
   (r.unallocated || []).forEach(u => {
     const c = u.claim;
     if (c.role !== "Reststroom" || !(c.v > 0)) return;
+    // A row the REGISTRY shelved (allocatable = no, so prep_data blanks its parent) is a decision
+    // already taken - a duplicate measurement, a parked scope variant, a parallel accounting. It is
+    // not a structural placement failure and must not be offered as context for a gap.
+    if (/^no row "" in the tree/.test(u.reason || "")) return;
     const key = c.st + " @@ " + (c.name || "").replace("AGGREGAAT - ", "");
     const cur = F.unplaced.get(key);
     if (!cur || c.v > cur.v)
