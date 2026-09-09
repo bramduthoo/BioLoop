@@ -1,0 +1,555 @@
+<title>BioMobi Compositiecontrole</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+:root{
+  --ground:#F6F8F4; --surface:#FFFFFF; --surface-2:#EFF2EC;
+  --ink:#1A201B; --ink-2:#4A544B; --muted:#78836F;
+  --line:#DCE2D6; --line-2:#C6CFBE;
+  --accent:#2B5F8A; --accent-soft:#E3EDF5; --accent-ink:#1E4666;
+  --ok:#3A6B4A; --ok-soft:#E4EFE5;
+  --warn:#8F6208; --warn-soft:#F6EDD9;
+  --alert:#9C3823; --alert-soft:#F7E4DE;
+  --idle:#6E7A75; --idle-soft:#E8ECE7;
+  --shadow:0 1px 2px rgba(26,32,27,.05), 0 8px 24px -16px rgba(26,32,27,.35);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#141814; --surface:#1B211C; --surface-2:#222922;
+    --ink:#E8EDE6; --ink-2:#B6C0B4; --muted:#8A958695;
+    --muted:#909A8C; --line:#2E362E; --line-2:#3C463C;
+    --accent:#7BB3DD; --accent-soft:#1D2C38; --accent-ink:#A9CDE8;
+    --ok:#7FBE93; --ok-soft:#1C2A20;
+    --warn:#D6A94A; --warn-soft:#2E2716;
+    --alert:#E08872; --alert-soft:#33201B;
+    --idle:#95A099; --idle-soft:#242B25;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#141814; --surface:#1B211C; --surface-2:#222922;
+  --ink:#E8EDE6; --ink-2:#B6C0B4; --muted:#909A8C;
+  --line:#2E362E; --line-2:#3C463C;
+  --accent:#7BB3DD; --accent-soft:#1D2C38; --accent-ink:#A9CDE8;
+  --ok:#7FBE93; --ok-soft:#1C2A20;
+  --warn:#D6A94A; --warn-soft:#2E2716;
+  --alert:#E08872; --alert-soft:#33201B;
+  --idle:#95A099; --idle-soft:#242B25;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:"Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+  font-size:15px; line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,.disp{font-family:Archivo, ui-sans-serif, system-ui, sans-serif; text-wrap:balance}
+code,.mono,.num{font-family:"IBM Plex Mono", ui-monospace, monospace}
+.num{font-variant-numeric:tabular-nums}
+a{color:var(--accent-ink)}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:3px}
+
+/* ---------- shell ---------- */
+.wrap{max-width:1280px; margin:0 auto; padding:0 24px 80px}
+header.top{
+  border-bottom:1px solid var(--line); background:var(--surface);
+  padding:28px 0 22px; margin-bottom:26px;
+}
+header.top .wrap{padding-bottom:0}
+.eyebrow{
+  font-family:"IBM Plex Mono", monospace; font-size:11px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--muted); margin:0 0 8px;
+}
+h1{font-size:29px; font-weight:700; letter-spacing:-.015em; margin:0 0 8px}
+.lede{max-width:66ch; color:var(--ink-2); margin:0}
+.lede strong{color:var(--ink)}
+
+/* ---------- summary ---------- */
+.tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:1px;
+  background:var(--line); border:1px solid var(--line); border-radius:8px; overflow:hidden; margin:22px 0 0}
+.tile{background:var(--surface); padding:13px 15px}
+.tile .k{font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-family:"IBM Plex Mono",monospace}
+.tile .v{font-family:Archivo,sans-serif; font-weight:700; font-size:24px; letter-spacing:-.02em; margin-top:2px}
+.tile .v small{font-size:13px; font-weight:500; color:var(--muted); letter-spacing:0}
+
+/* ---------- layout ---------- */
+.cols{display:grid; grid-template-columns:236px minmax(0,1fr); gap:34px; align-items:start}
+@media (max-width:900px){ .cols{grid-template-columns:1fr; gap:22px} nav.rail{position:static !important} }
+
+nav.rail{position:sticky; top:16px; max-height:calc(100vh - 32px); overflow:auto}
+nav.rail h2{font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted);
+  font-family:"IBM Plex Mono",monospace; margin:0 0 8px; font-weight:500}
+.railitem{display:flex; gap:8px; align-items:baseline; padding:5px 8px; border-radius:5px;
+  text-decoration:none; color:var(--ink-2); font-size:13px}
+.railitem:hover{background:var(--surface-2); color:var(--ink)}
+.railitem .dot{width:7px; height:7px; border-radius:50%; flex:none; transform:translateY(-1px)}
+.railitem .rk{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--muted); min-width:14px}
+.dot.s-data{background:var(--ok)} .dot.s-thin{background:var(--warn)}
+.dot.s-none{background:var(--alert)} .dot.s-blocked{background:var(--idle)}
+
+/* ---------- controls ---------- */
+.controls{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:0 0 20px}
+.chipbtn{
+  font:inherit; font-size:13px; cursor:pointer; border:1px solid var(--line-2);
+  background:var(--surface); color:var(--ink-2); padding:5px 11px; border-radius:999px;
+}
+.chipbtn[aria-pressed="true"]{background:var(--accent-soft); border-color:var(--accent); color:var(--accent-ink); font-weight:600}
+.controls .note{font-size:12.5px; color:var(--muted); margin-left:auto}
+
+/* ---------- source cards ---------- */
+.srcgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:14px; margin:0 0 30px}
+.src{border:1px solid var(--line); border-radius:8px; background:var(--surface); padding:15px 16px}
+.src h3{margin:0 0 3px; font-size:15.5px; font-weight:600}
+.src .meta{font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--muted); margin-bottom:9px; word-break:break-all}
+.src p{margin:0; font-size:13.5px; color:var(--ink-2)}
+.src .kindtag{display:inline-block; font-size:10.5px; letter-spacing:.07em; text-transform:uppercase;
+  font-family:"IBM Plex Mono",monospace; padding:2px 7px; border-radius:4px; margin-bottom:7px}
+
+/* ---------- stream blocks ---------- */
+section.stream{border:1px solid var(--line); border-radius:10px; background:var(--surface);
+  margin:0 0 18px; overflow:hidden; scroll-margin-top:16px}
+.sh{display:flex; flex-wrap:wrap; gap:10px 14px; align-items:baseline;
+  padding:14px 18px; border-bottom:1px solid var(--line); background:var(--surface-2)}
+.sh .rank{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--muted); font-weight:600}
+.sh .name{font-family:Archivo,sans-serif; font-weight:700; font-size:17px; letter-spacing:-.01em}
+.sh .code{font-family:"IBM Plex Mono",monospace; font-size:12.5px; color:var(--accent-ink);
+  background:var(--accent-soft); padding:1px 7px; border-radius:4px}
+.sh .tons{font-size:12.5px; color:var(--muted); margin-left:auto; font-variant-numeric:tabular-nums}
+.status{font-size:11px; letter-spacing:.06em; text-transform:uppercase; font-family:"IBM Plex Mono",monospace;
+  padding:2px 8px; border-radius:4px; font-weight:500}
+.st-data{background:var(--ok-soft); color:var(--ok)}
+.st-thin{background:var(--warn-soft); color:var(--warn)}
+.st-none{background:var(--alert-soft); color:var(--alert)}
+.st-blocked{background:var(--idle-soft); color:var(--idle)}
+
+.body{padding:15px 18px 18px}
+.variant{font-size:13px; color:var(--ink-2); margin:0 0 12px}
+.variant b{font-weight:600}
+.warnbox{border-left:3px solid var(--alert); background:var(--alert-soft); color:var(--ink);
+  padding:10px 13px; border-radius:0 5px 5px 0; font-size:13.5px; margin:0 0 14px}
+.warnbox .lbl{font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.07em;
+  text-transform:uppercase; color:var(--alert); display:block; margin-bottom:3px; font-weight:600}
+.emptybox{border-left:3px solid var(--idle); background:var(--idle-soft); padding:10px 13px;
+  border-radius:0 5px 5px 0; font-size:13.5px; color:var(--ink-2); margin:0 0 14px}
+
+.tablewrap{overflow-x:auto; border:1px solid var(--line); border-radius:6px}
+table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:660px}
+th{text-align:left; font-family:"IBM Plex Mono",monospace; font-weight:500; font-size:10.5px;
+  letter-spacing:.09em; text-transform:uppercase; color:var(--muted);
+  padding:8px 11px; border-bottom:1px solid var(--line-2); background:var(--surface-2); white-space:nowrap}
+td{padding:7px 11px; border-bottom:1px solid var(--line); vertical-align:top}
+tr:last-child td{border-bottom:0}
+tr.marked td{background:var(--alert-soft)}
+tr.rest td{color:var(--ink-2)}
+td.v{text-align:right; font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; white-space:nowrap}
+td.u,td.b{font-family:"IBM Plex Mono",monospace; font-size:12.5px; white-space:nowrap}
+td.p code{font-size:12px; color:var(--muted); display:block}
+.rng{color:var(--muted); font-size:12px}
+.pill{display:inline-block; font-size:10px; letter-spacing:.05em; text-transform:uppercase;
+  font-family:"IBM Plex Mono",monospace; padding:1px 6px; border-radius:3px; margin-left:5px; white-space:nowrap}
+.pill.pred{background:var(--warn-soft); color:var(--warn)}
+.pill.rest{background:var(--idle-soft); color:var(--idle)}
+.markbtn{font:inherit; font-size:11px; cursor:pointer; background:none; border:1px solid var(--line-2);
+  color:var(--muted); border-radius:4px; padding:1px 7px; white-space:nowrap}
+.markbtn:hover{border-color:var(--alert); color:var(--alert)}
+.markbtn[aria-pressed="true"]{background:var(--alert); border-color:var(--alert); color:#fff}
+
+/* ---------- remarks ---------- */
+.remark{margin-top:15px; border-top:1px dashed var(--line-2); padding-top:13px}
+.remark label{display:block; font-family:"IBM Plex Mono",monospace; font-size:10.5px;
+  letter-spacing:.09em; text-transform:uppercase; color:var(--muted); margin-bottom:6px}
+textarea{width:100%; min-height:64px; resize:vertical; font:inherit; font-size:13.5px;
+  color:var(--ink); background:var(--ground); border:1px solid var(--line-2);
+  border-radius:6px; padding:9px 11px}
+textarea::placeholder{color:var(--muted)}
+.remrow{display:flex; gap:10px; align-items:center; margin-top:8px; flex-wrap:wrap}
+.savebtn{font:inherit; font-size:13px; font-weight:600; cursor:pointer; border:1px solid var(--accent);
+  background:var(--accent); color:#fff; padding:5px 14px; border-radius:6px}
+.savebtn:disabled{opacity:.45; cursor:default}
+:root[data-theme="dark"] .savebtn, :root:not([data-theme="light"]) .savebtn{color:#0F1A22}
+@media (prefers-color-scheme: light){ :root:not([data-theme="dark"]) .savebtn{color:#fff} }
+.savestate{font-size:12.5px; color:var(--muted)}
+.savestate.err{color:var(--alert)}
+.offline{font-size:12.5px; color:var(--warn); background:var(--warn-soft);
+  border-radius:5px; padding:7px 11px; margin-top:8px}
+
+footer.foot{margin-top:34px; border-top:1px solid var(--line); padding-top:18px;
+  font-size:13px; color:var(--ink-2)}
+footer.foot h3{font-size:14px; margin:0 0 6px}
+footer.foot ol{margin:0; padding-left:20px}
+footer.foot li{margin-bottom:5px}
+@media (prefers-reduced-motion:no-preference){ .savestate{transition:opacity .2s} }
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">BioMobi &middot; fase 3 &middot; ronde 1 &middot; 2026-09-09</p>
+    <h1>Compositiecontrole &mdash; top 10 commodities</h1>
+    <p class="lede">Kandidaat-<code>property_measurement</code> rijen voor de <strong>16 objecten</strong> van de top 10 van de
+      stroomselectie. <strong>Niets hiervan staat in de database.</strong> Elke waarde is door een model van de bronpagina
+      overgeschreven, niet door een mens &mdash; deze pagina is er om dat na te lopen. Markeer een rij die fout is en laat per
+      stroom een opmerking na; ik lees ze terug voordat er iets geladen wordt.</p>
+    <div class="tiles" id="tiles"></div>
+  </div>
+</header>
+
+<div class="wrap">
+<div class="cols">
+  <nav class="rail" aria-label="Stromen">
+    <h2>Objecten</h2>
+    <div id="rail"></div>
+  </nav>
+
+  <main>
+    <h2 class="disp" style="font-size:15px;margin:0 0 11px;letter-spacing:.02em">De bronnen</h2>
+    <div class="srcgrid" id="srcs"></div>
+
+    <div class="controls">
+      <button class="chipbtn" id="f-rest" aria-pressed="true">Basis&#8209;herformuleringen verbergen</button>
+      <button class="chipbtn" id="f-pred" aria-pressed="false">Alleen voorspelde waarden</button>
+      <button class="chipbtn" id="f-mark" aria-pressed="false">Alleen gemarkeerde rijen</button>
+      <span class="note" id="rowcount"></span>
+    </div>
+
+    <div id="streams"></div>
+
+    <footer class="foot">
+      <h3>Waar dit op wacht</h3>
+      <ol>
+        <li><b>Jouw controle van deze cijfers.</b> Markeer wat fout is; ik corrigeer aan de bron, niet in de database.</li>
+        <li><b>Polarimetrisch vs enzymatisch zetmeel</b> &mdash; nu &eacute;&eacute;n parameter <code>starch</code> met de methode in
+          <code>notes</code>. Als jij vindt dat het twee parameters moeten zijn, zeg het hier.</li>
+        <li><b>De basis&#8209;herformuleringen.</b> Phyllis2 drukt elke bepaling af op drie basissen. Standaard houd ik de
+          <code>dry</code>&#8209;kolom (en vocht op <code>fresh</code>) en zet ik de rest op uitsluiten &mdash; zet de filter uit om te
+          zien wat er dan wegvalt.</li>
+        <li><b>De vier objecten zonder data</b> &mdash; twee zijn een echt gat, twee wachten op iets anders.</li>
+      </ol>
+    </footer>
+  </main>
+</div>
+</div>
+
+<script>
+const DATA = __DATA__;
+
+const $ = (s, r) => (r || document).querySelector(s);
+const el = (t, cls, txt) => { const n = document.createElement(t); if (cls) n.className = cls; if (txt != null) n.textContent = txt; return n; };
+const nl = n => Number(n).toLocaleString('nl-BE');
+
+/* ---------- summary tiles ---------- */
+(function tiles(){
+  const rows = DATA.rows;
+  const shown = rows.filter(r => r.restatement === 'no');
+  const objs = new Set(rows.map(r => r.stream));
+  const t = [
+    ['Objecten in ronde', DATA.streams.length, ''],
+    ['Met data', objs.size, 'van 16'],
+    ['Kandidaatwaarden', shown.length, 'primaire basis'],
+    ['Herformuleringen', rows.length - shown.length, 'standaard verborgen'],
+    ['Voorspeld door de bron', rows.filter(r => r.predicted === 'yes').length, 'asterisk'],
+    ['Zonder bron', DATA.nodata.length, 'objecten']
+  ];
+  const box = $('#tiles');
+  t.forEach(([k, v, s]) => {
+    const d = el('div', 'tile');
+    d.append(el('div', 'k', k));
+    const val = el('div', 'v'); val.append(document.createTextNode(nl(v)));
+    if (s) { const sm = el('small', null, ' ' + s); val.append(sm); }
+    d.append(val); box.append(d);
+  });
+})();
+
+/* ---------- sources ---------- */
+(function sources(){
+  const box = $('#srcs');
+  const tone = { 'compilation': ['var(--warn-soft)', 'var(--warn)'],
+                 'primary-indexed': ['var(--ok-soft)', 'var(--ok)'],
+                 'primary': ['var(--accent-soft)', 'var(--accent-ink)'] };
+  DATA.sources.forEach(s => {
+    const c = el('div', 'src');
+    const tag = el('span', 'kindtag', s.kind);
+    const [bg, fg] = tone[s.kind] || ['var(--idle-soft)', 'var(--idle)'];
+    tag.style.background = bg; tag.style.color = fg;
+    c.append(tag);
+    c.append(el('h3', null, s.short));
+    const m = el('div', 'meta'); m.append(document.createTextNode(s.key + ' · '));
+    const a = el('a', null, s.url); a.href = s.url; a.target = '_blank'; a.rel = 'noopener';
+    m.append(a); c.append(m);
+    c.append(el('p', null, s.notes));
+    box.append(c);
+  });
+})();
+
+/* ---------- streams ---------- */
+const byStream = {};
+DATA.rows.forEach(r => { (byStream[r.stream] = byStream[r.stream] || []).push(r); });
+const noData = {}; DATA.nodata.forEach(n => noData[n.stream] = n);
+const marks = {};      // stream -> {rowKey: true}
+const remarkText = {}; // stream -> string
+
+const STATUS = {
+  data: ['st-data', 's-data', 'data'],
+  thin: ['st-thin', 's-thin', 'dun'],
+  none: ['st-none', 's-none', 'geen bron'],
+  blocked: ['st-blocked', 's-blocked', 'geblokkeerd'],
+  pending: ['st-thin', 's-thin', 'bron gevonden']
+};
+
+function statusOf(s){
+  const nd = noData[s.code];
+  if (nd) return nd.state === 'blocked' ? 'blocked' : (nd.state === 'no source' ? 'none' : 'pending');
+  const n = (byStream[s.code] || []).filter(r => r.restatement === 'no').length;
+  return n < 5 ? 'thin' : 'data';
+}
+
+/* rail */
+(function rail(){
+  const box = $('#rail');
+  DATA.streams.forEach(s => {
+    const a = el('a', 'railitem'); a.href = '#s-' + s.code;
+    const st = statusOf(s);
+    const d = el('span', 'dot ' + STATUS[st][1]); a.append(d);
+    a.append(el('span', 'rk', s.rank));
+    a.append(el('span', null, s.name));
+    box.append(a);
+  });
+})();
+
+function rowKey(r, i){ return r.parameter + '|' + r.basis + '|' + r.source_ref + '|' + i; }
+
+function buildTable(code, rows){
+  const wrap = el('div', 'tablewrap');
+  const tb = el('table');
+  const thead = el('thead'); const htr = el('tr');
+  ['Parameter', 'Waarde', 'Spreiding', 'Eenheid', 'Basis', 'n', 'Bron', ''].forEach(h => htr.append(el('th', null, h)));
+  thead.append(htr); tb.append(thead);
+  const body = el('tbody'); tb.append(body);
+  wrap.append(tb);
+
+  rows.forEach((r, i) => {
+    const key = rowKey(r, i);
+    const tr = el('tr');
+    tr.dataset.key = key;
+    tr.dataset.pred = r.predicted;
+    tr.dataset.rest = r.restatement;
+    if (r.restatement === 'yes') tr.classList.add('rest');
+
+    const p = el('td', 'p');
+    p.append(document.createTextNode(r.parameter_label));
+    const c = el('code', null, r.parameter); p.append(c);
+    if (r.notes) { const nsm = el('div'); nsm.style.cssText = 'font-size:12px;color:var(--muted);margin-top:2px'; nsm.textContent = r.notes; p.append(nsm); }
+    tr.append(p);
+
+    const v = el('td', 'v');
+    v.append(document.createTextNode(r.value));
+    if (r.predicted === 'yes') v.append(el('span', 'pill pred', 'voorspeld'));
+    if (r.restatement === 'yes') v.append(el('span', 'pill rest', 'herformul.'));
+    tr.append(v);
+
+    const rg = el('td', 'v');
+    let rangeTxt = '';
+    if (r.min || r.max) rangeTxt = (r.min || '?') + '–' + (r.max || '?');
+    if (r.sd) rangeTxt += (rangeTxt ? '  ' : '') + '±' + r.sd;
+    rg.append(el('span', 'rng', rangeTxt || '—'));
+    tr.append(rg);
+
+    tr.append(el('td', 'u', r.unit));
+    tr.append(el('td', 'b', r.basis));
+    const nn = el('td', 'v'); nn.textContent = r.n || '—'; tr.append(nn);
+    const src = el('td'); src.style.cssText = 'font-size:12px;color:var(--muted);white-space:nowrap';
+    src.textContent = r.source_ref; tr.append(src);
+
+    const mk = el('td');
+    const btn = el('button', 'markbtn', 'fout');
+    btn.type = 'button';
+    btn.setAttribute('aria-pressed', 'false');
+    btn.title = 'Markeer deze rij als fout overgeschreven of onbruikbaar';
+    btn.addEventListener('click', () => toggleMark(code, key, btn, tr));
+    mk.append(btn); tr.append(mk);
+
+    body.append(tr);
+  });
+  return wrap;
+}
+
+(function streams(){
+  const box = $('#streams');
+  DATA.streams.forEach(s => {
+    const sec = el('section', 'stream'); sec.id = 's-' + s.code;
+    const h = el('div', 'sh');
+    h.append(el('span', 'rank', '#' + s.rank));
+    h.append(el('span', 'name', s.name));
+    h.append(el('span', 'code', s.code));
+    const st = statusOf(s);
+    h.append(el('span', 'status ' + STATUS[st][0], STATUS[st][2]));
+    h.append(el('span', 'tons', s.commodity + ' · ' + nl(s.tons) + ' t/jr'));
+    sec.append(h);
+
+    const b = el('div', 'body');
+    const rows = byStream[s.code] || [];
+    const nd = noData[s.code];
+
+    if (nd) {
+      const box2 = el('div', nd.state === 'blocked' ? 'emptybox' : 'warnbox');
+      if (nd.state !== 'blocked') {
+        const l = el('span', 'lbl', nd.state + (nd.raised ? ' · ' + nd.raised : ''));
+        box2.append(l);
+      } else {
+        const l = el('span', 'lbl', 'geblokkeerd · ' + nd.raised);
+        l.style.color = 'var(--idle)'; box2.append(l);
+      }
+      box2.append(document.createTextNode(nd.why));
+      b.append(box2);
+    }
+
+    if (rows.length) {
+      const variants = [...new Set(rows.map(r => r.variant))];
+      const vp = el('p', 'variant');
+      vp.append(el('b', null, 'Wat de bron meet: '));
+      vp.append(document.createTextNode(variants.join(' · ')));
+      b.append(vp);
+
+      const flags = [...new Set(rows.map(r => r.flag).filter(Boolean))];
+      flags.forEach(f => {
+        const w = el('div', 'warnbox');
+        w.append(el('span', 'lbl', 'Let op'));
+        w.append(document.createTextNode(f));
+        b.append(w);
+      });
+
+      b.append(buildTable(s.code, rows));
+    }
+
+    const rm = el('div', 'remark');
+    const lab = el('label', null, 'Opmerking bij ' + s.code);
+    lab.htmlFor = 'ta-' + s.code; rm.append(lab);
+    const ta = el('textarea'); ta.id = 'ta-' + s.code;
+    ta.placeholder = 'Wat klopt hier niet, of wat moet er anders? Bv. verkeerde variant, verkeerde basis, deze bron niet gebruiken, splits deze parameter…';
+    rm.append(ta);
+    const row = el('div', 'remrow');
+    const btn = el('button', 'savebtn', 'Opmerking bewaren'); btn.type = 'button';
+    const state = el('span', 'savestate', '');
+    row.append(btn); row.append(state); rm.append(row);
+    btn.addEventListener('click', () => saveRemark(s.code, ta, btn, state));
+    b.append(rm);
+
+    sec.append(b);
+    box.append(sec);
+  });
+  applyFilters();
+})();
+
+/* ---------- filters ---------- */
+function applyFilters(){
+  const hideRest = $('#f-rest').getAttribute('aria-pressed') === 'true';
+  const onlyPred = $('#f-pred').getAttribute('aria-pressed') === 'true';
+  const onlyMark = $('#f-mark').getAttribute('aria-pressed') === 'true';
+  let shown = 0;
+  document.querySelectorAll('section.stream').forEach(sec => {
+    const code = sec.id.slice(2);
+    let any = false;
+    sec.querySelectorAll('tbody tr').forEach(tr => {
+      let ok = true;
+      if (hideRest && tr.dataset.rest === 'yes') ok = false;
+      if (onlyPred && tr.dataset.pred !== 'yes') ok = false;
+      if (onlyMark && !(marks[code] && marks[code][tr.dataset.key])) ok = false;
+      tr.hidden = !ok;
+      if (ok) { any = true; shown++; }
+    });
+    const w = sec.querySelector('.tablewrap');
+    if (w) w.hidden = !any;
+  });
+  $('#rowcount').textContent = nl(shown) + ' rijen zichtbaar van ' + nl(DATA.rows.length);
+}
+['f-rest', 'f-pred', 'f-mark'].forEach(id => {
+  $('#' + id).addEventListener('click', e => {
+    const b = e.currentTarget;
+    b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+    applyFilters();
+  });
+});
+
+/* ---------- persistence ---------- */
+let DB = null;
+let dbReady = false;
+
+function offlineNote(msg){
+  document.querySelectorAll('.remark').forEach(r => {
+    if (r.querySelector('.offline')) return;
+    const n = el('div', 'offline', msg); r.append(n);
+  });
+}
+
+(async function initDb(){
+  try { DB = await window.claude.use('db'); } catch (e) { DB = null; }
+  if (!DB) {
+    offlineNote('Opslag is hier niet beschikbaar — opmerkingen kunnen niet bewaard worden. Open de gepubliceerde pagina om te kunnen schrijven.');
+    document.querySelectorAll('.savebtn').forEach(b => b.disabled = true);
+    return;
+  }
+  dbReady = true;
+  DATA.streams.forEach(s => loadRemark(s.code));
+})();
+
+async function loadRemark(code){
+  try {
+    const snap = await DB.doc('remarks/' + code).get();
+    if (!snap.exists) return;
+    const d = snap.data() || {};
+    if (typeof d.text === 'string') {
+      const ta = $('#ta-' + code); if (ta) ta.value = d.text;
+      remarkText[code] = d.text;
+    }
+    if (d.marks && typeof d.marks === 'object') {
+      marks[code] = Object.assign({}, d.marks);
+      const sec = $('#s-' + code);
+      if (sec) sec.querySelectorAll('tbody tr').forEach(tr => {
+        if (marks[code][tr.dataset.key]) {
+          tr.classList.add('marked');
+          const b = tr.querySelector('.markbtn');
+          if (b) { b.setAttribute('aria-pressed', 'true'); b.textContent = 'fout ✓'; }
+        }
+      });
+      applyFilters();
+    }
+  } catch (e) { /* a missing or unreadable doc is just an empty form */ }
+}
+
+async function persist(code, state){
+  if (!dbReady) return;
+  const body = {
+    text: remarkText[code] || '',
+    marks: marks[code] || {},
+    updatedAt: new Date().toISOString()
+  };
+  try {
+    await DB.doc('remarks/' + code).set(body);
+    if (state) { state.className = 'savestate'; state.textContent = 'bewaard'; }
+  } catch (e) {
+    if (state) { state.className = 'savestate err'; state.textContent = 'niet bewaard (' + (e && e.code ? e.code : 'fout') + ')'; }
+  }
+}
+
+function toggleMark(code, key, btn, tr){
+  marks[code] = marks[code] || {};
+  const on = !marks[code][key];
+  if (on) marks[code][key] = true; else delete marks[code][key];
+  btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+  btn.textContent = on ? 'fout ✓' : 'fout';
+  tr.classList.toggle('marked', on);
+  const state = $('#s-' + code + ' .savestate');
+  if (state) state.textContent = dbReady ? 'bewaren…' : '';
+  persist(code, state);
+  applyFilters();
+}
+
+async function saveRemark(code, ta, btn, state){
+  remarkText[code] = ta.value;
+  btn.disabled = true; state.className = 'savestate'; state.textContent = 'bewaren…';
+  await persist(code, state);
+  btn.disabled = false;
+}
+</script>

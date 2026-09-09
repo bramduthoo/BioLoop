@@ -1,0 +1,5 @@
+﻿stream_code;state;raised_as;why
+aardappel-loof;no source;F-004;Absent from the Phyllis2 index (searched, not assumed) and no Feedipedia datasheet, while every other field residue in this round is in one or both. 744.945 t - the largest component of the #3 commodity.
+zetmeel-reststroom;blocked;G-19;The object is Prodcom 106220 'afvallen van zetmeelfabrieken' and no source says what the material is. Starch side-stream composition is abundant in the literature and was deliberately NOT attached: it would name a material no source named, and Flanders crushes wheat rather than potato, so the obvious literature is probably the wrong material too.
+bloemkool-loof;source found, not extracted;F-005;De Evan et al. 2020 splits cauliflower into leaves, stems and sprouts - the only source found that matches BioMobi's object split. Full text was unreachable this session (PMC captcha, MDPI 403, CSIC access denied). Needs manual retrieval.
+bloemkool-harten;source found, not extracted;F-005;Same source and same blocker as bloemkool-loof: the stem fraction of De Evan et al. 2020.

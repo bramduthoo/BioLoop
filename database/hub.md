@@ -7,14 +7,14 @@
   - done: **2b — the candidate stream register.** Eight sources read, 803 claims, protocol at v2.6, pipeline reproducible, deliverables issued; full selection control run 2026-09-08. See "2b — the candidate stream register" below.
   - done: **2c — the selection registered.** The 13 commodities carrying 80% of the envelope entered BioMobi as **20 object-grain `stream` rows** under the `bioloop-commodity` ladder (L2→L3). **Names and classification only — no volumes** (see F-002).
   - **abandoned: 2a — the legacy-Excel seed.** The workbook is not a usable input; the loader and its manifests were deleted. See "2a — abandoned" below.
-  - **started: phase 3 — composition.** The vocabulary a measurement needs is registered and verified (`composition/`); the source hunt for the first 16 objects is done. **`property_measurement` is still empty.**
+  - **started: phase 3 — composition.** Vocabulary registered and verified; source hunt done; **180 candidate measurement rows extracted from 3 sources and published for review**. **`property_measurement` is still empty and stays so until the review comes back.**
   - not started: volumes (`supply_observation`), EWC facet.
 - **Key artifacts:**
   - `database/supabase/migrations/20260727114134_remote_schema.sql` — the baseline; schema of record. **Nothing since has needed a schema change.**
   - `database/streams/` — the selection → BioMobi transfer, now a generated pipeline: `tools/build_manifest.py` (register → objects) → `crosswalks/register_streams.csv` (generated, `DECISION` gate) → `tools/load_streams.py --emit-migration` → `supabase/migrations/`. The only human-owned file is `crosswalks/object_decisions.csv` (9 exception rows). **Nothing pushed to live.**
   - `database/register/` — the candidate stream register: the corpus, its protocol (`CLAUDE.md` v2.6), the pipeline (`tools/`), the gap record (`OPEN_GAPS.md`) and the shareable deliverables. `register/README.md` is its entry point.
   - `database/composition/` — phase 3: `vocabulary/{units,bases,parameters}.csv` → `tools/emit_vocabulary.py --emit-migration` → `supabase/migrations/`. Plus `SOURCE_HUNT.md` (round 1) and `crosswalks/SOURCE_CANDIDATES.csv` (the worklist). `composition/README.md` is its entry point.
-- **Next action:** **settle the two questions that gate the composition harvest** (`composition/SOURCE_HUNT.md`) — is a compilation table like Feedipedia an acceptable BioMobi source, and what happens to its asterisked *predicted* values? They decide eight of the sixteen objects. Then harvest `tarwe-stro` from Phyllis2 as the pilot load. Separately, and unchanged: decide how register **claims** become `supply_observation` rows (needs F-002 closed and the 687 unverified claims curated).
+- **Next action:** **read the reviewer's marks and remarks off the round-1 review page** (`read_db` on `remarks/<stream_code>` at `https://claude.ai/code/artifact/b7b1fe21-df01-41fe-9e68-8579e72bcbd1`), correct `composition/tools/build_round1.py` where they point, regenerate, and only then write the loader. Both gating questions are answered. Separately, and unchanged: decide how register **claims** become `supply_observation` rows (needs F-002 closed and the 687 unverified claims curated).
 
 <!-- Everything below this line is LOCAL to the database workstream.
      The per-session narrative for 2b lives in `register/log.md`, not here. -->
@@ -82,7 +82,32 @@ composition source** — it quantifies product/by-product *mass fractions* index
 makes it a conversion-factor source for the **volume** side; and **FoodWasteEXplorer is live and
 free**, so it moves from "evaluate at phase 3" to a first-round source.
 
-**What gates the first load:** two reviewer questions, both in `SOURCE_HUNT.md`. Is a *compilation*
+**Round 1 is extracted, and it is waiting on you, not on more searching.** 180 candidate
+`property_measurement` rows over 12 objects from 3 sources, in `composition/extraction/`. **All 180
+validate against the registered vocabulary** — zero violations on `parameter`, `unit`, `basis` and
+`stream` codes, checked against the local stack — but that is a structural check and says nothing
+about whether a number is right. Every value was transcribed off a source page **by a model**, so
+the round goes through a review page before anything loads:
+`https://claude.ai/code/artifact/b7b1fe21-df01-41fe-9e68-8579e72bcbd1`. Marks and remarks come back
+from its store at `remarks/<stream_code>`.
+
+**Three things the extraction itself surfaced, all of them review items rather than defects:**
+Phyllis2 prints every determination on three bases, so `ar` and `daf` rows are tagged
+`restatement = yes` and default to hidden — the `dry` column (plus moisture on `fresh`) is what
+would load; Phyllis2 #704 (corn stover) cites **a dead 1998 NREL link**, so its provenance does not
+resolve to a document; and Phyllis2 #1053 (beet green) is four round numbers from a 1997
+confidential report, which reads as an estimate rather than a measurement.
+
+**Both gating questions are answered** (2026-09-09, see `state.md`): a compilation table is
+acceptable *on condition of quality*, and predicted values are carried through with a `predicted`
+column rather than filtered, to be judged per case in review.
+
+**A third object joined the no-data list:** `bloemkool-loof` and `bloemkool-harten` have the right
+source — De Evan et al. 2020 splits cauliflower into leaves, stems and florets, the only source
+found that matches BioMobi's split — but PMC, MDPI and the CSIC repository all refused an automated
+fetch of an open-access paper. Raised as **F-005**: a retrieval problem, not a search one.
+
+**Superseded:** two reviewer questions, both in `SOURCE_HUNT.md`. Is a *compilation*
 table (Feedipedia) an acceptable BioMobi source, given that "secondhand provenance" is what got the
 legacy Excel abandoned in 2a? And what happens to Feedipedia's asterisked **predicted** values,
 which are prediction-equation outputs rather than measurements? Between them they decide eight of

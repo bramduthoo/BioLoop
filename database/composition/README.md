@@ -23,6 +23,11 @@ it does not enter.
 | `tools/emit_vocabulary.py` | validates the three CSVs and emits the data migration |
 | `SOURCE_HUNT.md` | round 1 of the source hunt: what supplies each of the 16 targets, how far it was checked, and the two that failed |
 | `crosswalks/SOURCE_CANDIDATES.csv` | the machine-readable worklist behind it — 21 candidate rows over 16 objects |
+| `tools/build_round1.py` | what was read off each source, expanded into the extraction CSVs. **The transcription of record — corrections are made here** |
+| `extraction/round1_measurements.csv` | 180 candidate `property_measurement` rows, each with a blank `DECISION` |
+| `extraction/round1_sources.csv` · `round1_nodata.csv` | the 3 sources, and the 4 objects with no data and why |
+| `tools/build_review.py` + `review_template.html` | build the reviewer's page from those CSVs |
+| `build/review.html` | the generated page (published as an Artifact; not committed as a deliverable) |
 | `crosswalks/` | also holds one crosswalk per harvested source: its parameter and stream names → the catalogue, with the human `DECISION` gate. None yet |
 
 ## How to run it
@@ -55,9 +60,16 @@ applied one. Every statement is `ON CONFLICT`-guarded, so migrations stack.
   migrations alone, the two migrations stack, and **7 of 11 tables now hold rows**. `source`,
   `geography`, `property_measurement` and `supply_observation` are still empty.
 - **Not pushed to live.** Neither is the streams migration that precedes it.
-- **No measurements yet.** Round 1 of the source hunt is done — see `SOURCE_HUNT.md`. Twelve of the
-  sixteen targets have a named candidate, two were inspected end to end, one has **no source at
-  all** (`aardappel-loof`) and one is **deliberately blocked** (`zetmeel-reststroom`, gap G-19).
+- **No measurements loaded.** Round 1 is extracted but **not in the database**: 180 candidate rows
+  over 12 objects, from 3 sources. All 180 validate against the registered vocabulary (0 violations
+  on `parameter`, `unit`, `basis` and `stream` codes, checked against the local stack) — that is a
+  structural check, not a check of the numbers.
+- **The numbers are awaiting human review.** They were transcribed off the source pages by a model.
+  The review page is at `https://claude.ai/code/artifact/b7b1fe21-df01-41fe-9e68-8579e72bcbd1`;
+  marks and remarks come back through its store at `remarks/<stream_code>`.
+- **Four objects have no data**: `aardappel-loof` (no source anywhere → F-004),
+  `zetmeel-reststroom` (deliberately blocked, gap G-19), and `bloemkool-loof` / `bloemkool-harten`
+  (source identified, full text unreachable → F-005).
 
 ## The 16 targets
 

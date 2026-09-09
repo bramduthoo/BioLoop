@@ -145,6 +145,47 @@ proximate and ultimate analysis, one from its elemental chlorine, one from Feedi
 ash. Phyllis2's ten-oxide ash breakdown was **left out** for the opposite reason: real and citable,
 but nothing needs it yet. **Grow on a source, never on a plausible-sounding gap.**
 
+## The review gate — nothing loads before a human has seen it
+
+**Between "a source was read" and "a row exists in BioMobi" there is a review surface, and it is not
+optional.** Reviewer instruction, 2026-09-09: *"ik wil via een interface die je bouwt overzichtelijk
+kunnen zien welke bronnen je hebt gevonden, voor welke wastestreams deze compositiewaardes vindt +
+per wastestream een voorbeeld van hoe diens compositie er nu uitziet ... zodat ik dit manueel
+allemaal kan checken."*
+
+The chain is: **source read → `extraction/round<N>_*.csv` → `tools/build_review.py` → an Artifact →
+the reviewer's marks and remarks → corrections at the source → loader → `property_measurement`.**
+
+- `tools/build_round<N>.py` holds what was read off each source and expands it into the CSVs. It is
+  the transcription of record; a correction is made **there**, never in the database and never in
+  the generated page.
+- `tools/build_review.py` builds the page as a **pure function of the CSVs plus the parameter
+  catalogue**, so a new round is one command and the page cannot drift from the data. It refuses to
+  build if a measurement names a parameter the catalogue does not hold.
+- Every extracted row carries `transcription = machine`. **The values were read off the source pages
+  by a model, not by a person** — the review exists precisely because that is not good enough to
+  load. Anything that looked wrong in passing is named in the row's `flag`.
+- The reviewer's marks (per row) and remarks (per object) live in the artifact's own store, read
+  back with `read_db` on `remarks/<stream_code>`. They are input to the next session, not data.
+
+Round 1: `https://claude.ai/code/artifact/b7b1fe21-df01-41fe-9e68-8579e72bcbd1`.
+
+## Two reviewer decisions, 2026-09-09
+
+**A compilation table is an acceptable source, on condition of quality.** This answers the question
+`SOURCE_HUNT.md` raised and it unblocks eight of the sixteen round-1 objects. Feedipedia/feedtables
+qualifies: it is public, resolvable, and every value carries mean, SD, min, max and `n`. **The
+condition binds** — a compilation without a stated sample basis is not the same thing, and the
+distinction between a compilation and a primary measurement stays visible on every row through the
+source's `kind` field (`compilation` / `primary-indexed` / `primary`).
+
+**A predicted value is carried through, not filtered out.** Feedipedia marks values derived from
+prediction equations with an asterisk. Rather than decide in the abstract whether they are
+loadable, they are extracted with `predicted = yes` and shown as such in the review, where the
+reviewer judges them per case. **The reason: it is not black and white** — a predicted NDF on 241
+samples is a different proposition from a predicted gross energy on 2. What must never happen is a
+predicted value entering the database *silently*; the column is what prevents that.
+
 ## Where the harvest stands
 
 `SOURCE_HUNT.md` is round 1 — what supplies each of the 16 targets of the top 10 commodities, how

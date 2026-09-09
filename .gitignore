@@ -45,3 +45,6 @@ database/register/log.html
 
 # --- superseded legacy corpus at repo root: never open, never commit (see database/register/CLAUDE.md) ---
 /BIOLOOP_streams_and_sources.xlsx
+
+# generated review pages — rebuilt from database/composition/extraction/*.csv
+database/composition/build/
