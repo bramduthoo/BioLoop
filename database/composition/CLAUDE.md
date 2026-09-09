@@ -129,6 +129,35 @@ reject, a `default_unit_code` naming no unit, an empty definition, or a missing 
 row all exit non-zero. It also refuses to overwrite an existing migration file, because an applied
 migration is frozen.
 
-Applied so far: `20260909120000_biomobi_composition_vocabulary.sql` — 28 units, 6 bases, 62
-parameters. Verified 2026-09-09 by `supabase db reset` on the local stack: 7 of 11 tables now hold
-rows. **Not yet pushed to live** (nor has the streams migration).
+Applied so far, and they stack:
+
+| migration | what |
+|---|---|
+| `20260909120000_biomobi_composition_vocabulary.sql` | the starting core — 28 units, 6 bases, 62 parameters |
+| `20260909150000_biomobi_composition_vocabulary_v2.sql` | +6 parameters, the same day, because verified sources print them: `volatile_matter`, `fixed_carbon`, `hydrogen`, `oxygen`, `chlorine`, `insoluble_ash` |
+
+Verified 2026-09-09 by `supabase db reset` on the local stack, after each: 7 of 11 tables hold
+rows, 68 parameters. **Not yet pushed to live** (nor has the streams migration).
+
+**The growth rule was exercised on the day it was written, and only on evidence.** Every one of the
+six additions is a parameter a source that was actually opened prints — four from Phyllis2's
+proximate and ultimate analysis, one from its elemental chlorine, one from Feedipedia's insoluble
+ash. Phyllis2's ten-oxide ash breakdown was **left out** for the opposite reason: real and citable,
+but nothing needs it yet. **Grow on a source, never on a plausible-sounding gap.**
+
+## Where the harvest stands
+
+`SOURCE_HUNT.md` is round 1 — what supplies each of the 16 targets of the top 10 commodities, how
+far each candidate was actually checked, and the four open questions it raises for the reviewer
+(chief among them: **is a compilation table like Feedipedia an acceptable source?**, which gates
+eight of the sixteen). `crosswalks/SOURCE_CANDIDATES.csv` is its machine-readable worklist.
+
+Two results from it bind this folder:
+
+- **`aardappel-loof` has no composition source at all** — absent from Phyllis2's index, no
+  Feedipedia datasheet. At 744.945 t it is the largest component of the #3 commodity. That is a
+  **composition gap**, and it is a different kind of thing from the volume gaps on F-003.
+- **`zetmeel-reststroom` is blocked and must stay blocked.** Starch-industry side-stream
+  composition is well described in the literature and would have been easy to attach — and wrong
+  twice: it names a material no source named (**G-19**), and Flanders' starch industry is mostly
+  *wheat* starch, so the potato-pulp literature is probably the wrong material as well.

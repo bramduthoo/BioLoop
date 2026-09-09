@@ -19,9 +19,11 @@ it does not enter.
 |---|---|
 | `vocabulary/units.csv` | the unit vocabulary — 28 rows, `;`-delimited, UTF-8 BOM |
 | `vocabulary/bases.csv` | the reporting-basis vocabulary — 6 rows |
-| `vocabulary/parameters.csv` | the parameter catalogue — 62 rows, and it is **meant to grow** |
+| `vocabulary/parameters.csv` | the parameter catalogue — 68 rows, and it is **meant to grow** |
 | `tools/emit_vocabulary.py` | validates the three CSVs and emits the data migration |
-| `crosswalks/` | one crosswalk per source: its parameter and stream names → the catalogue, with the human `DECISION` gate. Empty until the first source is harvested |
+| `SOURCE_HUNT.md` | round 1 of the source hunt: what supplies each of the 16 targets, how far it was checked, and the two that failed |
+| `crosswalks/SOURCE_CANDIDATES.csv` | the machine-readable worklist behind it — 21 candidate rows over 16 objects |
+| `crosswalks/` | also holds one crosswalk per harvested source: its parameter and stream names → the catalogue, with the human `DECISION` gate. None yet |
 
 ## How to run it
 
@@ -44,14 +46,18 @@ applied one. Every statement is `ON CONFLICT`-guarded, so migrations stack.
 
 ## State (2026-09-09)
 
-- **Vocabulary loaded:** 28 units · 6 bases · 62 parameters (51 chemical, 5 physical,
-  6 microbiological), as `20260909120000_biomobi_composition_vocabulary.sql`.
-- **Verified** by `supabase db reset` against the local stack: the database rebuilds from
-  migrations alone and **7 of 11 tables now hold rows**. `source`, `geography`,
-  `property_measurement` and `supply_observation` are still empty.
+- **Vocabulary loaded:** 28 units · 6 bases · **68 parameters** (57 chemical, 5 physical,
+  6 microbiological), across two stacked migrations —
+  `20260909120000_biomobi_composition_vocabulary.sql` (the starting core, 62) and
+  `20260909150000_biomobi_composition_vocabulary_v2.sql` (+6, added the same day because verified
+  sources print them).
+- **Verified** by `supabase db reset` against the local stack, twice: the database rebuilds from
+  migrations alone, the two migrations stack, and **7 of 11 tables now hold rows**. `source`,
+  `geography`, `property_measurement` and `supply_observation` are still empty.
 - **Not pushed to live.** Neither is the streams migration that precedes it.
-- **No measurements yet.** The harvest targets the top 10 commodities of the register selection,
-  which are 16 of the 20 registered objects.
+- **No measurements yet.** Round 1 of the source hunt is done — see `SOURCE_HUNT.md`. Twelve of the
+  sixteen targets have a named candidate, two were inspected end to end, one has **no source at
+  all** (`aardappel-loof`) and one is **deliberately blocked** (`zetmeel-reststroom`, gap G-19).
 
 ## The 16 targets
 

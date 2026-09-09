@@ -1,25 +1,27 @@
 ## Status
 - **Workstream:** Database (BioMobi)
-- **Current objective:** between sessions. **2a is abandoned** (the legacy Excel was judged unusable, 2026-09-07); **2b closed 2026-09-04**; its 80%-selection is now registered as BioMobi vocabulary.
-- **Last session:** 2026-09-08 — restructured 2c on reviewer challenge: BioMobi's streams are now **20 object-grain rows under one commodity facet**, replacing 21 rows under a chain-stage facet. First data of any kind in the database.
+- **Current objective:** between sessions. **Phase 3 (composition) has started**; 2a abandoned 2026-09-07; 2b closed 2026-09-04; the 80%-selection registered as BioMobi vocabulary.
+- **Last session:** 2026-09-09 — opened **phase 3**: `database/composition/` registered BioMobi's composition vocabulary (28 units, 6 bases, **68 parameters**) as two stacked migrations, and ran round 1 of the composition source hunt over the 16 objects of the top 10 commodities. **No measurements loaded yet.**
 - **Progress:**
   - done: phase 1 (baseline migration, verified).
   - done: **2b — the candidate stream register.** Eight sources read, 803 claims, protocol at v2.6, pipeline reproducible, deliverables issued; full selection control run 2026-09-08. See "2b — the candidate stream register" below.
   - done: **2c — the selection registered.** The 13 commodities carrying 80% of the envelope entered BioMobi as **20 object-grain `stream` rows** under the `bioloop-commodity` ladder (L2→L3). **Names and classification only — no volumes** (see F-002).
   - **abandoned: 2a — the legacy-Excel seed.** The workbook is not a usable input; the loader and its manifests were deleted. See "2a — abandoned" below.
-  - not started: volumes (`supply_observation`), phase 3 (composition harvesting), EWC facet.
+  - **started: phase 3 — composition.** The vocabulary a measurement needs is registered and verified (`composition/`); the source hunt for the first 16 objects is done. **`property_measurement` is still empty.**
+  - not started: volumes (`supply_observation`), EWC facet.
 - **Key artifacts:**
   - `database/supabase/migrations/20260727114134_remote_schema.sql` — the baseline; schema of record. **Nothing since has needed a schema change.**
   - `database/streams/` — the selection → BioMobi transfer, now a generated pipeline: `tools/build_manifest.py` (register → objects) → `crosswalks/register_streams.csv` (generated, `DECISION` gate) → `tools/load_streams.py --emit-migration` → `supabase/migrations/`. The only human-owned file is `crosswalks/object_decisions.csv` (9 exception rows). **Nothing pushed to live.**
   - `database/register/` — the candidate stream register: the corpus, its protocol (`CLAUDE.md` v2.6), the pipeline (`tools/`), the gap record (`OPEN_GAPS.md`) and the shareable deliverables. `register/README.md` is its entry point.
-- **Next action:** decide how register **claims** become `supply_observation` rows — which needs F-002 (citation keys) closed and the 687 unverified claims curated. The register's own next action is not a database session — it is the source hunt, raised as **F-003**.
+  - `database/composition/` — phase 3: `vocabulary/{units,bases,parameters}.csv` → `tools/emit_vocabulary.py --emit-migration` → `supabase/migrations/`. Plus `SOURCE_HUNT.md` (round 1) and `crosswalks/SOURCE_CANDIDATES.csv` (the worklist). `composition/README.md` is its entry point.
+- **Next action:** **settle the two questions that gate the composition harvest** (`composition/SOURCE_HUNT.md`) — is a compilation table like Feedipedia an acceptable BioMobi source, and what happens to its asterisked *predicted* values? They decide eight of the sixteen objects. Then harvest `tarwe-stro` from Phyllis2 as the pilot load. Separately, and unchanged: decide how register **claims** become `supply_observation` rows (needs F-002 closed and the 687 unverified claims curated).
 
 <!-- Everything below this line is LOCAL to the database workstream.
      The per-session narrative for 2b lives in `register/log.md`, not here. -->
 
 ## Where we are / what's next (read this first on reopening)
 
-**BioMobi now holds data.** 20 object-grain `stream` rows, 1 classification scheme, 11 terms (7 nested), 20 links. Nothing else — no `source`, no `property_measurement`, no `supply_observation`, no `parameter`, no `geography`. The vocabulary is in; the facts are not.
+**BioMobi now holds data.** 20 object-grain `stream` rows, 1 classification scheme, 11 terms (7 nested), 20 links, **28 units, 6 bases and 68 parameters**. Nothing else — no `source`, no `property_measurement`, no `supply_observation`, no `geography`. **7 of 11 tables hold rows. The vocabulary is in; the facts are not.**
 
 **State (2a):** abandoned 2026-09-07. The legacy internal Excel is not a usable input and nothing from it was ever loaded. Loader and manifests deleted. See "2a — abandoned" below.
 
@@ -31,9 +33,60 @@
 
 1. **Decide the claims hand-off.** The register's live claims are candidate `supply_observation` rows, but two gates stand in front of them: **F-002** (all eight source PDFs have a blank `citation_key`, and `source_key` is `NOT NULL`) and **per-claim curation** (most claims are still `awaiting verification`; only S080 has been checked). Neither is a session task on its own. **Each claim's chain stage lands on the observation, not on the object** — that is what the 2026-09-08 restructure freed up.
 2. **Push 2c to the live project.** Nothing has been applied there. The migration is committed — review it, then `supabase db push`. The loader is the generator, not the route to live.
-3. **Phase 3 — composition.** The 20 registered objects are exactly the `stream_code` values a composition harvest will hang `property_measurement` rows from.
+3. **Phase 3 — composition (started 2026-09-09).** The vocabulary is registered and verified; the source hunt for the first 16 objects is done. See "phase 3 — composition" below, and `composition/` for the detail.
 
 ---
+
+## Phase 3 — composition (started 2026-09-09)
+
+*Detail, decisions, the source hunt and how to run it live in **`database/composition/`**
+(`README.md` · `CLAUDE.md` · `SOURCE_HUNT.md`). Not repeated here.*
+
+**The vocabulary a composition value needs is in and verified:** 28 `unit`, 6 `basis`, **68
+`parameter`** rows, shipped as two stacked generated migrations
+(`20260909120000_…_vocabulary.sql` + `20260909150000_…_vocabulary_v2.sql`). `supabase db reset`
+rebuilds all of it from git; **7 of 11 tables now hold rows**. Nothing pushed to live.
+
+**The catalogue is a vocabulary, not a required vector.** BioMobi stays sparse — a missing
+parameter means *not measured*, never zero — and the charter's fixed-shape composition vector is a
+model-layer projection over this catalogue. So uniformity across streams is not required, and the
+62-parameter starting core is explicitly designed to grow.
+
+**It grew the same day, and only on evidence.** Six parameters were added after two sources were
+actually opened: `volatile_matter`, `fixed_carbon`, `hydrogen`, `oxygen` and `chlorine` (Phyllis2's
+proximate/ultimate analysis) and `insoluble_ash` (Feedipedia). Phyllis2's ten-oxide ash breakdown
+was deliberately **not** added — real, but nothing needs it yet. **Grow on a source, never on a
+plausible-sounding gap.**
+
+**Round 1 of the source hunt covered the top 10 commodities = 16 of the 20 objects.** Twelve have a
+named candidate; two were inspected end to end (`tarwe-stro` from Phyllis2 record #3161,
+`raapzaad-schroot` from Feedipedia node 52). Three databases carry most of it: **Phyllis2**
+(one record = one cited paper, XLSX export, but a fuel-oriented parameter set with no Weende and no
+Van Soest fibre), **Feedipedia/feedtables** (maps almost one-to-one onto the catalogue, with SD,
+min, max and n), and **FoodWasteEXplorer** (confirmed live and free, exportable).
+
+**Two of the sixteen failed, for opposite reasons, and both matter:**
+
+- **`aardappel-loof` has no composition source at all** — searched for and absent from Phyllis2's
+  index, no Feedipedia datasheet. At 744.945 t it is the largest component of the #3 commodity.
+  This is a **composition gap**, a different kind of thing from the volume gaps on F-003, and it is
+  raised as **F-004**.
+- **`zetmeel-reststroom` is blocked and stays blocked.** Starch-industry side-stream composition is
+  well described and would have been easy to attach — and wrong twice over: it names a material no
+  source named (**G-19**), and Flanders' starch industry is mostly *wheat* starch, so the
+  potato-pulp literature is probably the wrong material as well. **The absence of a source is not a
+  licence to pick the nearest one.**
+
+**Two corrections to this hub's own source table** (both applied below): **FOWCUS is not a
+composition source** — it quantifies product/by-product *mass fractions* indexed to FAOSTAT, which
+makes it a conversion-factor source for the **volume** side; and **FoodWasteEXplorer is live and
+free**, so it moves from "evaluate at phase 3" to a first-round source.
+
+**What gates the first load:** two reviewer questions, both in `SOURCE_HUNT.md`. Is a *compilation*
+table (Feedipedia) an acceptable BioMobi source, given that "secondhand provenance" is what got the
+legacy Excel abandoned in 2a? And what happens to Feedipedia's asterisked **predicted** values,
+which are prediction-equation outputs rather than measurements? Between them they decide eight of
+the sixteen objects.
 
 ## 2a — abandoned (2026-09-07)
 
@@ -208,7 +261,7 @@ Flemish **agri-food biomass side streams**, excluding manure and OFMSW. Inclusio
    - *2a (**abandoned 2026-09-07**):* seed the old internal Excel. The workbook was judged unusable and the thread was closed with nothing loaded. See "2a — abandoned" above.
    - *2b (**closed 2026-09-04**):* monitors + ILVO studies → candidate stream register → 80/20 selection + gap record. **803 claims from eight sources; 69 selectable streams, 7.301.257 t envelope, 80% at 13.** The corpus itself remains a standalone workbook populating no table. See "2b — the candidate stream register" above.
    - *2c (**done 2026-09-07**):* the selection registered as BioMobi vocabulary — 21 material-grain `stream` rows and two classification facets. **Volumes still outstanding:** per-claim curation (`DECISION_expert`) and real citation keys (F-002) gate them. See "2c — the selection in BioMobi" above.
-3. **Composition.** FoodWasteEXplorer, FOWCUS, AgroCycle, gap-fill literature → `property_measurement`.
+3. **Composition.** — *started 2026-09-09.* Vocabulary registered and verified (28 units, 6 bases, 68 parameters); source hunt round 1 done over the 16 objects of the top 10 commodities. See "Phase 3 — composition" above. Sources for the harvest: **Phyllis2** and **Feedipedia/feedtables** carry most of round 1, **FoodWasteEXplorer** is live and free, and **FOWCUS turned out to be a volume/conversion source, not a composition one**.
 4. **Classification facets.** EWC likely first, plus a sector facet.
 
 ## Schema & migration changelog
@@ -216,6 +269,8 @@ Flemish **agri-food biomass side streams**, excluding manure and OFMSW. Inclusio
 
 | Migration | Date | Summary |
 |-----------|------|---------|
+| `20260909150000_biomobi_composition_vocabulary_v2.sql` | 2026-09-09 | **Data, not DDL.** +6 parameters (`volatile_matter`, `fixed_carbon`, `hydrogen`, `oxygen`, `chlorine`, `insoluble_ash`), each one a thing a source that was actually opened prints. Generated by `composition/tools/emit_vocabulary.py`. |
+| `20260909120000_biomobi_composition_vocabulary.sql` | 2026-09-09 | **Data, not DDL.** BioMobi's composition vocabulary: 28 `unit`, 6 `basis`, 62 `parameter` rows. Generated, `ON CONFLICT`-guarded. Do not hand-edit — change a CSV under `composition/vocabulary/` and emit a new one. |
 | `20260908143000_bioloop_streams_selection.sql` | 2026-09-08 | **Data, not DDL.** The register's 80% selection as BioMobi vocabulary: 20 object-grain `stream` rows, the `bioloop-commodity` scheme, 11 terms (7 nested), 20 links. Generated by `streams/tools/load_streams.py --emit-migration`; `ON CONFLICT`-guarded throughout. Do not hand-edit — emit a new one when the selection changes. |
 | `20260727114134_remote_schema.sql` | 2026-07-27 | Baseline of the live schema: 11 tables, 66 columns, 11 PKs, 16 FKs, 9 CHECKs, 21 indexes, RLS on all 11. Plus a hand-added PostGIS block. |
 
@@ -251,9 +306,11 @@ Source keys are renameable to real Zotero BBT keys later — all source FKs are 
 | ILVO studies — Mededeling 239, GeNeSys 165 | V | PDF | **read into the register (2b)** | S066, S065. The depth the monitors lack; the tuinbouw side runs field-to-processing. |
 | OVAM Marktanalyse Biomassareststromen | V | PDF | **read, retired at 0 claims** | 2024 = S087, agri-food-empty by its own afbakening. 2022/2020 (S001/S086) retired unread. |
 | OVAM Inventaris Biomassa | V | PDF (non-commercial licence) | not started | Biennial; sector-aggregated. Not yet assessed against the register. |
-| AgroCycle reports | R/C | PDF (downloaded) | not started | Characterisation + conversion %. |
-| FoodWasteEXplorer | C | web export | not started | Try filtered export before scraping. |
-| FOWCUS (2025) | C | open dataset | not started | Evaluate at phase 3. |
+| AgroCycle reports | R/C | PDF (downloaded) | not started | Characterisation + conversion %. **Could not be confirmed accessible 2026-09-09**; the concrete thing found in its place is **AGRIMAX D1.2 *Mapping of AFPW and their characteristics*** (direct PDF), the same artefact from a sibling H2020 project. |
+| Phyllis2 (TNO) | C | web, per-record XLSX/PDF | **candidate, inspected (2026-09-09)** | Lignocellulosic composition. One record = one cited paper, so provenance is unambiguous. **Fuel-oriented set** — proximate, ultimate CHONS, Cl, LHV/HHV, ash oxides, on 3 bases; **no Weende and no Van Soest fibre**. Covers straw, stover, beet pulp, cauliflower; **no potato haulm, no wheat bran**. |
+| Feedipedia / feedtables (INRAE·CIRAD·AFZ·FAO) | C | web | **candidate, inspected (2026-09-09)** | Maps almost 1:1 onto the catalogue, with **SD, min, max and n**. Source for 8 of the 16 round-1 objects. **Two reviewer questions gate it:** it is a *compilation*, and it marks predicted values with `*`. |
+| FoodWasteEXplorer | C | web export | **live and free, confirmed 2026-09-09** | `foodwasteexplorer.eu`; ~27.069 data points, searchable by food / side stream / component, exportable. Processing-side-stream oriented — strong on `-schroot` / `-pulp`, weak on field residue. |
+| FOWCUS (2025) | **V/R** | open dataset (Nature Sci Data) | **re-filed 2026-09-09 — not a composition source** | ~280 commodities indexed to FAOSTAT. It quantifies product/by-product **mass fractions**, not chemistry, so it is a **conversion-factor source for the volume side**. Belongs with `streams/`, not `composition/`. |
 | Literature (gap-fill) | C | Zotero / BBT | not started | Values carry BBT citation keys. |
 | **The class-B gap candidates** | V | mostly no PDF yet | **hunt not started — F-003** | 15 sectors/products in `register/crosswalks/GAP_LIST.csv`. Screening rule: **does the source carve by process?** |
 
@@ -274,6 +331,24 @@ Source keys are renameable to real Zotero BBT keys later — all source FKs are 
 - **Every ingestion script is idempotent via its own source-key namespace.**
 
 ## Open questions (local)
+
+*Composition (phase 3) — opened 2026-09-09. The full statement of each is in
+`composition/SOURCE_HUNT.md`; these are the one-liners.*
+- **Is a compilation table an acceptable BioMobi source?** Feedipedia/feedtables is curated,
+  public, resolvable and states its `n` — but it aggregates other people's measurements, which is
+  close to the "secondhand provenance" that got the legacy Excel abandoned in 2a. **It decides 8 of
+  the 16 round-1 objects**, so it gates the harvest.
+- **Feedipedia marks predicted values with `*`** — prediction-equation outputs, not measurements.
+  Exclude at the crosswalk gate, or load with the fact stated? Today "recorded as predicted" has
+  nowhere to live but `notes`.
+- **Polarimetric vs enzymatic starch.** Feedipedia prints both for one feed. This folder's own rule
+  ("a method-defined quantity is its own parameter") says split `starch` in two; the counter is
+  that the analyte is genuinely the same, unlike crude vs true protein. **Left undecided by the
+  session that noticed it**, deliberately.
+- **Seven Phyllis2 wheat-straw records are seven sources, not seven readings to average.** That
+  follows from "record what the source said" and needs no decision — but it means `tarwe-stro` will
+  carry seven `dry_matter` rows. Confirm that is wanted before the pilot load.
+
 
 *Register (2b) — carried forward now that the workstream is closed:*
 - **Five of the six extracted sources have never been verified against their PDF.** Only S080 has. 687 of the 801 claims sit at `awaiting verification`, and `DECISION_expert` is blank on almost all of them. **This is the register's largest open item and no tooling closes it.** Decide whether verification happens per source before the claims are loaded, or as a curation pass at load time.
@@ -306,4 +381,4 @@ Source keys are renameable to real Zotero BBT keys later — all source FKs are 
 - ~~**Commit raw source data?**~~ — resolved 2026-07-28: **no.** `**/data/raw/` is gitignored.
 - ~~**80/20 ranking basis**~~ — resolved 2026-07-28: **not applicable to already-collected data.** The 80/20 is a rule for *prospective* harvesting. This dataset is small and already collected, so selection is manual, per stream, checking (a) the name, to exclude manure/OFMSW, and (b) the source, to validate the entry. Hence the manifest gate.
 
-*Last updated: 2026-09-06.*
+*Last updated: 2026-09-09.*

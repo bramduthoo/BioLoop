@@ -61,3 +61,9 @@ yeasts_and_moulds;Gisten en schimmels;microbiological;cfu/g;Telling van gisten e
 escherichia_coli;Escherichia coli;microbiological;cfu/g;E. coli-telling
 salmonella;Salmonella spp.;microbiological;n.a.;Doorgaans kwalitatief gerapporteerd als aan- of afwezig in 25 g - dan value_type qualitative met de tekst van de bron in value_text
 listeria_monocytogenes;Listeria monocytogenes;microbiological;cfu/g;Telling of aan-/afwezigheid. Bij aan-/afwezigheid value_type qualitative
+hydrogen;Waterstof (H);chemical;%;Elementaire waterstof uit de ultieme analyse. Standaard gerapporteerd naast C, N, O en S door verbrandingsgerichte bronnen zoals Phyllis2
+oxygen;Zuurstof (O);chemical;%;Elementaire zuurstof uit de ultieme analyse. Doorgaans als verschil bepaald in plaats van gemeten - leg vast wat de bron zegt
+volatile_matter;Vluchtige bestanddelen;chemical;%;Proximate-analyse - massaverlies bij verhitten zonder zuurstof, doorgaans bij 900 graden C. NIET de basis volatile_solids en NIET organische stof
+fixed_carbon;Vaste koolstof;chemical;%;Proximate-analyse-restpost - 100 min vocht min as min vluchtige bestanddelen. Een verschilberekening van de bron, geen meting
+chlorine;Chloor (Cl totaal);chemical;mg/kg;Totaal chloor uit elementaire analyse. Een andere bepaling dan chloride, dat de wateroplosbare Cl-ionen meet - beide bestaan naast elkaar
+insoluble_ash;Onoplosbare as;chemical;%;Zoutzuur-onoplosbaar asresidu, een maat voor grond- en zandinsleep. Voederwaardetabellen rapporteren dit naast ruw as

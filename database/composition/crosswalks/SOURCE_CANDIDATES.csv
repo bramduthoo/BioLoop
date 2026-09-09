@@ -1,0 +1,22 @@
+﻿stream_code;commodity_rank;material;candidate_source;source_ref;what_it_gives;checked;DECISION
+tarwe-stro;7;tarwestro;Phyllis2 (TNO);records 3161 945 991 1271 1368 2038 3201;proximate, ultimate CHONS, Cl, LHV/HHV, K, Na, ash oxides - op 3 basissen (ar, dry, daf). Record 3161 volledig gelezen;inspected;
+raapzaad-schroot;2;kool- en raapzaadschroot;Feedipedia / feedtables (INRAE CIRAD AFZ FAO);node 52;DM, ruw eiwit, ruwe celstof, NDF, ADF, lignine, ether extract, as, onoplosbare as, zetmeel (2 methoden), totale suikers, bruto-energie - met SD, min, max en n;inspected;
+mais-stro;1;maisstro;Phyllis2 (TNO);records 704 517 1030;idem Phyllis2-parameterset;listed;
+mais-stro;1;maisstro;Feedipedia;node 16072;Weende + Van Soest voederwaardeset;listed;
+raapzaad-stro;2;kool- en raapzaadstro;Phyllis2 (TNO);records 3131 3162;idem Phyllis2-parameterset;listed;
+aardappel;3;afgekeurde en niet-geoogste knollen;Feedipedia;node 547;voederwaardeset voor aardappelknollen;listed;
+aardappel-loof;3;aardappelloof;GEEN BRON GEVONDEN;n.v.t.;afwezig in de Phyllis2-index en zonder Feedipedia-datasheet. 744.945 t - de grootste component van commodity 3. Een echt compositiegat;absent;
+suikerbiet;4;afgekeurde suikerbiet;Feedipedia;node 535;voederwaardeset voor suikerbietwortel;listed;
+suikerbiet-loof;4;suikerbietenloof;Feedipedia;nodes 709 en 11835;sugar beet tops en beet leaves and tops fresh;listed;
+suikerbiet-loof;4;suikerbietenloof;Phyllis2 (TNO);record 1053;beet tail and beet green;listed;
+suikerbiet-pulp;4;bietenpulp;Feedipedia;node 710;sugar beet pulp pressed or wet;listed;
+suikerbiet-pulp;4;bietenpulp;Phyllis2 (TNO);records 1054 2365;beet pulp en beet pulp dried;listed;
+zetmeel-reststroom;5;onbepaald (Prodcom 106220);GEBLOKKEERD tot G-19;n.v.t.;compositiedata voor zetmeelnevenstromen bestaat, maar geen bron zegt WELK materiaal deze rij is. Niet invullen;n/a;
+zemelen;6;zemelen;Feedipedia;wheat bran datasheet;voederwaardeset. LET OP afwezig in Phyllis2;listed;
+lijnzaad-schroot;8;lijnzaadschroot;Feedipedia;node 735;linseed meal voederwaardeset;listed;
+bloemkool;9;afgekeurde bloemkool;Phyllis2 (TNO);records 1564 1565 1566;idem Phyllis2-parameterset;listed;
+bloemkool;9;afgekeurde bloemkool;FoodWasteEXplorer (EuroFIR);foodwasteexplorer.eu;nutrienten, bioactieven en toxicanten per zijstroom, met export;listed;
+bloemkool-loof;9;bloemkoolloof;paper PMC7459492;Potential of Recycling Cauliflower and Romanesco Wastes in Ruminant Feeding;blad, stengel en scherm apart - DM, ruw eiwit, suikers, NDF, ME;named;
+bloemkool-harten;9;bloemkoolharten;paper PMC7459492;idem, stengelfractie;idem;named;
+bloemkool-loof;9;bloemkoolloof;paper PMC8533432;Variation in the Accumulation of Phytochemicals - Aerial Parts of Cauliflower;fytochemie per bovengronds deel;named;
+soja-schroot;10;sojaschroot;Feedipedia;oil-processing by-products;soybean meal voederwaardeset;named;
