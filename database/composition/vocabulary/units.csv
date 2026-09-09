@@ -1,0 +1,29 @@
+﻿code;description
+%;Percentage (massafractie x 100), tenzij de parameter anders bepaalt
+g/kg;Gram per kilogram
+mg/kg;Milligram per kilogram (ppm)
+ug/kg;Microgram per kilogram (ppb)
+g/100g;Gram per 100 gram - de gebruikelijke eenheid van voedingsmiddelentabellen
+mg/100g;Milligram per 100 gram
+g/L;Gram per liter
+mg/L;Milligram per liter
+MJ/kg;Megajoule per kilogram
+kJ/kg;Kilojoule per kilogram
+kcal/kg;Kilocalorie per kilogram
+kg/m3;Kilogram per kubieke meter
+g/cm3;Gram per kubieke centimeter
+mm;Millimeter
+um;Micrometer
+mS/cm;Millisiemens per centimeter
+degC;Graden Celsius
+g/g;Gram per gram - dimensieloze massaverhouding, gebruikt voor bv. waterbindend vermogen
+mL/g;Milliliter per gram
+ratio;Dimensieloze verhouding (bv. C/N)
+pH;pH-eenheid - dimensieloze logaritmische schaal
+cfu/g;Kolonievormende eenheden per gram
+cfu/mL;Kolonievormende eenheden per milliliter
+log10 cfu/g;Log10 kolonievormende eenheden per gram
+t;Ton (metrische ton, 1000 kg)
+kg;Kilogram
+unknown;De bron vermeldt geen eenheid - een ONTBREKENDE claim, niet hetzelfde als n.a.
+n.a.;Geen eenheid van toepassing - een ONTBREKENDE eenheid is unknown, niet n.a.

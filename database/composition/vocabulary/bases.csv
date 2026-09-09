@@ -1,0 +1,7 @@
+﻿code;description
+fresh;Verse stof - de stof zoals ze aankomt (FM, wet basis, as received, as fed). Bronnen die "as is" of "vers gewicht" zeggen vallen hier
+dry;Droge stof - na drogen tot constant gewicht (DM). Bronnen die "total solids" of "TS" zeggen vallen hier - leg de term van de bron vast in notes
+dry_ash_free;Droge asvrije stof (DAF) - droge stof minus as, ook wel organische-stofbasis
+volatile_solids;Vluchtige stof (VS) - basis die anaerobe-vergistingsbronnen gebruiken. Niet gelijkstellen aan DAF zonder dat de bron dat zegt
+unknown;De bron vermeldt geen basis - een ONTBREKENDE claim, niet hetzelfde als n.a.
+n.a.;Geen basis van toepassing (pH, temperatuur, C/N-verhouding, bulkdichtheid). Een ONTBREKENDE basis is unknown, niet n.a.
