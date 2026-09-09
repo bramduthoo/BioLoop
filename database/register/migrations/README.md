@@ -48,7 +48,7 @@ running.
 | File | What it did |
 |---|---|
 | `apply_fixes.py` | Applied the reviewer's round-1 structural fixes, 2026-09-01. |
-| `gap_sweep.py` | Ran the five screens behind the gap analysis (rows above L4, retired rows, production look-alikes, aggregate reconciliation, a 41-stream absence checklist) and dumped each in full. Its recurring part now lives in `../final_check.py`; its findings are in `../OPEN_GAPS.md`. |
+| `gap_sweep.py` | Ran the five screens behind the gap analysis (rows above L4, retired rows, production look-alikes, aggregate reconciliation, a 41-stream absence checklist) and dumped each in full. Its recurring part now lives in `../final_check.py`; its findings were written up in `../OPEN_GAPS.md`, retired 2026-09-09 when the gap list became derived. |
 | `make_gap_lists.py` | Wrote `FIX_LIST.csv` and `GAP_LIST.csv`. It carries the test that separates them — a bundled name is one selectable stream when the items arise together, and a gap when the bundle hides a distinction only a new source can supply. |
 | `GAP_DECISIONS.csv` | 8 gaps, decided and applied 2026-09-03. |
 | `FIX_LIST.csv` | 7 fixes, decided and applied 2026-09-04 — the round that recovered the two slaughter-residue streams. |

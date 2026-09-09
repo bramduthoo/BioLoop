@@ -23,7 +23,7 @@ and *groenten openlucht* at subgroup level and nothing finer, so an L3 row there
 grain that source has. The question the reviewer answers per row is:
 
     subgroup-figure  the source really does report only at this level. Leave it. Not a defect;
-                     it is a DATA gap, and belongs in OPEN_GAPS.md.
+                     it is a DATA gap, and shows up in the derived gap list (tools/make_gap_list.js).
     promote          the row names one real stream and simply sits too high. Give it an L4.
     aggregate        the row is a total or a leftover class. Prefix it with 'AGGREGAAT - '.
 

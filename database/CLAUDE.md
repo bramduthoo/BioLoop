@@ -16,7 +16,7 @@ thin layer above them.
 
 | Folder | What it is | Its own docs |
 |---|---|---|
-| `register/` | the candidate stream register — the claim-level corpus and its selection | `README.md` · `CLAUDE.md` (extraction protocol v2.6) · `log.md` · `OPEN_GAPS.md` |
+| `register/` | the candidate stream register — the claim-level corpus and its selection | `README.md` · `CLAUDE.md` (extraction protocol v2.6) · `deliverables/README.md` (how the selection and gap list are built) · `log.md` |
 | `streams/` | the register's selection → BioMobi `stream` rows + classification facets | `README.md` · `CLAUDE.md` |
 | `ingest/` | loaders that are not part of a sub-project (shared `requirements.txt`) | — |
 | `supabase/migrations/` | the schema of record | — |

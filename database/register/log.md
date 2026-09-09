@@ -57,6 +57,64 @@ clean v2 re-run and supersedes it entirely.*
 
 ## Tooling & model sessions (no source extracted)
 
+### 2026-09-09 — the gap list becomes derived, and the hand-maintained records are retired
+
+**The gap list stopped being a document and became an output.** It had been hand-maintained in
+`OPEN_GAPS.md` and `crosswalks/GAP_LIST.csv`, and every round edited the previous version — which
+silently preserves whatever the last edition happened to say. The reviewer stopped a session that was
+about to do exactly that again: *"de gaplijst dient niet vast te hangen aan één van de vorige
+versies"*. It is now the mirror of the selection, computed by **`tools/make_gap_list.js`**:
+
+    gap(place) = asserted(place) − reachable(place),  per place × chain stage
+
+**Five rules keep that subtraction honest, and all five were learned by getting them wrong**, in this
+session, in this order:
+
+1. **Reachability must follow `select_streams.js` exactly.** A node at or below L4 sits inside a
+   selectable stream. The first cut scored L5 fractions as unreached and reported **Maisstro as a
+   1,4 Mt gap** while its parent *Mais* is the #1 selected stream.
+2. **Never sum nested places.** Each row carries `gap − Σ children's gaps`, so the rows partition the
+   stage total instead of piling up. This is bookkeeping for display; the measurement is always
+   asserted-minus-reachable, from totals in the workbook.
+3. **Merge sources only within a school, and a school is what a source MEASURES, not what it is
+   called.** Grouping by name prefix left ILVO 239 and GeNeSys as singletons, and OVAM's
+   `Groenten openlucht` lump read as a **291.180 t gap** that ILVO 239 resolves with 9 named L4 nodes.
+   `log.md` had already settled the schools — *"ILVO 239 IS that monitor's agriculture chapter worked
+   out"* against *"GeNeSys … 3,2×, same institute"*. Cross-school cancellation stays forbidden.
+4. **Compare like with like**, and mark a row `HYBRIDE` when its asserted and reachable figures come
+   from different sources — that number answers "what does nobody reach" but no single source
+   supports it, and the two sides can differ in year and scope.
+5. **An unplaceable row is never evidence.** An aggregate spanning two parents or two levels is
+   unallocatable *by design*, so its 0% describes the commodity ladder, not the data. A first version
+   built the largest gap's naming out of exactly that set and summed it — comparing an artefact with
+   a measurement.
+
+**The unplaceable rows still get read, by hand.** `tools/screen_unallocated.js` lists what each one
+totals; the verdict is a human reading, because it needs judgement a script cannot supply — interpret
+the name (*"Suiker"* covers sugar production **and its by-products**, so bietenpulp belongs under it,
+which alone moved C-097 from "134.000 t missing" to over-covered), pick the right figure (residue not
+product, right stage), and respect the schools. Findings enter the list only by reviewer decision, as
+`nested` (names part of a residual already counted) or `additive` (mass no row carries).
+
+**Result: 10 rows + 2 findings = 2.826.946 t**, against a selection of 7.301.257 t over 69 streams.
+The largest item is OVAM's food industry — 2.017.748 t asserted, 127.215 t reachable — inside which
+**fruit processing has no residual row in the entire register** and potato processing has none in
+this school. Bostel is 36% of the Dranken figure and the only named beverage residue anywhere.
+
+**Retired, with their reasons recorded on them:** `OPEN_GAPS.md` (its seven unique source candidates
+salvaged into **F-003** first, so the hunt does not restart from zero), `crosswalks/GAP_LIST.csv` →
+`migrations/GAP_LIST_retired_2026-09-09.csv`, and `CLEANUP.md`, whose every headline figure had gone
+stale. `migrations/make_gap_lists.py` gained a SUPERSEDED header because its name is one character
+from the live tool.
+
+**`deliverables/README.md` is the new entry point** for both lists: the selection's four method
+choices, the five rules above with the failure that produced each, the second screening and the
+judgement it needs. A session with a new source should read that rather than re-derive it.
+
+**Checks.** `final_check.py` PASS · `verify_overview.py` 8/8 · `audit_register.py` 23 at baseline ·
+`database/streams/tools/load_streams.py --dry-run` exit 0.
+
+
 ### 2026-09-09 — the gap-control review round: four coverage defects, and three "gaps" that were not
 
 **The reviewer worked through all 95 aggregates.** One row marked *moet wijzigen*, and a set of

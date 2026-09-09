@@ -19,7 +19,6 @@ register/
   destination_index.csv              where each source keeps its destination/route volumes
   CLAUDE.md                          the extraction protocol (v2.6) — the rulebook
   log.md                             the per-session record
-  OPEN_GAPS.md                       the narrative gap record (superseded in part — see below)
   README.md                          this file
   archive/  inbox/                   verified source PDFs (gitignored)
   dictionaries/                      the three binding vocabularies

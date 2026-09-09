@@ -12,7 +12,7 @@
 - **Key artifacts:**
   - `database/supabase/migrations/20260727114134_remote_schema.sql` — the baseline; schema of record. **Nothing since has needed a schema change.**
   - `database/streams/` — the selection → BioMobi transfer, now a generated pipeline: `tools/build_manifest.py` (register → objects) → `crosswalks/register_streams.csv` (generated, `DECISION` gate) → `tools/load_streams.py --emit-migration` → `supabase/migrations/`. The only human-owned file is `crosswalks/object_decisions.csv` (9 exception rows). **Nothing pushed to live.**
-  - `database/register/` — the candidate stream register: the corpus, its protocol (`CLAUDE.md` v2.6), the pipeline (`tools/`), the gap record (`OPEN_GAPS.md`) and the shareable deliverables. `register/README.md` is its entry point.
+  - `database/register/` — the candidate stream register: the corpus, its protocol (`CLAUDE.md` v2.6), the pipeline (`tools/`) and the shareable deliverables, whose method is written up in `deliverables/README.md`. `register/README.md` is its entry point.
   - `database/composition/` — phase 3: `vocabulary/{units,bases,parameters}.csv` → `tools/emit_vocabulary.py --emit-migration` → `supabase/migrations/`. Plus `SOURCE_HUNT.md` (round 1) and `crosswalks/SOURCE_CANDIDATES.csv` (the worklist). `composition/README.md` is its entry point.
 - **Next action:** **read the reviewer's marks and remarks off the round-1 review page** (`read_db` on `remarks/<stream_code>` at `https://claude.ai/code/artifact/b7b1fe21-df01-41fe-9e68-8579e72bcbd1`), correct `composition/tools/build_round1.py` where they point, regenerate, and only then write the loader. Both gating questions are answered. Separately, and unchanged: decide how register **claims** become `supply_observation` rows (needs F-002 closed and the 687 unverified claims curated).
 
@@ -148,7 +148,7 @@ The register's 80% selection is BioMobi vocabulary — **names and classificatio
 
 ## 2b — the candidate stream register (closed 2026-09-04)
 
-*The consolidated account. Detail lives in `database/register/`: `README.md` (what each file is), `CLAUDE.md` (the extraction protocol, v2.6), `deliverables/README.md` (**how the selection and the gap list are built** — the method, and the rules that keep each honest), `log.md` (the per-session record and every anomaly note), `OPEN_GAPS.md` (the narrative gap record, superseded in part by the derived list). The per-session narrative is **not** repeated here.*
+*The consolidated account. Detail lives in `database/register/`: `README.md` (what each file is), `CLAUDE.md` (the extraction protocol, v2.6), `deliverables/README.md` (**how the selection and the gap list are built** — the method, and the rules that keep each honest), `log.md` (the per-session record and every anomaly note), The per-session narrative is **not** repeated here.*
 
 ### What it is
 
@@ -229,16 +229,18 @@ Project-level ones (supply-side scope, *productie*-only, manure excluded, source
 - **A source's own scope exclusions are not inherited, and a column header is not a definition.** A tonnage the source names and then excludes from its totals is still captured; a column headed *"Productie Vlaanderen"* whose text defines it as a company's multi-region output is not a Flemish figure.
 - **Verification is a human gate.** Only S080 has been checked against its PDF by the reviewer. The other five extracted sources are `awaiting verification` — that is the register's largest open item, and no amount of tooling closes it.
 
-### The two gap classes — `OPEN_GAPS.md`
+### The two gap classes, and how the gap list is now built
 
 The first coverage audit reported *"the food industry has no L4/L5 detail"* as one 2 Mt data gap. It was two different problems, needing opposite responses, and separating them is the gap record's main contribution:
 
 - **Class A — hiding in the current data.** The figure is in the register but the selection cannot see it: wrong level, wrong marker, wrong parent. **No new source helps.** All class-A rows are now decided and applied; the residue is placement judgement (G-05, G-A3), not missing data.
-- **Class B — not in the corpus at all.** No source the register holds measures it. **Only a new source helps.** Fifteen entries, in `crosswalks/GAP_LIST.csv`, each carrying the claim ids, the total that exists, the detail that does not, and a candidate — or an explicit *none*.
+- **Class B — not in the corpus at all.** No source the register holds measures it. **Only a new source helps.**
+
+**The gap list is DERIVED, not curated (2026-09-09).** It used to be hand-maintained in `OPEN_GAPS.md` and `crosswalks/GAP_LIST.csv`, so each round edited the previous version and silently preserved whatever the last edition said. Both are retired. It is now the mirror of the selection — `gap(place) = asserted − reachable`, per place and chain stage, de-nested so nothing is counted twice and merged only within a monitor school — computed by `tools/make_gap_list.js` and shipped in `deliverables/`. **The method, and the five rules that keep the subtraction honest, are written up in `register/deliverables/README.md`**; that is the file a new session should read before touching either list. Current result: **10 rows + 2 screened findings = 2.826.946 t**, against a selection of 7.301.257 t over 69 streams.
 
 **The mechanism behind most of class B, and it is what makes the gap list actionable.** MONBIO's food-industry residual detail is exactly *the set of Prodcom product codes that happen to name a waste or by-product* (106132 gries, 110210 bostel, 108114 melasse, 101150 dierlijk vet…), plus one FEDIOL crush table. **A side stream with no such code is invisible to MONBIO however large it is** — which is why bostel and zemelen are present while whey, cacaodoppen and potato peel are absent. OVAM has the mirror-image limit: it publishes the food industry at subgroup level and nothing finer. **Hence the screening rule for any candidate source: does it carve by *process*?** A source that carves by NACE class, by Prodcom code, or by a monitor's own loss definition will reproduce the gaps the register already has — that is how they arose.
 
-Priority order for the hunt (by how much a source would change the stream list, not by gap size): **aardappelverwerking** (621.063 t, zero components, in the sector Flanders leads — no candidate) → **zuivel/wei** (no longer absent: 49.722 t captured 2026-09-08 from a table both MONBIO editions print; what is missing is a *recent* figure, and the candidate is the retired S005 — a decision, not a search) → **vlees per diersoort** → **retail + bakkerij** (S067, S025, neither with a PDF) → **cacao** and **Flemish oilseed crush**. One gap should be **fact-checked before anything is commissioned**: G-02, the PO's/veilingen stage at 15.189 t, looks too small to be true and an afternoon against VBT decides it. Raised for the literature workstream as **F-003**.
+Priority order for the hunt (by how much a source would change the stream list, not by gap size): **aardappelverwerking** (621.063 t, zero components, in the sector Flanders leads — S058 is the nearest candidate, no PDF) → **zuivel/wei** (no longer absent: 49.722 t captured 2026-09-08 from a table both MONBIO editions print; what is missing is a *recent* figure, and the candidate is the retired S005 — a decision, not a search) → **vlees per diersoort** → **retail + bakkerij** (S067, S025, neither with a PDF) → **cacao** and **Flemish oilseed crush**. One gap should be **fact-checked before anything is commissioned**: G-02, the PO's/veilingen stage at 15.189 t, looks too small to be true and an afternoon against VBT decides it. Raised for the literature workstream as **F-003**.
 
 ### The human gates, and what "closed" means
 
