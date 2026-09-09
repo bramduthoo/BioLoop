@@ -148,7 +148,7 @@ The register's 80% selection is BioMobi vocabulary — **names and classificatio
 
 ## 2b — the candidate stream register (closed 2026-09-04)
 
-*The consolidated account. Detail lives in `database/register/`: `README.md` (what each file is), `CLAUDE.md` (the extraction protocol, v2.5), `log.md` (the per-session record and every anomaly note), `OPEN_GAPS.md` (the gap record), `CLEANUP.md` (how the folder was closed out). The per-session narrative is **not** repeated here.*
+*The consolidated account. Detail lives in `database/register/`: `README.md` (what each file is), `CLAUDE.md` (the extraction protocol, v2.6), `deliverables/README.md` (**how the selection and the gap list are built** — the method, and the rules that keep each honest), `log.md` (the per-session record and every anomaly note), `OPEN_GAPS.md` (the narrative gap record, superseded in part by the derived list). The per-session narrative is **not** repeated here.*
 
 ### What it is
 

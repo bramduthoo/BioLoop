@@ -14,20 +14,19 @@ technical entry point to the folder; `log.md` stays the per-session record.
 
 ```
 register/
-  BIOLOOP_streams_and_sources.xlsx   the corpus — 801 claims, edit only Streams and Sources
+  BIOLOOP_streams_and_sources.xlsx   the corpus — 803 claims, edit only Streams and Sources
   streams_export.csv                 its git-diffable export; the committed audit trail
   destination_index.csv              where each source keeps its destination/route volumes
-  CLAUDE.md                          the extraction protocol (v2.5) — the rulebook
+  CLAUDE.md                          the extraction protocol (v2.6) — the rulebook
   log.md                             the per-session record
-  OPEN_GAPS.md                       the gap record
-  CLEANUP.md                         how this folder was closed out, and how to do it again
+  OPEN_GAPS.md                       the narrative gap record (superseded in part — see below)
   README.md                          this file
   archive/  inbox/                   verified source PDFs (gitignored)
   dictionaries/                      the three binding vocabularies
   crosswalks/                        the live human gates
   tools/                             every script — nothing else runs
   build/                             generated output — never hand-edit, safe to delete
-  deliverables/                      the shareable .xlsx / .html, plus the gap text they read
+  deliverables/                      the two shareable lists + README.md, which is the METHOD
   migrations/                        finished one-offs, kept for provenance — do not re-run
 ```
 
@@ -101,7 +100,7 @@ Both in `crosswalks/`, `;`-delimited with a UTF-8 BOM, filled in Excel.
 
 | Sheet | What it is |
 |---|---|
-| `aggregate_coverage.csv` | 242 rows, **0 blank decisions** — what each `AGGREGAAT` row totals, which parent it attaches to, and whether competing values are variants or a `component_set`. The overview reads this on every build. |
+| `aggregate_coverage.csv` | 239 rows, **0 blank decisions** — what each `AGGREGAAT` row totals, which parent it attaches to, and whether competing values are variants or a `component_set`. The overview reads this on every build. |
 | ~~`GAP_LIST.csv`~~ | **Retired 2026-09-09** to `migrations/GAP_LIST_retired_2026-09-09.csv`. It was hand-maintained, so each round edited the previous version. The gap list is now **derived** by `tools/make_gap_list.js`; the method is written up in `deliverables/README.md`. |
 
 `HIDDEN_STREAMS.csv` appears here only while a screen is open: regenerate it with

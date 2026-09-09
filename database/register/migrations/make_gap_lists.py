@@ -1,4 +1,11 @@
 # -*- coding: utf-8 -*-
+"""SUPERSEDED 2026-09-09 - DO NOT RUN.
+
+This wrote the hand-maintained crosswalks/GAP_LIST.csv, which is retired to
+migrations/GAP_LIST_retired_2026-09-09.csv. The gap list is now DERIVED from the data by
+tools/make_gap_list.js - note the near-identical name, and that THAT is the live one.
+The method is written up in deliverables/README.md. Kept for provenance only.
+"""
 """make_gap_lists.py - write the two lists the gap screening exists to produce.
 
     database/.venv/Scripts/python database/register/make_gap_lists.py
