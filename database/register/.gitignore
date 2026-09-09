@@ -19,5 +19,6 @@ __pycache__/
 deliverables/*.xlsx
 deliverables/*.html
 
-# build/stream_overview.html is the shareable artefact and IS committed; uncomment to stop
+# the two browsable views are the shareable artefacts and ARE committed; uncomment to stop
 # build/stream_overview.html
+# build/stream_overview_by_stage.html

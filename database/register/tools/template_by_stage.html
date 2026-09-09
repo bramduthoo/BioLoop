@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BIOLOOP register — stream overview per chain stage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f4f5f2;--panel:#fff;--ink:#1a1f26;--ink-2:#3d4550;--muted:#737d89;--faint:#9aa4b0;
+  --line:#dfe2dd;--hair:#e9ece7;--chain:#0e7a86;--chain-deep:#0a5b63;
+  --nev:#6f9a3f;--nev-d:#557a2c;--voe:#c0392b;--prod:#3b4ba3;
+  --ok:#2e7d55;--under:#a86e12;--over:#b0472f;--sel:#0e7a86;--sel-tint:#e7f1f1;
+  --severe:#c1272d;--severe-d:#8e1c21;--severe-tint:#fbeaea;
+  --agg-bg:#eaf1f1;--agg-bg-h:#e0ebeb;--agg-line:#cfe0e0;
+  --l1:#d4d9d1;--l2:#dfe3db;--l3:#e9ede6;--l4:#f4f6f2;--l5:#ffffff;
+  --shadow:0 1px 2px rgba(26,31,38,.04),0 10px 26px -18px rgba(26,31,38,.22);
+  --sans:"IBM Plex Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --disp:"Space Grotesk",var(--sans);--mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --namew:minmax(240px,1fr);--totw:132px;--stagew:102px;--cols:var(--namew) var(--totw);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.4;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1280px;margin:0 auto;padding:18px 20px 80px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:12px}
+.brand{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.brand .eye{font-family:var(--disp);font-weight:600;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--chain-deep)}
+.brand h1{font-family:var(--disp);font-weight:700;font-size:19px;letter-spacing:-.01em;margin:0}
+.brand .ctx{font-size:12px;color:var(--muted)}
+.legend{display:flex;gap:13px;align-items:center;font-size:11.5px;color:var(--ink-2)}
+.legend .sw{display:inline-flex;align-items:center;gap:5px}.legend .box{width:12px;height:9px;border-radius:2px}
+.controls{display:flex;gap:9px 12px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.search{display:flex;align-items:center;gap:7px;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:6px 10px;flex:1 1 180px;min-width:150px}
+.search svg{color:var(--faint);flex:0 0 auto}.search input{border:0;outline:0;font:inherit;font-size:13px;width:100%;background:transparent;color:var(--ink)}
+.mini{font:inherit;font-size:12px;border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:6px 10px;cursor:pointer;color:var(--ink-2)}.mini:hover{background:#fbfbf9}
+.ctl{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}.ctl svg{color:var(--chain)}
+select.sel{font:inherit;font-size:12.5px;border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:6px 8px;color:var(--ink)}
+.dd{position:relative}.dd>summary{list-style:none;cursor:pointer;font-size:12.5px;border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:6px 10px;color:var(--ink);display:inline-flex;align-items:center;gap:7px}
+.dd>summary::-webkit-details-marker{display:none}.dd>summary::after{content:"▾";color:var(--faint);font-size:10px}.dd[open]>summary{border-color:var(--chain)}
+.ddpanel{position:absolute;z-index:30;top:calc(100% + 5px);left:0;background:var(--panel);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:7px;min-width:230px}
+.ddpanel .opt{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:6px;font-size:12.5px;cursor:pointer;white-space:nowrap}.ddpanel .opt:hover{background:#f4f6f2}.ddpanel .opt input{accent-color:var(--chain)}
+.ddpanel .sep{height:1px;background:var(--hair);margin:5px 2px}.ddpanel .allrow{font-size:11px;color:var(--muted);display:flex;gap:10px;padding:2px 8px 5px}.ddpanel .allrow button{font:inherit;font-size:11px;background:none;border:0;color:var(--chain-deep);cursor:pointer;padding:0}
+
+.board{background:var(--panel);border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);overflow:auto;max-height:80vh}
+.thead{position:sticky;top:0;z-index:8;display:grid;grid-template-columns:var(--cols);background:#fbfbf9;border-bottom:1.5px solid var(--line)}
+.thead>div{padding:9px 12px;font-size:10px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:var(--muted);text-align:right;white-space:nowrap}
+.thead .h-name{text-align:left;position:sticky;left:0;background:#fbfbf9;z-index:9}
+.thead .h-tot{color:var(--ink-2);border-left:1px solid var(--line)}.thead .h-stage{color:var(--chain-deep)}
+/* selection summary bar */
+.selbar{position:sticky;top:36px;z-index:7;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  padding:7px 14px;background:var(--sel-tint);border-bottom:1px solid var(--line);font-size:12px;color:var(--ink-2);left:0}
+.selbar b{color:var(--ink);font-family:var(--mono);font-weight:700}
+.selbar .pill{font-family:var(--mono);font-size:11px;background:var(--sel);color:#fff;border-radius:20px;padding:2px 9px}
+.selbar .clr{font:inherit;font-size:11px;border:1px solid var(--line);background:var(--panel);border-radius:7px;padding:3px 9px;cursor:pointer;color:var(--ink-2);margin-left:auto}
+.selbar .hint{color:var(--muted)}
+
+.node.hide{display:none}.kids{display:none}.node.open>.kids{display:block}
+.row{display:grid;grid-template-columns:var(--cols);align-items:stretch;background:var(--rb);border-top:1px solid var(--hair)}
+.lvl-1>.row{border-top:2.5px solid #c3c9c0}.lvl-2>.row{border-top:2px solid #cdd2c9}.lvl-3>.row{border-top:1.5px solid #d7dbd3}
+.row:hover{background:color-mix(in srgb,var(--rb) 92%,#0a5b63)}
+.lvl-1{--rb:var(--l1)}.lvl-2{--rb:var(--l2)}.lvl-3{--rb:var(--l3)}.lvl-4{--rb:var(--l4)}.lvl-5{--rb:var(--l5)}
+.c-name{display:flex;align-items:center;gap:7px;padding:6px 12px 6px calc(8px + var(--d,0)*17px);position:sticky;left:0;background:var(--rb);z-index:2;min-width:0}
+.row:hover .c-name{background:color-mix(in srgb,var(--rb) 92%,#0a5b63)}
+.chk{width:13px;height:13px;flex:0 0 auto;accent-color:var(--sel);cursor:pointer;margin:0}
+.chk.hidden{visibility:hidden}
+.caret{width:12px;height:12px;flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;color:var(--muted);font-size:9px;transition:transform .12s;cursor:pointer}
+.node.open>.row .caret{transform:rotate(90deg)}.caret.empty{visibility:hidden}
+.tag{font-family:var(--mono);font-size:8.5px;font-weight:600;color:#fff;border-radius:4px;padding:1px 4px;flex:0 0 auto}
+.lvl-1 .tag{background:#5a6b56}.lvl-2 .tag{background:#77876f}.lvl-3 .tag{background:#94a08a}.lvl-4 .tag{background:#b1b8a8;color:#3d4550}.lvl-5 .tag{background:#d7dbcf;color:#3d4550}
+.nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.lvl-1 .nm{font-family:var(--disp);font-weight:700;font-size:15px;letter-spacing:-.01em}.lvl-2 .nm{font-weight:700;font-size:13.5px}
+.lvl-3 .nm{font-weight:600;font-size:12.5px;color:var(--ink-2)}.lvl-4 .nm{font-weight:500;font-size:12.5px;color:var(--ink-2)}.lvl-5 .nm{font-weight:400;font-size:12px;color:var(--muted)}
+.srcbadge{font-family:var(--mono);font-size:9px;color:var(--chain-deep);background:#e7f1f1;border-radius:4px;padding:1px 5px;flex:0 0 auto;white-space:nowrap}
+.flag{font-family:var(--mono);font-size:8.5px;border-radius:3px;padding:0 4px;flex:0 0 auto}
+.flag.asm{background:#f0eaf7;color:#6b3fa0}.flag.var{background:var(--warn-tint,#f7edda);color:#a86e12}
+
+/* value cell — compact, no box */
+.cell{padding:4px 12px;text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;display:flex;flex-direction:column;align-items:flex-end;justify-content:center;gap:2px;border-left:1px solid var(--hair)}
+.c-tot{border-left:1px solid var(--line)}.cell .num{font-size:11.5px;color:var(--ink);white-space:nowrap;line-height:1.05}
+.c-tot .num{font-weight:700;font-size:12.5px}.cell .num.prod{color:var(--prod)}.cell.inc .num{color:var(--over)}.cell .z{color:var(--faint)}
+.bang{color:var(--over);font-weight:800;margin-left:2px;cursor:help}
+.viz{display:inline-flex;align-items:center;gap:5px;white-space:nowrap;height:9px}
+.bar{display:inline-flex;height:5px;width:38px;position:relative;vertical-align:middle}
+.bar::after{content:"";position:absolute;left:38px;top:-2px;height:9px;width:1px;background:var(--faint);opacity:.55}
+.bar>i{flex:0 0 auto;height:5px}.bar>i:first-child{border-radius:2px 0 0 2px}
+.bar>i.n{background:var(--nev)}.bar>i.e{background:var(--voe)}.bar>i.gap{background:transparent}
+.bar.noref::after{display:none}
+.pctxt{font-size:8px;font-weight:600;letter-spacing:-.02em}.pctxt .ne{color:var(--nev-d)}.pctxt .ed{color:var(--voe)}
+
+/* per-source rows */
+.srcrow{display:grid;grid-template-columns:var(--cols);background:#fcfdfb;border-top:1px dotted var(--hair)}
+.srcrow .c-name{background:#fcfdfb;padding-top:3px;padding-bottom:3px;font-size:11px;color:var(--muted);gap:6px}
+.row:hover ~ .srcrow{}
+.srctag{font-family:var(--mono);font-size:9.5px;color:var(--ink-2);background:#eef1ec;border:1px solid var(--line);border-radius:4px;padding:1px 6px;white-space:nowrap}
+.srcrow .cell{padding-top:3px;padding-bottom:3px}.srcrow .cell .num{font-size:11px;color:var(--ink-2);font-weight:500}
+
+/* coverage / explain row */
+.explain{position:sticky;left:0;display:flex;align-items:center;gap:7px;font-size:10.5px;color:var(--ink-2);background:#eef1eb;border-top:1px dashed #c7cdc2;border-bottom:1px solid var(--hair);padding:3px 12px 3px calc(8px + var(--d,0)*17px)}
+.explain .ico{color:var(--chain);font-weight:700}.explain b{font-weight:700;color:var(--ink);font-family:var(--mono)}
+.explain .cbar{width:46px;height:4px;border-radius:2px;background:#dfe3dc;overflow:hidden;flex:0 0 auto}.explain .cbar>i{display:block;height:100%}
+.explain .cbar.okc>i{background:var(--ok)}.explain .cbar.underc>i{background:var(--under)}.explain .cbar.overc>i{background:var(--over)}
+.explain .cbar.severec>i{background:var(--severe)}.explain .cbar.indicativec>i{background:var(--faint)}
+.explain .warn{color:var(--over);font-weight:700}.explain .of{color:var(--muted)}
+.explain.sev-severe{background:var(--severe-tint);border-top-color:var(--severe);border-bottom-color:var(--severe)}
+.explain.sev-severe b{color:var(--severe-d)}
+
+/* severity chip + the dot that makes a severe row findable while collapsed */
+.chip{font-family:var(--mono);font-size:8.5px;font-weight:700;border-radius:3px;padding:1px 5px;flex:0 0 auto;letter-spacing:.02em;white-space:nowrap}
+.chip.severe{background:var(--severe);color:#fff}.chip.over{background:#f7e3dd;color:var(--over)}
+.chip.under{background:#f7edda;color:var(--under)}.chip.ok{background:#e2f0e8;color:var(--ok)}
+.chip.indicative{background:#eceef1;color:var(--muted)}.chip.unrev{background:#f0eaf7;color:#6b3fa0}
+.chip.subset{background:#e7f1f1;color:var(--chain-deep)}
+.sevdot{width:7px;height:7px;border-radius:50%;background:var(--severe);flex:0 0 auto;box-shadow:0 0 0 2px var(--severe-tint)}
+.sevdot.deep{background:transparent;border:1.5px solid var(--severe);box-shadow:none}
+
+/* provenance glyph: how a number was made */
+.pv{font-family:var(--mono);font-size:8.5px;color:var(--faint);margin-left:2px;font-weight:600}
+.legend .pvk{font-family:var(--mono);font-size:10px;color:var(--muted)}
+
+/* aggregate band — the control axis, not commodity rows */
+.aggrow{display:grid;grid-template-columns:var(--cols);background:var(--agg-bg);border-top:1px solid var(--agg-line);align-items:stretch}
+.aggrow:hover{background:var(--agg-bg-h)}
+.aggrow .c-name{background:var(--agg-bg);gap:6px;padding-top:4px;padding-bottom:4px;font-size:10.5px;color:var(--ink-2);overflow:hidden}
+.aggrow:hover .c-name{background:var(--agg-bg-h)}
+.aggrow .aggname{font-family:var(--mono);font-size:9.5px;font-weight:700;color:var(--chain-deep);white-space:nowrap;flex:0 1 auto;overflow:hidden;text-overflow:ellipsis;min-width:60px}
+.aggrow .cov{color:var(--muted);white-space:nowrap;flex:0 0 auto;display:flex;align-items:center;gap:5px}
+.aggrow .cbar{width:26px;height:4px;border-radius:2px;background:#dbe3e3;overflow:hidden;flex:0 0 auto}.aggrow .cbar>i{display:block;height:100%}
+.aggrow .cbar.okc>i{background:var(--ok)}.aggrow .cbar.underc>i{background:var(--under)}
+.aggrow .cbar.overc>i{background:var(--over)}.aggrow .cbar.severec>i{background:var(--severe)}
+.aggrow .cbar.indicativec>i{background:var(--faint)}
+.aggrow .cov b{font-family:var(--mono);color:var(--ink);font-weight:700}
+.aggrow .cell .num{font-size:11px;font-weight:700;color:var(--chain-deep)}
+.aggrow.sev-severe{background:var(--severe-tint)}.aggrow.sev-severe .c-name{background:var(--severe-tint)}
+.aggtoggle{cursor:pointer;color:var(--muted);font-size:9px;flex:0 0 auto;width:12px;text-align:center}
+.aggdetail{display:none;background:#fbfcfa;border-top:1px dotted var(--hair);padding:4px 12px 5px calc(8px + var(--d,0)*17px);position:sticky;left:0;font-size:10.5px}
+.aggrow.open + .aggdetail{display:block}
+.aggdetail .vrow{display:flex;align-items:center;gap:8px;padding:2px 0;color:var(--ink-2)}
+.aggdetail .vrow.off{opacity:.45;text-decoration:line-through}
+.aggdetail .vrow input{accent-color:var(--sel);cursor:pointer;margin:0;flex:0 0 auto}
+.aggdetail .vid{font-family:var(--mono);font-size:9.5px;color:var(--chain-deep);flex:0 0 auto}
+.aggdetail .vv{font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:700;flex:0 0 auto;min-width:72px;text-align:right}
+.aggdetail .vn{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.aggdetail .hd{font-size:9.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--faint);margin:3px 0 1px}
+
+/* unallocated aggregates — visible, never compared, never summed */
+.unalloc{border-top:2px solid var(--line);background:#f7f8f5;padding:9px 14px}
+.unalloc>summary{cursor:pointer;list-style:none;font-size:11.5px;font-weight:700;color:var(--ink-2);display:flex;align-items:center;gap:8px}
+.unalloc>summary::-webkit-details-marker{display:none}.unalloc>summary::before{content:"▸";color:var(--faint);font-size:10px}
+.unalloc[open]>summary::before{content:"▾"}
+.unalloc .u{display:flex;align-items:baseline;gap:9px;padding:3px 0 3px 18px;font-size:11px;color:var(--ink-2);border-top:1px dotted var(--hair)}
+.unalloc .u .uv{font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:700;min-width:86px;text-align:right;flex:0 0 auto}
+.unalloc .u .uid{font-family:var(--mono);font-size:9.5px;color:var(--chain-deep);flex:0 0 auto}
+.unalloc .u .uw{color:var(--muted);font-size:10px}
+.foot{margin-top:14px;font-size:11.5px;color:var(--muted);line-height:1.6}.foot b{color:var(--ink-2)}.foot code{font-family:var(--mono);font-size:11px;background:#eef0f2;padding:.5px 4px;border-radius:3px}
+.filtered-search{display:none}
+:focus-visible{outline:2px solid var(--chain);outline-offset:-2px;border-radius:3px}
+@media (max-width:940px){:root{--namew:minmax(160px,1fr);--stagew:88px;--totw:112px}}
+
+/* ---------------------------------------------------------------------------
+   per-stage view — what this template adds to the canonical stream overview
+   --------------------------------------------------------------------------- */
+/* stage tabs: the chain stage is a filter on the whole page, not a column */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.tab{font:inherit;font-size:12.5px;font-weight:600;border:1px solid var(--line);background:var(--panel);
+  border-radius:9px;padding:7px 13px;cursor:pointer;color:var(--ink-2);display:flex;align-items:center;gap:8px}
+.tab:hover{background:#fbfbf9}
+.tab.on{background:var(--chain);border-color:var(--chain);color:#fff}
+.tab .n{font-family:var(--mono);font-size:10px;font-weight:600;opacity:.75}
+.tab.on .n{opacity:.9}
+.tab .ctxn{font-family:var(--mono);font-size:9.5px;border-radius:4px;padding:1px 5px;background:#f0eaf7;color:#6b3fa0}
+.tab.on .ctxn{background:rgba(255,255,255,.22);color:#fff}
+
+/* the strip that says what the stage filter did */
+.scope{display:flex;align-items:center;gap:9px;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);
+  border-radius:11px;padding:8px 13px;margin-bottom:10px;font-size:12px;color:var(--ink-2)}
+.scope b{color:var(--ink);font-family:var(--mono);font-weight:700}
+.scope .sep{width:1px;height:14px;background:var(--hair)}
+.scope .muted{color:var(--muted)}
+
+/* stage totals that have no commodity detail beneath them in this stage */
+.stagetot{border-top:2px solid var(--line);background:#f7f8f5;padding:9px 14px}
+.stagetot>summary{cursor:pointer;list-style:none;font-size:11.5px;font-weight:700;color:var(--ink-2);display:flex;align-items:center;gap:8px}
+.stagetot>summary::-webkit-details-marker{display:none}.stagetot>summary::before{content:"▸";color:var(--faint);font-size:10px}
+.stagetot[open]>summary::before{content:"▾"}
+.stagetot .u{display:flex;align-items:baseline;gap:9px;padding:3px 0 3px 18px;font-size:11px;color:var(--ink-2);border-top:1px dotted var(--hair)}
+.stagetot .u .uv{font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:700;min-width:86px;text-align:right;flex:0 0 auto}
+.stagetot .u .uid{font-family:var(--mono);font-size:9.5px;color:var(--chain-deep);flex:0 0 auto}
+.stagetot .u .uw{color:var(--muted);font-size:10px}
+
+/* the contextual panel — figures that span several chain stages. Never a summand,
+   never a denominator, never compared: a separate surface below the board. */
+.ctxpanel{margin-top:14px;background:var(--panel);border:1px solid #d8cfe6;border-left:3px solid #6b3fa0;
+  border-radius:13px;box-shadow:var(--shadow);overflow:hidden}
+.ctxpanel .hd{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:9px 14px;background:#f7f4fb;border-bottom:1px solid #e7dff2}
+.ctxpanel .hd h2{font-family:var(--disp);font-size:13px;font-weight:700;margin:0;color:#4a2c6f}
+.ctxpanel .hd .chip{background:#f0eaf7;color:#6b3fa0}
+.ctxpanel .why{padding:8px 14px;font-size:11.5px;color:var(--muted);line-height:1.55;border-bottom:1px solid var(--hair)}
+.ctxpanel .why b{color:var(--ink-2)}
+.ctxrow{display:grid;grid-template-columns:100px 96px 1fr;align-items:baseline;gap:10px;padding:6px 14px;border-top:1px dotted var(--hair);font-size:11.5px}
+.ctxrow:first-of-type{border-top:0}
+.ctxrow .cid{font-family:var(--mono);font-size:9.5px;color:#6b3fa0}
+.ctxrow .cv{font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:700;text-align:right;color:var(--ink)}
+.ctxrow .cn{min-width:0}
+.ctxrow .cn .t{color:var(--ink-2)}
+.ctxrow .cn .m{display:block;color:var(--muted);font-size:10.5px;margin-top:1px}
+.ctxrow .cn .st{font-family:var(--mono);font-size:9.5px;color:var(--chain-deep);background:#e7f1f1;border-radius:4px;padding:1px 5px;margin-right:4px;white-space:nowrap}
+.ctxrow .cn .st.here{background:#6b3fa0;color:#fff}
+.ctxnone{padding:10px 14px;font-size:11.5px;color:var(--muted)}
+.ctxnone b{color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><span class="eye">BIOLOOP</span><h1>Stream overview per chain stage</h1><span class="ctx">commodity L1→L5 · one chain stage at a time · t/yr</span></div>
+    <div class="legend">
+      <span class="sw"><span class="box" style="background:var(--nev)"></span>inedible · nevenstroom</span>
+      <span class="sw"><span class="box" style="background:var(--voe)"></span>edible · voedselverlies</span>
+      <span class="sw pvk" title="how each number was made">reported · <b>Σ</b>&nbsp;summed · <b>ø</b>&nbsp;averaged</span>
+    </div>
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+  <div class="scope" id="scope"></div>
+
+  <div class="controls">
+    <label class="search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="search" type="text" placeholder="Search a stream, ingredient, group…" autocomplete="off"></label>
+    <button class="mini" id="reset">Reset to L1 · L2</button>
+    <button class="mini" id="clearEx" title="restore every value dropped from the averages">Clear exclusions</button>
+    <span class="ctl">Year: <select class="sel" id="year"></select></span>
+    <details class="dd" id="srcDD"><summary>Source: <span id="srcLbl">all</span></summary><div class="ddpanel" id="srcPanel"></div></details>
+  </div>
+
+  <div class="board">
+    <div class="thead" id="thead"></div>
+    <div class="selbar" id="selbar"></div>
+    <div id="tree"></div>
+    <details class="stagetot" id="stagetot"></details>
+    <details class="unalloc" id="unalloc"></details>
+  </div>
+
+  <div class="ctxpanel" id="ctxpanel"></div>
+  <p class="foot" id="foot"></p>
+</div>
+
+<script>/*__DERIVE__*/</script>
+<script>const PAYLOAD=/*__DATA__*/;</script>
+<script>
+/* ============================================================================
+   Stream overview PER CHAIN STAGE.
+
+   Same view as the canonical stream overview, with one structural difference:
+   the chain stage is no longer a column, it is the filter on the whole page.
+
+   THE SPLIT THAT MAKES THIS HONEST. A claim either measures ONE chain stage or
+   it measures SEVERAL at once (the register writes the latter as
+   `chain_L2 = meerdere stadia`, and the aggregate registry records the stages it
+   spans in `stage_coverage`). Only the single-stage claims build the overview:
+   they are filtered to the selected stage and handed to DERIVE.derive unchanged,
+   so every figure in the table belongs to that stage and to nothing else.
+
+   The multi-stage figures are NOT dropped and NOT mixed in. They are shown in
+   their own panel below the board, for every stage they span. They never enter a
+   sum, never become a denominator and are never compared with anything — a
+   figure covering four stages cannot be measured against one of them.
+
+   The derivation is not reimplemented here. `derive.js` is called exactly as the
+   canonical overview calls it, on a pre-filtered claim list.
+   ============================================================================ */
+const ROLE_LABEL={"Reststroom":"Residual streams","Productievolume":"Production volume"};
+/* The three stages this page is built for. The register carries seven in-scope
+   stages; Visserij, Visveilingen and Producentenorganisaties/veilingen have no tab
+   here by design — add one to this list to give it a tab, nothing else changes. */
+const STAGES=["Primaire productie","Voedingsindustrie","Retail & grootdistributie"];
+const STAGE_LABEL={"Primaire productie":"Primary production","Visserij":"Fishery","Producentenorganisaties/veilingen":"Producer org. / auctions","Visveilingen":"Fish auctions","Voedingsindustrie":"Food industry","Retail & grootdistributie":"Retail & distribution","meerdere stadia":"Several stages"};
+const MULTI_STAGE="meerdere stadia";
+const RESIDUAL_ROLE="Reststroom";
+const ROLE_SET=new Set(["Reststroom","Productievolume"]);
+const QT_LABEL={prod:"production volume",afwE:"agri-food waste",nev:"inedible · nevenstroom",voe:"edible · voedselverlies"};
+const SEV_WORD={ok:"matches",under:"partly explained",over:"parts exceed the total",severe:"CHECK",indicative:"indicative"};
+
+const nf=new Intl.NumberFormat("en-US",{maximumFractionDigits:0});
+const fmt=n=>!n?'<span class="z">·</span>':nf.format(Math.round(n));
+const esc=s=>(s==null?'':String(s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const treeEl=document.getElementById("tree"),theadEl=document.getElementById("thead");
+const gly=p=>!p?"":(p.sum&&p.avg?"Σø":p.sum?"Σ":p.avg?"ø":"");
+const PV_TITLE={"Σ":"summed by this view","ø":"average of competing values","Σø":"a sum of averaged parts"};
+function pv(p){const g=gly(p);return g?'<span class="pv" title="'+PV_TITLE[g]+'">'+g+'</span>':"";}
+const pct=r=>Math.round(r*100);
+
+/* ---- the single-stage / multi-stage partition ---------------------------- */
+/* Two independent markers, and they must agree: the claim's own chain_L2, and how
+   many stages the aggregate registry says the figure covers. Either one saying
+   "several" makes the figure contextual, so neither a mistyped chain_L2 nor a
+   missing registry row can slip a multi-stage figure into a single stage. */
+const stagesOf=c=>(c.agg&&(c.agg.stages||[]).length)?c.agg.stages:(c.st===MULTI_STAGE?[]:[c.st]);
+const isMulti=c=>c.st===MULTI_STAGE||!!(c.agg&&(c.agg.stages||[]).length>1);
+const SINGLE=PAYLOAD.claims.filter(c=>!isMulti(c));
+const MULTI=PAYLOAD.claims.filter(isMulti);
+(function(){          /* say so loudly if the two markers ever disagree */
+  const odd=MULTI.filter(c=>(c.st===MULTI_STAGE)!==!!(c.agg&&(c.agg.stages||[]).length>1));
+  if(odd.length) console.warn("chain_L2 and stage_coverage disagree on: "+odd.map(c=>c.id).join(", "));
+})();
+const stageClaims=st=>SINGLE.filter(c=>c.st===st);
+const contextClaims=st=>MULTI.filter(c=>stagesOf(c).indexOf(st)>=0);
+/* single-stage claims at a stage with no tab — counted so nothing goes missing silently */
+const OFFSTAGE=[...new Set(SINGLE.map(c=>c.st).filter(s=>s&&STAGES.indexOf(s)<0))];
+
+const ST=()=>state.stage;
+const yearsOf=cs=>{const c={};cs.forEach(x=>x.yr&&(c[x.yr]=(c[x.yr]||0)+1));
+  return Object.keys(c).map(Number).sort((a,b)=>c[b]-c[a]||b-a);};   // by frequency then recency
+const editionsOf=cs=>[...new Set(cs.map(c=>c.ed))].sort();
+
+const state={stage:STAGES[0],year:null,editions:new Set(),excluded:new Set()};
+try{const raw=localStorage.getItem("bioloop.excluded");
+  if(raw) JSON.parse(raw).forEach(x=>state.excluded.add(x));}catch(e){}   // file:// may refuse; fine
+function persistExcluded(){try{localStorage.setItem("bioloop.excluded",JSON.stringify([...state.excluded]));}catch(e){}}
+const selected=new Set();          // selected leaf ids (waste only) within the open stage
+let ROOTS=[], RESULT={roots:[],unallocated:[],severeCount:0}, YEARS=[], EDITIONS=[];
+
+/* ---- columns: the stage columns are gone; the quantity-type split takes their place ---- */
+function setCols(){document.documentElement.style.setProperty("--cols","var(--namew) var(--totw) repeat(2, var(--stagew))");}
+function header(){theadEl.innerHTML='<div class="h-name">Commodity</div><div class="h-tot">Total t/yr</div>'+
+  '<div class="h-stage" title="nevenstroom — the inedible half, where the source splits it">inedible</div>'+
+  '<div class="h-stage" title="voedselverlies — the edible half, where the source splits it">edible</div>';}
+
+/* ---- value cell (unchanged from the canonical view) ---- */
+function bar(nev,voe,ref,showRef){
+  const split=nev+voe; if(split<=0) return "";
+  const W=34, nW=nev/ref*W, vW=voe/ref*W, fill=nW+vW, gap=Math.max(0,W-fill), comp=Math.round(nev/split*100);
+  const seg=(nW>.3?'<i class="n" style="width:'+nW+'px"></i>':'')+(vW>.3?'<i class="e" style="width:'+vW+'px"></i>':'')+(gap>.5?'<i class="gap" style="width:'+gap+'px"></i>':'');
+  return '<span class="viz"><span class="bar '+(showRef?'':'noref')+'">'+seg+'</span><span class="pctxt"><span class="ne">'+comp+'</span>/<span class="ed">'+(100-comp)+'</span></span></span>';
+}
+function cell(s,role,isLeaf,isTot){
+  const cls=isTot?"cell c-tot":"cell";
+  if(!s||!s.display) return '<div class="'+cls+'"><span class="z">·</span></div>';
+  const g=pv(s.prov);
+  if(role==="Productievolume") return '<div class="'+cls+'"><span class="num prod">'+fmt(s.display)+g+'</span></div>';
+  const split=(s.nev||0)+(s.voe||0);
+  if(split<=0) return '<div class="'+cls+'"><span class="num">'+fmt(s.display)+g+'</span></div>';
+  if(isLeaf){
+    const ref=s.display, bang=(s.afwE>0 && Math.abs(split-s.afwE)/s.afwE>0.02)||(split>ref*1.02);
+    const t=bang?'title="agri-food waste '+nf.format(s.afwE||split)+' ≠ inedible+edible '+nf.format(split)+'"':'';
+    return '<div class="'+cls+' '+(bang?'inc':'')+'"><span class="num">'+fmt(s.display)+g+(bang?'<span class="bang" '+t+'>!</span>':'')+'</span>'+bar(s.nev,s.voe,ref,true)+'</div>';
+  }
+  return '<div class="'+cls+'"><span class="num">'+fmt(s.display)+g+'</span>'+bar(s.nev,s.voe,split,false)+'</div>';
+}
+/* the two quantity-type columns — plain readings off the same figure, no arithmetic.
+   A blank means the source did not split this row, never that the half is zero. */
+function num(v){return '<div class="cell">'+(v>0?'<span class="num">'+fmt(v)+'</span>':'<span class="z">·</span>')+'</div>';}
+function splitCells(s){return num((s||{}).nev)+num((s||{}).voe);}
+function blankCells(n){return '<div class="cell"><span class="z">·</span></div>'.repeat(n);}
+function totCell(n){
+  const s=n.repAgg[ST()];
+  if(n.totalFromAggregate) return cell({display:n.repTotal,nev:(s||{}).nev,voe:(s||{}).voe,afwE:0,prov:n.totalProv},n.role,n.isLeaf,true);
+  return cell(s,n.role,n.isLeaf,true);
+}
+
+/* ---- coverage row: what share of the reported total the level below explains ---- */
+function explainRow(n,level){
+  const cv=n.coverage, d="--d:"+(level+1);
+  if(!cv) return '<div class="explain" style="'+d+'"><span class="ico">↳</span>'+
+    '<b>'+fmt(n.childTotal)+'</b> t/yr summed across the level below '+
+    '<span class="of">· no reported total at this level to check it against</span></div>';
+  if(n.severity==="indicative") return '<div class="explain" style="'+d+'"><span class="ico">↳</span>'+
+    'reported total <b>'+fmt(cv.reported)+'</b> t/yr <span class="chip indicative">indicative</span>'+
+    '<span class="of">· nothing is captured below it in this stage, so it cannot be checked — but it is still the best estimate for what it covers</span></div>';
+  const p=pct(cv.ratio), w=Math.min(100,p), cls={ok:"okc",under:"underc",over:"overc",severe:"severec"}[n.severity];
+  const multi=state.editions.size>1?' <span class="of">· across '+state.editions.size+' source editions — filter to one for a clean check</span>':"";
+  return '<div class="explain sev-'+n.severity+'" style="'+d+'"><span class="ico">↳</span>'+
+    '<span class="cbar '+cls+'"><i style="width:'+w+'%"></i></span>'+
+    '<b>'+p+'%</b> of the reported total is explained by the level below '+
+    '<span class="of">(<b>'+fmt(cv.components)+'</b> of <b>'+fmt(cv.reported)+'</b> t/yr, in '+esc(STAGE_LABEL[ST()]||ST())+')</span>'+multi+
+    (n.severity==="severe"?' <span class="chip severe">⚠ CHECK · parts exceed the total by more than half</span>':
+     n.severity==="over"?' <span class="warn">— parts exceed the reported figure</span>':"")+'</div>';
+}
+
+/* ---- aggregate band: the control axis ---- */
+function aggEntries(n){
+  const out=[], st=ST();
+  const sets=n.totalSets[st];
+  if(sets){
+    const hasAgg=Object.keys(sets).some(k=>sets[k]&&sets[k].values.some(v=>v.isAgg));
+    if(hasAgg) out.push({kind:"stage",st,sets,cov:n.covByStage[st],sev:(n.covByStage[st]||{}).status});
+  }
+  if(n.totalColSets&&Object.keys(n.totalColSets).length)
+    out.push({kind:"all",sets:n.totalColSets,cov:n.coverage,sev:n.severity});
+  for(const g of n.subsetSets||[]) out.push({kind:"subset",g,cov:g.check,sev:g.severity});
+  return out;
+}
+function valuesHtml(set,label){
+  if(!set) return "";
+  const counted=set.values.filter(v=>!v.restates).length;
+  let h='<div class="hd">'+esc(label)+(counted>1?' · '+counted+' competing values, shown as their mean':"")+'</div>';
+  for(const v of set.values){
+    const ids=String(v.id).split("+").filter(x=>!x.startsWith("own:"));
+    const off=ids.length&&ids.every(x=>state.excluded.has(x));
+    const box=ids.length?'<input type="checkbox" class="exq" data-ids="'+esc(ids.join("+"))+'" '+(off?"":"checked")+' title="untick to drop this value from the average">'
+                        :'<span style="width:13px;flex:0 0 auto"></span>';
+    h+='<div class="vrow '+(off?"off":"")+'">'+box+'<span class="vid">'+esc(v.id)+'</span>'+
+       '<span class="vv">'+fmt(v.v)+'</span><span class="vn" title="'+esc(v.name)+'">'+esc(v.name)+'</span>'+
+       (v.isAgg&&!v.reviewed?'<span class="chip unrev" title="placement proposed, DECISION still blank in aggregate_coverage.csv">proposal</span>':"")+
+       (v.restates?'<span class="chip" title="these parts add up to '+esc(String(v.restates))+', which is the same figure — shown for the decomposition, left out of the mean so it is not counted twice">restates '+esc(String(v.restates))+'</span>':"")+
+       '</div>';
+  }
+  return h;
+}
+function aggRow(n,e,level){
+  const lvlName="AGGREGAAT of L"+(level+1);
+  let name,valCell,qtCells,covTxt;
+  if(e.kind==="subset"){
+    const g=e.g;
+    const full=(g.cov==="full"?"every entry":g.cov.join(" + "))+" — "+g.stages.map(s=>STAGE_LABEL[s]||s).join(" + ");
+    const short=g.cov==="full"?"every entry":g.cov.length+" of the rows below";
+    name='<span class="aggname">AGGREGAAT of '+esc(g.level||("L"+(level+1)))+'</span> <span class="chip subset" title="'+esc(full)+'">subset · '+esc(short)+'</span>';
+    valCell=cell({display:g.set.rep,prov:g.set.prov},n.role,false,true);
+    qtCells=num(g.qtKey==="nev"?g.set.rep:0)+num(g.qtKey==="voe"?g.set.rep:0);
+    covTxt=g.check?"Σ "+fmt(g.check.components)+" · <b>"+pct(g.check.ratio)+"%</b>":"";
+  } else if(e.kind==="all"){
+    name='<span class="aggname">'+lvlName+'</span> <span class="chip subset">all stages</span>';
+    const set=e.sets.prod||e.sets.afwE||e.sets.nev||e.sets.voe;
+    valCell=cell({display:set.rep,prov:set.prov},n.role,false,true);
+    qtCells=blankCells(2);
+    covTxt=e.cov?"Σ "+fmt(e.cov.components)+" · <b>"+pct(e.cov.ratio)+"%</b>":"";
+  } else {
+    name='<span class="aggname">'+lvlName+' · '+esc(STAGE_LABEL[e.st]||e.st)+'</span>';
+    valCell=cell(n.repAgg[e.st],n.role,false,true);
+    qtCells=splitCells(n.repAgg[e.st]);
+    covTxt=e.cov?(e.sev==="indicative"?"nothing below to check"
+      :"Σ "+fmt(e.cov.components)+" · <b>"+pct(e.cov.ratio)+"%</b>"):"";
+  }
+  const chip=e.sev?'<span class="chip '+e.sev+'">'+(e.sev==="severe"?"⚠ CHECK":SEV_WORD[e.sev])+'</span>':"";
+  if(e.cov && e.sev && e.sev!=="indicative"){
+    const cls={ok:"okc",under:"underc",over:"overc",severe:"severec"}[e.sev];
+    covTxt='<span class="cbar '+cls+'"><i style="width:'+Math.min(100,pct(e.cov.ratio))+'%"></i></span><b>'+pct(e.cov.ratio)+'%</b>';
+    covTxt='<span class="cov" title="the rows below sum to '+nf.format(Math.round(e.cov.components))+' of the '+nf.format(Math.round(e.kind==="subset"?e.g.set.rep:(e.cov.reported||0)))+' t/yr this aggregate reports">'+covTxt+'</span>';
+  } else covTxt='<span class="cov">'+covTxt+'</span>';
+  const detail=e.kind==="subset"
+    ? '<div class="hd">covers</div><div class="vrow"><span class="vn">'+(e.g.cov==="full"?"every entry":esc(e.g.cov.join(" · ")))+' — '+e.g.stages.map(s=>esc(STAGE_LABEL[s]||s)).join(" · ")+'</span></div>'+valuesHtml(e.g.set,QT_LABEL[e.g.qtKey])
+    : ["prod","afwE","nev","voe"].map(k=>valuesHtml(e.sets[k],QT_LABEL[k])).join("");
+  return '<div class="aggrow sev-'+(e.sev||"none")+'"><div class="c-name" style="--d:'+(level+1)+'">'+
+         '<span class="aggtoggle">▸</span>'+name+chip+covTxt+'</div>'+valCell+qtCells+'</div>'+
+         '<div class="aggdetail" style="--d:'+(level+2)+'">'+detail+'</div>';
+}
+
+/* ---- selection helpers (the 80/20 aid, scoped to the open stage) ---- */
+function leafIdsUnder(n,acc){ if(n.isLeaf){if(n.role===RESIDUAL_ROLE)acc.push(n.id);} else n.children.forEach(c=>leafIdsUnder(c,acc)); return acc; }
+let WASTE_TOTAL=0, WASTE_LEAVES=0, LEAFVOL={};
+function indexWaste(){ WASTE_TOTAL=0;WASTE_LEAVES=0;LEAFVOL={};
+  const rest=ROOTS.find(r=>r.label===RESIDUAL_ROLE); if(!rest)return;
+  (function w(n){ if(n.isLeaf){LEAFVOL[n.id]=n.repTotal;WASTE_TOTAL+=n.repTotal;WASTE_LEAVES++;} else n.children.forEach(w); })(rest);
+}
+function updateSelbar(){
+  const selVol=[...selected].reduce((a,id)=>a+(LEAFVOL[id]||0),0);
+  const nSel=[...selected].filter(id=>LEAFVOL[id]!=null).length;
+  const pctItems=WASTE_LEAVES?Math.round(nSel/WASTE_LEAVES*100):0;
+  const pctVol=WASTE_TOTAL?Math.round(selVol/WASTE_TOTAL*100):0;
+  const sev=RESULT.severeCount?'<span class="chip severe" title="rows where the parts exceed the reported total by more than half">⚠ '+RESULT.severeCount+' to check</span>':"";
+  const ex=state.excluded.size?'<span class="pill" title="values dropped from the averages">'+state.excluded.size+' excluded</span><button class="clr" id="cpEx">copy ids</button>':"";
+  const body=WASTE_LEAVES
+    ? '<span class="pill">'+pctVol+'% of this stage’s waste volume</span>'+
+      '<span class="hint">'+nSel+' of '+WASTE_LEAVES+' items ('+pctItems+'%) · <b>'+(selVol?nf.format(Math.round(selVol)):"0")+'</b> of '+fmt(WASTE_TOTAL)+' t/yr</span>'
+    : '<span class="hint">nothing to select — this stage has no commodity-resolved waste stream, only the sector totals listed below</span>';
+  document.getElementById("selbar").innerHTML=
+    '<b>80/20 selection</b> <span class="hint">within '+esc(STAGE_LABEL[ST()]||ST())+'</span> '+body+
+    sev+ex+(nSel?'<button class="clr" id="clrSel">Clear</button>':"");
+  const clr=document.getElementById("clrSel"); if(clr) clr.onclick=()=>{selected.clear();refreshChecks();updateSelbar();};
+  const cp=document.getElementById("cpEx"); if(cp) cp.onclick=()=>{
+    const t=[...state.excluded].join(", ");
+    if(navigator.clipboard) navigator.clipboard.writeText(t).then(()=>{cp.textContent="copied";setTimeout(()=>cp.textContent="copy ids",1200);});
+    else window.prompt("Excluded claim ids:",t);
+  };
+}
+function refreshChecks(){
+  treeEl.querySelectorAll(".chk").forEach(cb=>{
+    const n=cb.__node; if(!n||n.role!==RESIDUAL_ROLE)return;
+    if(n.isLeaf){ cb.checked=selected.has(n.id); cb.indeterminate=false; }
+    else { const ids=leafIdsUnder(n,[]); const on=ids.filter(id=>selected.has(id)).length;
+      cb.checked=on>0&&on===ids.length; cb.indeterminate=on>0&&on<ids.length; }
+  });
+}
+
+/* ---- render one node ---- */
+function severeUnder(n){ if(n.severity==="severe")return true;
+  if((n.subsetSets||[]).some(g=>g.severity==="severe"))return true;
+  return (n.children||[]).some(severeUnder); }
+function renderNode(n,level){
+  const kids=n.children||[], expandable=kids.length>0, st=ST();
+  const wrap=document.createElement("div"); wrap.className="node lvl-"+level;
+  wrap.dataset.search=(n.label||"").toLowerCase();
+  const label=level===1?(ROLE_LABEL[n.label]||n.label):n.label;
+  const isWaste=n.role===RESIDUAL_ROLE;
+  const srcBadge=n.nSelfSources>1?'<span class="srcbadge" title="'+n.selfSources.map(esc).join(" · ")+'">'+n.nSelfSources+" src · "+fmt(n.spreadMin)+"–"+fmt(n.spreadMax)+'</span>':"";
+  const flags=(n.assumed?'<span class="flag asm" title="edible/inedible split assumed on ≥1 claim">assumed</span>':"");
+  const dot=n.severity==="severe"||(n.subsetSets||[]).some(g=>g.severity==="severe")
+    ?'<span class="sevdot" title="the parts exceed the reported total by more than half"></span>'
+    :(severeUnder(n)?'<span class="sevdot deep" title="a row below needs checking"></span>':"");
+  wrap.innerHTML=
+    '<div class="row">'+
+      '<div class="c-name" style="--d:'+level+'">'+
+        '<input type="checkbox" class="chk '+(isWaste?"":"hidden")+'">'+
+        '<span class="caret '+(expandable?"":"empty")+'">▶</span>'+
+        '<span class="tag">L'+level+'</span>'+
+        '<span class="nm" title="'+esc(label)+'">'+esc(label)+'</span>'+
+        dot+srcBadge+flags+
+      '</div>'+
+      totCell(n)+splitCells(n.repAgg[st])+
+    '</div>'+
+    '<div class="kids"></div>';
+  const cb=wrap.querySelector(".chk"); cb.__node=n;
+  if(isWaste){ cb.addEventListener("change",()=>{ const ids=n.isLeaf?[n.id]:leafIdsUnder(n,[]);
+    if(cb.checked) ids.forEach(id=>selected.add(id)); else ids.forEach(id=>selected.delete(id));
+    refreshChecks(); updateSelbar(); }); }
+  else cb.classList.add("hidden");
+
+  const kw=wrap.querySelector(".kids");
+  // per-source rows (only when >1 source reports this node)
+  if(n.nSelfSources>1){
+    for(const sr of n.sourceRows){
+      const ids=(sr.claims||[]).map(c=>c.id).filter(Boolean);
+      const off=ids.length&&ids.every(x=>state.excluded.has(x));
+      const box=ids.length?'<input type="checkbox" class="exq chk" data-ids="'+esc(ids.join("+"))+'" '+(off?"":"checked")+' title="untick to drop this source’s figure from the average">':'<span class="chk hidden"></span>';
+      const srow=document.createElement("div"); srow.className="srcrow"+(off?" off":"");
+      srow.innerHTML='<div class="c-name" style="--d:'+(level+1)+'">'+box+'<span class="caret empty"></span><span class="srctag">'+esc(sr.ed)+'</span></div>'+
+        cell({display:sr.total,nev:(sr.agg[st]||{}).nev,voe:(sr.agg[st]||{}).voe,afwE:0,prov:{sum:false,avg:false}},n.role,false,true)+
+        splitCells(sr.agg[st]);
+      kw.appendChild(srow);
+    }
+  }
+  if(expandable){
+    const ordered=orderChildren(kids);
+    for(const c of ordered){ kw.appendChild(renderNode(c,level+1)); wrap.dataset.search+=" "+kw.lastChild.dataset.search; }
+    const band=aggEntries(n).map(e=>aggRow(n,e,level)).join("");
+    kw.insertAdjacentHTML("afterbegin",explainRow(n,level)+band);
+    const nc=wrap.querySelector(".c-name .caret"), nm=wrap.querySelector(".c-name .nm");
+    const toggle=()=>wrap.classList.toggle("open");
+    nc.addEventListener("click",toggle); nm.addEventListener("click",toggle); nm.style.cursor="pointer";
+  }
+  return wrap;
+}
+const LAST=/gemengd|varia|aggregaat|niet-gespecificeerd|overig|diverse/i;
+function orderChildren(ns){return [...ns].sort((a,b)=>(LAST.test(a.label)?1:0)-(LAST.test(b.label)?1:0)||b.repTotal-a.repTotal);}
+
+/* ---- the two bands under the tree ----------------------------------------
+   An aggregate that finds no parent row splits into two very different cases in a
+   stage-scoped view, and they must not be told as one:
+
+   (a) its parent is an L1 role row that this stage has NO component claims for.
+       Nothing is wrong with the figure: the stage simply has no commodity-resolved
+       data, only sector totals. That is the register's own finding for retail.
+   (b) anything else — the aggregate spans two parents or two levels, exactly as in
+       the canonical overview: unallocatable by design.
+   ------------------------------------------------------------------------- */
+function splitUnallocated(list){
+  const haveRoot=new Set(ROOTS.map(r=>r.label));
+  const totals=[], rest=[];
+  for(const u of list){
+    const parent=((u.claim.agg||{}).parent||"");
+    (ROLE_SET.has(parent)&&!haveRoot.has(parent) ? totals : rest).push(u);
+  }
+  return {totals,rest};
+}
+function uRow(u,extra){
+  return '<div class="u"><span class="uv">'+fmt(u.claim.v)+'</span><span class="uid">'+esc(u.claim.id)+'</span>'+
+    '<span>'+esc(u.claim.name.replace(/^AGGREGAAT\s*-\s*/,""))+'</span>'+
+    '<span class="uw">· '+esc(u.claim.ed)+' · '+esc(u.claim.qt)+(extra?" · "+esc(extra):"")+'</span></div>';
+}
+function renderStageTotals(list){
+  const host=document.getElementById("stagetot"); host.innerHTML="";
+  if(!list.length){host.style.display="none";return;}
+  host.style.display=""; host.open=ROOTS.length===0;
+  const sorted=[...list].sort((a,b)=>b.claim.v-a.claim.v);
+  host.innerHTML='<summary>Reported totals for this stage, with no commodity detail beneath them '+
+    '<span class="chip subset">'+sorted.length+'</span> '+
+    '<span style="font-weight:400;color:var(--muted)">— '+esc(STAGE_LABEL[ST()]||ST())+
+    ' has no commodity-resolved claim of this kind in the register, so these sector figures are all there is. They are read as printed and never split, summed or compared.</span></summary>'+
+    sorted.map(u=>uRow(u,"totals "+((u.claim.agg||{}).level||"?")+" under "+((u.claim.agg||{}).parent||"?"))).join("");
+}
+function renderUnallocated(list){
+  const host=document.getElementById("unalloc"); host.innerHTML="";
+  if(!list.length){host.style.display="none";return;}
+  host.style.display="";
+  const sorted=[...list].sort((a,b)=>b.claim.v-a.claim.v);
+  host.innerHTML='<summary>Unallocated aggregates <span class="chip subset">'+sorted.length+'</span> '+
+    '<span style="font-weight:400;color:var(--muted)">— no single row in this stage’s tree covers what these total, so they are shown but never compared or summed</span></summary>'+
+    sorted.map(u=>uRow(u,u.reason)).join("");
+}
+
+/* ---- the contextual panel: figures that span several chain stages ---- */
+function renderContext(){
+  const st=ST(), host=document.getElementById("ctxpanel");
+  const all=contextClaims(st);
+  const shown=all.filter(c=>(state.year==null||c.yr===state.year)&&state.editions.has(c.ed)&&!state.excluded.has(c.id))
+                 .sort((a,b)=>b.v-a.v);
+  const why='<div class="why"><b>Read these beside the table, never into it.</b> Each figure below covers '+
+    'several chain stages at once, so it measures more material than this page shows and cannot be compared with, '+
+    'subtracted from or added to anything in the table above. It is here because it is the only statement the '+
+    'sources make about the stage boundary itself — and because a figure held out of the overview must still be '+
+    'visible, or "not measured" and "measured across stages" become indistinguishable. '+
+    'The stage you are looking at is marked.</div>';
+  let body;
+  if(!all.length){
+    body='<div class="ctxnone"><b>None.</b> No figure in the register spans '+esc(STAGE_LABEL[st]||st)+
+      ' together with another chain stage. Checked, and absent — not unchecked.</div>';
+  } else if(!shown.length){
+    body='<div class="ctxnone"><b>'+all.length+' multi-stage figure'+(all.length>1?"s":"")+
+      '</b> touch this stage, but none survives the current year and source filter. Widen the filter to see '+
+      all.map(c=>esc(c.id)).join(", ")+'.</div>';
+  } else {
+    body=shown.map(c=>{
+      const stages=stagesOf(c).map(s=>'<span class="st'+(s===st?" here":"")+'">'+esc(STAGE_LABEL[s]||s)+'</span>').join("");
+      const note=(c.agg||{}).note||"";
+      return '<div class="ctxrow"><span class="cid">'+esc(c.id)+'</span><span class="cv">'+fmt(c.v)+'</span>'+
+        '<span class="cn"><span class="t">'+esc(c.name.replace(/^AGGREGAAT\s*-\s*/,""))+'</span>'+
+        '<span class="m">'+stages+esc(c.ed)+' · '+esc(String(c.yr||c.yr===0?c.yr:"—"))+' · '+esc(c.qt)+
+        ' · p.'+esc(c.page)+' '+esc(c.tbl)+(note?' · '+esc(note):"")+'</span></span></div>';
+    }).join("");
+  }
+  host.innerHTML='<div class="hd"><h2>Contextual — figures spanning several chain stages</h2>'+
+    '<span class="chip">'+shown.length+(all.length!==shown.length?" of "+all.length:"")+'</span>'+
+    '<span style="font-size:11.5px;color:var(--muted)">held out of every figure in the table above</span></div>'+
+    (all.length?why:"")+body;
+}
+
+/* ---- the scope strip: say what the filter did, in numbers ---- */
+function renderScope(){
+  const st=ST(), inStage=stageClaims(st), inYear=inStage.filter(c=>(state.year==null||c.yr===state.year)&&state.editions.has(c.ed));
+  const ctx=contextClaims(st);
+  const off=OFFSTAGE.length?'<span class="sep"></span><span class="muted" title="'+esc(OFFSTAGE.map(s=>STAGE_LABEL[s]||s).join(" · "))+
+    '">'+SINGLE.filter(c=>OFFSTAGE.indexOf(c.st)>=0).length+' claims sit at a chain stage with no tab here</span>':"";
+  document.getElementById("scope").innerHTML=
+    '<span><b>'+inStage.length+'</b> claims measure <b>'+esc(STAGE_LABEL[st]||st)+'</b> and nothing else</span>'+
+    '<span class="sep"></span><span class="muted"><b>'+inYear.length+'</b> of them pass the current year + source filter and build the table</span>'+
+    '<span class="sep"></span><span class="muted"><b>'+ctx.length+'</b> multi-stage figure'+(ctx.length===1?"":"s")+' held aside as context</span>'+off;
+}
+
+/* ---- build ---------------------------------------------------------------
+   The whole page is a pure function of DERIVE.derive(<this stage's single-stage
+   claims>, {year, editions, excluded}). Nothing is derived here. */
+function build(){
+  setCols(); header(); treeEl.innerHTML="";
+  RESULT=DERIVE.derive(stageClaims(ST()),{year:state.year,editions:state.editions,excluded:state.excluded});
+  ROOTS=RESULT.roots;
+  indexWaste();
+  for(const r of orderRoots(ROOTS)) treeEl.appendChild(renderNode(r,1));
+  const u=splitUnallocated(RESULT.unallocated);
+  renderStageTotals(u.totals); renderUnallocated(u.rest);
+  renderContext(); renderScope(); renderTabs();
+  defaultOpen(); refreshChecks(); updateSelbar();
+}
+function orderRoots(ns){return [...ns].sort((a,b)=>(a.label==="Reststroom"?0:1)-(b.label==="Reststroom"?0:1));}
+function defaultOpen(){treeEl.querySelectorAll(".node").forEach(n=>n.classList.remove("open"));
+  treeEl.querySelectorAll(":scope > .node.lvl-1").forEach(n=>n.classList.add("open"));}
+
+/* ---- delegated interaction: aggregate detail toggles + exclusions ---- */
+treeEl.addEventListener("click",e=>{
+  const t=e.target.closest(".aggtoggle"); if(!t)return;
+  const row=t.closest(".aggrow"); row.classList.toggle("open");
+  t.textContent=row.classList.contains("open")?"▾":"▸"; e.stopPropagation();
+});
+treeEl.addEventListener("change",e=>{
+  const box=e.target.closest(".exq"); if(!box)return;
+  const ids=(box.dataset.ids||"").split("+").filter(Boolean);
+  if(box.checked) ids.forEach(i=>state.excluded.delete(i)); else ids.forEach(i=>state.excluded.add(i));
+  persistExcluded(); build();
+});
+
+/* ---- the stage tabs: the filter this whole page turns on ---- */
+function renderTabs(){
+  const host=document.getElementById("tabs");
+  host.innerHTML=STAGES.map(s=>{
+    const n=stageClaims(s).length, c=contextClaims(s).length;
+    return '<button class="tab '+(s===ST()?"on":"")+'" data-stage="'+esc(s)+'">'+esc(STAGE_LABEL[s]||s)+
+      '<span class="n">'+n+' claims</span>'+(c?'<span class="ctxn" title="'+c+' multi-stage figure(s) shown as context">+'+c+' ctx</span>':"")+'</button>';
+  }).join("");
+  host.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{
+    if(b.dataset.stage===ST()) return;
+    state.stage=b.dataset.stage; selected.clear(); refreshFilters(true); build();
+  });
+}
+
+/* ---- year + source controls, rebuilt per stage ---- */
+const yearSel=document.getElementById("year");
+function refreshFilters(keepYear){
+  const cs=stageClaims(ST());
+  YEARS=yearsOf(cs); EDITIONS=editionsOf(cs);
+  if(!(keepYear && YEARS.indexOf(state.year)>=0)) state.year=YEARS.length?YEARS[0]:null;
+  state.editions=new Set(EDITIONS);
+  yearSel.innerHTML=YEARS.map(y=>'<option value="'+y+'">'+y+'</option>').join("");
+  yearSel.value=state.year;
+  buildSourcePanel();
+}
+yearSel.onchange=()=>{state.year=+yearSel.value;build();};
+
+function buildSourcePanel(){
+  const panel=document.getElementById("srcPanel"), lbl=document.getElementById("srcLbl");
+  panel.innerHTML='<div class="allrow"><button id="sAll">all</button><button id="sNone">none</button></div><div class="sep"></div>'+
+    EDITIONS.map(s=>'<label class="opt"><input type="checkbox" checked value="'+esc(s)+'"> '+esc(s)+'</label>').join("");
+  panel.querySelectorAll(".opt input").forEach(inp=>inp.onchange=e=>{
+    const s=e.target.value;
+    if(e.target.checked) state.editions.add(s); else state.editions.delete(s);
+    syncSrc(); build();
+  });
+  function syncSrc(){lbl.textContent=state.editions.size===EDITIONS.length?"all":state.editions.size===0?"none":state.editions.size+" chosen";}
+  panel.querySelector("#sAll").onclick=()=>{EDITIONS.forEach(s=>state.editions.add(s));panel.querySelectorAll(".opt input").forEach(i=>i.checked=true);syncSrc();build();};
+  panel.querySelector("#sNone").onclick=()=>{state.editions.clear();panel.querySelectorAll(".opt input").forEach(i=>i.checked=false);syncSrc();build();};
+  syncSrc();
+}
+
+document.getElementById("search").addEventListener("input",e=>{const q=e.target.value.trim().toLowerCase(),nodes=treeEl.querySelectorAll(".node");
+  if(!q){nodes.forEach(n=>n.classList.remove("filtered-search"));defaultOpen();return;}
+  nodes.forEach(n=>{const hit=(n.dataset.search||"").includes(q);n.classList.toggle("filtered-search",!hit);if(hit)n.classList.add("open");});});
+document.getElementById("reset").onclick=()=>{document.getElementById("search").value="";treeEl.querySelectorAll(".filtered-search").forEach(n=>n.classList.remove("filtered-search"));defaultOpen();};
+document.getElementById("clearEx").onclick=()=>{state.excluded.clear();persistExcluded();build();};
+
+document.getElementById("foot").innerHTML=
+  '<b>One chain stage at a time.</b> The table is built only from claims whose chain stage <i>is</i> the stage on the tab — filtered first, then handed to the same derivation the canonical stream overview uses. '+
+  'A figure that measures several stages at once never enters it; those are listed in the purple panel, for every stage they span, as context that is read beside the table and never into it. '+
+  '<b>Aggregates are checks, not volumes.</b> An <code>AGGREGAAT</code> row claims to be the total of other rows, so it never enters a sum — it becomes the reported total the level below is measured against. '+
+  'Where several values exist for one row and quantity type they are <b>competing definitions</b>, shown as their mean and listed individually: untick one to drop it from the average. '+
+  'An aggregate whose parts are not captured cannot be checked and is marked <b>indicative</b>; one whose coverage matches no single row is <b>unallocated</b>. Where a stage has no commodity-resolved data at all, its sector totals are listed in their own band rather than scored against an empty tree. '+
+  '<b>The two right-hand columns are the quantity-type split</b> — agri-food waste = inedible (nevenstroom) + edible (voedselverlies) — and a blank means the source did not split that row, never that the half is zero. '+
+  'Numbers carry their provenance: <code>Σ</code> summed by this view, <code>ø</code> an average, no mark a figure straight from the register. <b>⚠ CHECK</b> flags a row whose parts exceed its reported total by more than half.';
+
+refreshFilters(false);
+build();
+</script>
+</body>
+</html>

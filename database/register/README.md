@@ -38,13 +38,14 @@ From `database/register/`:
 ```bash
 ../.venv/Scripts/python tools/build_overview.py          # auto-finds the workbook
 ../.venv/Scripts/python tools/build_overview.py /path/to/workbook.xlsx
+../.venv/Scripts/python tools/build_stage_overviews.py   # the same view, one chain stage at a time
 ```
 
 macOS / Linux: `../.venv/bin/python tools/build_overview.py`. There is no `python3` on Windows —
 use the path above, or `py -3`.
 
-Open `build/stream_overview.html` in a browser; no server needed. Outside the venv any Python 3
-with `pandas` + `openpyxl` will do.
+Open `build/stream_overview.html` — or `build/stream_overview_by_stage.html` — in a browser; no
+server needed. Outside the venv any Python 3 with `pandas` + `openpyxl` will do.
 
 ## Files
 
@@ -56,6 +57,9 @@ Everything in `tools/` runs again for every new source. Finished one-off migrati
 | File | Role |
 |------|------|
 | `tools/build_overview.py` | Generator. Runs `prep_data.py`, then injects `derive.js` + `build/streams.json` into `template.html` → `build/stream_overview.html`. |
+| `tools/build_stage_overviews.py` | The same view **per chain stage**: injects `derive.js` + `build/streams.json` into `template_by_stage.html` → `build/stream_overview_by_stage.html`. See "The per-stage view" below. |
+| `tools/template_by_stage.html` | The per-stage view. Same placeholders, same CSS, no stage columns; one tab per stage plus the contextual panel. |
+| `tools/verify_by_stage.js` | Asserts the property the per-stage page rests on — that no figure crosses a stage boundary. Run it after any change to `derive.js` or to the stage split. |
 | `tools/prep_data.py` | Reads the `Streams` sheet + `crosswalks/aggregate_coverage.csv` → `build/streams.json`. Honours `DECISION_expert`: a retired claim leaves the derivation entirely. `BIOLOOP_REGISTRY` overrides the registry path, `BIOLOOP_XLSX` the workbook. |
 | `tools/derive.js` | Pure, DOM-free derivation (also runnable in Node). Builds the commodity tree, places the aggregates, computes coverage. |
 | `tools/template.html` | The view. Placeholders `/*__DERIVE__*/` and `/*__DATA__*/` are filled by the generator. |
@@ -133,6 +137,47 @@ parent row at **one** level. A total spanning two L2 groups (OVAM's *Aardappelen
 fruit* = potatoes + vegetables + fruit) has no row to hang from, so it goes to the
 **unallocated** band at the foot: visible and usable for interpretation, never compared, never
 summed.
+
+## The per-stage view
+
+`build/stream_overview_by_stage.html` — the same overview with the chain stage moved from the
+columns to a **filter on the whole page**. One tab per stage: **Primaire productie ·
+Voedingsindustrie · Retail & grootdistributie**.
+
+```bash
+../.venv/Scripts/python tools/build_stage_overviews.py     # → build/stream_overview_by_stage.html
+node tools/verify_by_stage.js                              # the property it rests on
+```
+
+**The split that makes it honest.** A claim either measures **one** chain stage or **several at
+once**. The register writes the second kind as `chain_L2 = meerdere stadia`, and
+`aggregate_coverage.stage_coverage` records the stages it spans; the two markers agree on all 738
+live claims (8 multi-stage, all of them aggregates over the primary sector), and
+`verify_by_stage.js` fails the build if they ever stop agreeing.
+
+- **Only the single-stage claims build a tab.** They are filtered to that stage and handed to
+  `derive.js` **unchanged** — the derivation is not reimplemented, it is simply given a narrower
+  input, so the tree, the aggregate placement and the coverage line all mean what they always meant.
+- **The multi-stage figures are held out of every number in the table** and shown in their own
+  panel below it, under each stage they span, with the stages named and the current one marked.
+  They are never summed, averaged, compared or used as a denominator: a figure covering four stages
+  cannot be measured against one of them. They are not dropped either — otherwise *not measured* and
+  *measured across stages* would look the same.
+
+Two consequences worth knowing before reading it:
+
+- **Retail has no commodity-resolved data at all.** All 17 retail claims are sector totals, so the
+  tab's tree is empty and every figure lands in a band of its own — *"reported totals for this
+  stage, with no commodity detail beneath them"*. That is the register's finding, not a rendering
+  failure; the same rows are simply invisible as *unallocated* in the canonical view, where they
+  attach to a tree other stages built.
+- **104 single-stage claims sit at a stage with no tab** (Visserij, Visveilingen,
+  Producentenorganisaties/veilingen). The scope strip says so on every tab. Adding one is a one-line
+  change to `STAGES` in `template_by_stage.html`.
+
+The stage columns are replaced by the two quantity-type columns — **inedible** (nevenstroom) and
+**edible** (voedselverlies). A blank there means the source did not split that row, never that the
+half is zero.
 
 ## Reading the view
 - **Coverage line** under every open row: what share of the reported total the level below

@@ -57,6 +57,68 @@ clean v2 re-run and supersedes it entirely.*
 
 ## Tooling & model sessions (no source extracted)
 
+### 2026-09-09 — the stream overview, one chain stage at a time
+
+**Objective:** a second view of the same corpus in which the chain stage is not a column but the
+filter the whole page turns on — one overview per stage (primaire productie, voedingsindustrie,
+retail), built from the claims that measure *that stage and nothing else*, with the figures that
+span several stages kept visible beside it as context rather than mixed into it.
+
+**What was built.** `tools/build_stage_overviews.py` + `tools/template_by_stage.html` →
+`build/stream_overview_by_stage.html`, and `tools/verify_by_stage.js` as its regression test.
+`derive.js` and `prep_data.py` are **untouched and uncopied**: the page calls the same derivation
+the canonical overview calls, with the same options, on a narrower input. There is still one
+derivation in this folder.
+
+**The split the page rests on, and why it is safe.** A claim either measures one chain stage or
+several at once. The register marks the second kind twice over — `chain_L2 = meerdere stadia` on the
+row, and more than one entry in `aggregate_coverage.stage_coverage` — and the two markers were
+checked against each other before anything was built: they agree on all 738 live claims, and pick
+out the same eight rows (C-002, C-004, C-111, C-112, C-113, C-114, C-210, C-217), every one of them
+an aggregate over the primary sector. Both markers are read at runtime and either one saying
+"several" makes a figure contextual, so a mistyped `chain_L2` or a missing registry row cannot slip
+a four-stage total into a single stage. `verify_by_stage.js` fails the build if they ever diverge.
+
+**What the multi-stage figures are allowed to do: nothing.** They are held out of every number in
+the table — never a summand, never an average, never a denominator, never compared — and rendered in
+their own panel under each stage they span, with the stages named and the current one marked. They
+are not dropped either, because *not measured* and *measured across stages* must not look the same.
+This is the same discipline the unallocated band already applies, applied to the stage axis.
+
+**Three things the stage filter made visible that the canonical view hides.**
+
+1. **Retail has no commodity-resolved data at all.** All 17 retail claims are `AGGREGAAT` sector
+   totals, so the tab's commodity tree is genuinely empty. In the canonical view those rows attach
+   to a `Reststroom` root that *other stages'* claims built, which makes retail look like an
+   ordinary branch with poor coverage. Under a stage filter it has no branch to attach to, and the
+   honest reading is the one the page now gives: **these seven figures are all there is.**
+2. **That case is not "unallocated" and must not be told as if it were.** An aggregate loses its
+   parent for two very different reasons — the stage has no component claims for that role at all
+   (retail; and `C-101` in Voedingsindustrie 2023), or the aggregate spans two parents or two levels
+   (the canonical, structural case). The page separates them into two bands, because merging them
+   would report a data gap as a placement defect.
+3. **104 single-stage claims sit at a stage with no tab** — Visserij, Visveilingen,
+   Producentenorganisaties/veilingen. The brief asked for three stages; the other four in-scope
+   stages are named in the scope strip on every tab and in the generator's own output, so nothing
+   goes missing silently. Adding one is a one-line change to `STAGES`.
+
+**The stage columns are replaced by the quantity-type split** — inedible (nevenstroom) and edible
+(voedselverlies) — read straight off the same figure, no arithmetic. A blank means the source did
+not split that row, never that the half is zero.
+
+**Verification.** `verify_by_stage.js` asserts nine properties over the real payload and all 17
+tab × year combinations: the partition is total and disjoint; the two markers agree; every
+multi-stage figure names ≥ 2 stages and every single-stage figure exactly its own; **no multi-stage
+figure reaches any stage table**; **no figure from another stage reaches a stage table**; each tab's
+derivation runs over exactly one stage (so the dropped columns cannot have hidden anything); every
+claim is accounted for (626 on a tab, 104 off-tab, 8 contextual); and every contextual figure
+surfaces under at least one tab. All nine hold. The page was then opened in a browser and driven
+through all three tabs × every year it offers — no console error, and the bands, the context panel
+and the empty-tree case render as intended.
+
+**Not changed:** the workbook, `streams_export.csv`, the dictionaries, the registry, the canonical
+`stream_overview.html`, and every figure in the corpus. This session added a view, not a number.
+
 ### 2026-09-09 — round 1 of the volume source hunt (F-003): the biggest gap is unpublished, not missing
 
 **Objective:** for each of the twelve derived gaps, name a concrete candidate; open and verify the
