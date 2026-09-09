@@ -205,8 +205,8 @@ def gaps():
     ws.freeze_panes = ws.cell(hrow + 1, 1)
 
     for i, (depth, r) in enumerate(rows, 1):
-        named = [u for u in r.get("unplaced", []) if not u.get("parallel")]
-        claims = ", ".join(u["id"] for u in named) or                  ", ".join(c["id"] for c in (r.get("claims") or [])[:6])
+        ctx = r.get("unplaced", [])
+        claims = ", ".join(c["id"] for c in (r.get("claims") or [])[:6])
         ws.append([i, ("      " * depth) + r["place"], r["stage"], r["family"],
                    r["asserted"], r["reached"], r["ownGap"],
                    r["what"], r["close"], claims])
@@ -220,9 +220,12 @@ def gaps():
             if depth: cell.fill = FILL_SUB
         ws.cell(j, 7).font = Font(bold=True)
         ws.row_dimensions[j].height = 60
-        # the sector rows that name an otherwise unattributable residual
-        for u in named:
-            ws.append(["", "         · " + u["name"], "", "", "", "", u["v"], "", "", u["id"]])
+        # Sector rows the source gives for an unattributable residual. They are CONTEXT:
+        # structurally unplaceable (an L4 mixed with L3s across two L2 groups), so their
+        # coverage is 0% by construction. Never a partition of the gap, never summed.
+        for u in ctx:
+            ws.append(["", "         ~ " + u["name"] + ("  [parallelle telling]" if u.get("parallel") else ""),
+                       "structureel onplaatsbaar — context, geen meting", "", "", "", u["v"], "", "", u["id"]])
             k = ws.max_row
             for c in range(1, len(hdr) + 1):
                 cell = ws.cell(k, c); cell.fill = FILL_SUB; cell.border = Border(bottom=THIN)
@@ -293,10 +296,13 @@ def gaps_html(src, rows, total):
             % (depth, _esc(r["place"]), _esc(r["stage"]), _esc(r["family"]),
                _n(r["asserted"]), _n(r["reached"]), _n(r["ownGap"]),
                _esc(r["what"]), _esc(r["close"])))
-        for u in [u for u in r.get("unplaced", []) if not u.get("parallel")]:
-            body.append("<tr class='sub d%d'><td colspan=4>· %s <span class=tag>%s</span></td>"
-                        "<td class=n></td><td class=n>%s</td><td colspan=2></td></tr>"
-                        % (depth + 1, _esc(u["name"]), _esc(u["id"]), _n(u["v"])))
+        for u in r.get("unplaced", []):
+            body.append("<tr class='sub d%d'><td colspan=4>~ %s <span class=tag>%s</span>%s</td>"
+                        "<td class=n></td><td class=n>%s</td>"
+                        "<td colspan=2>structureel onplaatsbaar — context, geen meting</td></tr>"
+                        % (depth + 1, _esc(u["name"]), _esc(u["id"]),
+                           " <span class=tag>parallelle telling</span>" if u.get("parallel") else "",
+                           _n(u["v"])))
     return html_page(
         "BIOLOOP — gaplijst",
         "%s t/jaar over %d plekken · afgeleid uit de stroomselectie: per plek het grootste totaal "

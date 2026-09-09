@@ -61,6 +61,21 @@ const FAMILY = e => e.startsWith("OVAM") ? "OVAM-monitor"
   : e.startsWith("MONBIO") ? "MONBIO"
   : e;
 
+// the registry's own words about each aggregate - why a row is unplaceable travels with it
+const REGNOTE = (() => {
+  const f = path.join(ROOT, "crosswalks", "aggregate_coverage.csv");
+  const out = {};
+  if (!fs.existsSync(f)) return out;
+  const lines = fs.readFileSync(f, "utf8").replace(/^﻿/, "").split(/\r?\n/).filter(l => l.trim());
+  const head = lines[0].split(";");
+  const iNote = head.indexOf("note"), iCov = head.indexOf("commodity_coverage");
+  lines.slice(1).forEach(l => {
+    const c = l.split(";");
+    if (c[0]) out[c[0].trim()] = { note: (c[iNote] || "").trim(), cov: (c[iCov] || "").trim() };
+  });
+  return out;
+})();
+
 const EDS = [...new Set(P.claims.filter(c => c.role === "Reststroom").map(c => c.ed))].sort();
 const byId = new Map(P.claims.map(c => [c.id, c]));
 
@@ -116,13 +131,26 @@ EDS.forEach(ed => {
   });
 });
 
-// ---- name the unattributable residual ---------------------------------------------------------
-// The mass left at a stage root belongs to no commodity branch, but it is not anonymous: it is
-// made of aggregates the derivation could not place because they span several L2 groups. OVAM's
-// eight food-industry sub-sector rows ARE a partition of its stage total, so listing them turns
-// a 1,29 Mt blob into four named sectors - Aardappelen/groenten/fruit, Vlees-vis-gevogelte,
-// Suiker-chocolade, Deegwaren-zetmeel. Without this the largest gap in the corpus reads as
-// "unattributable", which is true and useless.
+// ---- context for the unattributable residual --------------------------------------------------
+// CAREFUL. The mass left at a stage root belongs to no commodity branch, and the source DOES name
+// it - but only through aggregates that are UNALLOCATABLE BY DESIGN, and their figures are not
+// measurements of it.
+//
+// `crosswalks/aggregate_coverage.csv` settled this in an earlier phase and says so on the rows:
+// C-094 "totals 3 L3 entries under 2 different L2 parents - unallocatable by design", C-098
+// "totals meat + fish, which sit under 2 different L2 parents", C-097 and C-099 "OVAM subsector
+// lump; includes components the register does not capture - the coverage % is a floor".
+//
+// C-094 mixes an L4 (Aardappel, under Aardappelen en knolgewassen) with two L3s (Groenten, Fruit)
+// across two L2 groups. It therefore has no parent row at one level, its coverage is 0% BY
+// CONSTRUCTION rather than by measurement, and part of its mass is reachable in another branch
+// entirely. Summing these rows against the residual is comparing a structural artefact with a
+// figure. An earlier version of this file did exactly that and reported them as the residual's
+// composition (reviewer, 2026-09-09).
+//
+// They are kept because they are the only thing that NAMES the largest gap in the corpus -
+// aardappelverwerking is the top target of the source hunt - but they are carried as CONTEXT:
+// never summed, never a partition, always labelled with the registry's reason.
 EDS.forEach(ed => {
   const fam = FAMILY(ed);
   const F = fams.get(fam); if (!F) return;
@@ -135,7 +163,8 @@ EDS.forEach(ed => {
     const cur = F.unplaced.get(key);
     if (!cur || c.v > cur.v)
       F.unplaced.set(key, { stage: c.st, name: (c.name || "").replace("AGGREGAAT - ", ""),
-                            v: c.v, id: c.id, ed, qt: c.qt });
+                            v: c.v, id: c.id, ed, qt: c.qt,
+                            structural: true, why: (REGNOTE[c.id] || {}).note || u.reason || "" });
   });
 });
 
@@ -181,8 +210,10 @@ function describe(p) {
   const branch = p.path.replace("Reststroom ¦ ", "");
   if (isRoot) {
     return {
-      what: `de bron rapporteert deze schakel als één of enkele totalen zonder commodity-uitsplitsing; `
-        + `${fmt(p.reached)} t is elders in de boom wel bereikbaar, de rest hangt aan geen enkel gewas`,
+      what: `de bron rapporteert deze schakel als totaal; ${fmt(p.reached)} t is elders in de boom `
+        + `bereikbaar, de rest hangt aan geen enkel gewas. De sectorrijen die de bron er wél voor `
+        + `geeft zijn structureel onplaatsbaar (mengen een L4 met L3's over twee L2-groepen), dus `
+        + `hun cijfers zijn context en geen meting van dit gat`,
       close: `een bron die deze schakel per productgroep rapporteert in plaats van als sectortotaal`
     };
   }
@@ -239,15 +270,14 @@ fams.forEach(F => {
       : "(deze bron geeft geen schakeltotaal; de gaps hieronder staan op eigen takken)"));
     inStage.forEach(p => {
       console.log(`       ${fmt(p.ownGap).padStart(10)}  `
-        + (p.depth === 1 ? "(geen commoditytak - benoemd door deze sectorrijen:)"
+        + (p.depth === 1 ? "(hangt aan geen enkele commoditytak)"
           : p.path.replace("Reststroom ¦ ", "")).slice(0, 60));
       if (p.depth === 1) {
-        const named = (p.unplaced || []).filter(u => !u.parallel);
-        const par = (p.unplaced || []).filter(u => u.parallel);
-        if (!named.length && !par.length) console.log("            (geen verdere uitsplitsing in de bron)");
-        named.forEach(u => console.log(`            ${fmt(u.v).padStart(9)}  · ${u.name.slice(0, 54)} [${u.id}]`));
-        if (named.length) console.log(`            ${fmt(named.reduce((a, u) => a + u.v, 0)).padStart(9)}  = samen`);
-        par.forEach(u => console.log(`            ${fmt(u.v).padStart(9)}  ~ ${u.name.slice(0, 54)} [${u.id}] PARALLELLE TELLING`));
+        const ctx = p.unplaced || [];
+        if (!ctx.length) { console.log("            (de bron benoemt deze massa niet verder)"); return; }
+        console.log("            context - structureel onplaatsbare sectorrijen, GEEN meting en nooit optellen:");
+        ctx.forEach(u => console.log(`            ${fmt(u.v).padStart(9)}  ~ ${u.name.slice(0, 52)} [${u.id}]`
+          + (u.parallel ? " PARALLELLE TELLING" : "")));
       }
     });
   });
