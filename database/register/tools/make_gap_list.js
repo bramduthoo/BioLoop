@@ -55,6 +55,8 @@ const argMin = process.argv.indexOf("--min");
 const MIN = argMin > -1 ? Number(process.argv[argMin + 1]) : 50000;
 const walk = (n, o) => { o.push(n); (n.children || []).forEach(c => walk(c, o)); return o; };
 const fmt = n => Math.round(n || 0).toLocaleString("de-DE");
+const SHORT = e => e.replace("OVAM Monitor voedselverlies ", "OVAM ")
+  .replace(" ILVO 165", "").replace(" tuinbouw", "");
 
 // A family is sources that measure THE SAME THING, not sources with the same name. Grouping by
 // name prefix left ILVO 239 and GeNeSys as singletons, so OVAM's `Groenten openlucht` lump
@@ -122,7 +124,7 @@ EDS.forEach(ed => {
       const key = node.path + " @@ " + stage;
       const p = F.places.get(key) || {
         key, path: node.path, depth: node.depth, label: node.label, level: node.level,
-        stage, asserted: 0, reached: 0, assertedEd: "", claims: []
+        stage, asserted: 0, reached: 0, assertedEd: "", reachedEd: "", per: {}, claims: []
       };
       if (asserted > p.asserted) {
         p.asserted = asserted; p.assertedEd = ed;
@@ -137,7 +139,9 @@ EDS.forEach(ed => {
             .map(v => ({ id: v.id, name: v.name, v: v.v })));
         }
       }
-      p.reached = Math.max(p.reached, reachedAt(node, stage));
+      const re = reachedAt(node, stage);
+      if (re > p.reached) { p.reached = re; p.reachedEd = ed; }
+      p.per[ed] = { asserted, reached: re };
       F.places.set(key, p);
     });
   });
@@ -188,7 +192,19 @@ EDS.forEach(ed => {
 const rows = [];
 fams.forEach(F => {
   const all = [...F.places.values()];
-  all.forEach(p => p.gap = Math.max(0, p.asserted - p.reached));
+  all.forEach(p => {
+    p.gap = Math.max(0, p.asserted - p.reached);
+    /* A cross-source gap takes the largest claim from one source and the best coverage from
+       another. That answers "what does NOBODY reach", but the number itself is a hybrid that no
+       single source supports - and the two sides can differ in year and in scope. `Groenten
+       openlucht`: OVAM 2023 asserts 291.180 while ILVO 239 (2015) reaches 205.471, so the 85.709
+       belongs to neither. Report the same-source gap beside it and mark the row, so a hybrid is
+       never mistaken for a measurement (reviewer, 2026-09-09). */
+    p.sameSourceGap = Math.max(0, ...Object.values(p.per).map(x => x.asserted - x.reached));
+    p.sameSourceEd = (Object.entries(p.per)
+      .filter(([, x]) => Math.max(0, x.asserted - x.reached) === p.sameSourceGap)[0] || [""])[0];
+    p.hybrid = p.assertedEd !== p.reachedEd && p.reached > 0;
+  });
   const childrenOf = p => all.filter(q => q.stage === p.stage
     && q.path.startsWith(p.path + " ¦ ") && q.depth === p.depth + 1);
   all.forEach(p => {
@@ -288,6 +304,9 @@ fams.forEach(F => {
       console.log(`       ${fmt(p.ownGap).padStart(10)}  `
         + (p.depth === 1 ? "(hangt aan geen enkele commoditytak)"
           : p.path.replace("Reststroom ¦ ", "")).slice(0, 60));
+      if (p.hybrid) console.log(`                   ! HYBRIDE: ${SHORT(p.assertedEd)} beweert `
+        + `${fmt(p.asserted)}, ${SHORT(p.reachedEd)} bereikt ${fmt(p.reached)}. `
+        + `Binnen één bron is het grootste gat ${fmt(p.sameSourceGap)} (${SHORT(p.sameSourceEd)}).`);
       if (p.depth === 1) {
         const ctx = p.unplaced || [];
         if (!ctx.length) { console.log("            (de bron benoemt deze massa niet verder)"); return; }
@@ -320,7 +339,9 @@ if (process.argv.includes("--json") && jf) {
       place: p.depth === 1 ? "(geen commoditytak)" : p.path.replace("Reststroom ¦ ", ""),
       path: p.path, depth: p.depth,
       asserted: p.asserted, reached: p.reached, gap: p.gap, ownGap: p.ownGap,
-      assertedEd: p.assertedEd, claims: p.claims, unplaced: p.unplaced || [],
+      assertedEd: p.assertedEd, reachedEd: p.reachedEd, hybrid: !!p.hybrid,
+      sameSourceGap: p.sameSourceGap, sameSourceEd: p.sameSourceEd,
+      claims: p.claims, unplaced: p.unplaced || [],
       what: p.what, close: p.close
     }))
   };
