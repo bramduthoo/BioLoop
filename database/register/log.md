@@ -139,6 +139,41 @@ the skips that pointed at it before the retirement is final.* Rule v2.6 #8 says 
 ownership chain **when making a skip**; nothing yet says to re-check the skips already made when the
 chain later breaks. The retirement of four sources on one day is what exposed the difference.
 
+---
+
+**The reviewer's filter applied — and the answer is a clean negative.** *"Only >= 50 kt and
+reference year >= 2020 is worth reversing a skip for."* Every exclusion section of all eight
+extracted sources was re-scanned against that filter. **Not one restatement skip qualifies**, and
+the reason is structural rather than lucky: **the restatement rule fires when a newer edition
+reprints an older edition's year, so what it skips is old by construction.** The full ledger:
+
+| Where the skip is | Owner | Owner's year | Meets >=50 kt & >=2020? |
+|---|---|---|---|
+| S007, S091 → the 2018 OVAM/IMJV tables | S005 | 2018 | no — year |
+| S007 → vlasketen, aanlanding, areaal | S006 | 2019 | no — year |
+| S007, S091 → teruggooi | S005 | 2018 | no — year and size |
+| S091 → aanlanding 2020 (18.099 t) | **S007** | 2020 | n.v.t. — owner is extracted, correctly skipped |
+| S007, S091 → the 2020 voedselreststroom block (1.999.983 t) | **S002** | 2020 | n.v.t. — owner is extracted, in the corpus as C-190…C-193 |
+| S087 → GFVO voedingsindustrie | S001 | **2020** | no — size (4 kt) |
+| S002 → 2017 columns | S003 | 2017 | no — year |
+| S002 → 2015 columns | S004 (live) | 2015 | no — year |
+| S010 → Tabel 2–5 | S065, S066 (both extracted) | 2011–2015 | no — year, and resolved anyway |
+| S080 | — | — | has no skip to an unextracted owner at all |
+
+**The only recent, large owner that never materialised is the Marktanalyse series (S001, 2020), and
+it holds exactly one skipped figure: 4.000 t of GFVO.** Everything else the retirements stranded is
+2015–2019. So under the reviewer's policy the whole sweep resolves to *leave*, and its value is that
+this is now **checked and recorded** rather than unknown — the same discipline the register applies
+to a zero-yield source.
+
+**One figure does meet the filter, and it is a different skip class** (recorded as `X-01` so the
+sheet is complete, not as a proposal): **698.000 t dierlijk afval, 2023, S087 p.55** — skipped not
+as a restatement but on **geography**, because Figuur 24 spreads its herkomst over
+Vlaanderen/Wallonië/Brussel/buitenland and the source prints no Flemish counterpart. It is already
+F-003's, which states the remedy precisely: *the meat gap wants one number — the Flemish share — not
+a source.* Ownership stays there; it is listed here only so a reader of this sweep does not conclude
+that nothing large and recent was ever set aside.
+
 ### 2026-09-09 — the stream overview, one chain stage at a time
 
 **Objective:** a second view of the same corpus in which the chain stage is not a column but the
