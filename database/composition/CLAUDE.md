@@ -135,11 +135,21 @@ Applied so far, and they stack:
 |---|---|
 | `20260909120000_biomobi_composition_vocabulary.sql` | the starting core — 28 units, 6 bases, 62 parameters |
 | `20260909150000_..._vocabulary_v2.sql` | +6 parameters, the same day, because verified sources print them: `volatile_matter`, `fixed_carbon`, `hydrogen`, `oxygen`, `chlorine`, `insoluble_ash` |
-| `20260910100000_parameter_groups_and_scope.sql` | **DDL, hand-written** — the first schema change since the baseline. Adds `parameter_group` + `parameter.group_code`, and retires the microbiological parameters under a guard on `property_measurement` |
-| `20260910100100_..._vocabulary_v3.sql` | regenerated: 10 groups, English parameter names, every parameter grouped |
+| `20260910100000_parameter_groups_and_scope.sql` | **DDL** — adds `parameter_group` + `parameter.group_code`, retires the microbiological parameters |
+| `20260910100100_..._vocabulary_v3.sql` | regenerated: 10 groups, English parameter names |
+| `20260910160000_method_axis_and_infoods_groups.sql` | **DDL** — the `method` table, `property_measurement.method_code` + `value_origin`, `parameter_group.parent_code` + `external_ref`, and the category CHECKs narrowed to `chemical\|physical`. Supersedes the group half of `…100000` the same day |
+| `20260910160100_..._vocabulary_v4.sql` | regenerated: the adopted INFOODS tree (16 groups), 17 methods, 61 parameters |
+| `20260910160200_retire_superseded_parameter_groups.sql` | **DDL** — deletes the 8 invented groups v4 replaced. **A separate migration on purpose:** written first into `…160000`, ahead of the vocabulary insert, its guard silently did nothing because every parameter still pointed at the old groups at that point. *A guarded cleanup must run after the thing whose absence it checks for.* |
 
 Verified by `supabase db reset` on the local stack after each: **62 parameters in 10 groups, 0
 ungrouped, 0 microbiological.** **Not yet pushed to live** (nor has the streams migration).
+
+**`value_origin` makes a predicted value impossible to hide.** `measured` / `predicted` /
+`calculated` / `unknown`, with a CHECK. Feedipedia's asterisk lands on `predicted`; the Weende
+nitrogen-free extract and Phyllis2's fixed carbon are `calculated`, because they are arithmetic by
+the source rather than determinations; Phyllis2's oxygen is `unknown`, because it is usually taken
+by difference and the record does not say. Round 1 is 136 measured / 26 predicted / 12 calculated /
+6 unknown.
 
 **A basis restatement is not always a multiplication.** Phyllis2 prints each determination on `ar`,
 `dry` and `daf`; nine of ten reproduce exactly from `dry = ar × 100/(100−moisture)` and
@@ -180,41 +190,87 @@ the reviewer's marks and remarks → corrections at the source → loader → `p
 
 Round 1: `https://claude.ai/code/artifact/b7b1fe21-df01-41fe-9e68-8579e72bcbd1`.
 
-## The parameter hierarchy — category → group → parameter
+## The hierarchy is ADOPTED, not invented
 
-`parameter.category` has three values, so 62 parameters sat in two flat buckets. Reviewer request,
-2026-09-10. The middle level is `parameter_group`, and it follows the shape the schema already uses
-for streams: a reference table naming the axis's vocabulary, plus an FK from the thing classified.
+**Reviewer challenge, 2026-09-10:** the first hierarchy — `proximate-weende`, `elemental`,
+`other-chemical` — was *fitted to the two sources read so far*. It is the same overfitting the
+workstream keeps rediscovering: 2c let a deliverable's columns dictate BioMobi's facets, and this
+let Feedipedia's and Phyllis2's table layouts dictate the parameter tree. **We are not the first
+people to classify food components. Take a hierarchy that exists.**
 
-**A group is an analytical partition, not a chemical family** — Weende proximate, Van Soest fibre,
-fuel proximate, elemental, minerals, heavy metals. That is deliberate: in this catalogue a
-parameter's identity is method-defined, so grouping by method is the grouping that carries
-information. It also puts the honest seams on display: `crude_fibre` sits in `proximate-weende` and
-`ndf` in `fibre` precisely because they are not comparable.
+The tree is now **FAO/INFOODS's own component families**, read off the FAO/INFOODS BioFoodComp
+documentation: *Macronutrients including energy* (→ Water · Protein · Fat components ·
+Carbohydrates · Dietary fibre · Ash and other solids · Energy), *Minerals and trace elements*,
+*Heavy metals and contaminants*, *Bioactive constituents*, *Miscellaneous*. `parent_code` gives the
+family/subfamily nesting, exactly as `classification_term.parent_term_id` does for streams, and a
+parameter attaches to a **leaf**.
 
-**Some placements are calls, and any grouping of analytes has them.** `sulphur` and `chlorine` are
-in `elemental` rather than `minerals` because that is the tradition our sources report them in;
-`total_nitrogen` is in `elemental` while `crude_protein` is in `proximate-weende`, though both come
-off the same determination. A group is a presentation axis, not a claim about chemistry.
+**The seam is named rather than hidden.** INFOODS has no place for combustion characterisation, so
+`fuel-characterisation` (→ *Proximate analysis* · *Ultimate analysis*) is adopted from the
+**solid-biofuel standards** instead — the same CEN/TS methods Phyllis2's own records cite. And
+`physical-properties` belongs to neither standard, so its `external_ref` says exactly that.
+**Every group names where it comes from, or admits it is ours.** The generator refuses a group with
+an empty `external_ref`.
 
-`group_code` is **nullable** so a parameter can exist before its group is settled — that is what
-"the catalogue grows" needs. `emit_vocabulary.py` refuses to emit when a parameter's category
-disagrees with its group's.
+What this buys beyond tidiness: **the tree now has room for parameters we have not met yet.**
+INFOODS carries Vitamins, Amino acids, Sterols, Organic acids, Polyols and the bioactive
+subfamilies; when a source reports one, the branch already exists and is already named the way the
+rest of the world names it.
 
-**Parameter names are English** (2026-09-10, reviewer). `crude_fibre` had been named *Ruwe celstof*,
-which is the correct Dutch term for Weende crude fibre, but the catalogue is read against sources
-that are almost all English and a translated analyte name adds a step where nothing is gained. Codes
-were already English and did not change. **Stream names stay Dutch** — those are the register's own
-wording for Flemish materials, which is a different case.
+## Method is an axis on the MEASUREMENT, not part of the parameter
 
-## Microbiological characterisation is out of scope (2026-09-10)
+**Reviewer challenge, 2026-09-10, and it is the deeper of the two.** The catalogue had been
+resolving method differences by splitting the parameter (`adl` beside `lignin`, `crude_fat` meaning
+specifically the ether extract) or by burying the method in free-text notes (polarimetric vs
+enzymatic starch). The decisive counter-example: **dry matter determined at 60 °C and at 105 °C is
+the same analyte and a different number.** Splitting for that gives `dry_matter_105`,
+`dry_matter_60`, and no way left to ask for dry matter.
 
-Reviewer decision. The six microbiological parameters registered on 2026-09-09 were retired the next
-day, before any measurement referenced them. **Note that `charter.md` listed microbiological
-characterisation as in scope** — it was in the first draft and never acted on — so the charter was
-narrowed alongside the migration rather than left to contradict the schema. The
-`parameter.category` CHECK still admits `microbiological`, deliberately: reversing this is an
-`INSERT`, not a migration.
+So there is now a `method` table and a nullable `property_measurement.method_code`. **This is the
+rule the stream layer already runs on**: a stream is an object and where it arose belongs to the
+*observation*; a parameter is an analyte and how it was determined belongs to the *measurement*.
+If a name only makes sense by saying how it was measured, it is not the analyte.
+
+**The split rule that survives, and it is the important half:**
+
+- A method that changes the **number** for one analyte is a **method** — ADL vs Klason lignin,
+  105 °C vs 60 °C drying, polarimetric vs enzymatic starch, diethyl-ether vs acid-hydrolysis fat.
+- A determination that defines a **different fraction** stays its **own parameter**, because there
+  is no method-independent thing it could mean. `crude_fibre`, `ndf` and `adf` are three fractions,
+  not three ways of measuring one.
+
+**`method_code = NULL` is a real state, not a blank to fill.** A source printing a column headed
+only *Lignin* has not said which determination it used. Recording that as unknown is honest;
+assigning it to ADL because the neighbouring columns are Van Soest is a guess — which is exactly
+what the first version did, and what the reviewer caught.
+
+## Weende is one tradition among several, not the frame
+
+**Reviewer challenge, 2026-09-10.** Several parameter names had quietly made the Weende feed-analysis
+scheme the reference frame everything else was described against: *Ruwe celstof* as the name of
+crude fibre, *Crude ash*, and `crude_fat` for what a source actually printed as *Ether extract*.
+The catalogue has to carry food-composition sources, feed tables, fuel databases and primary
+literature; **overfitting it to the first tradition we read is the same error as overfitting the
+hierarchy to the first two sources.**
+
+The rule: **if X and Y are the same thing with certainty, say so; otherwise keep what the source
+printed.** Applied —
+
+- `crude_fat` → **`fat_total`**, with the extraction as a method. Ether extract is *a way of
+  determining* total fat that under-recovers bound lipids, not a synonym for it; INFOODS separates
+  FAT from FATCE on exactly these grounds.
+- `ash` is named **Ash**, not *Crude ash*; the ashing temperature is a method.
+- **`crude_fibre` keeps its name**, and that is not an inconsistency: it is genuinely
+  Weende-specific, there is no method-independent thing it could mean, and INFOODS itself carries
+  it as FIBC. It is not a worse measurement of fibre than NDF — it is a *different fraction*.
+
+## Microbiological characterisation is out, permanently (2026-09-10)
+
+Reviewer decision, confirmed as definitive. The six parameters were retired, and the CHECK
+constraints on `parameter.category` and `parameter_group.category` were **narrowed to
+`chemical | physical`** so it cannot come back by accident. **`charter.md` listed microbiological
+characterisation as in scope** — from its first draft, never acted on — so the charter was narrowed
+with it rather than left contradicting the schema.
 
 ## Two reviewer decisions, 2026-09-09
 

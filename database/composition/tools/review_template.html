@@ -156,6 +156,12 @@ td.p code{font-size:12px; color:var(--muted); display:block}
   font-family:"IBM Plex Mono",monospace; padding:1px 6px; border-radius:3px; margin-left:5px; white-space:nowrap}
 .pill.pred{background:var(--warn-soft); color:var(--warn)}
 .pill.rest{background:var(--idle-soft); color:var(--idle)}
+.pill.calc{background:var(--accent-soft); color:var(--accent-ink)}
+.pill.unk{background:var(--idle-soft); color:var(--idle)}
+td.m{white-space:nowrap}
+.meth{font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-2)}
+.meth.none{color:var(--muted); font-style:italic; font-family:inherit; font-size:12.5px}
+.stdref{float:right; font-style:normal; letter-spacing:.06em; color:var(--ink-2); opacity:.75}
 .markbtn{font:inherit; font-size:11px; cursor:pointer; background:none; border:1px solid var(--line-2);
   color:var(--muted); border-radius:4px; padding:1px 7px; white-space:nowrap}
 .markbtn:hover{border-color:var(--alert); color:var(--alert)}
@@ -190,14 +196,16 @@ footer.foot li{margin-bottom:5px}
 
 <header class="top">
   <div class="wrap">
-    <p class="eyebrow">BioMobi &middot; fase 3 &middot; ronde 1 &middot; herzien 2026-09-10</p>
+    <p class="eyebrow">BioMobi &middot; fase 3 &middot; ronde 1 &middot; herzien 2026-09-10 (methode-as)</p>
     <h1>Compositiecontrole &mdash; top 10 commodities</h1>
     <p class="lede">Kandidaat-<code>property_measurement</code> rijen voor de <strong>16 objecten</strong> van de top 10 van de
       stroomselectie. <strong>Niets hiervan staat in de database.</strong> Elke waarde is door een model van de bronpagina
       overgeschreven, niet door een mens &mdash; deze pagina is er om dat na te lopen. Markeer een rij die fout is en laat per
       stroom een opmerking na; ik lees ze terug voordat er iets geladen wordt. Rijen staan gegroepeerd per
-      <b>analytische partitie</b> (Weende, Van&nbsp;Soest-vezel, elementair, mineralen &hellip;), het middenniveau van
-      <code>categorie &rarr; groep &rarr; parameter</code>. Wat deze ronde nog <i>niet</i> is, staat onderaan.</p>
+      <b>componentfamilie</b> &mdash; die boom is <b>overgenomen van FAO/INFOODS</b>, met een tweede tak uit de
+      vastebrandstofnormen voor de verbrandingsparameters waar INFOODS geen plaats voor heeft. Elke bandkop noemt
+      rechts de norm waaruit hij komt. De kolom <b>Methode</b> is nieuw: de bepaling hoort bij de m&eacute;ting, niet
+      bij de parameter. Wat deze ronde nog <i>niet</i> is, staat onderaan.</p>
     <div class="tiles" id="tiles"></div>
   </div>
 </header>
@@ -245,8 +253,10 @@ footer.foot li{margin-bottom:5px}
       <h3 style="margin-top:16px">Waar dit op wacht</h3>
       <ol>
         <li><b>Jouw controle van deze cijfers.</b> Markeer wat fout is; ik corrigeer aan de bron, niet in de database.</li>
-        <li><b>Polarimetrisch vs enzymatisch zetmeel</b> &mdash; nu &eacute;&eacute;n parameter <code>starch</code> met de methode in
-          <code>notes</code>. Als jij vindt dat het twee parameters moeten zijn, zeg het hier.</li>
+        <li><b>Methode staat nu op de meting</b>, niet in de parameternaam. <code>adl</code> is opgegaan in
+          <code>lignin</code>, <code>crude_fat</code> in <code>fat_total</code>, en polarimetrisch vs enzymatisch
+          zetmeel zijn twee methodes van &eacute;&eacute;n parameter. <i>Niet vermeld</i> in die kolom is een echte
+          toestand: de bron zegt het niet.</li>
         <li><b>De basis&#8209;herformuleringen.</b> Phyllis2 drukt elke bepaling af op drie basissen. Beslist
           2026&#8209;09&#8209;10: de <code>dry</code>&#8209;kolom laadt (en vocht op <code>fresh</code>), de rest blijft in de
           CSV staan als <code>restatement</code> &mdash; zet de filter uit om te zien wat dat is.</li>
@@ -349,7 +359,7 @@ function buildTable(code, rows){
   const wrap = el('div', 'tablewrap');
   const tb = el('table');
   const thead = el('thead'); const htr = el('tr');
-  ['Parameter', 'Waarde', 'Spreiding', 'Eenheid', 'Basis', 'Nb', 'Bron', ''].forEach(h => htr.append(el('th', null, h)));
+  ['Parameter', 'Waarde', 'Spreiding', 'Eenheid', 'Basis', 'Methode', 'Nb', 'Bron', ''].forEach(h => htr.append(el('th', null, h)));
   thead.append(htr); tb.append(thead);
   const body = el('tbody'); tb.append(body);
   wrap.append(tb);
@@ -359,13 +369,17 @@ function buildTable(code, rows){
     if (r.group !== lastGroup) {
       lastGroup = r.group;
       const gtr = el('tr', 'grouprow');
-      const gtd = el('td', null, r.group_label);
-      gtd.colSpan = 8; gtr.append(gtd); body.append(gtr);
+      const gtd = el('td');
+      const fam = r.group_family !== r.group_label ? r.group_family + ' \u203a ' : '';
+      gtd.append(document.createTextNode(fam + r.group_label));
+      const ref = el('span', 'stdref', r.group_ref);
+      gtd.append(ref);
+      gtd.colSpan = 9; gtr.append(gtd); body.append(gtr);
     }
     const key = rowKey(r, i);
     const tr = el('tr');
     tr.dataset.key = key;
-    tr.dataset.pred = r.predicted;
+    tr.dataset.pred = (r.origin === 'predicted') ? 'yes' : 'no';
     tr.dataset.rest = r.restatement;
     if (r.restatement === 'yes') tr.classList.add('rest');
 
@@ -377,7 +391,9 @@ function buildTable(code, rows){
 
     const v = el('td', 'v');
     v.append(document.createTextNode(r.value));
-    if (r.predicted === 'yes') v.append(el('span', 'pill pred', 'voorspeld'));
+    if (r.origin === 'predicted') v.append(el('span', 'pill pred', 'voorspeld'));
+    if (r.origin === 'calculated') v.append(el('span', 'pill calc', 'berekend'));
+    if (r.origin === 'unknown') v.append(el('span', 'pill unk', 'herkomst ?'));
     if (r.restatement === 'yes') v.append(el('span', 'pill rest', 'herformul.'));
     tr.append(v);
 
@@ -390,6 +406,10 @@ function buildTable(code, rows){
 
     tr.append(el('td', 'u', r.unit));
     tr.append(el('td', 'b', r.basis));
+    const mtd = el('td', 'm');
+    if (r.method) { const sp = el('span', 'meth', r.method); sp.title = r.method_label; mtd.append(sp); }
+    else { const sp = el('span', 'meth none', 'niet vermeld'); sp.title = 'De bron noemt de bepaling niet. Dat is een echte toestand, geen ontbrekende invulling.'; mtd.append(sp); }
+    tr.append(mtd);
     const nn = el('td', 'v'); nn.textContent = r.n || '—'; tr.append(nn);
     const src = el('td'); src.style.cssText = 'font-size:12px;color:var(--muted);white-space:nowrap';
     src.textContent = r.source_ref; tr.append(src);

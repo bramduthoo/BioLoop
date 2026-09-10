@@ -1,11 +1,17 @@
-﻿code;name;category;sort_order;definition
-proximate-weende;Weende proximate analysis;chemical;10;The classical feed-analysis partition - dry matter, ash, crude protein, crude fat, crude fibre and the nitrogen-free remainder. Every fraction is defined by its method, not by a molecule
-fibre;Fibre fractions;chemical;20;Cell-wall fractions. The Van Soest detergent sequence (NDF, ADF, ADL) plus individually determined polymers and AOAC dietary fibre. NOT interchangeable with Weende crude fibre
-carbohydrate;Carbohydrates;chemical;30;Starch and the free mono- and disaccharides
-energy;Calorific value;chemical;40;Gross and net calorific value. Feed sources call gross energy GE, fuel sources call it HHV - one quantity
-proximate-fuel;Fuel proximate analysis;chemical;50;Volatile matter and fixed carbon, the combustion-science counterpart of the Weende partition. Reported by fuel databases such as Phyllis2, never by feed tables
-elemental;Elemental analysis;chemical;60;The CHNOS plus chlorine set of the ultimate analysis, and the C/N ratio derived from it. Sulphur and chlorine sit here rather than with the minerals because that is the tradition our sources report them in
-minerals;Mineral elements;chemical;70;Macro- and trace mineral elements as feed and agronomy report them, including the oxide forms P2O5 and K2O
-heavy-metals;Heavy metals and metalloids;chemical;80;Contaminants that decide which applications a stream is admissible for
-other-chemical;Other chemical properties;chemical;90;Chemical properties belonging to no analytical partition above
-physical;Physical properties;physical;100;Bulk, particle and water-relation properties. Feeds the transport and handling side of the model
+﻿code;name;parent_code;category;sort_order;external_ref;definition
+macronutrients-energy;Macronutrients including energy;;chemical;10;FAO/INFOODS;Top-level INFOODS family. Carries no parameters itself - a parameter attaches to the deepest group, as a stream attaches to its deepest classification term
+water;Water;macronutrients-energy;chemical;11;FAO/INFOODS;Water and its complement. Dry matter is registered here rather than under ash because INFOODS treats the water axis as one family
+protein;Protein;macronutrients-energy;chemical;12;FAO/INFOODS;Nitrogen and the protein figures derived from it
+fat;Fat components;macronutrients-energy;chemical;13;FAO/INFOODS;Total fat and lipid fractions. The extraction used is a METHOD, not a separate parameter
+carbohydrates;Carbohydrates and carbohydrate fractions;macronutrients-energy;chemical;14;FAO/INFOODS;Starch, sugars and the by-difference carbohydrate figures
+dietary-fibre;Dietary fibre and dietary fibre fractions;macronutrients-energy;chemical;15;FAO/INFOODS;Every fibre fraction, whichever tradition defined it - AOAC dietary fibre, Weende crude fibre and the Van Soest detergent fractions all live here. They are DIFFERENT FRACTIONS, not one fraction measured differently
+ash-solids;Ash and other solids;macronutrients-energy;chemical;16;FAO/INFOODS;Mineral residue and the organic complement
+energy;Energy;macronutrients-energy;chemical;17;FAO/INFOODS;Calorific value. Feed sources call it gross energy, fuel sources call it HHV - one quantity, one group
+minerals-trace;Minerals and trace elements;;chemical;20;FAO/INFOODS;Mineral elements as nutrients, including the agronomic oxide forms P2O5 and K2O
+heavy-metals-contaminants;Heavy metals and contaminants;;chemical;30;FAO/INFOODS;Elements that decide which applications a stream is admissible for
+bioactive;Bioactive constituents;;chemical;40;FAO/INFOODS;INFOODS nests flavonoids, tannins, phenolic acids and other bioactives here. Only a total-polyphenol figure is registered so far - the subfamilies enter when a source reports them
+fuel-characterisation;Solid-biofuel characterisation;;chemical;50;ISO 17225 / CEN-TS;THE SEAM. INFOODS has no place for combustion characterisation, so this branch is adopted from the solid-biofuel standards instead - the same CEN/TS methods Phyllis2 records cite. Carries no parameters itself
+proximate-fuel;Proximate analysis;fuel-characterisation;chemical;51;ISO 17225 / CEN-TS;Volatile matter and fixed carbon. Not the Weende proximate partition and not to be confused with it
+ultimate;Ultimate (elemental) analysis;fuel-characterisation;chemical;52;ISO 17225 / CEN-TS;The CHNOS plus chlorine set, and the C/N ratio derived from it. Sulphur and chlorine sit here rather than with the minerals because the ultimate analysis is a defined standard set that includes them - not because our sources happen to report them that way
+physical-properties;Physical properties;;physical;60;neither standard;Bulk, particle and water-relation properties. Neither INFOODS nor ISO 17225 carries these as a family, so this branch is ours and is labelled as such. Feeds the transport and handling side of the model
+miscellaneous;Miscellaneous;;chemical;70;FAO/INFOODS;INFOODS closes its list with this family and so do we. pH and the effluent-load parameters are not food components in any tradition

@@ -59,6 +59,11 @@ def main() -> None:
     params = {p["code"]: p["name"] for p in pcsv}
     pgroup = {p["code"]: p["group_code"] for p in pcsv}
     groups = {g["code"]: g for g in read(ROOT / "vocabulary" / "parameter_groups.csv")}
+    methods = {m["code"]: m["name"] for m in read(ROOT / "vocabulary" / "methods.csv")}
+
+    def family(code):
+        g = groups[code]
+        return groups[g["parent_code"]]["name"] if g["parent_code"] else g["name"]
     meas = read(EXTRACT / "round1_measurements.csv")
     srcs = read(EXTRACT / "round1_sources.csv")
     nodata = read(EXTRACT / "round1_nodata.csv")
@@ -73,7 +78,12 @@ def main() -> None:
         "parameter_label": params[m["parameter_code"]],
         "group": pgroup[m["parameter_code"]],
         "group_label": groups[pgroup[m["parameter_code"]]]["name"],
+        "group_family": family(pgroup[m["parameter_code"]]),
+        "group_ref": groups[pgroup[m["parameter_code"]]]["external_ref"],
         "group_sort": int(groups[pgroup[m["parameter_code"]]]["sort_order"]),
+        "method": m["method_code"],
+        "method_label": methods.get(m["method_code"], ""),
+        "origin": m["value_origin"],
         "value": m["value_num"],
         "min": m["value_min"],
         "max": m["value_max"],

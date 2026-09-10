@@ -28,7 +28,8 @@ HERE = Path(__file__).resolve().parent
 VOCAB = HERE.parent / "vocabulary"
 
 # parameter_category_check in the baseline migration
-VALID_CATEGORIES = {"chemical", "physical", "microbiological"}
+# narrowed 2026-09-10: microbiological characterisation is out of scope for good
+VALID_CATEGORIES = {"chemical", "physical"}
 
 
 def read(name: str) -> list[dict[str, str]]:
@@ -70,11 +71,13 @@ def validate() -> tuple[list[dict], list[dict], list[dict], list[dict]]:
     units = read("units.csv")
     bases = read("bases.csv")
     groups = read("parameter_groups.csv")
+    methods = read("methods.csv")
     params = read("parameters.csv")
 
     check_unique(units, "units.csv")
     check_unique(bases, "bases.csv")
     check_unique(groups, "parameter_groups.csv")
+    check_unique(methods, "methods.csv")
     check_unique(params, "parameters.csv")
 
     unit_codes = {u["code"] for u in units}
@@ -110,11 +113,33 @@ def validate() -> tuple[list[dict], list[dict], list[dict], list[dict]]:
                 f"every later value maps to it, so what it means must be written down"
             )
 
+    leaves = {g["code"] for g in groups} - {g["parent_code"] for g in groups if g["parent_code"]}
     for g in groups:
         if g["category"] not in VALID_CATEGORIES:
             problems.append(f"group {g['code']}: category {g['category']!r} is not valid")
         if not g["definition"]:
             problems.append(f"group {g['code']}: empty definition")
+        if not g["external_ref"]:
+            problems.append(
+                f"group {g['code']}: empty external_ref - every group either names the standard "
+                f"it is adopted from, or says plainly that it is ours"
+            )
+        if g["parent_code"] and g["parent_code"] not in group_by_code:
+            problems.append(f"group {g['code']}: parent_code {g['parent_code']!r} names no group")
+        if g["parent_code"] == g["code"]:
+            problems.append(f"group {g['code']}: is its own parent")
+
+    # a parameter attaches to its DEEPEST group, as a stream attaches to its deepest term
+    for p in params:
+        if p["group_code"] in group_by_code and p["group_code"] not in leaves:
+            problems.append(
+                f"parameter {p['code']}: group {p['group_code']!r} has children, so it is not a "
+                f"leaf - attach the parameter to the deepest group and walk up for the family"
+            )
+
+    for m in methods:
+        if not m["name"]:
+            problems.append(f"method {m['code']}: empty name")
 
     for table, rows in (("units.csv", units), ("bases.csv", bases)):
         for row in rows:
@@ -132,10 +157,10 @@ def validate() -> tuple[list[dict], list[dict], list[dict], list[dict]]:
             print("FAIL:", p, file=sys.stderr)
         sys.exit(1)
 
-    return units, bases, groups, params
+    return units, bases, groups, methods, params
 
 
-def emit(units, bases, groups, params, path: Path) -> None:
+def emit(units, bases, groups, methods, params, path: Path) -> None:
     out: list[str] = []
     w = out.append
 
@@ -154,7 +179,7 @@ def emit(units, bases, groups, params, path: Path) -> None:
     w("-- never edit an applied migration. Every statement below is ON CONFLICT-guarded.")
     w("--")
     w(f"-- {len(units)} units, {len(bases)} bases, {len(groups)} parameter groups, "
-      f"{len(params)} parameters.")
+      f"{len(methods)} methods, {len(params)} parameters.")
     w("")
 
     w("-- 1. units. Basis is NEVER folded into a unit string -- that is what basis is for.")
@@ -174,17 +199,31 @@ def emit(units, bases, groups, params, path: Path) -> None:
         w("  ON CONFLICT (code) DO UPDATE SET description = EXCLUDED.description;")
     w("")
 
-    w("-- 3. the parameter groups: the middle level of category -> group -> parameter.")
-    w("--    A group implies exactly one category; the generator refuses a disagreement.")
-    for g in groups:
-        w("INSERT INTO parameter_group (code, name, category, sort_order, definition) VALUES (")
-        w(f"  {q(g['code'])}, {q(g['name'])}, {q(g['category'])}, {int(g['sort_order'])},")
+    w("-- 3. the parameter hierarchy, adopted rather than invented: FAO/INFOODS component")
+    w("--    families, plus a solid-biofuel branch for the combustion parameters INFOODS has")
+    w("--    no place for. Parents first, then children. A parameter attaches to a LEAF.")
+    for g in sorted(groups, key=lambda g: (bool(g["parent_code"]), int(g["sort_order"]))):
+        w("INSERT INTO parameter_group (code, name, parent_code, category, sort_order,")
+        w("    external_ref, definition) VALUES (")
+        w(f"  {q(g['code'])}, {q(g['name'])}, {qn(g['parent_code'])}, {q(g['category'])},")
+        w(f"  {int(g['sort_order'])}, {q(g['external_ref'])},")
         w(f"  {q(g['definition'])})")
-        w("  ON CONFLICT (code) DO UPDATE SET name = EXCLUDED.name, category = EXCLUDED.category,")
-        w("    sort_order = EXCLUDED.sort_order, definition = EXCLUDED.definition;")
+        w("  ON CONFLICT (code) DO UPDATE SET name = EXCLUDED.name,")
+        w("    parent_code = EXCLUDED.parent_code, category = EXCLUDED.category,")
+        w("    sort_order = EXCLUDED.sort_order, external_ref = EXCLUDED.external_ref,")
+        w("    definition = EXCLUDED.definition;")
     w("")
 
-    w("-- 4. the parameter catalogue. default_unit_code is a HINT ONLY -- every measurement")
+    w("-- 4. methods. A method changes the NUMBER for one analyte; a determination that")
+    w("--    defines a DIFFERENT FRACTION is its own parameter instead.")
+    for m in methods:
+        w("INSERT INTO method (code, name, description) VALUES (")
+        w(f"  {q(m['code'])}, {q(m['name'])}, {qn(m['description'])})")
+        w("  ON CONFLICT (code) DO UPDATE SET name = EXCLUDED.name,")
+        w("    description = EXCLUDED.description;")
+    w("")
+
+    w("-- 5. the parameter catalogue. default_unit_code is a HINT ONLY -- every measurement")
     w("--    records its own unit, and units may differ between measurements of one parameter.")
     for p in params:
         w("INSERT INTO parameter (code, name, category, group_code, default_unit_code, definition)")
@@ -214,10 +253,10 @@ def main() -> None:
     )
     args = ap.parse_args()
 
-    units, bases, groups, params = validate()
+    units, bases, groups, methods, params = validate()
     print(
         f"OK: {len(units)} units, {len(bases)} bases, {len(groups)} groups, "
-        f"{len(params)} parameters "
+        f"{len(methods)} methods, {len(params)} parameters "
         f"({sum(1 for p in params if p['category'] == 'chemical')} chemical, "
         f"{sum(1 for p in params if p['category'] == 'physical')} physical)"
     )
@@ -229,7 +268,7 @@ def main() -> None:
                 f"FAIL: {out} already exists. An applied migration is frozen -- "
                 f"emit a NEW one with a later timestamp instead."
             )
-        emit(units, bases, groups, params, out)
+        emit(units, bases, groups, methods, params, out)
         print(f"wrote {out}")
 
 

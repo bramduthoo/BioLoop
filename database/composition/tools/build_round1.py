@@ -186,24 +186,30 @@ FEEDIPEDIA = {
     ]),
 }
 
-# Feedipedia label -> (parameter_code, unit, basis, note)
+# Feedipedia label -> (parameter_code, unit, basis, method_code, note)
+# The method is an AXIS on the measurement, not part of the parameter (2026-09-10).
+# An empty method_code is a real state: the source did not say which determination.
 FEED_MAP = {
-    "Dry matter":              ("dry_matter",   "%",     "fresh", ""),
-    "Crude protein":           ("crude_protein","%",     "dry",   "Feedipedia does not print the N factor used"),
-    "Crude fibre":             ("crude_fibre",  "%",     "dry",   ""),
-    "Neutral detergent fibre": ("ndf",          "%",     "dry",   ""),
-    "Acid detergent fibre":    ("adf",          "%",     "dry",   ""),
-    "Lignin":                  ("adl",          "%",     "dry",
-                                "Feedipedia prints 'Lignin' inside the Van Soest sequence, so it is read as ADL"),
-    "Ether extract":           ("crude_fat",    "%",     "dry",   ""),
-    "Ether extract, HCl hydrolysis": ("crude_fat", "%",  "dry",
-                                "HCl-hydrolysis extraction - a DIFFERENT determination from plain ether extract"),
-    "Ash":                     ("ash",          "%",     "dry",   ""),
-    "Insoluble ash":           ("insoluble_ash","%",     "dry",   ""),
-    "Starch (polarimetry)":    ("starch",       "%",     "dry",   "polarimetric determination"),
-    "Starch (enzymatic)":      ("starch",       "%",     "dry",   "enzymatic determination"),
-    "Total sugars":            ("total_sugars", "%",     "dry",   ""),
-    "Gross energy":            ("hhv",          "MJ/kg", "dry",   "Feedipedia prints it as gross energy (GE)"),
+    "Dry matter":              ("dry_matter",   "%",     "fresh", "",
+                                "Feedipedia does not print the drying temperature"),
+    "Crude protein":           ("crude_protein","%",     "dry",   "",
+                                "Feedipedia does not print the N factor used"),
+    "Crude fibre":             ("crude_fibre",  "%",     "dry",   "", ""),
+    "Neutral detergent fibre": ("ndf",          "%",     "dry",   "",
+                                "Feedipedia does not say whether amylase was used (aNDF) or ash corrected for (aNDFom)"),
+    "Acid detergent fibre":    ("adf",          "%",     "dry",   "", ""),
+    "Lignin":                  ("lignin",       "%",     "dry",   "",
+                                "The column is headed only Lignin. The feedtables glossary says it is USUALLY the Van Soest ADL, and that hedge is why the method is left unknown here rather than set to lignin-adl"),
+    "Ether extract":           ("fat_total",    "%",     "dry",   "ee-diethyl", ""),
+    "Ether extract, HCl hydrolysis": ("fat_total", "%",  "dry",   "ee-hcl", ""),
+    "Ash":                     ("ash",          "%",     "dry",   "",
+                                "Feedipedia does not print the ashing temperature"),
+    "Insoluble ash":           ("insoluble_ash","%",     "dry",   "", ""),
+    "Starch (polarimetry)":    ("starch",       "%",     "dry",   "starch-polarimetric", ""),
+    "Starch (enzymatic)":      ("starch",       "%",     "dry",   "starch-enzymatic", ""),
+    "Total sugars":            ("total_sugars", "%",     "dry",   "", ""),
+    "Gross energy":            ("hhv",          "MJ/kg", "dry",   "",
+                                "Printed as gross energy (GE), the same quantity fuel sources call HHV"),
 }
 
 # --------------------------------------------------------------------------
@@ -280,24 +286,30 @@ PHYLLIS = {
     ]),
 }
 
+# Phyllis2 label -> (parameter_code, method_code, value_origin, note)
 PHYL_MAP = {
-    "Moisture content":            ("moisture",        ""),
-    "Ash content at 550 C":        ("ash",             "determined at 550 C"),
-    "Volatile matter":             ("volatile_matter", ""),
-    "Fixed carbon":                ("fixed_carbon",    "a difference calculation by the source, not a measurement"),
-    "Carbon":                      ("total_carbon",    ""),
-    "Hydrogen":                    ("hydrogen",        ""),
-    "Oxygen":                      ("oxygen",          "usually determined by difference"),
-    "Nitrogen":                    ("total_nitrogen",  ""),
-    "Sulphur":                     ("sulphur",         ""),
-    "Chlorine (Cl)":               ("chlorine",        "total Cl, not water-soluble chloride"),
-    "Net calorific value (LHV)":   ("lhv",             ""),
-    "Gross calorific value (HHV)": ("hhv",             ""),
-    "Cellulose":                   ("cellulose",       ""),
-    "Hemicellulose":               ("hemicellulose",   ""),
-    "Lignin":                      ("lignin",          "the record says only 'lignin', not ADL or Klason"),
-    "Cadmium (Cd)":                ("cadmium",         ""),
-    "Lead (Pb)":                   ("lead",            ""),
+    "Moisture content":            ("moisture",        "", "measured", ""),
+    "Ash content at 550 C":        ("ash",             "ash-550", "measured", ""),
+    "Volatile matter":             ("volatile_matter", "", "measured", ""),
+    "Fixed carbon":                ("fixed_carbon",    "", "calculated",
+                                    "100 minus moisture, ash and volatile matter - arithmetic by the source"),
+    "Carbon":                      ("total_carbon",    "", "measured", ""),
+    "Hydrogen":                    ("hydrogen",        "", "measured", ""),
+    "Oxygen":                      ("oxygen",          "", "unknown",
+                                    "usually taken by difference rather than determined, and the record does not say which"),
+    "Nitrogen":                    ("total_nitrogen",  "", "measured", ""),
+    "Sulphur":                     ("sulphur",         "", "measured", ""),
+    "Chlorine (Cl)":               ("chlorine",        "", "measured",
+                                    "total Cl from elemental analysis, not water-soluble chloride"),
+    "Net calorific value (LHV)":   ("lhv",             "", "calculated",
+                                    "recomputed per basis from HHV and the water actually present - NOT a rescaling of the other bases"),
+    "Gross calorific value (HHV)": ("hhv",             "", "measured", ""),
+    "Cellulose":                   ("cellulose",       "", "measured", ""),
+    "Hemicellulose":               ("hemicellulose",   "", "measured", ""),
+    "Lignin":                      ("lignin",          "", "measured",
+                                    "the record says only lignin - neither ADL nor Klason is named"),
+    "Cadmium (Cd)":                ("cadmium",         "", "measured", ""),
+    "Lead (Pb)":                   ("lead",            "", "measured", ""),
 }
 
 BASIS_COL = {"ar": "fresh", "dry": "dry", "daf": "dry_ash_free"}
@@ -335,11 +347,12 @@ def build():
 
     for stream, (node, variant, table) in FEEDIPEDIA.items():
         for label, avg, sd, vmin, vmax, n, pred in table:
-            code, unit, basis, note = FEED_MAP[label]
+            code, unit, basis, method, note = FEED_MAP[label]
             rows.append(dict(
                 stream_code=stream, parameter_code=code, value_type="point",
                 value_num=avg, value_min=vmin, value_max=vmax, sd=sd, n_samples=n,
-                unit_code=unit, basis_code=basis,
+                unit_code=unit, basis_code=basis, method_code=method,
+                value_origin="predicted" if pred else "measured",
                 source_key="feedtables-inrae-cirad-afz-fao",
                 source_ref=f"Feedipedia node {node}", year="",
                 reported_label=label, variant=variant,
@@ -350,14 +363,15 @@ def build():
 
     for stream, (rec, name, ref, loc, year, flag, table) in PHYLLIS.items():
         for label, unit, ar, dry, daf in table:
-            code, note = PHYL_MAP[label]
+            code, method, origin, note = PHYL_MAP[label]
             for col, value in (("ar", ar), ("dry", dry), ("daf", daf)):
                 if not value:
                     continue
                 rows.append(dict(
                     stream_code=stream, parameter_code=code, value_type="point",
                     value_num=value, value_min="", value_max="", sd="", n_samples="",
-                    unit_code=unit, basis_code=BASIS_COL[col],
+                    unit_code=unit, basis_code=BASIS_COL[col], method_code=method,
+                    value_origin=origin,
                     source_key="phyllis2-tno",
                     source_ref=f"Phyllis2 record #{rec}", year=year,
                     reported_label=label, variant=f"{name} ({loc})" if loc else name,
@@ -370,9 +384,10 @@ def build():
                 ))
 
     fields = ["stream_code", "parameter_code", "value_type", "value_num", "value_min",
-              "value_max", "sd", "n_samples", "unit_code", "basis_code", "source_key",
-              "source_ref", "year", "reported_label", "variant", "predicted",
-              "restatement", "flag", "transcription", "DECISION", "notes"]
+              "value_max", "sd", "n_samples", "unit_code", "basis_code", "method_code",
+              "value_origin", "source_key", "source_ref", "year", "reported_label",
+              "variant", "predicted", "restatement", "flag", "transcription",
+              "DECISION", "notes"]
     with (OUT / "round1_measurements.csv").open("w", encoding="utf-8-sig", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=fields, delimiter=";")
         w.writeheader()
@@ -388,7 +403,9 @@ def build():
     print(f"{len(rows)} candidate measurement rows over "
           f"{len({r['stream_code'] for r in rows})} objects")
     print(f"  {kept} on their primary basis, {len(rows) - kept} basis restatements")
-    print(f"  {sum(1 for r in rows if r['predicted'] == 'yes')} marked predicted by the source")
+    import collections
+    print(f"  value_origin: {dict(collections.Counter(r['value_origin'] for r in rows))}")
+    print(f"  with a named method: {sum(1 for r in rows if r['method_code'])}")
     print(f"  {sum(1 for r in rows if r['flag'])} carry a transcription/quality flag")
     print(f"{len(NO_DATA)} objects with no data")
     print(f"written to {OUT}")

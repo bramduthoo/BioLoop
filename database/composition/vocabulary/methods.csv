@@ -1,0 +1,18 @@
+﻿code;name;description
+dm-oven-105;Oven drying at 103-105 C;Drying to constant mass at 103-105 C. The temperature matters - a lower-temperature or vacuum drying gives a different figure for the same material, which is exactly why the method is recorded beside the value and not inside the parameter
+dm-oven-60;Oven drying at 60 C;Low-temperature drying, common where volatiles would be lost at 105 C
+ash-550;Ashing at 550 C;Incineration to constant mass at 550 C
+ash-600;Ashing at 600 C;Incineration to constant mass at 600 C
+ee-diethyl;Ether extraction (diethyl ether);Continuous or Soxhlet extraction with diethyl ether. This is what the Weende scheme calls crude fat - a method of determining total fat, not a different analyte
+ee-petroleum;Ether extraction (petroleum ether);Extraction with petroleum ether. Recovers a slightly different lipid set than diethyl ether
+ee-hcl;Acid hydrolysis then ether extraction;HCl hydrolysis before extraction, which releases bound lipids the plain ether extract leaves behind. Systematically higher than ee-diethyl on the same material
+lignin-adl;Acid detergent lignin (Van Soest);Lignin as the residue of the acid-detergent sequence. feedtables.com defines its Lignin column as usually this method - note the hedge, which is why a value from a column headed only Lignin is recorded as method unknown rather than as this one
+lignin-klason;Klason lignin;Lignin as the residue after 72 percent sulphuric acid hydrolysis. Reads systematically higher than ADL
+lignin-permanganate;Permanganate lignin (Van Soest);The permanganate variant of the Van Soest lignin determination
+ndf-amylase;NDF with amylase (aNDF);Neutral detergent fibre run with heat-stable amylase, so residual starch does not inflate the figure
+ndf-ash-corrected;NDF corrected for ash (aNDFom);Neutral detergent fibre expressed free of residual ash
+starch-polarimetric;Starch by polarimetry (Ewers);The polarimetric determination. Reads higher than the enzymatic method on the same material - Feedipedia prints both for several feeds
+starch-enzymatic;Starch by enzymatic assay;Enzymatic determination
+kjeldahl;Kjeldahl nitrogen;Wet digestion nitrogen determination
+dumas;Dumas combustion nitrogen;Combustion nitrogen determination
+prediction-equation;Predicted from a regression equation;NOT A MEASUREMENT. The value is the output of an equation fitted to other constituents. Record it on value_origin as predicted - this method row exists for the case where the source names the equation
