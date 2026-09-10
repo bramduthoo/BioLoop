@@ -154,6 +154,59 @@ captured**, which is the whole reason the panel exists.
    it lands in the unallocated band. That band is not a rendering failure: it is the largest gap in
    the corpus, and the stage filter is the first view that makes it impossible to miss.
 
+**Reading the sources to answer question 3 turned up a capture defect — the largest one found so
+far. It is recorded here and raised on F-003; nothing was extracted in this session.**
+
+**What the two dairy figures actually are.** OVAM's 123.219 t (S002, Tabel 30, p.54) is OVAM's own
+calculation on **IMJV** returns for production year **2020** — a biennial statutory survey of food
+companies (all ≥50 employees; a sample below that, extrapolated; zuivel: 97 of 127 firms surveyed,
+**59% response**), counting only what **leaves the site** ("wat intern wordt gerecycleerd, wordt niet
+gemeld") and **excluding slib by design** (484.693 t reported separately for the whole food
+industry, *"in analogie met de Europese food-waste-statistieken"*). MONBIO's 70.167 t is **not
+MONBIO's measurement**: it is a quote of **(OVAM, 2021) for 2018**, and it comes from a table pair.
+
+**The pair is the whole answer.** MONBIO prints that OVAM study as two tables (3.0: Tabel 46/47,
+p.158/160 · 4.0: Tabel 64/65, p.166/168), identical in both editions:
+
+- **Tabel 46 — *primaire afvalstoffen*** (material **with** waste status): NACE 10.5 = 166.291 t,
+  of which **76.529 t** in the *plant en dier* column and 75.567 t *water* (slib).
+- **Tabel 47 — *nevenstromen en productieresiduen zonder afvalstatuut***: NACE 10.5 = 70.167 t,
+  of which **49.722 t** *plant en dier* (the melkwei) and 20.445 t *water* (the zuiveringsslib).
+
+So the register captured **one half of one of the two tables**. Add the halves and take the sludge
+out of both, as OVAM's own monitor does: **76.529 + 49.722 = 126.251 t (2018)** against OVAM's
+**123.219 t (2020)** — **2,4 % apart.** The two sources were never in conflict about dairy; the
+corpus was holding a fragment of one of them. Across the eight sub-sectors the same addition lands
+within ~10% for five (zuivel 98%, deegwaren/zetmeel 99%, vlees/vis 105%, suiker/andere 92%,
+bakkerij 82%) and low for the three where the non-waste by-product dwarfs the waste side —
+aardappelen/groenten/fruit 72%, dranken 72%, **oliën en vetten 24%** — which is where the IMJV's
+"leaves the site" boundary bites hardest.
+
+**The defect: 2,73 Mt is stranded on a retired source.** Both tables were skipped under the
+cross-source restatement rule as *"S005 owns them"* — and **S005 (MONBIO 1.0) is `_RETIRED`**, so
+they land nowhere. This is **exactly protocol v2.6 rule #8**, which was written *from this very
+table*: the melkwei row was rescued as C-802/C-803 on 2026-09-08 and **its companion was not**. In
+scope (01 landbouw, 01 groente- en fruitveilingen, NACE 10.1–10.9, 11), the *plant en dier* column
+holds **1.275.368 t** in Tabel 46 and **1.459.629 t** in Tabel 47 — **2.735.000 t of 2018 Flemish
+agri-food material at NACE grain, of which the corpus holds 49.722 t.** The slib columns
+(536.047 + 136.703 t) stay out of scope per `quantity_type.csv`.
+
+**Two consequences that change other work, both raised on F-003:**
+
+- **F-003's top priority is aardappelverwerking** — *"621.063 t, zero components, no candidate"*.
+  Tabel 47 gives NACE 10.3 (aardappelen, groenten en fruit) **602.006 t** for 2018, and Tabel 46
+  another 310.021 t. A figure for that place has been sitting in two archived PDFs the whole time.
+  The same holds for dranken (434.940 + 41.151 t) and oliën/vetten (219.239 + 18.270 t).
+- **The OVAM/MATIS cross-tab request** (hub, next action) asks for `NACE-4 × EURAL-6`. Tabel 46/47
+  are a *coarser* published cross-tab of the same registry — NACE × material category, 2018. Worth
+  citing in the request as precedent, and worth having as the 2018 baseline whatever the request
+  returns.
+
+**Next session (not this one):** capture Tabel 46/47 into **S007** — or 64/65 into S091, whichever
+the reviewer prefers as owner — under rule v2.6 #8, at NACE-sector grain, *plant en dier* column
+only, with the `AGGREGAAT - ` prefix and an `aggregate_coverage.csv` line each, and a note on every
+row that the pair are two legal categories of one study and are **additive, not variants**.
+
 **Not changed:** the workbook, `streams_export.csv`, the dictionaries, the registry, the canonical
 `stream_overview.html`, and every figure in the corpus. This session added a view, not a number.
 
