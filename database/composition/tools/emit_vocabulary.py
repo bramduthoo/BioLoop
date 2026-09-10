@@ -66,16 +66,19 @@ def qn(value: str) -> str:
     return q(value) if value else "NULL"
 
 
-def validate() -> tuple[list[dict], list[dict], list[dict]]:
+def validate() -> tuple[list[dict], list[dict], list[dict], list[dict]]:
     units = read("units.csv")
     bases = read("bases.csv")
+    groups = read("parameter_groups.csv")
     params = read("parameters.csv")
 
     check_unique(units, "units.csv")
     check_unique(bases, "bases.csv")
+    check_unique(groups, "parameter_groups.csv")
     check_unique(params, "parameters.csv")
 
     unit_codes = {u["code"] for u in units}
+    group_by_code = {g["code"]: g for g in groups}
     problems: list[str] = []
 
     for p in params:
@@ -85,6 +88,16 @@ def validate() -> tuple[list[dict], list[dict], list[dict]]:
             problems.append(
                 f"parameter {p['code']}: category {p['category']!r} is not one of "
                 f"{sorted(VALID_CATEGORIES)} - the schema CHECK would reject it"
+            )
+        g = p["group_code"]
+        if g not in group_by_code:
+            problems.append(
+                f"parameter {p['code']}: group_code {g!r} is in no row of parameter_groups.csv"
+            )
+        elif group_by_code[g]["category"] != p["category"]:
+            problems.append(
+                f"parameter {p['code']}: category {p['category']!r} disagrees with group "
+                f"{g!r}, which is {group_by_code[g]['category']!r} - a group implies one category"
             )
         du = p["default_unit_code"]
         if du and du not in unit_codes:
@@ -96,6 +109,12 @@ def validate() -> tuple[list[dict], list[dict], list[dict]]:
                 f"parameter {p['code']}: empty definition - a parameter is registered once and "
                 f"every later value maps to it, so what it means must be written down"
             )
+
+    for g in groups:
+        if g["category"] not in VALID_CATEGORIES:
+            problems.append(f"group {g['code']}: category {g['category']!r} is not valid")
+        if not g["definition"]:
+            problems.append(f"group {g['code']}: empty definition")
 
     for table, rows in (("units.csv", units), ("bases.csv", bases)):
         for row in rows:
@@ -113,10 +132,10 @@ def validate() -> tuple[list[dict], list[dict], list[dict]]:
             print("FAIL:", p, file=sys.stderr)
         sys.exit(1)
 
-    return units, bases, params
+    return units, bases, groups, params
 
 
-def emit(units, bases, params, path: Path) -> None:
+def emit(units, bases, groups, params, path: Path) -> None:
     out: list[str] = []
     w = out.append
 
@@ -134,7 +153,8 @@ def emit(units, bases, params, path: Path) -> None:
     w("-- parameters.csv and emit a NEW migration -- never map it onto a near-neighbour, and")
     w("-- never edit an applied migration. Every statement below is ON CONFLICT-guarded.")
     w("--")
-    w(f"-- {len(units)} units, {len(bases)} bases, {len(params)} parameters.")
+    w(f"-- {len(units)} units, {len(bases)} bases, {len(groups)} parameter groups, "
+      f"{len(params)} parameters.")
     w("")
 
     w("-- 1. units. Basis is NEVER folded into a unit string -- that is what basis is for.")
@@ -154,17 +174,30 @@ def emit(units, bases, params, path: Path) -> None:
         w("  ON CONFLICT (code) DO UPDATE SET description = EXCLUDED.description;")
     w("")
 
-    w("-- 3. the parameter catalogue. default_unit_code is a HINT ONLY -- every measurement")
+    w("-- 3. the parameter groups: the middle level of category -> group -> parameter.")
+    w("--    A group implies exactly one category; the generator refuses a disagreement.")
+    for g in groups:
+        w("INSERT INTO parameter_group (code, name, category, sort_order, definition) VALUES (")
+        w(f"  {q(g['code'])}, {q(g['name'])}, {q(g['category'])}, {int(g['sort_order'])},")
+        w(f"  {q(g['definition'])})")
+        w("  ON CONFLICT (code) DO UPDATE SET name = EXCLUDED.name, category = EXCLUDED.category,")
+        w("    sort_order = EXCLUDED.sort_order, definition = EXCLUDED.definition;")
+    w("")
+
+    w("-- 4. the parameter catalogue. default_unit_code is a HINT ONLY -- every measurement")
     w("--    records its own unit, and units may differ between measurements of one parameter.")
     for p in params:
-        w("INSERT INTO parameter (code, name, category, default_unit_code, definition) VALUES (")
+        w("INSERT INTO parameter (code, name, category, group_code, default_unit_code, definition)")
+        w("  VALUES (")
         w(f"  {q(p['code'])},")
         w(f"  {q(p['name'])},")
         w(f"  {q(p['category'])},")
+        w(f"  {q(p['group_code'])},")
         w(f"  {qn(p['default_unit_code'])},")
         w(f"  {q(p['definition'])})")
         w("  ON CONFLICT (code) DO UPDATE SET name = EXCLUDED.name,")
-        w("    category = EXCLUDED.category, default_unit_code = EXCLUDED.default_unit_code,")
+        w("    category = EXCLUDED.category, group_code = EXCLUDED.group_code,")
+        w("    default_unit_code = EXCLUDED.default_unit_code,")
         w("    definition = EXCLUDED.definition;")
     w("")
 
@@ -181,12 +214,12 @@ def main() -> None:
     )
     args = ap.parse_args()
 
-    units, bases, params = validate()
+    units, bases, groups, params = validate()
     print(
-        f"OK: {len(units)} units, {len(bases)} bases, {len(params)} parameters "
+        f"OK: {len(units)} units, {len(bases)} bases, {len(groups)} groups, "
+        f"{len(params)} parameters "
         f"({sum(1 for p in params if p['category'] == 'chemical')} chemical, "
-        f"{sum(1 for p in params if p['category'] == 'physical')} physical, "
-        f"{sum(1 for p in params if p['category'] == 'microbiological')} microbiological)"
+        f"{sum(1 for p in params if p['category'] == 'physical')} physical)"
     )
 
     if args.emit_migration:
@@ -196,7 +229,7 @@ def main() -> None:
                 f"FAIL: {out} already exists. An applied migration is frozen -- "
                 f"emit a NEW one with a later timestamp instead."
             )
-        emit(units, bases, params, out)
+        emit(units, bases, groups, params, out)
         print(f"wrote {out}")
 
 

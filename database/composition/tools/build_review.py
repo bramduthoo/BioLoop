@@ -55,7 +55,10 @@ def read(path: Path, **kw) -> list[dict]:
 
 
 def main() -> None:
-    params = {p["code"]: p["name"] for p in read(ROOT / "vocabulary" / "parameters.csv")}
+    pcsv = read(ROOT / "vocabulary" / "parameters.csv")
+    params = {p["code"]: p["name"] for p in pcsv}
+    pgroup = {p["code"]: p["group_code"] for p in pcsv}
+    groups = {g["code"]: g for g in read(ROOT / "vocabulary" / "parameter_groups.csv")}
     meas = read(EXTRACT / "round1_measurements.csv")
     srcs = read(EXTRACT / "round1_sources.csv")
     nodata = read(EXTRACT / "round1_nodata.csv")
@@ -68,6 +71,9 @@ def main() -> None:
         "stream": m["stream_code"],
         "parameter": m["parameter_code"],
         "parameter_label": params[m["parameter_code"]],
+        "group": pgroup[m["parameter_code"]],
+        "group_label": groups[pgroup[m["parameter_code"]]]["name"],
+        "group_sort": int(groups[pgroup[m["parameter_code"]]]["sort_order"]),
         "value": m["value_num"],
         "min": m["value_min"],
         "max": m["value_max"],
@@ -82,6 +88,8 @@ def main() -> None:
         "flag": m["flag"],
         "notes": m["notes"],
     } for m in meas]
+
+    rows.sort(key=lambda r: (r["stream"], r["group_sort"]))
 
     data = {
         "streams": [{"code": c, "name": n, "rank": r, "commodity": cm, "tons": t}

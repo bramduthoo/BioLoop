@@ -142,6 +142,10 @@ th{text-align:left; font-family:"IBM Plex Mono",monospace; font-weight:500; font
   padding:8px 11px; border-bottom:1px solid var(--line-2); background:var(--surface-2); white-space:nowrap}
 td{padding:7px 11px; border-bottom:1px solid var(--line); vertical-align:top}
 tr:last-child td{border-bottom:0}
+tr.grouprow td{background:var(--surface-2); color:var(--muted); font-family:"IBM Plex Mono",monospace;
+  font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; padding:6px 11px;
+  border-top:1px solid var(--line-2); border-bottom:1px solid var(--line-2)}
+tr.grouprow:first-child td{border-top:0}
 tr.marked td{background:var(--alert-soft)}
 tr.rest td{color:var(--ink-2)}
 td.v{text-align:right; font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; white-space:nowrap}
@@ -186,12 +190,14 @@ footer.foot li{margin-bottom:5px}
 
 <header class="top">
   <div class="wrap">
-    <p class="eyebrow">BioMobi &middot; fase 3 &middot; ronde 1 &middot; 2026-09-09</p>
+    <p class="eyebrow">BioMobi &middot; fase 3 &middot; ronde 1 &middot; herzien 2026-09-10</p>
     <h1>Compositiecontrole &mdash; top 10 commodities</h1>
     <p class="lede">Kandidaat-<code>property_measurement</code> rijen voor de <strong>16 objecten</strong> van de top 10 van de
       stroomselectie. <strong>Niets hiervan staat in de database.</strong> Elke waarde is door een model van de bronpagina
       overgeschreven, niet door een mens &mdash; deze pagina is er om dat na te lopen. Markeer een rij die fout is en laat per
-      stroom een opmerking na; ik lees ze terug voordat er iets geladen wordt.</p>
+      stroom een opmerking na; ik lees ze terug voordat er iets geladen wordt. Rijen staan gegroepeerd per
+      <b>analytische partitie</b> (Weende, Van&nbsp;Soest-vezel, elementair, mineralen &hellip;), het middenniveau van
+      <code>categorie &rarr; groep &rarr; parameter</code>. Wat deze ronde nog <i>niet</i> is, staat onderaan.</p>
     <div class="tiles" id="tiles"></div>
   </div>
 </header>
@@ -217,14 +223,33 @@ footer.foot li{margin-bottom:5px}
     <div id="streams"></div>
 
     <footer class="foot">
-      <h3>Waar dit op wacht</h3>
+      <h3>Wat deze ronde nog niet is</h3>
+      <p style="margin:0 0 10px;max-width:70ch">Vier bekende onvolledigheden, allemaal opgemerkt bij de controle van
+        2026&#8209;09&#8209;10. Ze worden in ronde 2 rechtgezet en zijn g&eacute;&eacute;n reden om deze cijfers nu al te
+        markeren.</p>
+      <ol>
+        <li><b>Alleen Feedipedia&rsquo;s <i>Main analysis</i> is opgehaald.</b> De tabellen <i>Minerals</i> en
+          <i>Secondary metabolites</i> zijn overgeslagen. Voor de mineralen bestaat de parametergroep al
+          (<code>minerals</code>, 11 parameters); secundaire metabolieten &mdash; glucosinolaten in raapzaadschroot,
+          fenolen &mdash; vragen nieuwe parameters.</li>
+        <li><b>Feedipedia publiceert ook een <i>as fed</i>-versie van elke tabel.</b> Hier staat alleen de
+          <code>% DM</code>-versie, met droge stof zelf op <code>fresh</code>. Dat is precies wat we hadden afgesproken
+          te laden, maar dat de verse tabel bestaat hoorde vermeld te worden.</li>
+        <li><b>Van de zeven Phyllis2-records voor <i>corn stover</i> is er &eacute;&eacute;n opgenomen</b> (#704), en
+          uitgerekend die heeft een dode literatuurverwijzing. Dat was een keuze om een voorbeeld te maken, geen
+          kwaliteitsoordeel. Elk record is een eigen bron en hoort een eigen rij te worden.</li>
+        <li><b>Phyllis2 zet <i>stover</i> n&aacute;&aacute;st <i>stalk</i> en <i>cob</i></b>, terwijl de gangbare definitie
+          van stover die twee juist omvat. Welke van de drie <code>mais-stro</code> is, is een objectvraag die
+          v&oacute;&oacute;r het laden beslecht moet worden.</li>
+      </ol>
+      <h3 style="margin-top:16px">Waar dit op wacht</h3>
       <ol>
         <li><b>Jouw controle van deze cijfers.</b> Markeer wat fout is; ik corrigeer aan de bron, niet in de database.</li>
         <li><b>Polarimetrisch vs enzymatisch zetmeel</b> &mdash; nu &eacute;&eacute;n parameter <code>starch</code> met de methode in
           <code>notes</code>. Als jij vindt dat het twee parameters moeten zijn, zeg het hier.</li>
-        <li><b>De basis&#8209;herformuleringen.</b> Phyllis2 drukt elke bepaling af op drie basissen. Standaard houd ik de
-          <code>dry</code>&#8209;kolom (en vocht op <code>fresh</code>) en zet ik de rest op uitsluiten &mdash; zet de filter uit om te
-          zien wat er dan wegvalt.</li>
+        <li><b>De basis&#8209;herformuleringen.</b> Phyllis2 drukt elke bepaling af op drie basissen. Beslist
+          2026&#8209;09&#8209;10: de <code>dry</code>&#8209;kolom laadt (en vocht op <code>fresh</code>), de rest blijft in de
+          CSV staan als <code>restatement</code> &mdash; zet de filter uit om te zien wat dat is.</li>
         <li><b>De vier objecten zonder data</b> &mdash; twee zijn een echt gat, twee wachten op iets anders.</li>
       </ol>
     </footer>
@@ -324,12 +349,19 @@ function buildTable(code, rows){
   const wrap = el('div', 'tablewrap');
   const tb = el('table');
   const thead = el('thead'); const htr = el('tr');
-  ['Parameter', 'Waarde', 'Spreiding', 'Eenheid', 'Basis', 'n', 'Bron', ''].forEach(h => htr.append(el('th', null, h)));
+  ['Parameter', 'Waarde', 'Spreiding', 'Eenheid', 'Basis', 'Nb', 'Bron', ''].forEach(h => htr.append(el('th', null, h)));
   thead.append(htr); tb.append(thead);
   const body = el('tbody'); tb.append(body);
   wrap.append(tb);
 
+  let lastGroup = null;
   rows.forEach((r, i) => {
+    if (r.group !== lastGroup) {
+      lastGroup = r.group;
+      const gtr = el('tr', 'grouprow');
+      const gtd = el('td', null, r.group_label);
+      gtd.colSpan = 8; gtr.append(gtd); body.append(gtr);
+    }
     const key = rowKey(r, i);
     const tr = el('tr');
     tr.dataset.key = key;
@@ -452,12 +484,18 @@ function applyFilters(){
     const code = sec.id.slice(2);
     let any = false;
     sec.querySelectorAll('tbody tr').forEach(tr => {
+      if (tr.classList.contains('grouprow')) return;
       let ok = true;
       if (hideRest && tr.dataset.rest === 'yes') ok = false;
       if (onlyPred && tr.dataset.pred !== 'yes') ok = false;
       if (onlyMark && !(marks[code] && marks[code][tr.dataset.key])) ok = false;
       tr.hidden = !ok;
       if (ok) { any = true; shown++; }
+    });
+    sec.querySelectorAll('tr.grouprow').forEach(g => {
+      let n = g.nextElementSibling, live = false;
+      while (n && !n.classList.contains('grouprow')) { if (!n.hidden) live = true; n = n.nextElementSibling; }
+      g.hidden = !live;
     });
     const w = sec.querySelector('.tablewrap');
     if (w) w.hidden = !any;

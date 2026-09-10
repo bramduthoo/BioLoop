@@ -134,10 +134,20 @@ Applied so far, and they stack:
 | migration | what |
 |---|---|
 | `20260909120000_biomobi_composition_vocabulary.sql` | the starting core — 28 units, 6 bases, 62 parameters |
-| `20260909150000_biomobi_composition_vocabulary_v2.sql` | +6 parameters, the same day, because verified sources print them: `volatile_matter`, `fixed_carbon`, `hydrogen`, `oxygen`, `chlorine`, `insoluble_ash` |
+| `20260909150000_..._vocabulary_v2.sql` | +6 parameters, the same day, because verified sources print them: `volatile_matter`, `fixed_carbon`, `hydrogen`, `oxygen`, `chlorine`, `insoluble_ash` |
+| `20260910100000_parameter_groups_and_scope.sql` | **DDL, hand-written** — the first schema change since the baseline. Adds `parameter_group` + `parameter.group_code`, and retires the microbiological parameters under a guard on `property_measurement` |
+| `20260910100100_..._vocabulary_v3.sql` | regenerated: 10 groups, English parameter names, every parameter grouped |
 
-Verified 2026-09-09 by `supabase db reset` on the local stack, after each: 7 of 11 tables hold
-rows, 68 parameters. **Not yet pushed to live** (nor has the streams migration).
+Verified by `supabase db reset` on the local stack after each: **62 parameters in 10 groups, 0
+ungrouped, 0 microbiological.** **Not yet pushed to live** (nor has the streams migration).
+
+**A basis restatement is not always a multiplication.** Phyllis2 prints each determination on `ar`,
+`dry` and `daf`; nine of ten reproduce exactly from `dry = ar × 100/(100−moisture)` and
+`daf = dry × 100/(100−ash)` — verified to the last decimal on record #3161. **`lhv` does not**, and
+that is physics rather than a defect: the net calorific value subtracts the latent heat of the water
+actually present, so it is recomputed per basis (`LHV = HHV − 2,443 × (9·H/100 + moisture/100)`,
+which reproduces all three printed values). **Never assume a basis column can be rescaled** — that
+is why all three are kept in the extraction CSV even though only `dry` loads.
 
 **The growth rule was exercised on the day it was written, and only on evidence.** Every one of the
 six additions is a parameter a source that was actually opened prints — four from Phyllis2's
@@ -169,6 +179,42 @@ the reviewer's marks and remarks → corrections at the source → loader → `p
   back with `read_db` on `remarks/<stream_code>`. They are input to the next session, not data.
 
 Round 1: `https://claude.ai/code/artifact/b7b1fe21-df01-41fe-9e68-8579e72bcbd1`.
+
+## The parameter hierarchy — category → group → parameter
+
+`parameter.category` has three values, so 62 parameters sat in two flat buckets. Reviewer request,
+2026-09-10. The middle level is `parameter_group`, and it follows the shape the schema already uses
+for streams: a reference table naming the axis's vocabulary, plus an FK from the thing classified.
+
+**A group is an analytical partition, not a chemical family** — Weende proximate, Van Soest fibre,
+fuel proximate, elemental, minerals, heavy metals. That is deliberate: in this catalogue a
+parameter's identity is method-defined, so grouping by method is the grouping that carries
+information. It also puts the honest seams on display: `crude_fibre` sits in `proximate-weende` and
+`ndf` in `fibre` precisely because they are not comparable.
+
+**Some placements are calls, and any grouping of analytes has them.** `sulphur` and `chlorine` are
+in `elemental` rather than `minerals` because that is the tradition our sources report them in;
+`total_nitrogen` is in `elemental` while `crude_protein` is in `proximate-weende`, though both come
+off the same determination. A group is a presentation axis, not a claim about chemistry.
+
+`group_code` is **nullable** so a parameter can exist before its group is settled — that is what
+"the catalogue grows" needs. `emit_vocabulary.py` refuses to emit when a parameter's category
+disagrees with its group's.
+
+**Parameter names are English** (2026-09-10, reviewer). `crude_fibre` had been named *Ruwe celstof*,
+which is the correct Dutch term for Weende crude fibre, but the catalogue is read against sources
+that are almost all English and a translated analyte name adds a step where nothing is gained. Codes
+were already English and did not change. **Stream names stay Dutch** — those are the register's own
+wording for Flemish materials, which is a different case.
+
+## Microbiological characterisation is out of scope (2026-09-10)
+
+Reviewer decision. The six microbiological parameters registered on 2026-09-09 were retired the next
+day, before any measurement referenced them. **Note that `charter.md` listed microbiological
+characterisation as in scope** — it was in the first draft and never acted on — so the charter was
+narrowed alongside the migration rather than left to contradict the schema. The
+`parameter.category` CHECK still admits `microbiological`, deliberately: reversing this is an
+`INSERT`, not a migration.
 
 ## Two reviewer decisions, 2026-09-09
 

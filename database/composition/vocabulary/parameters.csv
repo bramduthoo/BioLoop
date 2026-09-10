@@ -1,69 +1,63 @@
-﻿code;name;category;default_unit_code;definition
-dry_matter;Droge stof;chemical;%;Massafractie die overblijft na drogen tot constant gewicht, doorgaans bij 103-105 graden C. Bronnen schrijven DM, TS, DS of droge stof. Wordt vrijwel altijd op verse basis gerapporteerd
-moisture;Vochtgehalte;chemical;%;Watergehalte zoals de bron het rapporteert. Apart geregistreerd van droge stof omdat bronnen het zo geven - niet afleiden, alleen vastleggen wat er staat
-ash;Ruw as;chemical;%;Anorganisch residu na verassing, doorgaans bij 550 graden C. Weende-parameter
-organic_matter;Organische stof;chemical;%;Droge stof min as. Bronnen over anaerobe vergisting schrijven hier vaak VS - leg de term van de bron vast in notes
-crude_protein;Ruw eiwit;chemical;%;Kjeldahl- of Dumas-stikstof maal een omrekeningsfactor, meestal 6,25. METHODE-BEPAALD - de gebruikte factor hoort in notes. Niet uitwisselbaar met zuiver eiwit
-total_nitrogen;Totale stikstof;chemical;%;Kjeldahl- of Dumas-stikstof zelf, zonder eiwitfactor. Registreer dit wanneer de bron N geeft en niet het eiwit
-true_protein;Zuiver eiwit;chemical;%;Eiwit bepaald als som van aminozuren of na aftrek van niet-eiwitstikstof. Een ander object dan ruw eiwit, niet een betere meting ervan
-crude_fat;Ruw vet;chemical;%;Ether-extract volgens Weende of Soxhlet. Bronnen schrijven EE, ruw vet, lipiden of vetgehalte
-crude_fibre;Ruwe celstof;chemical;%;Weende-ruwe celstof. METHODE-BEPAALD en niet vergelijkbaar met NDF, ADF of voedingsvezel
-nfe;Stikstofvrije extractstoffen;chemical;%;Weende-restpost (NFE). Een verschilberekening van de bron, geen meting - alleen vastleggen wanneer de bron hem geeft
-ndf;Neutral detergent fibre;chemical;%;Van Soest-celwand - cellulose plus hemicellulose plus lignine. Vermeld in notes of de bron aNDF of aNDFom bedoelt
-adf;Acid detergent fibre;chemical;%;Van Soest - cellulose plus lignine
-adl;Acid detergent lignin;chemical;%;Van Soest-lignine
-cellulose;Cellulose;chemical;%;Alleen wanneer de bron cellulose zelf rapporteert. Niet afleiden uit ADF min ADL - dat is een berekening en hoort in de modellaag
-hemicellulose;Hemicellulose;chemical;%;Alleen wanneer de bron hemicellulose zelf rapporteert. Niet afleiden uit NDF min ADF
-lignin;Lignine;chemical;%;Lignine bepaald langs een andere weg dan ADL, bijvoorbeeld Klason. Methode van de bron in notes
-pectin;Pectine;chemical;%;Pectinegehalte zoals de bron het bepaalt
-total_dietary_fibre;Totale voedingsvezel;chemical;%;AOAC-voedingsvezel. Niet uitwisselbaar met NDF of ruwe celstof
-starch;Zetmeel;chemical;%;Zetmeelgehalte zoals de bron het bepaalt
-total_sugars;Totale suikers;chemical;%;Som van vrije mono- en disachariden zoals de bron ze bepaalt
-glucose;Glucose;chemical;%;Vrije glucose
-fructose;Fructose;chemical;%;Vrije fructose
-sucrose;Sucrose;chemical;%;Sacharose
-lactose;Lactose;chemical;%;Lactose - relevant voor zuivel- en weistromen
-hhv;Bovenste verbrandingswaarde;chemical;MJ/kg;Higher heating value (HHV), ook bruto-energie (GE) in voederwaardebronnen
-lhv;Onderste verbrandingswaarde;chemical;MJ/kg;Lower heating value (LHV), netto verbrandingswaarde
-total_carbon;Totale koolstof;chemical;%;Totale koolstof, doorgaans elementair bepaald
-c_n_ratio;C/N-verhouding;chemical;ratio;Verhouding totale koolstof tot totale stikstof zoals de bron ze geeft. Basis is n.a.
-phosphorus;Fosfor (P);chemical;%;Fosfor uitgedrukt als element P. Wordt de waarde als P2O5 gerapporteerd, gebruik phosphorus_p2o5
-phosphorus_p2o5;Fosfor (P2O5);chemical;%;Fosfor uitgedrukt als fosforpentoxide, de gangbare agronomische vorm. Een andere gerapporteerde grootheid dan P, niet een andere eenheid
-potassium;Kalium (K);chemical;%;Kalium uitgedrukt als element K
-potassium_k2o;Kalium (K2O);chemical;%;Kalium uitgedrukt als kaliumoxide, de gangbare agronomische vorm
-calcium;Calcium;chemical;%;Calcium als element Ca
-magnesium;Magnesium;chemical;%;Magnesium als element Mg
-sodium;Natrium;chemical;%;Natrium als element Na
-sulphur;Zwavel;chemical;%;Zwavel als element S
-chloride;Chloride;chemical;%;Chloride
-iron;IJzer;chemical;mg/kg;IJzer als element Fe
-zinc;Zink;chemical;mg/kg;Zink als element Zn
-copper;Koper;chemical;mg/kg;Koper als element Cu
-manganese;Mangaan;chemical;mg/kg;Mangaan als element Mn
-cadmium;Cadmium;chemical;mg/kg;Cadmium - zwaar metaal, bepalend voor toelaatbare toepassingen
-lead;Lood;chemical;mg/kg;Lood - zwaar metaal
-mercury;Kwik;chemical;mg/kg;Kwik - zwaar metaal
-arsenic;Arseen;chemical;mg/kg;Arseen
-chromium;Chroom;chemical;mg/kg;Chroom, totaal tenzij de bron een species noemt
-nickel;Nikkel;chemical;mg/kg;Nikkel
-ph;Zuurtegraad;chemical;pH;pH van de stof of van een gestandaardiseerd extract. De extractiemethode van de bron hoort in notes. Basis is n.a.
-total_polyphenols;Totale polyfenolen;chemical;mg/100g;Totale fenolen, doorgaans als gallinezuurequivalent (GAE). Het equivalent van de bron hoort in notes
-cod;Chemisch zuurstofverbruik;chemical;mg/L;CZV of COD - relevant voor vloeibare stromen zoals wei en proceswater
-bod;Biochemisch zuurstofverbruik;chemical;mg/L;BZV of BOD5
-bulk_density;Bulkdichtheid;physical;kg/m3;Stortgewicht van het materiaal zoals gemeten. Bepalend voor de transportlaag van het model
-particle_size_d50;Deeltjesgrootte d50;physical;mm;Mediane deeltjesgrootte
-water_holding_capacity;Waterbindend vermogen;physical;g/g;Gram water per gram droge stof die het materiaal vasthoudt
-electrical_conductivity;Elektrische geleidbaarheid;physical;mS/cm;EC van een gestandaardiseerd extract. Extractiemethode in notes
-water_activity;Wateractiviteit;physical;ratio;aw-waarde. Bepalend voor houdbaarheid en microbiologische stabiliteit. Basis is n.a.
-total_plate_count;Totaal kiemgetal;microbiological;cfu/g;Totaal aeroob kiemgetal
-enterobacteriaceae;Enterobacteriaceae;microbiological;cfu/g;Enterobacteriaceae-telling
-yeasts_and_moulds;Gisten en schimmels;microbiological;cfu/g;Telling van gisten en schimmels
-escherichia_coli;Escherichia coli;microbiological;cfu/g;E. coli-telling
-salmonella;Salmonella spp.;microbiological;n.a.;Doorgaans kwalitatief gerapporteerd als aan- of afwezig in 25 g - dan value_type qualitative met de tekst van de bron in value_text
-listeria_monocytogenes;Listeria monocytogenes;microbiological;cfu/g;Telling of aan-/afwezigheid. Bij aan-/afwezigheid value_type qualitative
-hydrogen;Waterstof (H);chemical;%;Elementaire waterstof uit de ultieme analyse. Standaard gerapporteerd naast C, N, O en S door verbrandingsgerichte bronnen zoals Phyllis2
-oxygen;Zuurstof (O);chemical;%;Elementaire zuurstof uit de ultieme analyse. Doorgaans als verschil bepaald in plaats van gemeten - leg vast wat de bron zegt
-volatile_matter;Vluchtige bestanddelen;chemical;%;Proximate-analyse - massaverlies bij verhitten zonder zuurstof, doorgaans bij 900 graden C. NIET de basis volatile_solids en NIET organische stof
-fixed_carbon;Vaste koolstof;chemical;%;Proximate-analyse-restpost - 100 min vocht min as min vluchtige bestanddelen. Een verschilberekening van de bron, geen meting
-chlorine;Chloor (Cl totaal);chemical;mg/kg;Totaal chloor uit elementaire analyse. Een andere bepaling dan chloride, dat de wateroplosbare Cl-ionen meet - beide bestaan naast elkaar
-insoluble_ash;Onoplosbare as;chemical;%;Zoutzuur-onoplosbaar asresidu, een maat voor grond- en zandinsleep. Voederwaardetabellen rapporteren dit naast ruw as
+﻿code;name;category;group_code;default_unit_code;definition
+dry_matter;Dry matter;chemical;proximate-weende;%;Massafractie die overblijft na drogen tot constant gewicht, doorgaans bij 103-105 graden C. Bronnen schrijven DM, TS, DS of droge stof. Wordt vrijwel altijd op verse basis gerapporteerd
+moisture;Moisture;chemical;proximate-weende;%;Watergehalte zoals de bron het rapporteert. Apart geregistreerd van droge stof omdat bronnen het zo geven - niet afleiden, alleen vastleggen wat er staat
+ash;Crude ash;chemical;proximate-weende;%;Anorganisch residu na verassing, doorgaans bij 550 graden C. Weende-parameter
+organic_matter;Organic matter;chemical;proximate-weende;%;Droge stof min as. Bronnen over anaerobe vergisting schrijven hier vaak VS - leg de term van de bron vast in notes
+crude_protein;Crude protein;chemical;proximate-weende;%;Kjeldahl- of Dumas-stikstof maal een omrekeningsfactor, meestal 6,25. METHODE-BEPAALD - de gebruikte factor hoort in notes. Niet uitwisselbaar met zuiver eiwit
+total_nitrogen;Total nitrogen;chemical;elemental;%;Kjeldahl- of Dumas-stikstof zelf, zonder eiwitfactor. Registreer dit wanneer de bron N geeft en niet het eiwit
+true_protein;True protein;chemical;proximate-weende;%;Eiwit bepaald als som van aminozuren of na aftrek van niet-eiwitstikstof. Een ander object dan ruw eiwit, niet een betere meting ervan
+crude_fat;Crude fat (ether extract);chemical;proximate-weende;%;Ether-extract volgens Weende of Soxhlet. Bronnen schrijven EE, ruw vet, lipiden of vetgehalte
+crude_fibre;Crude fibre;chemical;proximate-weende;%;Weende-ruwe celstof. METHODE-BEPAALD en niet vergelijkbaar met NDF, ADF of voedingsvezel
+nfe;Nitrogen-free extract;chemical;proximate-weende;%;Weende-restpost (NFE). Een verschilberekening van de bron, geen meting - alleen vastleggen wanneer de bron hem geeft
+ndf;Neutral detergent fibre (NDF);chemical;fibre;%;Van Soest-celwand - cellulose plus hemicellulose plus lignine. Vermeld in notes of de bron aNDF of aNDFom bedoelt
+adf;Acid detergent fibre (ADF);chemical;fibre;%;Van Soest - cellulose plus lignine
+adl;Acid detergent lignin (ADL);chemical;fibre;%;"Lignin determined by the Van Soest acid-detergent sequence. feedtables.com defines its Lignin column as ""Lignin, usually obtained by the Van Soest method. Acid Detergent Lignin (ADL)"" - note the hedge ""usually"", which is why a value mapped here from a table headed only ""Lignin"" carries that fact in its notes. Where a source names another method, use lignin instead"
+cellulose;Cellulose;chemical;fibre;%;Alleen wanneer de bron cellulose zelf rapporteert. Niet afleiden uit ADF min ADL - dat is een berekening en hoort in de modellaag
+hemicellulose;Hemicellulose;chemical;fibre;%;Alleen wanneer de bron hemicellulose zelf rapporteert. Niet afleiden uit NDF min ADF
+lignin;Lignin (non-ADL method);chemical;fibre;%;Lignine bepaald langs een andere weg dan ADL, bijvoorbeeld Klason. Methode van de bron in notes
+pectin;Pectin;chemical;fibre;%;Pectinegehalte zoals de bron het bepaalt
+total_dietary_fibre;Total dietary fibre;chemical;fibre;%;AOAC-voedingsvezel. Niet uitwisselbaar met NDF of ruwe celstof
+starch;Starch;chemical;carbohydrate;%;Zetmeelgehalte zoals de bron het bepaalt
+total_sugars;Total sugars;chemical;carbohydrate;%;Som van vrije mono- en disachariden zoals de bron ze bepaalt
+glucose;Glucose;chemical;carbohydrate;%;Vrije glucose
+fructose;Fructose;chemical;carbohydrate;%;Vrije fructose
+sucrose;Sucrose;chemical;carbohydrate;%;Sacharose
+lactose;Lactose;chemical;carbohydrate;%;Lactose - relevant voor zuivel- en weistromen
+hhv;Gross calorific value (HHV);chemical;energy;MJ/kg;Higher heating value (HHV), ook bruto-energie (GE) in voederwaardebronnen
+lhv;Net calorific value (LHV);chemical;energy;MJ/kg;Lower heating value (LHV), netto verbrandingswaarde
+total_carbon;Total carbon (C);chemical;elemental;%;Totale koolstof, doorgaans elementair bepaald
+c_n_ratio;Carbon-to-nitrogen ratio (C/N);chemical;elemental;ratio;Verhouding totale koolstof tot totale stikstof zoals de bron ze geeft. Basis is n.a.
+phosphorus;Phosphorus (P);chemical;minerals;%;Fosfor uitgedrukt als element P. Wordt de waarde als P2O5 gerapporteerd, gebruik phosphorus_p2o5
+phosphorus_p2o5;Phosphorus (as P2O5);chemical;minerals;%;Fosfor uitgedrukt als fosforpentoxide, de gangbare agronomische vorm. Een andere gerapporteerde grootheid dan P, niet een andere eenheid
+potassium;Potassium (K);chemical;minerals;%;Kalium uitgedrukt als element K
+potassium_k2o;Potassium (as K2O);chemical;minerals;%;Kalium uitgedrukt als kaliumoxide, de gangbare agronomische vorm
+calcium;Calcium (Ca);chemical;minerals;%;Calcium als element Ca
+magnesium;Magnesium (Mg);chemical;minerals;%;Magnesium als element Mg
+sodium;Sodium (Na);chemical;minerals;%;Natrium als element Na
+sulphur;Sulphur (S);chemical;elemental;%;Zwavel als element S
+chloride;Chloride (water-soluble);chemical;elemental;%;Chloride
+iron;Iron (Fe);chemical;minerals;mg/kg;IJzer als element Fe
+zinc;Zinc (Zn);chemical;minerals;mg/kg;Zink als element Zn
+copper;Copper (Cu);chemical;minerals;mg/kg;Koper als element Cu
+manganese;Manganese (Mn);chemical;minerals;mg/kg;Mangaan als element Mn
+cadmium;Cadmium (Cd);chemical;heavy-metals;mg/kg;Cadmium - zwaar metaal, bepalend voor toelaatbare toepassingen
+lead;Lead (Pb);chemical;heavy-metals;mg/kg;Lood - zwaar metaal
+mercury;Mercury (Hg);chemical;heavy-metals;mg/kg;Kwik - zwaar metaal
+arsenic;Arsenic (As);chemical;heavy-metals;mg/kg;Arseen
+chromium;Chromium (Cr);chemical;heavy-metals;mg/kg;Chroom, totaal tenzij de bron een species noemt
+nickel;Nickel (Ni);chemical;heavy-metals;mg/kg;Nikkel
+ph;pH;chemical;other-chemical;pH;pH van de stof of van een gestandaardiseerd extract. De extractiemethode van de bron hoort in notes. Basis is n.a.
+total_polyphenols;Total polyphenols;chemical;other-chemical;mg/100g;Totale fenolen, doorgaans als gallinezuurequivalent (GAE). Het equivalent van de bron hoort in notes
+cod;Chemical oxygen demand (COD);chemical;other-chemical;mg/L;CZV of COD - relevant voor vloeibare stromen zoals wei en proceswater
+bod;Biochemical oxygen demand (BOD5);chemical;other-chemical;mg/L;BZV of BOD5
+bulk_density;Bulk density;physical;physical;kg/m3;Stortgewicht van het materiaal zoals gemeten. Bepalend voor de transportlaag van het model
+particle_size_d50;Median particle size (d50);physical;physical;mm;Mediane deeltjesgrootte
+water_holding_capacity;Water-holding capacity;physical;physical;g/g;Gram water per gram droge stof die het materiaal vasthoudt
+electrical_conductivity;Electrical conductivity;physical;physical;mS/cm;EC van een gestandaardiseerd extract. Extractiemethode in notes
+water_activity;Water activity (aw);physical;physical;ratio;aw-waarde. Bepalend voor houdbaarheid en microbiologische stabiliteit. Basis is n.a.
+hydrogen;Hydrogen (H);chemical;elemental;%;Elementaire waterstof uit de ultieme analyse. Standaard gerapporteerd naast C, N, O en S door verbrandingsgerichte bronnen zoals Phyllis2
+oxygen;Oxygen (O);chemical;elemental;%;Elementaire zuurstof uit de ultieme analyse. Doorgaans als verschil bepaald in plaats van gemeten - leg vast wat de bron zegt
+volatile_matter;Volatile matter;chemical;proximate-fuel;%;Proximate-analyse - massaverlies bij verhitten zonder zuurstof, doorgaans bij 900 graden C. NIET de basis volatile_solids en NIET organische stof
+fixed_carbon;Fixed carbon;chemical;proximate-fuel;%;Proximate-analyse-restpost - 100 min vocht min as min vluchtige bestanddelen. Een verschilberekening van de bron, geen meting
+chlorine;Chlorine (total Cl);chemical;elemental;mg/kg;Totaal chloor uit elementaire analyse. Een andere bepaling dan chloride, dat de wateroplosbare Cl-ionen meet - beide bestaan naast elkaar
+insoluble_ash;Insoluble ash;chemical;proximate-weende;%;Zoutzuur-onoplosbaar asresidu, een maat voor grond- en zandinsleep. Voederwaardetabellen rapporteren dit naast ruw as

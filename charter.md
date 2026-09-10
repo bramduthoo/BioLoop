@@ -1,6 +1,6 @@
 # BIOLOOP — Project Charter (UGent workstream)
 
-*Living scope document. Last updated: 2026-09-06.*
+*Living scope document. Last updated: 2026-09-10.*
 *For matters of current scope this supersedes the 2-year-old VLAIO proposal; the proposal is retained as background reference only.*
 *Companion documents: `state.md` (current phase, decisions, open questions), `protocol.md` (how the backbone is read/written), `flags.md` (cross-workstream ledger).*
 
@@ -23,7 +23,8 @@ Owner: you (solo for now).
 ## Scope
 
 **BioMobi — the database built first (a pure data layer)**
-- In: the relevant Flemish biomass waste streams **plus their intrinsic characterisation** — chemical composition, volumes, physical characteristics, microbiological characterisation, seasonality, and geographic location of supply.
+- In: the relevant Flemish biomass waste streams **plus their intrinsic characterisation** — chemical composition, volumes, physical characteristics, seasonality, and geographic location of supply.
+- **Out: microbiological characterisation** (narrowed 2026-09-10). It was listed as in scope from the first draft of this charter and never acted on; the six microbiological parameters registered in the composition catalogue on 2026-09-09 were retired the next day, before any measurement referenced them. The `parameter.category` CHECK still admits `microbiological`, so reversing this is an `INSERT`, not a migration.
 - Stream selection guided by the 80/20 principle (streams accounting for ~80% of volume). It is a **prioritisation sort, not a hard gate** — a stream below the line is not excluded, only not first.
 - **Supply side of the agri-food chain only** (settled 2026-08-15, on the evidence of the candidate stream register). In: primary production (land and sea), the auction / producer-organisation layer, the processing industry, and retail & wholesale distribution. **Out: horeca, catering, and households**, and anything downstream of retail. The consequence is binding and not obvious: **a whole-chain total for Flanders is never usable**, because every one of them swallows an excluded stage — so BioMobi's volume side is built from stage-resolved figures upward, never from a national total downward. Enforced in `database/register/dictionaries/chain_L2.csv` (`in_scope` column).
 - **Manure and OFMSW are excluded**, and that exclusion binds source extraction as well as the database — it removed ~23,4 Mton of 2021 animal side stream from the register in one stroke.

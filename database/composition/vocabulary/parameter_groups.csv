@@ -1,0 +1,11 @@
+﻿code;name;category;sort_order;definition
+proximate-weende;Weende proximate analysis;chemical;10;The classical feed-analysis partition - dry matter, ash, crude protein, crude fat, crude fibre and the nitrogen-free remainder. Every fraction is defined by its method, not by a molecule
+fibre;Fibre fractions;chemical;20;Cell-wall fractions. The Van Soest detergent sequence (NDF, ADF, ADL) plus individually determined polymers and AOAC dietary fibre. NOT interchangeable with Weende crude fibre
+carbohydrate;Carbohydrates;chemical;30;Starch and the free mono- and disaccharides
+energy;Calorific value;chemical;40;Gross and net calorific value. Feed sources call gross energy GE, fuel sources call it HHV - one quantity
+proximate-fuel;Fuel proximate analysis;chemical;50;Volatile matter and fixed carbon, the combustion-science counterpart of the Weende partition. Reported by fuel databases such as Phyllis2, never by feed tables
+elemental;Elemental analysis;chemical;60;The CHNOS plus chlorine set of the ultimate analysis, and the C/N ratio derived from it. Sulphur and chlorine sit here rather than with the minerals because that is the tradition our sources report them in
+minerals;Mineral elements;chemical;70;Macro- and trace mineral elements as feed and agronomy report them, including the oxide forms P2O5 and K2O
+heavy-metals;Heavy metals and metalloids;chemical;80;Contaminants that decide which applications a stream is admissible for
+other-chemical;Other chemical properties;chemical;90;Chemical properties belonging to no analytical partition above
+physical;Physical properties;physical;100;Bulk, particle and water-relation properties. Feeds the transport and handling side of the model
