@@ -182,30 +182,50 @@ bakkerij 82%) and low for the three where the non-waste by-product dwarfs the wa
 aardappelen/groenten/fruit 72%, dranken 72%, **oliën en vetten 24%** — which is where the IMJV's
 "leaves the site" boundary bites hardest.
 
-**The defect: 2,73 Mt is stranded on a retired source.** Both tables were skipped under the
-cross-source restatement rule as *"S005 owns them"* — and **S005 (MONBIO 1.0) is `_RETIRED`**, so
-they land nowhere. This is **exactly protocol v2.6 rule #8**, which was written *from this very
-table*: the melkwei row was rescued as C-802/C-803 on 2026-09-08 and **its companion was not**. In
-scope (01 landbouw, 01 groente- en fruitveilingen, NACE 10.1–10.9, 11), the *plant en dier* column
-holds **1.275.368 t** in Tabel 46 and **1.459.629 t** in Tabel 47 — **2.735.000 t of 2018 Flemish
-agri-food material at NACE grain, of which the corpus holds 49.722 t.** The slib columns
-(536.047 + 136.703 t) stay out of scope per `quantity_type.csv`.
+**A claim of mine that the record refutes — corrected the same day.** I first wrote this up as a
+capture defect ("2,73 Mt stranded on a retired source", "closes F-003's priority #1"). **Both parts
+were wrong, and the register's own log says so.** The 2026-09-08 entry took this decision
+explicitly, with the reviewer:
 
-**Two consequences that change other work, both raised on F-003:**
+> *"The exception is the zuivel cell only, never Tabel 65 as a whole — the rest of that table is
+> genuinely S005's and re-capturing it would duplicate ~1,8 Mt. A later session must not 'complete'
+> it."*
 
-- **F-003's top priority is aardappelverwerking** — *"621.063 t, zero components, no candidate"*.
-  Tabel 47 gives NACE 10.3 (aardappelen, groenten en fruit) **602.006 t** for 2018, and Tabel 46
-  another 310.021 t. A figure for that place has been sitting in two archived PDFs the whole time.
-  The same holds for dranken (434.940 + 41.151 t) and oliën/vetten (219.239 + 18.270 t).
-- **The OVAM/MATIS cross-tab request** (hub, next action) asks for `NACE-4 × EURAL-6`. Tabel 46/47
-  are a *coarser* published cross-tab of the same registry — NACE × material category, 2018. Worth
-  citing in the request as precedent, and worth having as the 2018 baseline whatever the request
-  returns.
+That is the standing decision, it is deliberate, and 1.797.073 t is exactly Tabel 47's own TOTAAL —
+the reviewer had the figure in front of them. So the melkwei row is a **named exception**, not the
+first instalment of a table, and the rest of the pair is out by choice, not by oversight.
 
-**Next session (not this one):** capture Tabel 46/47 into **S007** — or 64/65 into S091, whichever
-the reviewer prefers as owner — under rule v2.6 #8, at NACE-sector grain, *plant en dier* column
-only, with the `AGGREGAAT - ` prefix and an `aggregate_coverage.csv` line each, and a note on every
-row that the pair are two legal categories of one study and are **additive, not variants**.
+**And it would not have closed the gap it looked like closing.** F-003's priority is
+*aardappelverwerking*, and the derived gap list is explicit about what kind of gap it is: the
+food-industry residual is 2.017.748 t asserted against 127.215 t reachable, and the AGF row
+(C-094, 621.063 t) is listed as *"context — structureel onplaatsbare sectorrijen, GEEN meting en
+nooit optellen"*. **The gap is one of grain, not of missing tonnage.** Tabel 46/47 give NACE 10.3 =
+310.021 + 602.006 t — the *same sector lump* as the row that already defines the gap. Capturing
+them adds two more unallocatable lumps to the unallocated band and resolves nothing to a stream.
+The gap closes only with a source that carves *by process*, which is exactly what F-003's own
+screening rule already says.
+
+**One line of the standing decision is worth re-reading, without reversing it.** Its stated reason
+is that re-capturing "would duplicate" material that is S005's. S005 is `_RETIRED`, so nothing will
+ever duplicate it — the real reason to leave the pair out is that sector lumps at NACE grain are of
+little use to a stream register, which is a scope judgement and the reviewer's to make. Recording
+the distinction so a future session does not re-litigate it on the wrong premise.
+
+**What does stand from this trace, and it is not nothing:**
+
+1. The dairy discrepancy is fully explained and the two sources agree to 2,4% once aligned (above).
+2. **`quantity_type` correction for any future use of these tables:** the *water* column is **not
+   just sludge**. MONBIO p.155 spells out what is in it — *"waterzuiveringsslib, vetafval, **draf,
+   gist, hopbellen, moutkiemen, pulp**, afgekeurde dranken"* — with the food and drink sectors
+   producing 72% of it (536.036 t). My earlier note here called that column out-of-scope
+   zuiveringsslib; that is right for dairy and wrong for dranken. Anyone reading these tables must
+   split the column, not drop it.
+3. **Tabel 47 is a floor, not a measurement.** MONBIO: *"Tabel 47 maakt meteen duidelijk wat het
+   effect van **vrijwillige rapportage** is voor nevenstromen … ook in die categorieën is er een
+   sterke onderrapportage"*, because a non-waste by-product only enters the materials register if
+   it carries a **grondstofverklaring**. Tabel 46 (waste) is a mandatory register and is complete;
+   Tabel 47 (non-waste) is voluntary and is not. That asymmetry, not a measurement difference, is
+   why the two tables cannot be read as one balanced pair.
 
 **Not changed:** the workbook, `streams_export.csv`, the dictionaries, the registry, the canonical
 `stream_overview.html`, and every figure in the corpus. This session added a view, not a number.
