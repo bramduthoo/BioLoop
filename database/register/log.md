@@ -141,11 +141,24 @@ chain later breaks. The retirement of four sources on one day is what exposed th
 
 ---
 
-**The reviewer's filter applied — and the answer is a clean negative.** *"Only >= 50 kt and
-reference year >= 2020 is worth reversing a skip for."* Every exclusion section of all eight
-extracted sources was re-scanned against that filter. **Not one restatement skip qualifies**, and
-the reason is structural rather than lucky: **the restatement rule fires when a newer edition
-reprints an older edition's year, so what it skips is old by construction.** The full ledger:
+**The reviewer's filter applied — and the answer is a clean negative.** *"Check, in the sources that
+WERE extracted, whether anything was skipped because it belonged to a source that was NOT extracted;
+only >= 50 kt and reference year >= 2020 is worth reversing."*
+
+**Method, stated so the result can be trusted or challenged.** The eight extracted sources are S002,
+S007, S010, S065, S066, S080, S087, S091. The owners that have never been extracted are **S001,
+S003, S004, S005, S006** (and S086, which owns no skipped figure). Every anomaly note of the eight
+was walked paragraph by paragraph for a skip naming one of those six as owner; each hit was then
+resolved to **the reference year that owner owns**, not to whatever years the paragraph mentions.
+This is a check against the register's own record of what was skipped — which the protocol requires
+to be exhaustive, since every source's *completeness sweep* dispositions **every** numbered table and
+figure — and not a fresh re-read of the eight PDFs. A skip that was never written down cannot be
+seen this way; nothing else can hide.
+
+**Result: 15 skips point at a never-extracted owner, and not one passes the filter** — fourteen fail
+on year, one on size. That is structural rather than lucky: **the restatement rule fires when a newer
+edition reprints an older edition's year, so what it skips is old by construction.** The full ledger,
+by the owner's own reference year:
 
 | Where the skip is | Owner | Owner's year | Meets >=50 kt & >=2020? |
 |---|---|---|---|
@@ -160,9 +173,17 @@ reprints an older edition's year, so what it skips is old by construction.** The
 | S010 → Tabel 2–5 | S065, S066 (both extracted) | 2011–2015 | no — year, and resolved anyway |
 | S080 | — | — | has no skip to an unextracted owner at all |
 
-**The only recent, large owner that never materialised is the Marktanalyse series (S001, 2020), and
-it holds exactly one skipped figure: 4.000 t of GFVO.** Everything else the retirements stranded is
-2015–2019. So under the reviewer's policy the whole sweep resolves to *leave*, and its value is that
+| owner | its reference year | who skipped to it | verdict |
+|---|---|---|---|
+| **S004** | 2015 | S066 (Tabel 1), S002 (2015 columns) | fails — year |
+| **S003** | 2017 | S002 (2017 columns) | fails — year |
+| **S005** | 2018 | S007 (T44–47), S091 (T62–65), both (teruggooi) | fails — year |
+| **S006** | 2019 | S007 (vlasketen, energiebalans, aanlanding, areaal), S091 (Tabel 59), S010 (part of T2–5) | fails — year |
+| **S001** | **2020** | S087 (GFVO voedingsindustrie) | **passes the year, fails the size — 4 kt** |
+| **S086** | ~2020 | nobody — no figure is assigned to it | n.v.t. |
+
+**So exactly one skip in the whole register points at a never-extracted owner on a year the filter
+accepts, and it is 4.000 t.** Everything else the retirements stranded is 2015–2019. So under the reviewer's policy the whole sweep resolves to *leave*, and its value is that
 this is now **checked and recorded** rather than unknown — the same discipline the register applies
 to a zero-yield source.
 
