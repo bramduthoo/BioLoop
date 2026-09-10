@@ -208,6 +208,14 @@ select.sel{font:inherit;font-size:12.5px;border:1px solid var(--line);background
 .ctxrow .cn .st.here{background:#6b3fa0;color:#fff}
 .ctxnone{padding:10px 14px;font-size:11.5px;color:var(--muted)}
 .ctxnone b{color:var(--ink-2)}
+/* the multi-stage figures this stage carries that the year/source filter hides —
+   always reachable, never silently absent */
+.ctxmore{border-top:1px solid var(--hair);background:#fcfbfe}
+.ctxmore>summary{cursor:pointer;list-style:none;padding:7px 14px;font-size:11px;color:#6b3fa0;display:flex;align-items:center;gap:7px}
+.ctxmore>summary::-webkit-details-marker{display:none}.ctxmore>summary::before{content:"▸";color:var(--faint);font-size:10px}
+.ctxmore[open]>summary::before{content:"▾"}
+.ctxmore .ctxrow{opacity:.62}
+.ctxrow .yr{font-family:var(--mono);font-size:9.5px;color:var(--ink-2);background:#eef1ec;border:1px solid var(--line);border-radius:4px;padding:1px 5px;margin-right:4px}
 </style>
 </head>
 <body>
@@ -904,26 +912,39 @@ function renderContext(){
     'sources make about the stage boundary itself — and because a figure held out of the overview must still be '+
     'visible, or "not measured" and "measured across stages" become indistinguishable. '+
     'The stage you are looking at is marked.</div>';
+  const hidden=all.filter(c=>shown.indexOf(c)<0).sort((a,b)=>(b.yr||0)-(a.yr||0)||b.v-a.v);
+  function ctxRow(c,withYear){
+    const stages=stagesOf(c).map(s=>'<span class="st'+(s===st?" here":"")+'">'+esc(STAGE_LABEL[s]||s)+'</span>').join("");
+    const note=(c.agg||{}).note||"";
+    return '<div class="ctxrow"><span class="cid">'+esc(c.id)+'</span><span class="cv">'+fmt(c.v)+'</span>'+
+      '<span class="cn"><span class="t">'+(withYear?'<span class="yr">'+esc(String(c.yr==null?"—":c.yr))+'</span>':"")+
+      esc(c.name.replace(/^AGGREGAAT\s*-\s*/,""))+'</span>'+
+      '<span class="m">'+stages+esc(c.ed)+' · '+esc(String(c.yr==null?"—":c.yr))+' · '+esc(c.qt)+
+      ' · p.'+esc(c.page)+' '+esc(c.tbl)+(note?' · '+esc(note):"")+'</span></span></div>';
+  }
+  /* Every multi-stage figure this stage carries stays reachable from every tab and
+     every year. The ones the current filter hides are not dropped — they move into a
+     fold that says which year and source they belong to, because a figure you cannot
+     find is indistinguishable from one that was never captured. */
+  const more=hidden.length
+    ? '<details class="ctxmore"><summary><b>'+hidden.length+' more</b> at another year or source — '+
+      [...new Set(hidden.map(c=>String(c.yr==null?"—":c.yr)))].sort().join(", ")+
+      ' <span style="color:var(--muted)">(shown here so every multi-stage figure stays reachable; switch the Year filter to read one in place)</span></summary>'+
+      hidden.map(c=>ctxRow(c,true)).join("")+'</details>'
+    : "";
   let body;
   if(!all.length){
     body='<div class="ctxnone"><b>None.</b> No figure in the register spans '+esc(STAGE_LABEL[st]||st)+
       ' together with another chain stage. Checked, and absent — not unchecked.</div>';
   } else if(!shown.length){
     body='<div class="ctxnone"><b>'+all.length+' multi-stage figure'+(all.length>1?"s":"")+
-      '</b> touch this stage, but none survives the current year and source filter. Widen the filter to see '+
-      all.map(c=>esc(c.id)).join(", ")+'.</div>';
+      '</b> touch this stage, but none is from the year and sources now filtered to.</div>'+more;
   } else {
-    body=shown.map(c=>{
-      const stages=stagesOf(c).map(s=>'<span class="st'+(s===st?" here":"")+'">'+esc(STAGE_LABEL[s]||s)+'</span>').join("");
-      const note=(c.agg||{}).note||"";
-      return '<div class="ctxrow"><span class="cid">'+esc(c.id)+'</span><span class="cv">'+fmt(c.v)+'</span>'+
-        '<span class="cn"><span class="t">'+esc(c.name.replace(/^AGGREGAAT\s*-\s*/,""))+'</span>'+
-        '<span class="m">'+stages+esc(c.ed)+' · '+esc(String(c.yr||c.yr===0?c.yr:"—"))+' · '+esc(c.qt)+
-        ' · p.'+esc(c.page)+' '+esc(c.tbl)+(note?' · '+esc(note):"")+'</span></span></div>';
-    }).join("");
+    body=shown.map(c=>ctxRow(c,false)).join("")+more;
   }
   host.innerHTML='<div class="hd"><h2>Contextual — figures spanning several chain stages</h2>'+
-    '<span class="chip">'+shown.length+(all.length!==shown.length?" of "+all.length:"")+'</span>'+
+    '<span class="chip" title="'+(all.length!==shown.length?(all.length-shown.length)+" of them are from another year or source — open the fold at the foot of this panel":"all of them pass the current filter")+'">'+
+      shown.length+(all.length!==shown.length?" of "+all.length:"")+'</span>'+
     '<span style="font-size:11.5px;color:var(--muted)">held out of every figure in the table above</span></div>'+
     (all.length?why:"")+body;
 }

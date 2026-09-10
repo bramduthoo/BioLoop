@@ -116,6 +116,44 @@ surfaces under at least one tab. All nine hold. The page was then opened in a br
 through all three tabs × every year it offers — no console error, and the bands, the context panel
 and the empty-tree case render as intended.
 
+**One fix from the first reading (same session).** The contextual panel was filtered by year and
+source like the table beside it, so on primaire productie 2020 it showed *"1 of 8"* and the other
+seven were reachable only by guessing which year to switch to. They now sit in a fold beneath it,
+each carrying its year — **a figure you cannot find is indistinguishable from one that was never
+captured**, which is the whole reason the panel exists.
+
+**Four questions the first reading raised, all answered from the data and none of them a defect:**
+
+1. **Why is primaire productie's L1 residual 479 kt in 2020, 3,44 Mt in 2021 and 932 kt in 2023?**
+   Because those are three different *universes*, not three measurements of one. **2021 is a
+   MONBIO-only year** (MONBIO 4.0; its own subset total C-238 = 3.612.149 checks it at 95%),
+   **2023 is an OVAM-only year** (L1 *is* C-050 = 931.935, every L2 at 100%), and **2020 has
+   both** — where the L1 figure is OVAM's C-160 = 479.095, because that is the only aggregate
+   covering all three L2 rows, while MONBIO's C-419 = 3.713.411 covers two of them and stays a
+   subset check at 13%. The MONBIO mass has not vanished: it is in the tree, and it is what makes
+   akkerbouw read 648% and tuinbouw 279% that year. This is the 2026-09-01 decision (*MONBIO and
+   OVAM are 2,1x apart by construction and cannot cross-check each other*) showing through the
+   view exactly as it should. **Filter to one edition and the year-to-year comparison becomes
+   real.** The OVAM 2020→2023 step (479→932 kt) is itself mostly the 308.000 t of unharvested 2023
+   potatoes.
+2. **What does `assumed` mean?** `type_assumed = TRUE`: the **edible/inedible classification** was
+   defaulted to `agri-food waste` because the source does not split it — never that the tonnage was
+   estimated. On a row it means *at least one claim beneath it was defaulted*.
+3. **Melk in voedingsindustrie 2020.** L3 Melk 123.219 = its single L4 `Zuivelnevenstroom` (C-200,
+   OVAM's NACE sub-sector row, which has its own L4 precisely because of rule v2.6 #6). C-467
+   (MONBIO, 70.000) is a **subset aggregate over that same L4**, so it reads *176% — parts exceed
+   the total*, and that flag is correct: the two are not the same measurement. C-467 is a **2018
+   estimate carried forward** and **20.445 t of it is zuiveringsslib, out of scope**; its in-scope
+   part is the 49.722 t of melkwei now held as C-802/C-803. Against 49.722 the OVAM figure is 2,5x,
+   not 1,76x.
+4. **Voedingsindustrie 2023 really has no plant branch.** OVAM 2023 publishes the food industry
+   only as NACE sub-sectors, and the four that map to a single commodity branch (Dranken, Bakkerij,
+   Oliën/vetten, Zuivel) are the whole tree. The crop material is there — C-094 *Aardappelen,
+   groenten en fruit* 621.063, C-099 *deegwaren/zetmeel/maalderij* 167.446, C-097
+   *suiker/chocolade/maaltijden* 191.054 — but each cuts across two or three L2 groups, so all of
+   it lands in the unallocated band. That band is not a rendering failure: it is the largest gap in
+   the corpus, and the stage filter is the first view that makes it impossible to miss.
+
 **Not changed:** the workbook, `streams_export.csv`, the dictionaries, the registry, the canonical
 `stream_overview.html`, and every figure in the corpus. This session added a view, not a number.
 
