@@ -57,6 +57,88 @@ clean v2 re-run and supersedes it entirely.*
 
 ## Tooling & model sessions (no source extracted)
 
+### 2026-09-10 — the dairy waste half captured, and every stranded skip swept
+
+**Objective (reviewer):** capture the 76.529 t that the 2026-09-08 exception left behind, and then
+answer the question it raised — *did this happen elsewhere? Was a figure skipped as a restatement
+when the copy carried a **new split** worth having?*
+
+**Captured: C-804 (S091, Tabel 64, p.166) and C-805 (S007, Tabel 46, p.158)** — NACE 10.5
+zuivelfabrieken, kolom *plant en dier*, **76.529 t, referentiejaar 2018**, at
+`Dierlijk - vee → Melk → Zuivelnevenstroom`, mirroring C-802/C-803 exactly. `agri-food waste` with
+`type_assumed = TRUE`, because MONBIO's axis is **legal status**, not edible/inedible. Both rows and
+both melkwei rows now cross-reference each other in `also_stated_in` with the sentence that matters:
+**the two tables are legal categories and they ADD UP — they are not variants.**
+
+The register now shows the reconciliation instead of only recording it in prose. The
+`Zuivelnevenstroom` node reads **126.251 t for 2018** (both MONBIO editions, Σ of the two halves)
+against **123.219 t for 2020** (OVAM) and **77.215 t for 2023** (OVAM) — 2,4% apart on the
+comparable pair, which is what a reviewer should see on the row rather than have to reconstruct.
+
+**This widens the 2026-09-08 exception by exactly one cell, on the reviewer's instruction.** That
+entry said *"the exception is the zuivel cell only, never Tabel 65 as a whole"*; the exception is
+now **the zuivel cell of both tables**, and the rest of both tables stays out. The reason it stays
+out is now the right one — **NACE sector lumps are the wrong grain for a stream register**, not
+*"S005 owns them"*, which resolves to *"nobody does"*.
+
+**Checks:** `audit_register.py` 740 live claims, **23 findings — the known baseline, unchanged**,
+and neither new row is named in any of them. `final_check.py` PASS. `verify_overview.py` 8/8.
+`verify_by_stage.js` all properties hold. Both overviews rebuilt.
+
+---
+
+**The sweep: `crosswalks/STRANDED_SKIPS.csv`, 11 rows, human-gated.**
+
+Every cross-source skip in the log was re-read and its assigned owner checked against the current
+queue. **The finding is systematic, not anecdotal: the 2026-09-04 retirement of S001, S005, S006 and
+S086 silently invalidated a set of skips made before it, and nothing swept them.** The melkwei
+rescue of 2026-09-08 caught one instance and wrote rule v2.6 #8 from it — but the rule was never run
+as a sweep, so the other instances stayed where they were. This is that sweep.
+
+**Stranded, and worth pulling back (the reviewer's `DECISION` column decides):**
+
+- **R-05 · the vlasketen, S007 folio 124, 2019 → S006 (retired).** *"130.000 ton strovlas → 26.000
+  ton gezwingeld vlas (lange vezel), als nevenstromen 15.000 ton klodden (korte vezel) en 65.000 ton
+  lemen (verbrijzelde kernen) … ook nog lijnzaad (15.000 ton)"*, Algemeen Belgisch Vlasverbond 2021.
+  **This is the answer to the reviewer's question in its purest form: a per-fraction split of a
+  whole chain, and `strovlas`, `klodden` and `gezwingeld` return zero hits in the corpus.** Two
+  cautions on the row: the geography sentence says *45 Belgische (43 Vlaamse) zwingelbedrijven*, and
+  only lijnzaad is unambiguously agri-food — klodden and lemen are fibre.
+- **R-06 · aanlanding zeevisserij 2019, 19.309 t** (S007 folio 90) **→ S006 (retired).** The corpus
+  has 2020 (C-450…C-453) and 2021 (C-269…C-272) and not 2019. One row closes the series.
+- **R-08 · GFVO voedingsindustrie 2020, ca. 4.000 t** (S087 p.64) **→ S001 (retired).** The S087 log
+  entry predicted this in writing: *"If S001 is never extracted, this figure is lost and should be
+  pulled back from here."* S001 was retired three days later. `frituur` and `GFVO` return zero hits.
+- **R-09 · the 2017 columns of S002's Tabel 12/13 → S003, which has no retrievable PDF and never
+  entered the queue.** Flagged to the reviewer when S002 was opened and the strict rule was chosen;
+  it has not changed since, so 2017 belongs to nobody.
+- **R-07 · teruggooi 2018, 8.775 t → S005 (retired).** Small, and the aanlandingsplicht makes it
+  historical from 2019. Reviewer's call.
+
+**Stranded and deliberately left (R-02, R-03):** the remaining NACE rows of both 2018 tables —
+1.198.839 t with waste status, 1.409.907 t without. Same grain as the sector lumps the corpus
+already holds and the gap list already marks unallocatable, so capturing them buys nothing.
+
+**A trap recorded so it cannot be repeated (R-04).** The *water* column of those tables is **not
+sludge**. S007 p.155 lists it: *"waterzuiveringsslib, vetafval, **draf, gist, hopbellen, moutkiemen,
+pulp**, afgekeurde dranken"*, with the food and drink sectors producing 72% of it (536.036 t). Real
+agri-food biomass is mixed into one cell with sludge and **cannot be separated as printed** — which
+is why it is on the sheet as a recorded limitation rather than as a candidate. An earlier note of
+mine in this log called that column out-of-scope slib; that was wrong for everything but dairy.
+
+**Checked and clean (R-10, R-11).** S002's 2015 columns belong to **S004, which is still live in
+`inbox/`** — the only skip in the whole sweep whose owner is still reachable; it strands the moment
+S004 is retired. And the largest skip in the register's history, **S010's Tabel 2–5** (~114 cells,
+the per-crop fraction detail the 2026-08-31 gap analysis called the missing layer), **resolved
+correctly**: S065 and S066 have since been extracted and every one of the five named fractions —
+bloemkoolloof, spruitstokken, uienschillen, preiloof, witloofwortelen — is in the corpus from its
+proper owner. That skip worked exactly as the rule intends.
+
+**The rule this suggests, for the reviewer to accept or reject:** *when a source is retired, sweep
+the skips that pointed at it before the retirement is final.* Rule v2.6 #8 says to check the
+ownership chain **when making a skip**; nothing yet says to re-check the skips already made when the
+chain later breaks. The retirement of four sources on one day is what exposed the difference.
+
 ### 2026-09-09 — the stream overview, one chain stage at a time
 
 **Objective:** a second view of the same corpus in which the chain stage is not a column but the
