@@ -231,6 +231,20 @@ rule the stream layer already runs on**: a stream is an object and where it aros
 *observation*; a parameter is an analyte and how it was determined belongs to the *measurement*.
 If a name only makes sense by saying how it was measured, it is not the analyte.
 
+**Shape in the schema: a vocabulary TABLE plus one nullable FK COLUMN** — the same pattern
+`unit`/`unit_code` and `basis`/`basis_code` already use. `method` holds one row per determination
+(`dm-oven-105`, `starch-polarimetric`, `lignin-klason`), `property_measurement.method_code` points at
+it. There is deliberately **no `drying_temperature` column and there will not be one**: the next
+parameter's method varies on a different attribute (starch on the assay, lignin on the reagent, fat
+on the solvent), so a column per attribute makes every new source a schema change. With the table, a
+new determination is one `INSERT` — the same trade the parameter catalogue itself makes.
+
+Drawn out, with the worked dry-matter case and the two dead ends the schema avoids:
+`https://claude.ai/code/artifact/5b9ec082-29ab-4e5b-ac3b-c9128335c558`. **Demonstrated, not
+asserted:** three `dry_matter` rows differing only in method were inserted into the local stack on
+2026-09-10, read back, and rolled back; the FK, the `source_key NOT NULL` and the `value_origin`
+CHECK all held.
+
 **The split rule that survives, and it is the important half:**
 
 - A method that changes the **number** for one analyte is a **method** — ADL vs Klason lignin,
@@ -243,6 +257,26 @@ If a name only makes sense by saying how it was measured, it is not the analyte.
 only *Lignin* has not said which determination it used. Recording that as unknown is honest;
 assigning it to ADL because the neighbouring columns are Van Soest is a guess — which is exactly
 what the first version did, and what the reviewer caught.
+
+## A source's sibling records are noted, never quietly borrowed
+
+**Reviewer instruction, 2026-09-10.** Phyllis2 files records for a crop's individual fractions beside
+records for the whole residue: under maize it holds `corn stover` (7), `corn stalks` (6), `corn cob`
+(11), plus `maize, leaf` and `maize, shoots`. Two facts settle how to read that. **`maize` and `corn`
+are the same plant** — British and American English, a naming artefact of whoever submitted the
+record, not a distinction. And **stover is the whole above-ground residue after grain harvest**,
+stalks, leaves, husks and cobs together, which is exactly what BioMobi's `mais-stro` is defined as.
+
+So `mais-stro` takes **stover records only**, from Feedipedia and Phyllis2 both. Putting a stalk-only
+or cob-only analysis on it would be the identical error to putting potato composition on potato peel
+— the error `composition/CLAUDE.md` opens with.
+
+**But the sibling records are recorded rather than forgotten**, on the source's `notes` and on the
+affected measurement rows. Two reasons: the next reader needs to know the fractions were seen and
+rejected, not missed (the register's own *checked-and-empty is recorded* rule, applied to a
+database); and if the register ever distinguishes a maize fraction as its own object, the data is
+already located. **Generalises: when a source offers a finer or coarser cut than our object, say so
+where the object is, not only in a session's reasoning.**
 
 ## Weende is one tradition among several, not the frame
 

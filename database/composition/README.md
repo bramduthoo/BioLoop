@@ -64,6 +64,10 @@ applied one. Every statement is `ON CONFLICT`-guarded, so migrations stack.
   over 12 objects, from 3 sources. All 180 validate against the registered vocabulary (0 violations
   on `parameter`, `unit`, `basis` and `stream` codes, checked against the local stack) — that is a
   structural check, not a check of the numbers.
+- **Two published pages.** The review surface at
+  `https://claude.ai/code/artifact/b7b1fe21-df01-41fe-9e68-8579e72bcbd1`, and a schema explainer for
+  the method axis at `https://claude.ai/code/artifact/5b9ec082-29ab-4e5b-ac3b-c9128335c558`. Both are
+  generated from this folder; `build/` is gitignored.
 - **The numbers are awaiting human review.** They were transcribed off the source pages by a model.
   The review page is at `https://claude.ai/code/artifact/b7b1fe21-df01-41fe-9e68-8579e72bcbd1`;
   marks and remarks come back through its store at `remarks/<stream_code>`.

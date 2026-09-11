@@ -45,7 +45,16 @@ SOURCES = [
      "https://phyllis.nl/", 2026, "primary-indexed",
      "Each record cites its own literature reference, so provenance resolves to a paper rather than "
      "to the database. Fuel-oriented parameter set: proximate, ultimate CHONS, Cl, LHV/HHV, ash "
-     "oxides - no Weende and no Van Soest fibre."),
+     "oxides - no Weende and no Van Soest fibre. "
+     "SIBLING-FRACTION RECORDS EXIST AND ARE DELIBERATELY NOT USED (2026-09-10). Phyllis2 files "
+     "records for a crop's individual fractions beside records for the whole residue: under maize "
+     "it holds corn stover (7), corn stalks (6), corn cob (11), maize leaf and maize shoots. That "
+     "is a consequence of what each submitter happened to analyse, not a classification - and "
+     "maize and corn are the same plant, British and American English, not two materials. Only the "
+     "STOVER records feed a whole-residue object; a stalk-only or cob-only analysis on `mais-stro` "
+     "would be the same error as potato composition on potato peel. The fraction records stay "
+     "useful: if the register ever distinguishes a maize fraction as its own object, the data is "
+     "already there."),
     ("deEvan2020Cauliflower", "zotero",
      "De Evan, T.; Vintimilla, A.; Molina-Alcaide, E.; Ranilla, M.J.; Carro, M.D. "
      "Potential of Recycling Cauliflower and Romanesco Wastes in Ruminant Feeding: In Vitro Studies. "
@@ -237,7 +246,11 @@ PHYLLIS = {
     "mais-stro": ("704", "Corn stover",
                   "Record cites a 1998 NREL biomass resource link that is now obsolete "
                   "(redirects to nrel.gov/rredc/biomass_resource.html).", "", "",
-                  "REFERENCE IS A DEAD LINK - provenance does not resolve to a document", [
+                  "REFERENCE IS A DEAD LINK - provenance does not resolve to a document. Also note "
+                  "that Phyllis2 holds 6 corn stalks, 11 corn cob and 2 maize leaf/shoot records "
+                  "beside this one: FRACTIONS of the same crop, deliberately excluded here because "
+                  "`mais-stro` is the whole above-ground residue. Six further corn stover records "
+                  "exist and each is its own source - only one was taken to build an example", [
         ("Moisture content",           "%",     "6.06",  "",      ""),
         ("Ash content at 550 C",       "%",     "4.75",  "5.06",  ""),
         ("Volatile matter",            "%",     "75.96", "80.86", "85.17"),
