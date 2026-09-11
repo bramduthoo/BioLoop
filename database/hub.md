@@ -1,7 +1,8 @@
 ## Status
 - **Workstream:** Database (BioMobi)
 - **Current objective:** between sessions. **Phase 3 (composition) has started**; 2a abandoned 2026-09-07; 2b closed 2026-09-04 (reopened twice since for single, reviewer-approved corrections); the 80%-selection registered as BioMobi vocabulary.
-- **Last session:** 2026-09-10 — **two register corrections and a sweep that closes a question rather than opening one.** (1) A **second view**: `register/build/stream_overview_by_stage.html`, the stream overview with the chain stage as the page filter instead of a column (primaire productie · voedingsindustrie · retail), each tab built only from claims measuring that one stage, the eight multi-stage figures held beside it as context. (2) **C-804/C-805 captured** (76.529 t, 2018, NACE 10.5 zuivel *met* afvalstatuut), widening the 2026-09-08 melkwei exception by one cell on the reviewer's instruction — `Zuivelnevenstroom` now reads **126.251 t (2018, MONBIO)** against **123.219 t (2020, OVAM)**, so the OVAM/MONBIO dairy discrepancy is reconciled *on the rows*: not two measurements of one thing but two legal categories (with / without waste status) that add up. (3) **The skip sweep, and it lands on NO.** Fifteen skips in the eight extracted sources point at an owner that was never extracted; **none passes the reviewer's `>=50 kt and >=2020` filter** — fourteen fail on year (their owners are the 2015/2017/2018/2019 editions), one on size (4 kt of GFVO owned by S001, 2020). Structural, not luck: the restatement rule skips *older* years by construction. Ledger in `register/crosswalks/STRANDED_SKIPS.csv` (12 rows, `DECISION` blank), full account in `register/log.md`. **740 live claims. Audit 23 findings (baseline), final_check PASS, verify_overview 8/8, verify_by_stage all properties hold.** Nothing rose to `state.md`: the whole session is register-local.
+- **Last session (composition):** 2026-09-11 — **round 2: all 35 streams of the 2026-09-11 selection at 50 kt/yr and up worked through in tonnage order.** 495 candidate rows over 24 streams from 3 sources; **21 filled (5.934.397 t/yr), 14 checked and empty (2.223.519 t/yr)** — 73% of the in-scope mass now has composition behind it. Nothing loaded. See "Phase 3 round 2" below.
+- **Last session (register):** 2026-09-10 — **two register corrections and a sweep that closes a question rather than opening one.** (1) A **second view**: `register/build/stream_overview_by_stage.html`, the stream overview with the chain stage as the page filter instead of a column (primaire productie · voedingsindustrie · retail), each tab built only from claims measuring that one stage, the eight multi-stage figures held beside it as context. (2) **C-804/C-805 captured** (76.529 t, 2018, NACE 10.5 zuivel *met* afvalstatuut), widening the 2026-09-08 melkwei exception by one cell on the reviewer's instruction — `Zuivelnevenstroom` now reads **126.251 t (2018, MONBIO)** against **123.219 t (2020, OVAM)**, so the OVAM/MONBIO dairy discrepancy is reconciled *on the rows*: not two measurements of one thing but two legal categories (with / without waste status) that add up. (3) **The skip sweep, and it lands on NO.** Fifteen skips in the eight extracted sources point at an owner that was never extracted; **none passes the reviewer's `>=50 kt and >=2020` filter** — fourteen fail on year (their owners are the 2015/2017/2018/2019 editions), one on size (4 kt of GFVO owned by S001, 2020). Structural, not luck: the restatement rule skips *older* years by construction. Ledger in `register/crosswalks/STRANDED_SKIPS.csv` (12 rows, `DECISION` blank), full account in `register/log.md`. **740 live claims. Audit 23 findings (baseline), final_check PASS, verify_overview 8/8, verify_by_stage all properties hold.** Nothing rose to `state.md`: the whole session is register-local.
 - **Session before:** 2026-09-09 — ran **round 1 of the *volume* source hunt (F-003)** over the twelve derived gaps. All twelve now carry a concrete candidate (`register/SOURCE_HUNT_VOLUMES.md` + `register/crosswalks/VOLUME_SOURCE_CANDIDATES.csv`, 29 rows, every `DECISION` blank). **The largest gap turns out to be unpublished rather than missing:** OVAM's *bedrijfsafval* data is `NACE-4 × EURAL-6` for Flanders underneath, but only the two marginals are published — so **one cross-tab request to OVAM/MATIS addresses five gap rows and the largest screened finding at once**. Nothing extracted, no claim added.
 - **Session before that:** 2026-09-09 — opened **phase 3**: `database/composition/` registered BioMobi's composition vocabulary (28 units, 6 bases, **68 parameters**) as two stacked migrations, and ran round 1 of the composition source hunt over the 16 objects of the top 10 commodities. **No measurements loaded yet.**
 - **Progress:**
@@ -19,7 +20,7 @@
   - `database/composition/` — phase 3: `vocabulary/{units,bases,parameters}.csv` → `tools/emit_vocabulary.py --emit-migration` → `supabase/migrations/`. Plus `SOURCE_HUNT.md` (round 1) and `crosswalks/SOURCE_CANDIDATES.csv` (the worklist). `composition/README.md` is its entry point.
   - `database/register/SOURCE_HUNT_VOLUMES.md` + `crosswalks/VOLUME_SOURCE_CANDIDATES.csv` — the **volume** source hunt (F-003), the mirror of `composition/SOURCE_HUNT.md`. Its `source_class` column is load-bearing: `direct` / `denominator` / `conversion` / `allocation` / `datarequest` / `restatement`, and **only `direct` can ever become a `supply_observation`** — 11 of 29 candidates are `direct`.
 - **Next action (volume side):** **the skip sweep needs no action** — the reviewer's filter lands on NO for every row, so `STRANDED_SKIPS.csv` can be closed with `leave` (the one row worth a conscious rather than automatic *leave* is **R-05**, the vlasketen fraction split: 130.000 t strovlas → 26.000 gezwingeld + 15.000 klodden + 65.000 lemen + 15.000 lijnzaad, 2019, zero equivalent in the corpus). One protocol question is left open for the reviewer, not applied: **should retiring a source trigger a sweep of the skips that pointed at it?** Rule v2.6 #8 checks the ownership chain when a skip is *made*, not when the chain later breaks — which is what the 2026-09-04 retirements exposed. Then, unchanged: **draft the OVAM/MATIS cross-tab request** — `NACE 4-digit × EURAL 6-digit`, Flanders, per production year, EURAL chapter 02 + 20 01 08 + 04 02 10, asking which years survive the 2022 MATIS/IMJV method break. Then the S087 reversal (the meat gap wants **one number** — the Flemish share of its 698.000 t — not a source), and **fix the `FAMILY` school map in `register/tools/make_gap_list.js`** before any Marktanalyse or bedrijfsafval figure is captured.
-- **Next action (composition side):** **read the reviewer's marks and remarks off the round-1 review page** (`read_db` on `remarks/<stream_code>` at `https://claude.ai/code/artifact/b7b1fe21-df01-41fe-9e68-8579e72bcbd1`), correct `composition/tools/build_round1.py` where they point, regenerate, and only then write the loader. Both gating questions are answered. Separately, and unchanged: decide how register **claims** become `supply_observation` rows (needs F-002 closed and the 687 unverified claims curated).
+- **Next action (composition side):** **round 3 opens with `dierlijk-vet`, and it is a catalogue job before it is a search** — register the fatty-acid branch INFOODS already carries under *Fat components*, plus free fatty acids, iodine value and slip melting point, because the catalogue has no vector for a fat or a liquid at all. Then **F-006** (the six vegetable residues, via the CVB Veevoedertabel that GeNeSys itself cites). And in parallel: **read the reviewer's marks and remarks off the review page** (`read_db` on `remarks/<stream_code>` at `https://claude.ai/code/artifact/b7b1fe21-df01-41fe-9e68-8579e72bcbd1`), correct `composition/tools/build_round1.py` where they point, regenerate, and only then write the loader. Both gating questions are answered. Separately, and unchanged: decide how register **claims** become `supply_observation` rows (needs F-002 closed and the 687 unverified claims curated).
 
 <!-- Everything below this line is LOCAL to the database workstream.
      The per-session narrative for 2b lives in `register/log.md`, not here. -->
@@ -41,6 +42,62 @@
 3. **Phase 3 — composition (started 2026-09-09).** The vocabulary is registered and verified; the source hunt for the first 16 objects is done. See "phase 3 — composition" below, and `composition/` for the detail.
 
 ---
+
+## Phase 3 round 2 — the selection list worked end to end (2026-09-11)
+
+*Per-stream detail is in `composition/extraction/round2/<code>.json`; the transcription of record
+is `composition/tools/round2_data.py`. Not repeated here.*
+
+**Every stream of the 2026-09-11 selection at 50 kt/yr and above has been worked**, in descending
+tonnage order, applying the reviewer's rule: where a commodity has fractions take only the
+fractions at or above the line, where it has none take the commodity. **35 targets, 8.157.916 t.**
+
+| | streams | t/yr |
+|---|--:|--:|
+| extracted | 21 | 5.934.397 |
+| checked, no usable source | 14 | 2.223.519 |
+
+**495 candidate rows over 24 streams, 39 of the 65 parameters used, zero vocabulary violations
+against the live schema.** Nothing loaded, and the load stays blocked twice over: `source_key` has
+no Zotero keys (F-002) and **most round-2 streams have no `stream` row**, because BioMobi still
+holds the 20 objects of the older top-13 selection. The `streams/` pipeline has to be re-run
+against this newer list first; the loader refusing an unknown `stream_code` is the correct failure.
+
+**The fourteen empty ones are not one thing, and separating them is the useful part:**
+*(a)* **nothing measures it** — six field and vegetable residues, raised together as **F-006**;
+*(b)* **the object is not defined**, so a search cannot be scoped — `zetmeel-reststroom` (G-19),
+`aardappel-industrieresidu`, `slachthuisstromen`, `eetbare-slachtafvallen-rood-vlees`. Register
+questions wearing a literature costume;
+*(c)* **the wrong material was available and refused** — `aardappel-snippers` (none of Feedipedia's
+four potato variants is raw cuttings) and `varkens` (meat and bone meal bundles species by
+construction, which is G-04 itself);
+*(d)* **the catalogue has no vector for it** — `dierlijk-vet`.
+
+**The structural finding: BioMobi has no composition vector for a fat or a liquid.** Every
+parameter registered describes a solid — proximate partitions, fibre fractions, ash, calorific
+value — because every source read so far has been one. On a rendered fat they read 0 or 100 and say
+nothing; what characterises it is a fatty-acid profile, free fatty acids, iodine value and slip
+melting point. The same hole showed on whey, where the only table available is a dehydrated skimmed
+powder. INFOODS already nests fatty acids under *Fat components*, so this is an extension of the
+adopted tree, not a redesign. **First item of round 3.**
+
+**G-10's composition half is closed.** `aardappel-stoomschillen` (261.740 t) lands on Feedipedia's
+*Steamed potato peels* variant — the register's word and the source's word for one material — with
+the fresh-peel table taken beside it, because steaming gelatinises the starch and the figures move.
+What G-10 still lacks is the Flemish **tonnage**, not the chemistry.
+
+**Two process signatures recur and are flagged on the rows rather than left to be discovered:**
+iron with an SD near or above its own mean is **soil** (fodder beet 3.189 mg/kg DM with SD 2.158,
+carrot tops 2.725 on n=1, beet pulp 471, poultry offal meal 5.107 with SD 4.872), and beet pulp's
+calcium at 14,3 g/kg DM is the **lime** used in sugar extraction. Either read as a mineral content
+of the material would be wrong.
+
+**Two rows were dropped for being internally impossible** — apple pomace's total sugars (SD equal
+to the mean, maximum below the minimum) and beet tops' only mineral rows (calcium minimum above its
+own mean). *Record what the source said* does not extend to recording what it cannot have meant.
+
+**Vocabulary grew on evidence only:** `tannins`, `condensed_tannins`, `selenium`, `glucosinolates`
+and the unit `umol/g` — 65 parameters, verified by `db reset`.
 
 ## Phase 3 — composition (started 2026-09-09)
 
@@ -326,6 +383,7 @@ Flemish **agri-food biomass side streams**, excluding manure and OFMSW. Inclusio
 
 | Migration | Date | Summary |
 |-----------|------|---------|
+| `20260911120000_biomobi_composition_vocabulary_v5.sql` | 2026-09-11 | **Data.** +4 parameters and 1 unit, each printed by a source opened in round 2: `tannins`, `condensed_tannins` (a different fraction, not another way of measuring tannins), `selenium`, `glucosinolates`, `umol/g`. 65 parameters. |
 | `20260910160200_retire_superseded_parameter_groups.sql` | 2026-09-10 | **DDL.** Deletes the 8 invented parameter groups v4 replaced. Separate from `…160000` because the guarded delete there ran *before* the vocabulary re-pointed the parameters, so it silently did nothing — **a guarded cleanup must run after the thing whose absence it checks for.** |
 | `20260910160100_biomobi_composition_vocabulary_v4.sql` | 2026-09-10 | **Data.** The adopted FAO/INFOODS component tree (16 nested groups), 17 `method` rows, 61 parameters (`adl` merged into `lignin`, `crude_fat` → `fat_total`). |
 | `20260910160000_method_axis_and_infoods_groups.sql` | 2026-09-10 | **DDL.** The `method` table + `property_measurement.method_code` and `value_origin`; `parameter_group.parent_code` + `external_ref`; category CHECKs narrowed to `chemical\|physical`. Supersedes the group half of `…100000` on reviewer challenge the same day. |
