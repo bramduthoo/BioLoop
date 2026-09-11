@@ -420,6 +420,99 @@ ITEMS["zonnebloem-schroot"] = dict(
     ],
 )
 
+ITEMS["lijnzaad-schroot"] = dict(
+    status="done",
+    note="Round 1 took the Main analysis (node 735). Round 2 adds the Minerals table, which is "
+         "thin: five elements, three of them on n=1. No secondary-metabolites table, although "
+         "the datasheet discusses cyanogenic glucosides, linatine and mucilage in prose - the "
+         "antinutritional factors that bound how much linseed meal a ration can carry. Same hole "
+         "as rapeseed meal: the constraint is described and never quantified.",
+    searched=["Feedipedia node 735 (Main analysis + Minerals; no Secondary metabolites table)"],
+    tables=[
+        ("feedtables-inrae-cirad-afz-fao", "Feedipedia node 735",
+         "Linseed meal, solvent-extracted", "dry", [
+            ("calcium",    "g/kg", "4.4",  "0.6", "3.3", "6.1",  "30", ""),
+            ("phosphorus", "g/kg", "9.6",  "0.6", "8.1", "10.7", "30", ""),
+            ("potassium",  "g/kg", "11.6", "",    "",    "",     "1",  ""),
+            ("sodium",     "g/kg", "1.4",  "",    "",    "",     "1",  ""),
+            ("magnesium",  "g/kg", "4.8",  "",    "",    "",     "1",  ""),
+        ]),
+    ],
+)
+
+ITEMS["soja-schroot"] = dict(
+    status="done",
+    note="Round 1 took the Main analysis (node 26068, type 48). Round 2 adds the Minerals table. "
+         "No secondary-metabolites table, so trypsin inhibitor, isoflavones and phytate - the "
+         "three numbers anyone processing soybean meal actually asks for - are absent. Note the "
+         "iron row: mean 274 mg/kg with SD 166 over a 13-617 range, which is soil and mill "
+         "contamination spread, not biology.",
+    searched=["Feedipedia node 26068 (Main analysis + Minerals; no Secondary metabolites table)"],
+    tables=[
+        ("feedtables-inrae-cirad-afz-fao", "Feedipedia node 26068",
+         "Soybean meal, type 48 and similar", "dry", [
+            ("calcium",    "g/kg",  "3.8",  "0.9",  "1.6",  "7.9",  "1729", "*"),
+            ("phosphorus", "g/kg",  "7.1",  "0.6",  "4.4",  "8.1",  "47",   "*"),
+            ("potassium",  "g/kg",  "23.8", "1.4",  "20.9", "28.6", "76",   "*"),
+            ("sodium",     "g/kg",  "0.16", "0.25", "0",    "1.49", "275",  ""),
+            ("chlorine",   "g/kg",  "0.3",  "0.2",  "0.1",  "0.9",  "95",   "",
+             "Feedipedia lists this in the minerals table rather than an ultimate analysis"),
+            ("magnesium",  "g/kg",  "3.1",  "0.4",  "2.5",  "4.1",  "21",   "*"),
+            ("sulphur",    "g/kg",  "4.5",  "0.2",  "4.3",  "4.9",  "5",    ""),
+            ("manganese",  "mg/kg", "45",   "13",   "25",   "88",   "66",   ""),
+            ("zinc",       "mg/kg", "62",   "39",   "29",   "303",  "43",   ""),
+            ("copper",     "mg/kg", "19",   "7",    "7",    "61",   "44",   ""),
+            ("iron",       "mg/kg", "274",  "166",  "13",   "617",  "18",   "",
+             "SD 166 over a 13-617 range is contamination spread, not biology"),
+            ("selenium",   "mg/kg", "0.2",  "",     "",     "",     "",     ""),
+        ]),
+    ],
+)
+
+ITEMS["melasse"] = dict(
+    status="done",
+    note="Feedipedia node 711, beet molasses. Main analysis and Minerals both taken. This entry "
+         "is the cleanest illustration in the round of why a ZERO must be recorded as a zero and "
+         "not as absence: crude fibre, NDF, ADF, lignin and starch are all printed as 0, which is "
+         "correct - molasses is a sugar syrup with no cell wall left in it - and a loader that "
+         "treated 0 as missing would throw away a real measurement. Potassium at 51,2 g/kg DM is "
+         "the highest figure anywhere in this round and is why beet molasses is a fertiliser "
+         "question as much as a feed one.",
+    searched=["Feedipedia node 711 (Main analysis + Minerals, beet molasses)"],
+    tables=[
+        ("feedtables-inrae-cirad-afz-fao", "Feedipedia node 711", "Molasses, beet", "dry", [
+            ("dry_matter",    "%",     "75.4", "2.7",  "56.6", "82.8", "599", "",
+             "as-fed basis"),
+            ("crude_protein", "%",     "14.2", "2",    "8.9",  "19.3", "529", "",
+             "largely non-protein nitrogen (betaine, amino acids), not true protein"),
+            ("crude_fibre",   "%",     "0",    "0.09", "0",    "0.3",  "9",   "",
+             "a MEASURED zero on n=9, not a missing value"),
+            ("fat_total",     "%",     "0.2",  "",     "0.1",  "0.3",  "4",   ""),
+            ("ash",           "%",     "12.7", "2",    "8",    "21.1", "527", ""),
+            ("insoluble_ash", "%",     "0.01", "",     "0.01", "0.01", "2",   ""),
+            ("ndf",           "%",     "0",    "",     "",     "",     "",    "",
+             "measured zero - no cell wall left after sugar extraction"),
+            ("adf",           "%",     "0",    "",     "",     "",     "",    "", "measured zero"),
+            ("lignin",        "%",     "0",    "",     "",     "",     "",    "", "measured zero"),
+            ("starch",        "%",     "0",    "",     "",     "",     "",    "",
+             "measured zero, polarimetric determination"),
+            ("total_sugars",  "%",     "63.4", "4.7",  "49.1", "76.8", "464", ""),
+            ("hhv",           "MJ/kg", "15.5", "0.5",  "14.7", "16.6", "10",  "*"),
+            ("calcium",       "g/kg",  "1.2",  "0.8",  "0",    "4.2",  "119", "*"),
+            ("phosphorus",    "g/kg",  "0.3",  "0.2",  "0.04", "1.1",  "120", "*"),
+            ("magnesium",     "g/kg",  "0.3",  "0.2",  "0.06", "0.7",  "8",   ""),
+            ("potassium",     "g/kg",  "51.2", "12",   "13.2", "81.6", "70",  "*",
+             "the highest potassium figure in the whole round"),
+            ("sodium",        "g/kg",  "6.91", "2.02", "3.24", "11.56", "134", ""),
+            ("sulphur",       "g/kg",  "5.6",  "",     "",     "",     "",    ""),
+            ("manganese",     "mg/kg", "38",   "",     "",     "",     "",    ""),
+            ("zinc",          "mg/kg", "22",   "",     "",     "",     "",    ""),
+            ("copper",        "mg/kg", "17",   "",     "",     "",     "",    ""),
+            ("iron",          "mg/kg", "154",  "",     "",     "",     "",    ""),
+        ]),
+    ],
+)
+
 
 # ---------------------------------------------------------------------------
 

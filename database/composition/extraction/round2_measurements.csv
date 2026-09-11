@@ -52,6 +52,11 @@ bostel;manganese;point;43;25;56;10;16;mg/kg;dry;;measured;feedtables-inrae-cirad
 bostel;zinc;point;83;60;105;13;16;mg/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 74;;;Brewers grains, fresh;no;;machine;;
 bostel;copper;point;14;7;31;7;16;mg/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 74;;;Brewers grains, fresh;no;;machine;;
 bostel;iron;point;138;108;163;18;10;mg/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 74;;;Brewers grains, fresh;no;;machine;;
+lijnzaad-schroot;calcium;point;4.4;3.3;6.1;0.6;30;g/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 735;;;Linseed meal, solvent-extracted;no;;machine;;
+lijnzaad-schroot;phosphorus;point;9.6;8.1;10.7;0.6;30;g/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 735;;;Linseed meal, solvent-extracted;no;;machine;;
+lijnzaad-schroot;potassium;point;11.6;;;;1;g/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 735;;;Linseed meal, solvent-extracted;no;;machine;;
+lijnzaad-schroot;sodium;point;1.4;;;;1;g/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 735;;;Linseed meal, solvent-extracted;no;;machine;;
+lijnzaad-schroot;magnesium;point;4.8;;;;1;g/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 735;;;Linseed meal, solvent-extracted;no;;machine;;
 mais-stro;calcium;point;3.2;1.6;11.7;1.8;38;g/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 16072;;;Maize stover, dry;no;;machine;;
 mais-stro;phosphorus;point;0.8;0.2;2.6;0.6;37;g/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 16072;;;Maize stover, dry;no;;machine;;
 mais-stro;potassium;point;14;5.4;28;6.3;30;g/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 16072;;;Maize stover, dry;no;;machine;;
@@ -63,6 +68,28 @@ mais-stro;zinc;point;17;9;32;8;16;mg/kg;dry;;measured;feedtables-inrae-cirad-afz
 mais-stro;copper;point;4;2;6;1;16;mg/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 16072;;;Maize stover, dry;no;;machine;;
 mais-stro;iron;point;975;;;;;mg/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 16072;;;Maize stover, dry;no;;machine;;
 mais-stro;tannins;point;2;2;2;;3;g/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 16072;;;Maize stover, dry;no;;machine;;expressed as tannic acid equivalent
+melasse;dry_matter;point;75.4;56.6;82.8;2.7;599;%;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 711;;;Molasses, beet;no;;machine;;as-fed basis
+melasse;crude_protein;point;14.2;8.9;19.3;2;529;%;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 711;;;Molasses, beet;no;;machine;;largely non-protein nitrogen (betaine, amino acids), not true protein
+melasse;crude_fibre;point;0;0;0.3;0.09;9;%;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 711;;;Molasses, beet;no;;machine;;a MEASURED zero on n=9, not a missing value
+melasse;fat_total;point;0.2;0.1;0.3;;4;%;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 711;;;Molasses, beet;no;;machine;;
+melasse;ash;point;12.7;8;21.1;2;527;%;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 711;;;Molasses, beet;no;;machine;;
+melasse;insoluble_ash;point;0.01;0.01;0.01;;2;%;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 711;;;Molasses, beet;no;;machine;;
+melasse;ndf;point;0;;;;;%;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 711;;;Molasses, beet;no;;machine;;measured zero - no cell wall left after sugar extraction
+melasse;adf;point;0;;;;;%;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 711;;;Molasses, beet;no;;machine;;measured zero
+melasse;lignin;point;0;;;;;%;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 711;;;Molasses, beet;no;;machine;;measured zero
+melasse;starch;point;0;;;;;%;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 711;;;Molasses, beet;no;;machine;;measured zero, polarimetric determination
+melasse;total_sugars;point;63.4;49.1;76.8;4.7;464;%;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 711;;;Molasses, beet;no;;machine;;
+melasse;hhv;point;15.5;14.7;16.6;0.5;10;MJ/kg;dry;;predicted;feedtables-inrae-cirad-afz-fao;Feedipedia node 711;;;Molasses, beet;no;;machine;;
+melasse;calcium;point;1.2;0;4.2;0.8;119;g/kg;dry;;predicted;feedtables-inrae-cirad-afz-fao;Feedipedia node 711;;;Molasses, beet;no;;machine;;
+melasse;phosphorus;point;0.3;0.04;1.1;0.2;120;g/kg;dry;;predicted;feedtables-inrae-cirad-afz-fao;Feedipedia node 711;;;Molasses, beet;no;;machine;;
+melasse;magnesium;point;0.3;0.06;0.7;0.2;8;g/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 711;;;Molasses, beet;no;;machine;;
+melasse;potassium;point;51.2;13.2;81.6;12;70;g/kg;dry;;predicted;feedtables-inrae-cirad-afz-fao;Feedipedia node 711;;;Molasses, beet;no;;machine;;the highest potassium figure in the whole round
+melasse;sodium;point;6.91;3.24;11.56;2.02;134;g/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 711;;;Molasses, beet;no;;machine;;
+melasse;sulphur;point;5.6;;;;;g/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 711;;;Molasses, beet;no;;machine;;
+melasse;manganese;point;38;;;;;mg/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 711;;;Molasses, beet;no;;machine;;
+melasse;zinc;point;22;;;;;mg/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 711;;;Molasses, beet;no;;machine;;
+melasse;copper;point;17;;;;;mg/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 711;;;Molasses, beet;no;;machine;;
+melasse;iron;point;154;;;;;mg/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 711;;;Molasses, beet;no;;machine;;
 raapzaad-schroot;calcium;point;8.6;5.1;11.3;1.0;433;g/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 52;;;Rapeseed meal, solvent-extracted, 00 type, oil < 5%;no;;machine;;
 raapzaad-schroot;phosphorus;point;12.7;10.2;20.8;1.0;511;g/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 52;;;Rapeseed meal, solvent-extracted, 00 type, oil < 5%;no;;machine;;
 raapzaad-schroot;potassium;point;14.1;;;;;g/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 52;;;Rapeseed meal, solvent-extracted, 00 type, oil < 5%;no;;machine;;
@@ -75,6 +102,18 @@ raapzaad-schroot;zinc;point;78;56;142;25;18;mg/kg;dry;;measured;feedtables-inrae
 raapzaad-schroot;copper;point;9;2;25;7;17;mg/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 52;;;Rapeseed meal, solvent-extracted, 00 type, oil < 5%;no;;machine;;
 raapzaad-schroot;iron;point;183;110;202;36;5;mg/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 52;;;Rapeseed meal, solvent-extracted, 00 type, oil < 5%;no;;machine;;
 raapzaad-schroot;selenium;point;1;;;;;mg/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 52;;;Rapeseed meal, solvent-extracted, 00 type, oil < 5%;no;;machine;;
+soja-schroot;calcium;point;3.8;1.6;7.9;0.9;1729;g/kg;dry;;predicted;feedtables-inrae-cirad-afz-fao;Feedipedia node 26068;;;Soybean meal, type 48 and similar;no;;machine;;
+soja-schroot;phosphorus;point;7.1;4.4;8.1;0.6;47;g/kg;dry;;predicted;feedtables-inrae-cirad-afz-fao;Feedipedia node 26068;;;Soybean meal, type 48 and similar;no;;machine;;
+soja-schroot;potassium;point;23.8;20.9;28.6;1.4;76;g/kg;dry;;predicted;feedtables-inrae-cirad-afz-fao;Feedipedia node 26068;;;Soybean meal, type 48 and similar;no;;machine;;
+soja-schroot;sodium;point;0.16;0;1.49;0.25;275;g/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 26068;;;Soybean meal, type 48 and similar;no;;machine;;
+soja-schroot;chlorine;point;0.3;0.1;0.9;0.2;95;g/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 26068;;;Soybean meal, type 48 and similar;no;;machine;;Feedipedia lists this in the minerals table rather than an ultimate analysis
+soja-schroot;magnesium;point;3.1;2.5;4.1;0.4;21;g/kg;dry;;predicted;feedtables-inrae-cirad-afz-fao;Feedipedia node 26068;;;Soybean meal, type 48 and similar;no;;machine;;
+soja-schroot;sulphur;point;4.5;4.3;4.9;0.2;5;g/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 26068;;;Soybean meal, type 48 and similar;no;;machine;;
+soja-schroot;manganese;point;45;25;88;13;66;mg/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 26068;;;Soybean meal, type 48 and similar;no;;machine;;
+soja-schroot;zinc;point;62;29;303;39;43;mg/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 26068;;;Soybean meal, type 48 and similar;no;;machine;;
+soja-schroot;copper;point;19;7;61;7;44;mg/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 26068;;;Soybean meal, type 48 and similar;no;;machine;;
+soja-schroot;iron;point;274;13;617;166;18;mg/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 26068;;;Soybean meal, type 48 and similar;no;;machine;;SD 166 over a 13-617 range is contamination spread, not biology
+soja-schroot;selenium;point;0.2;;;;;mg/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 26068;;;Soybean meal, type 48 and similar;no;;machine;;
 suikerbiet-pulp;calcium;point;14.3;5;29.5;2.7;673;g/kg;dry;;predicted;feedtables-inrae-cirad-afz-fao;Feedipedia node 710;;;Sugar beet pulp, pressed;no;;machine;;high for a plant material - carry-over of the lime used in sugar extraction
 suikerbiet-pulp;phosphorus;point;1;0.3;1.5;0.2;26;g/kg;dry;;predicted;feedtables-inrae-cirad-afz-fao;Feedipedia node 710;;;Sugar beet pulp, pressed;no;;machine;;
 suikerbiet-pulp;magnesium;point;1.7;1.2;2.4;0.4;13;g/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 710;;;Sugar beet pulp, pressed;no;;machine;;
