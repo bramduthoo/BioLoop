@@ -1,4 +1,37 @@
 ﻿stream_code;parameter_code;value_type;value_num;value_min;value_max;sd;n_samples;unit_code;basis_code;method_code;value_origin;source_key;source_ref;year;reported_label;variant;restatement;flag;transcription;DECISION;notes
+aardappel-stoomschillen;dry_matter;point;17;9.9;24.6;4.5;14;%;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 23075;;;Steamed potato peels (liquid potato feed);no;;machine;;the source reports dry matter on an as-fed basis
+aardappel-stoomschillen;crude_protein;point;12.8;7.1;18.5;3.1;16;%;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 23075;;;Steamed potato peels (liquid potato feed);no;;machine;;
+aardappel-stoomschillen;crude_fibre;point;4.7;2.7;6.8;1.6;11;%;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 23075;;;Steamed potato peels (liquid potato feed);no;;machine;;
+aardappel-stoomschillen;ndf;point;11;7;24.2;7.4;5;%;dry;;predicted;feedtables-inrae-cirad-afz-fao;Feedipedia node 23075;;;Steamed potato peels (liquid potato feed);no;;machine;;
+aardappel-stoomschillen;adf;point;5.9;4.7;8.1;;3;%;dry;;predicted;feedtables-inrae-cirad-afz-fao;Feedipedia node 23075;;;Steamed potato peels (liquid potato feed);no;;machine;;
+aardappel-stoomschillen;lignin;point;1.6;0.6;1.7;;3;%;dry;;predicted;feedtables-inrae-cirad-afz-fao;Feedipedia node 23075;;;Steamed potato peels (liquid potato feed);no;;machine;;
+aardappel-stoomschillen;fat_total;point;1.3;0.2;5.7;1.8;8;%;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 23075;;;Steamed potato peels (liquid potato feed);no;;machine;;
+aardappel-stoomschillen;ash;point;7.1;2.8;12.2;3.2;14;%;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 23075;;;Steamed potato peels (liquid potato feed);no;;machine;;
+aardappel-stoomschillen;insoluble_ash;point;2.4;;;;;%;dry;;predicted;feedtables-inrae-cirad-afz-fao;Feedipedia node 23075;;;Steamed potato peels (liquid potato feed);no;;machine;;
+aardappel-stoomschillen;starch;point;45.5;30.9;55.9;8.4;8;%;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 23075;;;Steamed potato peels (liquid potato feed);no;;machine;;polarimetric determination
+aardappel-stoomschillen;starch;point;43.5;;;;;%;dry;;predicted;feedtables-inrae-cirad-afz-fao;Feedipedia node 23075;;;Steamed potato peels (liquid potato feed);no;;machine;;enzymatic determination
+aardappel-stoomschillen;total_sugars;point;2.1;;;;;%;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 23075;;;Steamed potato peels (liquid potato feed);no;;machine;;
+aardappel-stoomschillen;hhv;point;16.8;;;;;MJ/kg;dry;;predicted;feedtables-inrae-cirad-afz-fao;Feedipedia node 23075;;;Steamed potato peels (liquid potato feed);no;;machine;;
+aardappel-stoomschillen;dry_matter;point;20.1;14.3;24.7;;3;%;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 23075;;;Potato peels, fresh (NOT steamed - a different material);no;;machine;;the source reports dry matter on an as-fed basis
+aardappel-stoomschillen;crude_protein;point;10;5.5;16.3;;4;%;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 23075;;;Potato peels, fresh (NOT steamed - a different material);no;;machine;;
+aardappel-stoomschillen;crude_fibre;point;11.4;3.3;19.5;;2;%;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 23075;;;Potato peels, fresh (NOT steamed - a different material);no;;machine;;
+aardappel-stoomschillen;ndf;point;19.4;;;;1;%;dry;;predicted;feedtables-inrae-cirad-afz-fao;Feedipedia node 23075;;;Potato peels, fresh (NOT steamed - a different material);no;;machine;;
+aardappel-stoomschillen;adf;point;13.2;5.5;13.3;;2;%;dry;;predicted;feedtables-inrae-cirad-afz-fao;Feedipedia node 23075;;;Potato peels, fresh (NOT steamed - a different material);no;;machine;;
+aardappel-stoomschillen;lignin;point;3.7;;;;1;%;dry;;predicted;feedtables-inrae-cirad-afz-fao;Feedipedia node 23075;;;Potato peels, fresh (NOT steamed - a different material);no;;machine;;
+aardappel-stoomschillen;fat_total;point;0.7;0.2;1.5;;3;%;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 23075;;;Potato peels, fresh (NOT steamed - a different material);no;;machine;;
+aardappel-stoomschillen;ash;point;5.5;5.1;6.1;;3;%;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 23075;;;Potato peels, fresh (NOT steamed - a different material);no;;machine;;
+aardappel-stoomschillen;insoluble_ash;point;0.8;;;;;%;dry;;predicted;feedtables-inrae-cirad-afz-fao;Feedipedia node 23075;;;Potato peels, fresh (NOT steamed - a different material);no;;machine;;
+aardappel-stoomschillen;hhv;point;17.1;;;;;MJ/kg;dry;;predicted;feedtables-inrae-cirad-afz-fao;Feedipedia node 23075;;;Potato peels, fresh (NOT steamed - a different material);no;;machine;;
+aardappel;calcium;point;0.7;0.3;1;;4;g/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 547;;;Potato tubers, raw;no;;machine;;
+aardappel;phosphorus;point;2.2;1.9;2.5;0.3;6;g/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 547;;;Potato tubers, raw;no;;machine;;
+aardappel;magnesium;point;1;1;1;;2;g/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 547;;;Potato tubers, raw;no;;machine;;
+aardappel;potassium;point;23.6;23;24.1;;2;g/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 547;;;Potato tubers, raw;no;;machine;;potato is a potassium accumulator - the highest K figure in this round
+aardappel;sodium;point;0.2;0.2;0.2;;2;g/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 547;;;Potato tubers, raw;no;;machine;;
+aardappel;sulphur;point;1;;;;;g/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 547;;;Potato tubers, raw;no;;machine;;
+aardappel;manganese;point;21;;;;;mg/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 547;;;Potato tubers, raw;no;;machine;;
+aardappel;zinc;point;28;;;;;mg/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 547;;;Potato tubers, raw;no;;machine;;
+aardappel;copper;point;7;6;8;;2;mg/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 547;;;Potato tubers, raw;no;;machine;;
+aardappel;iron;point;65;;;;;mg/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 547;;;Potato tubers, raw;no;;machine;;
 mais-stro;calcium;point;3.2;1.6;11.7;1.8;38;g/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 16072;;;Maize stover, dry;no;;machine;;
 mais-stro;phosphorus;point;0.8;0.2;2.6;0.6;37;g/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 16072;;;Maize stover, dry;no;;machine;;
 mais-stro;potassium;point;14;5.4;28;6.3;30;g/kg;dry;;measured;feedtables-inrae-cirad-afz-fao;Feedipedia node 16072;;;Maize stover, dry;no;;machine;;

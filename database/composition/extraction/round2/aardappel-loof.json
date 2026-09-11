@@ -1,0 +1,13 @@
+{
+ "stream_code": "aardappel-loof",
+ "status": "no-source",
+ "note": "CHECKED AND EMPTY, and this is the second time. Potato haulm is absent from Phyllis2's index and has no Feedipedia datasheet - confirmed again on 2026-09-11 - while every other field residue in this round sits in one or both. Three literature routes were tried this session and none produced a usable table: the Acta Scientific Agriculture 2019 paper (Koli, Misra & Singh, DOI 10.31080/ASAG.2019.03.0568) is about haulm SILAGE blended with oat and its tables did not extract; the Current Science 115(2) PDF that a search attributed to potato haulm turns out to be a Pakistani agricultural-substrate study that does not cover potato at all. At 800.480 t this is the SECOND LARGEST target in the round and the largest with nothing behind it. F-004 stands, with two database routes still untried: S2BIOM (I) and the Dutch CVB Veevoedertabel. NOTE for whoever picks this up: haulm is chemically desiccated before harvest, which is a plausible reason feed databases skip it and a reason to check what a haulm analysis was taken BEFORE or AFTER desiccation.",
+ "searched": [
+  "Phyllis2 plain-list index - absent",
+  "Feedipedia - no datasheet",
+  "Acta Scientific Agriculture 2019 (haulm silage) - tables did not extract",
+  "Current Science 115(2) 0292 - wrong paper, does not cover potato"
+ ],
+ "sources": [],
+ "rows": []
+}

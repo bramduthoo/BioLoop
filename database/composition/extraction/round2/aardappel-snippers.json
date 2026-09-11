@@ -1,0 +1,11 @@
+{
+ "stream_code": "aardappel-snippers",
+ "status": "no-source",
+ "note": "NO MATCHING MATERIAL FOUND, and the near-misses are the point. Feedipedia's potato by-products datasheet has four variants and none of them is snippers: potato pulp is a STARCH-INDUSTRY residue, steamed peels are the peeling line, french fries are a FRIED product. Snippers are raw cut-offs from the cutting line - essentially potato flesh with little peel. The tempting move is to give it the raw-tuber figures from node 547, and that is exactly what this folder's rule forbids: a fraction does not inherit its commodity's composition. Left empty at 95.000 t.",
+ "searched": [
+  "Feedipedia node 23075 - 4 variants, none is raw cuttings",
+  "Feedipedia node 547 - the tuber, deliberately NOT reused for a fraction"
+ ],
+ "sources": [],
+ "rows": []
+}

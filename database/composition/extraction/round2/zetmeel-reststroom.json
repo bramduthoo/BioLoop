@@ -1,0 +1,10 @@
+{
+ "stream_code": "zetmeel-reststroom",
+ "status": "no-source",
+ "note": "BLOCKED ON PURPOSE, unchanged from round 1. Prodcom 106220 'afvallen van zetmeelfabrieken' names a factory, not a material (gap G-19). Composition for starch side streams is abundant - Feedipedia alone prints a full Main analysis for dehydrated potato pulp on node 23075, and the potato fruit juice / potato fibre / potato protein literature is rich - so this is not a search problem. Attaching any of it would put a material name in a source's mouth, and Flanders crushes WHEAT starch rather than potato, so the obvious literature is probably the wrong material as well. 284.549 t waiting on a naming decision.",
+ "searched": [
+  "not searched - the object is undefined, so a search cannot be scoped"
+ ],
+ "sources": [],
+ "rows": []
+}

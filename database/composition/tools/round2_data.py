@@ -157,6 +157,160 @@ ITEMS["zemelen"] = dict(
     ],
 )
 
+ITEMS["aardappel-stoomschillen"] = dict(
+    status="done",
+    note="Feedipedia's Potato by-products datasheet carries four variants with their own Main "
+         "analysis: potato pulp (dehydrated), potato peels (fresh), STEAMED POTATO PEELS (liquid "
+         "potato feed) and french fries (with oil). The third is this object exactly - the "
+         "register calls it stoomschillen and the source calls it steamed potato peels. Both the "
+         "fresh-peel and the steam-peel table are taken, because they are DIFFERENT MATERIALS: "
+         "steaming gelatinises the starch and the figures move (starch 45,5 vs not reported, "
+         "crude fibre 4,7 vs 11,4). This is the composition half of gap G-10; what G-10 is "
+         "really missing is the Flemish TONNAGE, not the chemistry.",
+    searched=["Feedipedia node 23075 (Potato by-products: 4 variants, Main analysis each)"],
+    tables=[
+        ("feedtables-inrae-cirad-afz-fao", "Feedipedia node 23075",
+         "Steamed potato peels (liquid potato feed)", "dry", [
+            ("dry_matter",    "%",     "17",   "4.5", "9.9",  "24.6", "14", "",
+             "the source reports dry matter on an as-fed basis"),
+            ("crude_protein", "%",     "12.8", "3.1", "7.1",  "18.5", "16", ""),
+            ("crude_fibre",   "%",     "4.7",  "1.6", "2.7",  "6.8",  "11", ""),
+            ("ndf",           "%",     "11",   "7.4", "7",    "24.2", "5",  "*"),
+            ("adf",           "%",     "5.9",  "",    "4.7",  "8.1",  "3",  "*"),
+            ("lignin",        "%",     "1.6",  "",    "0.6",  "1.7",  "3",  "*"),
+            ("fat_total",     "%",     "1.3",  "1.8", "0.2",  "5.7",  "8",  ""),
+            ("ash",           "%",     "7.1",  "3.2", "2.8",  "12.2", "14", ""),
+            ("insoluble_ash", "%",     "2.4",  "",    "",     "",     "",   "*"),
+            ("starch",        "%",     "45.5", "8.4", "30.9", "55.9", "8",  "",
+             "polarimetric determination"),
+            ("starch",        "%",     "43.5", "",    "",     "",     "",   "*",
+             "enzymatic determination"),
+            ("total_sugars",  "%",     "2.1",  "",    "",     "",     "",   ""),
+            ("hhv",           "MJ/kg", "16.8", "",    "",     "",     "",   "*"),
+        ]),
+        ("feedtables-inrae-cirad-afz-fao", "Feedipedia node 23075",
+         "Potato peels, fresh (NOT steamed - a different material)", "dry", [
+            ("dry_matter",    "%",     "20.1", "", "14.3", "24.7", "3", "",
+             "the source reports dry matter on an as-fed basis"),
+            ("crude_protein", "%",     "10",   "", "5.5",  "16.3", "4", ""),
+            ("crude_fibre",   "%",     "11.4", "", "3.3",  "19.5", "2", ""),
+            ("ndf",           "%",     "19.4", "", "",     "",     "1", "*"),
+            ("adf",           "%",     "13.2", "", "5.5",  "13.3", "2", "*"),
+            ("lignin",        "%",     "3.7",  "", "",     "",     "1", "*"),
+            ("fat_total",     "%",     "0.7",  "", "0.2",  "1.5",  "3", ""),
+            ("ash",           "%",     "5.5",  "", "5.1",  "6.1",  "3", ""),
+            ("insoluble_ash", "%",     "0.8",  "", "",     "",     "",  "*"),
+            ("hhv",           "MJ/kg", "17.1", "", "",     "",     "",  "*"),
+        ]),
+    ],
+)
+
+ITEMS["aardappel"] = dict(
+    status="done",
+    note="Round 1 took the Main analysis (node 547, raw tubers). Round 2 adds the Minerals "
+         "table. Feedipedia carries NO quantitative secondary-metabolites table for potato: it "
+         "discusses glycoalkaloids (solanine, alpha-chaconine) in prose under Potential "
+         "constraints and prints no figure. For a stream whose admissible uses are decided by "
+         "exactly that number, this is a real hole and not a rounding error.",
+    searched=["Feedipedia node 547 (Main analysis, Minerals; secondary metabolites in prose only)"],
+    tables=[
+        ("feedtables-inrae-cirad-afz-fao", "Feedipedia node 547", "Potato tubers, raw", "dry", [
+            ("calcium",    "g/kg",  "0.7",  "",    "0.3",  "1",    "4", ""),
+            ("phosphorus", "g/kg",  "2.2",  "0.3", "1.9",  "2.5",  "6", ""),
+            ("magnesium",  "g/kg",  "1",    "",    "1",    "1",    "2", ""),
+            ("potassium",  "g/kg",  "23.6", "",    "23",   "24.1", "2", "",
+             "potato is a potassium accumulator - the highest K figure in this round"),
+            ("sodium",     "g/kg",  "0.2",  "",    "0.2",  "0.2",  "2", ""),
+            ("sulphur",    "g/kg",  "1",    "",    "",     "",     "",  ""),
+            ("manganese",  "mg/kg", "21",   "",    "",     "",     "",  ""),
+            ("zinc",       "mg/kg", "28",   "",    "",     "",     "",  ""),
+            ("copper",     "mg/kg", "7",    "",    "6",    "8",    "2", ""),
+            ("iron",       "mg/kg", "65",   "",    "",     "",     "",  ""),
+        ]),
+    ],
+)
+
+ITEMS["suikerbiet-loof"] = dict(
+    status="done",
+    flag="The 27,9% dry matter round 1 flagged as implausible IS what the source prints for "
+         "BEET TOPS, FRESH - checked against the page on 2026-09-11, which carries three "
+         "variants (fresh 27,9 / silage 21,9 / dried 86,7) and the figure sits in the fresh "
+         "table. It remains high for fresh leaf material, where the literature usually gives "
+         "12-18%, and n = 2. Recorded as the source states it; worth a reviewer's eye.",
+    note="Round 1 took the Main analysis (node 709, beet tops fresh). The variant question is "
+         "now settled. Feedipedia prints NO minerals table for beet tops; the only mineral "
+         "figures on the page sit under a separate 'Beet leaves, fresh' section and are two "
+         "rows whose min/max columns are internally inconsistent (Ca min 19,6 above a mean of "
+         "11,0), so they are deliberately NOT taken.",
+    searched=["Feedipedia node 709 (3 variants: tops fresh / silage / dried; no minerals table "
+              "for tops; the Beet leaves section's 2 mineral rows are internally inconsistent)",
+              "Phyllis2 #1053 beet tail and beet green - taken in round 1, low confidence"],
+    tables=[],
+)
+
+ITEMS["aardappel-loof"] = dict(
+    status="no-source",
+    note="CHECKED AND EMPTY, and this is the second time. Potato haulm is absent from Phyllis2's "
+         "index and has no Feedipedia datasheet - confirmed again on 2026-09-11 - while every "
+         "other field residue in this round sits in one or both. Three literature routes were "
+         "tried this session and none produced a usable table: the Acta Scientific Agriculture "
+         "2019 paper (Koli, Misra & Singh, DOI 10.31080/ASAG.2019.03.0568) is about haulm "
+         "SILAGE blended with oat and its tables did not extract; the Current Science 115(2) "
+         "PDF that a search attributed to potato haulm turns out to be a Pakistani "
+         "agricultural-substrate study that does not cover potato at all. At 800.480 t this is "
+         "the SECOND LARGEST target in the round and the largest with nothing behind it. "
+         "F-004 stands, with two database routes still untried: S2BIOM (I) and the Dutch CVB "
+         "Veevoedertabel. NOTE for whoever picks this up: haulm is chemically desiccated before "
+         "harvest, which is a plausible reason feed databases skip it and a reason to check "
+         "what a haulm analysis was taken BEFORE or AFTER desiccation.",
+    searched=["Phyllis2 plain-list index - absent",
+              "Feedipedia - no datasheet",
+              "Acta Scientific Agriculture 2019 (haulm silage) - tables did not extract",
+              "Current Science 115(2) 0292 - wrong paper, does not cover potato"],
+    tables=[],
+)
+
+ITEMS["aardappel-snippers"] = dict(
+    status="no-source",
+    note="NO MATCHING MATERIAL FOUND, and the near-misses are the point. Feedipedia's potato "
+         "by-products datasheet has four variants and none of them is snippers: potato pulp is "
+         "a STARCH-INDUSTRY residue, steamed peels are the peeling line, french fries are a "
+         "FRIED product. Snippers are raw cut-offs from the cutting line - essentially potato "
+         "flesh with little peel. The tempting move is to give it the raw-tuber figures from "
+         "node 547, and that is exactly what this folder's rule forbids: a fraction does not "
+         "inherit its commodity's composition. Left empty at 95.000 t.",
+    searched=["Feedipedia node 23075 - 4 variants, none is raw cuttings",
+              "Feedipedia node 547 - the tuber, deliberately NOT reused for a fraction"],
+    tables=[],
+)
+
+ITEMS["aardappel-industrieresidu"] = dict(
+    status="no-source",
+    note="The object itself is unresolved, so there is nothing to search for yet. This is the "
+         "56.585 t the register places at the food industry under Aardappel with no fraction "
+         "named - the row 2c described as `aardappel` absorbing a Prodcom 103113 processing "
+         "residue because no source names a finer potato object. Now that stoomschillen and "
+         "snippers ARE named separately in the 2026-09-11 selection, this residual row needs a "
+         "placement decision before it can carry composition: it is either the remainder after "
+         "those two, or it double-counts them. A register question, not a literature one.",
+    searched=[],
+    tables=[],
+)
+
+ITEMS["zetmeel-reststroom"] = dict(
+    status="no-source",
+    note="BLOCKED ON PURPOSE, unchanged from round 1. Prodcom 106220 'afvallen van "
+         "zetmeelfabrieken' names a factory, not a material (gap G-19). Composition for starch "
+         "side streams is abundant - Feedipedia alone prints a full Main analysis for "
+         "dehydrated potato pulp on node 23075, and the potato fruit juice / potato fibre / "
+         "potato protein literature is rich - so this is not a search problem. Attaching any of "
+         "it would put a material name in a source's mouth, and Flanders crushes WHEAT starch "
+         "rather than potato, so the obvious literature is probably the wrong material as well. "
+         "284.549 t waiting on a naming decision.",
+    searched=["not searched - the object is undefined, so a search cannot be scoped"],
+    tables=[],
+)
+
 
 # ---------------------------------------------------------------------------
 

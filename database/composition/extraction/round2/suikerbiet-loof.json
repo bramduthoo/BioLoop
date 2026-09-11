@@ -1,0 +1,11 @@
+{
+ "stream_code": "suikerbiet-loof",
+ "status": "done",
+ "note": "Round 1 took the Main analysis (node 709, beet tops fresh). The variant question is now settled. Feedipedia prints NO minerals table for beet tops; the only mineral figures on the page sit under a separate 'Beet leaves, fresh' section and are two rows whose min/max columns are internally inconsistent (Ca min 19,6 above a mean of 11,0), so they are deliberately NOT taken.",
+ "searched": [
+  "Feedipedia node 709 (3 variants: tops fresh / silage / dried; no minerals table for tops; the Beet leaves section's 2 mineral rows are internally inconsistent)",
+  "Phyllis2 #1053 beet tail and beet green - taken in round 1, low confidence"
+ ],
+ "sources": [],
+ "rows": []
+}

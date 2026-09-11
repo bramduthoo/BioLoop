@@ -1,0 +1,8 @@
+{
+ "stream_code": "aardappel-industrieresidu",
+ "status": "no-source",
+ "note": "The object itself is unresolved, so there is nothing to search for yet. This is the 56.585 t the register places at the food industry under Aardappel with no fraction named - the row 2c described as `aardappel` absorbing a Prodcom 103113 processing residue because no source names a finer potato object. Now that stoomschillen and snippers ARE named separately in the 2026-09-11 selection, this residual row needs a placement decision before it can carry composition: it is either the remainder after those two, or it double-counts them. A register question, not a literature one.",
+ "searched": [],
+ "sources": [],
+ "rows": []
+}
