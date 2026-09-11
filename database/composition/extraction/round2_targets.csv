@@ -1,0 +1,108 @@
+﻿stream_code;rank;commodity;fraction;geo;tonnes;chain;branch;status;sources_found;rows_extracted;note
+mais-stro;1;Mais;;VL;1456062;Primaire productie;Plantaardig - akkerbouw;todo;;;
+raapzaad-schroot;2;Kool- en raapzaad;geen fractie benoemd;BE;852000;Voedingsindustrie  (hele stroom bij deze schakel);Plantaardig - akkerbouw;todo;;;
+aardappel-loof;3;Aardappel;loof;VL;800480;Primaire productie;Plantaardig - akkerbouw;todo;;;
+aardappel;3;Aardappel;geen fractie benoemd;VL;548305;Primaire productie  (hele stroom bij deze schakel);Plantaardig - akkerbouw;todo;;;
+suikerbiet-loof;4;Suikerbiet;loof;VL;463884;Primaire productie;Plantaardig - akkerbouw;todo;;;
+suikerbiet-pulp;4;Suikerbiet;pulp;VL;350000;Voedingsindustrie;Plantaardig - akkerbouw;todo;;;
+zetmeel-reststroom;5;Zetmeel;;VL;284549;Voedingsindustrie;Varia;todo;;;
+zemelen;6;Zemelen;;VL;278865;Voedingsindustrie;Plantaardig - akkerbouw;todo;;;
+aardappel-stoomschillen;3;Aardappel;stoomschillen;BE;261740;Voedingsindustrie;Plantaardig - akkerbouw;todo;;;
+tarwe-stro;7;Tarwe;;VL;255836;Primaire productie;Plantaardig - akkerbouw;todo;;;
+lijnzaad-schroot;8;Lijnzaad;;BE;245000;Voedingsindustrie;Plantaardig - akkerbouw;todo;;;
+bloemkool-loof;9;Bloemkool;loof;VL;197100;Primaire productie;Plantaardig - tuinbouw;todo;;;two source names for one material, collapsed: blad- en stengelmassa (GeNeSys) = loof (MONBIO)
+soja-schroot;10;Soja;;BE;170000;Voedingsindustrie;Plantaardig - akkerbouw;todo;;;
+niet-eetbare-slachtafvallen;11;Niet-eetbare slachtafvallen;;VL;169051;Voedingsindustrie;Dierlijk - vee;todo;;;
+dierlijk-vet;12;Dierlijk vet;;VL;145498;Voedingsindustrie;Dierlijk - vee;todo;;;
+spruitstokken;13;Spruiten;stokken;VL;138000;Primaire productie;Plantaardig - tuinbouw;todo;;;two source names for one material, collapsed: stengelmassa (GeNeSys) = stokken (MONBIO)
+bostel;14;Bostel;;VL;134653;Voedingsindustrie;Plantaardig - akkerbouw;todo;;;
+zuivelnevenstroom;15;Zuivelnevenstroom;;VL;126251;Voedingsindustrie;Dierlijk - vee;todo;;;
+voederbiet;16;Voederbiet;;VL;101780;Primaire productie;Plantaardig - akkerbouw;todo;;;
+prei;17;Prei;geen fractie benoemd;VL;101746;Primaire productie  (hele stroom bij deze schakel);Plantaardig - tuinbouw;todo;;;
+gries;18;Gries;;VL;98390;Voedingsindustrie;Plantaardig - akkerbouw;todo;;;
+aardappel-snippers;3;Aardappel;snippers;BE;95000;Voedingsindustrie;Plantaardig - akkerbouw;todo;;;
+erwt;19;Erwt;geen fractie benoemd;BE+VL;93400;Primaire productie/Voedingsindustrie  (hele stroom bij deze schakel);Plantaardig - tuinbouw;todo;;;
+gevogelte;21;Gevogelte;;VL;86856;Voedingsindustrie;Dierlijk - vee;todo;;;
+eetbare-slachtafvallen-rood-vlees;23;Eetbare slachtafvallen (rood vlees);;VL;82576;Voedingsindustrie;Dierlijk - vee;todo;;;
+wortel-loof;22;Wortel;loof;VL;72718;Primaire productie;Plantaardig - tuinbouw;todo;;;two source names for one material, collapsed: bladmassa (GeNeSys) = loof (MONBIO)
+prei-loof;17;Prei;loof;VL;70875;Primaire productie;Plantaardig - tuinbouw;todo;;;two source names for one material, collapsed: bladmassa (groene deel) (GeNeSys) = loof (MONBIO)
+varkens;24;Varkens;;VL;70478;Voedingsindustrie;Dierlijk - vee;todo;;;
+boon-loof;20;Boon;loof;VL;68600;Primaire productie;Plantaardig - tuinbouw;todo;;;two source names for one material, collapsed: blad- en stengelmassa (GeNeSys) = loof (MONBIO)
+ui-schillen;25;Ui;schillen;VL;62032;Primaire productie;Plantaardig - tuinbouw;todo;;;
+zonnebloem-schroot;26;Zonnebloem;;BE;58000;Voedingsindustrie;Plantaardig - akkerbouw;todo;;;
+melasse;27;Melasse;;VL;56806;Voedingsindustrie;Varia;todo;;;
+aardappel-industrieresidu;3;Aardappel;geen fractie benoemd;VL;56585;Voedingsindustrie  (hele stroom bij deze schakel);Plantaardig - akkerbouw;todo;;;
+appel;28;Appel;;VL;54800;Primaire productie;Plantaardig - tuinbouw;todo;;;
+slachthuisstromen;29;Slachthuisstromen;;VL;50000;Voedingsindustrie;Dierlijk - vee;todo;;;
+suikerbiet;4;Suikerbiet;geen fractie benoemd;VL;48662;Primaire productie  (hele stroom bij deze schakel);Plantaardig - akkerbouw;below_threshold;;;
+mout;30;Mout;;VL;40051;Voedingsindustrie;Varia;below_threshold;;;
+ui;25;Ui;geen fractie benoemd;VL;33411;Primaire productie  (hele stroom bij deze schakel);Plantaardig - tuinbouw;below_threshold;;;
+ui;25;Ui;geen fractie benoemd;BE+VL;33080;Primaire productie/Voedingsindustrie  (hele stroom bij deze schakel);Plantaardig - tuinbouw;below_threshold;;;
+aardappel-voerzetmeel;3;Aardappel;voerzetmeel;BE;23905;Voedingsindustrie;Plantaardig - akkerbouw;below_threshold;;;
+aardbei;31;Aardbei;;VL;22500;Primaire productie;Plantaardig - tuinbouw;below_threshold;;;
+spinazie;33;Spinazie;geen fractie benoemd;BE+VL;22020;Primaire productie/Voedingsindustrie  (hele stroom bij deze schakel);Plantaardig - tuinbouw;below_threshold;;;
+boon;20;Boon;geen fractie benoemd;BE;21400;Voedingsindustrie  (hele stroom bij deze schakel);Plantaardig - tuinbouw;below_threshold;;;
+spinazie-loof;33;Spinazie;loof;VL;21225;Primaire productie;Plantaardig - tuinbouw;below_threshold;;;
+witte-kool-buitenste-bladeren;34;Witte kool;buitenste bladeren;VL;20000;Primaire productie;Plantaardig - tuinbouw;below_threshold;;;
+spinazie;33;Spinazie;geen fractie benoemd;VL;19305;Primaire productie  (hele stroom bij deze schakel);Plantaardig - tuinbouw;below_threshold;;;
+witloof-wortelmassa-na-forcerie;32;Witloof;wortelmassa na forcerie;VL;19300;Primaire productie;Plantaardig - tuinbouw;below_threshold;;;
+selder-loof;35;Selder;loof;VL;19250;Primaire productie;Plantaardig - tuinbouw;below_threshold;;;two source names for one material, collapsed: blad- en stengelmassa (GeNeSys) = loof (MONBIO)
+melk;36;Melk;;VL;19000;Primaire productie;Dierlijk - vee;below_threshold;;;
+witloofwortelen;37;Witloofwortelen;;VL;18850;Primaire productie;Plantaardig - tuinbouw;below_threshold;;;
+bloemkool-harten;9;Bloemkool;harten;VL;18395;Primaire productie;Plantaardig - tuinbouw;below_threshold;;;
+wortel;22;Wortel;geen fractie benoemd;VL;16966;Primaire productie  (hele stroom bij deze schakel);Plantaardig - tuinbouw;below_threshold;;;
+peer;38;Peer;;VL;16945;Primaire productie;Plantaardig - tuinbouw;below_threshold;;;
+bloemkool;9;Bloemkool;geen fractie benoemd;VL;16388;Primaire productie  (hele stroom bij deze schakel);Plantaardig - tuinbouw;below_threshold;;;
+wortel;22;Wortel;geen fractie benoemd;BE;15300;Voedingsindustrie  (hele stroom bij deze schakel);Plantaardig - tuinbouw;below_threshold;;;
+rode-kool-buitenste-bladeren;39;Rode kool;buitenste bladeren;VL;15000;Primaire productie;Plantaardig - tuinbouw;below_threshold;;;
+savooikool-buitenste-bladeren;40;Savooikool;buitenste bladeren;VL;15000;Primaire productie;Plantaardig - tuinbouw;below_threshold;;;
+tomaat;41;Tomaat;geen fractie benoemd;VL;14931;Primaire productie/Producentenorganisaties/veilingen  (hele stroom bij deze schakel);Plantaardig - tuinbouw;below_threshold;;;
+witte-kool-blad;34;Witte kool;blad;VL;13072;Primaire productie;Plantaardig - tuinbouw;below_threshold;;;
+runderen;42;Runderen;;VL;11934;Voedingsindustrie;Dierlijk - vee;below_threshold;;;
+savooikool-blad;40;Savooikool;blad;VL;11592;Primaire productie;Plantaardig - tuinbouw;below_threshold;;;
+sla-en-andijvie;43;Sla en andijvie;geen fractie benoemd;VL;10519;Primaire productie  (hele stroom bij deze schakel);Plantaardig - tuinbouw;below_threshold;;;
+sla-en-andijvie;43;Sla en andijvie;geen fractie benoemd;VL;10444;Primaire productie/Producentenorganisaties/veilingen  (hele stroom bij deze schakel);Plantaardig - tuinbouw;below_threshold;;;
+witloof;32;Witloof;geen fractie benoemd;VL;10277;Primaire productie  (hele stroom bij deze schakel);Plantaardig - tuinbouw;below_threshold;;;
+broccoli-loof;44;Broccoli;loof;VL;10000;Primaire productie;Plantaardig - tuinbouw;below_threshold;;;two source names for one material, collapsed: blad- en stengelmassa (GeNeSys) = loof (MONBIO)
+aardappel-gebakken-nevenstroom;3;Aardappel;gebakken nevenstroom;BE;9671;Voedingsindustrie;Plantaardig - akkerbouw;below_threshold;;;
+knolselder-loof;45;Knolselder;loof;VL;9000;Primaire productie;Plantaardig - tuinbouw;below_threshold;;;two source names for one material, collapsed: bladmassa (GeNeSys) = loof (MONBIO)
+rode-kool-blad;39;Rode kool;blad;VL;8966;Primaire productie;Plantaardig - tuinbouw;below_threshold;;;
+cichorei;46;Cichorei;;BE;8250;Voedingsindustrie;Plantaardig - tuinbouw;below_threshold;;;
+kool-en-raapzaad-stro;2;Kool- en raapzaad;stro;VL;7818;Primaire productie;Plantaardig - akkerbouw;below_threshold;;;
+schorseneer;48;Schorseneer;;VL;7000;Primaire productie;Plantaardig - tuinbouw;below_threshold;;;
+courgette-loof;47;Courgette;loof;VL;6305;Primaire productie;Plantaardig - tuinbouw;below_threshold;;;two source names for one material, collapsed: blad- en stengelmassa (GeNeSys) = loof (MONBIO)
+spruiten;13;Spruiten;geen fractie benoemd;VL;5452;Primaire productie  (hele stroom bij deze schakel);Plantaardig - tuinbouw;below_threshold;;;
+tomaat;41;Tomaat;geen fractie benoemd;VL;5050;Primaire productie  (hele stroom bij deze schakel);Plantaardig - tuinbouw;below_threshold;;;
+bloemkool;9;Bloemkool;geen fractie benoemd;BE+VL;4211;Producentenorganisaties/veilingen/Voedingsindustrie  (hele stroom bij deze schakel);Plantaardig - tuinbouw;below_threshold;;;
+raap;49;Raap;;VL;3700;Primaire productie;Plantaardig - tuinbouw;below_threshold;;;
+paprika;50;Paprika;geen fractie benoemd;VL;3639;Primaire productie/Producentenorganisaties/veilingen  (hele stroom bij deze schakel);Plantaardig - tuinbouw;below_threshold;;;
+witloof-blaadjes;32;Witloof;blaadjes;VL;2975;Primaire productie;Plantaardig - tuinbouw;below_threshold;;;
+champignon;51;Champignon;;VL;2643;Primaire productie;Plantaardig - tuinbouw;below_threshold;;;
+komkommer;52;Komkommer;;VL;2087;Primaire productie · Producentenorganisaties/veilingen;Plantaardig - tuinbouw;below_threshold;;;
+boon;20;Boon;geen fractie benoemd;VL;1783;Primaire productie  (hele stroom bij deze schakel);Plantaardig - tuinbouw;below_threshold;;;
+prei;17;Prei;geen fractie benoemd;BE;1704;Voedingsindustrie  (hele stroom bij deze schakel);Plantaardig - tuinbouw;below_threshold;;;
+eieren;53;Eieren;;VL;1282;Primaire productie;Dierlijk - vee;below_threshold;;;
+courgette;47;Courgette;geen fractie benoemd;VL;1151;Producentenorganisaties/veilingen  (hele stroom bij deze schakel);Plantaardig - tuinbouw;below_threshold;;;
+kers;54;Kers;;VL;1133;Primaire productie;Plantaardig - tuinbouw;below_threshold;;;
+paprika;50;Paprika;geen fractie benoemd;VL;511;Primaire productie  (hele stroom bij deze schakel);Plantaardig - tuinbouw;below_threshold;;;
+vis-alle-soorten;55;Vis (alle soorten);;VL;214;Visveilingen;Dierlijk - vis;below_threshold;;;
+schapen-geiten-en-paarden;56;Schapen, geiten en paarden;;VL;164;Voedingsindustrie;Dierlijk - vee;below_threshold;;;
+kool;57;Kool;;VL;143;Primaire productie;Plantaardig - tuinbouw;below_threshold;;;
+andere-demersale-soorten;58;Andere demersale soorten;;VL;94;Visveilingen;Dierlijk - vis;below_threshold;;;
+haaien;59;Haaien;;VL;61;Visveilingen;Dierlijk - vis;below_threshold;;;
+ponen;60;Ponen;;VL;55;Visveilingen;Dierlijk - vis;below_threshold;;;
+roggen;61;Roggen;;VL;36;Visveilingen;Dierlijk - vis;below_threshold;;;
+wijting;62;Wijting;;VL;23;Visveilingen;Dierlijk - vis;below_threshold;;;
+schar;63;Schar;;VL;16;Visveilingen;Dierlijk - vis;below_threshold;;;
+pelagische-soorten;64;Pelagische soorten;;VL;16;Visveilingen;Dierlijk - vis;below_threshold;;;
+steenbolk;65;Steenbolk;;VL;16;Visveilingen;Dierlijk - vis;below_threshold;;;
+aubergine;66;Aubergine;;VL;13;Producentenorganisaties/veilingen;Plantaardig - tuinbouw;below_threshold;;;
+heek;67;Heek;;VL;10;Visveilingen;Dierlijk - vis;below_threshold;;;
+kongeraal;68;Kongeraal;;VL;9;Visveilingen;Dierlijk - vis;below_threshold;;;
+schaal-en-weekdieren;69;Schaal- en weekdieren;;VL;8;Visveilingen;Dierlijk - vis;below_threshold;;;
+weekdieren;70;Weekdieren;;VL;7;Visveilingen;Dierlijk - vis;below_threshold;;;
+schelvis;71;Schelvis;;VL;7;Visveilingen;Dierlijk - vis;below_threshold;;;
+schaaldieren;72;Schaaldieren;;VL;2;Visveilingen;Dierlijk - vis;below_threshold;;;
+schol;73;Schol;;VL;2;Visveilingen;Dierlijk - vis;below_threshold;;;
+bot;74;Bot;;VL;2;Visveilingen;Dierlijk - vis;below_threshold;;;
+haaien-alg;75;Haaien alg.;;VL;1;Visveilingen;Dierlijk - vis;below_threshold;;;
