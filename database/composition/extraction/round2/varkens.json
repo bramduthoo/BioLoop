@@ -1,0 +1,11 @@
+{
+ "stream_code": "varkens",
+ "status": "no-source",
+ "note": "THIS IS GAP G-04 ITSELF, not a search problem. The row is pig slaughter by-product at 70.478 t, and what makes it its own stream rather than part of niet-eetbare-slachtafvallen is the SPECIES. No source in or out of the corpus gives a pig-specific slaughter by-product analysis: Feedipedia's meat and bone meal bundles species by construction, which is exactly the bundling G-04 says needs breaking. Copying the meat-and-bone-meal rows here would assert a species-specific figure that no one measured, and would make the two streams look independently sourced when they would be one table used twice.",
+ "searched": [
+  "Feedipedia node 222 Meat and bone meal - species-bundled by construction, not taken",
+  "no pig-specific rendering source found; G-04 says the corpus has none"
+ ],
+ "sources": [],
+ "rows": []
+}

@@ -716,6 +716,115 @@ ITEMS["slachthuisstromen"] = dict(
     tables=[],
 )
 
+ITEMS["wortel-loof"] = dict(
+    status="done",
+    flag="Iron 2.725 mg/kg DM on n=1, beside ash at 17,4 percent DM. Field-grown leaf lying on "
+         "soil, sampled once. The soil signature again, and here it is on a single sample.",
+    note="Feedipedia node 11939, fresh carrot tops. Thin - most rows are n=1 or n=2 - but it is "
+         "the RIGHT MATERIAL, which matters more than sample count for an object nothing else "
+         "describes. Calcium at 20,1 g/kg DM is genuinely high and is a leaf property, not "
+         "contamination: brassica and umbellifer leaves accumulate calcium. No Van Soest fibre, "
+         "so the fibre fractions stay open for this object.",
+    searched=["Feedipedia node 11939 Carrot tops fresh (Main analysis + Minerals)",
+              "Feedipedia node 539 Carrot - the root, deliberately NOT reused for the leaf"],
+    tables=[
+        ("feedtables-inrae-cirad-afz-fao", "Feedipedia node 11939", "Carrot tops, fresh", "dry", [
+            ("dry_matter",    "%",     "16.4", "1", "",     "",     "",  "", "as-fed basis"),
+            ("crude_protein", "%",     "11.7", "",  "11.4", "12.1", "2", ""),
+            ("crude_fibre",   "%",     "16.7", "",  "",     "",     "1", ""),
+            ("fat_total",     "%",     "2.3",  "",  "",     "",     "1", ""),
+            ("ash",           "%",     "17.4", "",  "16.6", "18.2", "2", ""),
+            ("hhv",           "MJ/kg", "16.1", "",  "",     "",     "",  "*"),
+            ("calcium",       "g/kg",  "20.1", "",  "14.0", "26.1", "2", "",
+             "genuinely high - umbellifer leaf accumulates calcium; this is not contamination"),
+            ("phosphorus",    "g/kg",  "4.5",  "",  "4.3",  "4.7",  "2", ""),
+            ("magnesium",     "g/kg",  "2.3",  "",  "",     "",     "1", ""),
+            ("zinc",          "mg/kg", "37",   "",  "",     "",     "1", ""),
+            ("copper",        "mg/kg", "38",   "",  "",     "",     "1", ""),
+            ("iron",          "mg/kg", "2725", "",  "",     "",     "1", "",
+             "soil on field-grown leaf, on a single sample"),
+        ]),
+    ],
+)
+
+ITEMS["erwt"] = dict(
+    status="done",
+    flag="THE OBJECT IS REJECTED PEAS, THE TABLE IS SOUND SEED. The register places this row at "
+         "primary production and the food industry with no fraction named, which reads as the "
+         "pea itself - rejected, out-of-spec or unharvested. Feedipedia node 264 describes "
+         "MARKETABLE dry pea seed. Dry matter is the first thing that will not carry: 86,5 "
+         "percent as-fed is a stored dry seed, where a rejected green pea leaving a vining line "
+         "is nearer 20 percent. The dry-basis composition is the usable part.",
+    note="Node 7047 (pea forage / haulm) and node 7511 (pea by-products) exist and describe "
+         "DIFFERENT objects - the haulm and the pod. Neither is this row, and neither was taken. "
+         "If the register ever splits Erwt into seed and haulm, node 7047 is where the haulm "
+         "half comes from.",
+    searched=["Feedipedia node 264 Pea seeds (Main analysis + Minerals)",
+              "Feedipedia node 7047 Pea forage - different object, not taken",
+              "Feedipedia node 7511 Pea by-products - under construction, different object"],
+    tables=[
+        ("feedtables-inrae-cirad-afz-fao", "Feedipedia node 264", "Pea seeds, raw", "dry", [
+            ("dry_matter",    "%",     "86.5", "1.2", "82.0", "90.7", "22761", "",
+             "as-fed basis, and it is STORED DRY SEED - not a rejected green pea"),
+            ("crude_protein", "%",     "23.9", "1.4", "19.0", "28.5", "14479", ""),
+            ("crude_fibre",   "%",     "6.0",  "0.7", "3.7",  "8.5",  "8139",  ""),
+            ("ndf",           "%",     "14.2", "3.1", "9.1",  "22.0", "798",   "*"),
+            ("adf",           "%",     "7.0",  "0.7", "5.6",  "8.8",  "781",   "*"),
+            ("lignin",        "%",     "0.4",  "0.2", "0.1",  "1.1",  "419",   ""),
+            ("fat_total",     "%",     "1.2",  "0.3", "0.7",  "2.2",  "2978",  ""),
+            ("ash",           "%",     "3.5",  "0.4", "2.7",  "4.9",  "4192",  ""),
+            ("starch",        "%",     "51.3", "2.0", "43.4", "57.5", "9681",  "",
+             "polarimetric determination"),
+            ("total_sugars",  "%",     "4.9",  "0.6", "3.6",  "6.2",  "622",   ""),
+            ("hhv",           "MJ/kg", "18.3", "0.1", "18.2", "18.8", "153",   "*"),
+            ("calcium",       "g/kg",  "1.2",  "0.5", "0.3",  "2.9",  "1513",  ""),
+            ("phosphorus",    "g/kg",  "4.5",  "0.5", "3.2",  "6.0",  "1649",  ""),
+            ("potassium",     "g/kg",  "11.3", "0.5", "10.6", "11.9", "17",    ""),
+            ("sodium",        "g/kg",  "0.0",  "0.0", "0.0",  "0.1",  "323",   "",
+             "a measured near-zero on n=323, not a missing value"),
+            ("magnesium",     "g/kg",  "1.7",  "0.6", "1.0",  "3.4",  "14",    ""),
+            ("manganese",     "mg/kg", "10",   "3",   "6",    "16",   "10",    ""),
+            ("zinc",          "mg/kg", "37",   "8",   "27",   "48",   "10",    ""),
+            ("copper",        "mg/kg", "8",    "1",   "7",    "10",   "9",     ""),
+            ("iron",          "mg/kg", "107",  "33",  "63",   "160",  "7",     ""),
+        ]),
+    ],
+)
+
+ITEMS["dierlijk-vet"] = dict(
+    status="no-source",
+    note="CHECKED AND EMPTY, and the reason is structural rather than a failed search. "
+         "Feedipedia's Fats datasheet (node 69) carries NO analysis table at all and states "
+         "'DATASHEET UNDER CONSTRUCTION. DO NOT QUOTE' - an explicit instruction from the source "
+         "not to use it, which settles the question. "
+         "THE DEEPER FINDING: this catalogue has no vector for a fat stream. Every parameter "
+         "registered so far describes a SOLID biomass - proximate partitions, fibre fractions, "
+         "ash, calorific value. A rendered fat is ~100 percent lipid, so those rows would all "
+         "read 0 or 100 and say nothing. What actually characterises it is a FATTY ACID PROFILE "
+         "(C16:0, C18:0, C18:1, C18:2 ...), free fatty acids, iodine value, peroxide value and "
+         "slip melting point - and the catalogue holds none of them, because every source read "
+         "so far has been a solid. INFOODS has the branch ready (Fat components carries fatty "
+         "acids), so this is a catalogue extension, not a redesign. 145.498 t, and it should be "
+         "the first item of round 3.",
+    searched=["Feedipedia node 69 Fats - no tables, marked DO NOT QUOTE"],
+    tables=[],
+)
+
+ITEMS["varkens"] = dict(
+    status="no-source",
+    note="THIS IS GAP G-04 ITSELF, not a search problem. The row is pig slaughter by-product at "
+         "70.478 t, and what makes it its own stream rather than part of "
+         "niet-eetbare-slachtafvallen is the SPECIES. No source in or out of the corpus gives a "
+         "pig-specific slaughter by-product analysis: Feedipedia's meat and bone meal bundles "
+         "species by construction, which is exactly the bundling G-04 says needs breaking. "
+         "Copying the meat-and-bone-meal rows here would assert a species-specific figure that "
+         "no one measured, and would make the two streams look independently sourced when they "
+         "would be one table used twice.",
+    searched=["Feedipedia node 222 Meat and bone meal - species-bundled by construction, not taken",
+              "no pig-specific rendering source found; G-04 says the corpus has none"],
+    tables=[],
+)
+
 
 # ---------------------------------------------------------------------------
 

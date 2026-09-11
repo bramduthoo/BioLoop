@@ -1,0 +1,10 @@
+{
+ "stream_code": "dierlijk-vet",
+ "status": "no-source",
+ "note": "CHECKED AND EMPTY, and the reason is structural rather than a failed search. Feedipedia's Fats datasheet (node 69) carries NO analysis table at all and states 'DATASHEET UNDER CONSTRUCTION. DO NOT QUOTE' - an explicit instruction from the source not to use it, which settles the question. THE DEEPER FINDING: this catalogue has no vector for a fat stream. Every parameter registered so far describes a SOLID biomass - proximate partitions, fibre fractions, ash, calorific value. A rendered fat is ~100 percent lipid, so those rows would all read 0 or 100 and say nothing. What actually characterises it is a FATTY ACID PROFILE (C16:0, C18:0, C18:1, C18:2 ...), free fatty acids, iodine value, peroxide value and slip melting point - and the catalogue holds none of them, because every source read so far has been a solid. INFOODS has the branch ready (Fat components carries fatty acids), so this is a catalogue extension, not a redesign. 145.498 t, and it should be the first item of round 3.",
+ "searched": [
+  "Feedipedia node 69 Fats - no tables, marked DO NOT QUOTE"
+ ],
+ "sources": [],
+ "rows": []
+}
