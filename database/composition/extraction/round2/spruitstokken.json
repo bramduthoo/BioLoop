@@ -1,0 +1,15 @@
+{
+ "stream_code": "spruitstokken",
+ "status": "no-source",
+ "note": "CHECKED AND EMPTY. Brussels sprout stems have no feed-database entry. A located candidate exists and was not reachable: `Evaluation of Brassica Vegetables as Potential Feed for Ruminants` (Animals 2019, doi 10.3390/ani9090588), which covers brussels sprouts against savoy and red cabbage and reports DM 6,60-16,3 percent with sprouts higher in DM, OM and crude protein and lower in ether extract, NDF and ADF than the cabbages. NOTE that this describes the SPROUT, not the STEM - the object here is the stalk left in the field, which is a woodier material and the paper does not separate it. Even reached, it would be the wrong fraction.",
+ "searched": [
+  "Feedipedia - no datasheet for leek, brussels sprout, cauliflower leaf, bean haulm or onion skin",
+  "Phyllis2 - only a cauliflower record (#1564-1566) carrying heavy metals and no main properties",
+  "GeNeSys (S065, the register's own source for these tonnages) - cites CVB 2007 and Souci for dry matter and carries NO composition table of its own; states only that horticultural residue DM is typically 5-20 percent",
+  "FAO i3273e, Utilization of fruit and vegetable wastes as livestock feed - mentions the crops but its tables are rotated images that do not extract",
+  "De Evan et al. 2020, Animals 10:1247 - the right paper, blocked at PMC, MDPI, CSIC and Europe PMC (flag F-005)",
+  "Literature review figures found but NOT recorded: cauliflower leaf crude protein is quoted as 19,9-33,0 percent DM in one study and 24,1 percent in another on solar-dried waste, and onion peel crude protein as 137-490 g/kg DM. Ranges that wide across studies are not one measurement and must not be entered as one"
+ ],
+ "sources": [],
+ "rows": []
+}

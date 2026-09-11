@@ -23,9 +23,11 @@ it does not enter.
 | `tools/emit_vocabulary.py` | validates the three CSVs and emits the data migration |
 | `SOURCE_HUNT.md` | round 1 of the source hunt: what supplies each of the 16 targets, how far it was checked, and the two that failed |
 | `crosswalks/SOURCE_CANDIDATES.csv` | the machine-readable worklist behind it — 21 candidate rows over 16 objects |
-| `tools/build_round1.py` | what was read off each source, expanded into the extraction CSVs. **The transcription of record — corrections are made here** |
-| `extraction/round1_measurements.csv` | 180 candidate `property_measurement` rows, each with a blank `DECISION` |
-| `extraction/round1_sources.csv` · `round1_nodata.csv` | the 3 sources, and the 4 objects with no data and why |
+| `tools/build_targets.py` | selection deliverable → `round2_targets.csv`, applying the 50 kt rule |
+| `tools/build_round1.py` · `tools/round2_data.py` | what was read off each source. **The transcription of record — corrections are made here**, never in the database and never in the page |
+| `tools/merge_round2.py` | per-item JSONs → `round2_measurements.csv`, and the status back into the worklist |
+| `extraction/round2/<code>.json` | one file per target, written the moment that item is finished — so a session that runs out of budget loses nothing |
+| `extraction/round1_*.csv` · `round2_*.csv` | 495 candidate `property_measurement` rows, each with a blank `DECISION` |
 | `tools/build_review.py` + `review_template.html` | build the reviewer's page from those CSVs |
 | `build/review.html` | the generated page (published as an Artifact; not committed as a deliverable) |
 | `crosswalks/` | also holds one crosswalk per harvested source: its parameter and stream names → the catalogue, with the human `DECISION` gate. None yet |
@@ -49,7 +51,31 @@ cd .. && supabase db reset
 **Changing the vocabulary means editing a CSV and emitting a new migration** — never editing an
 applied one. Every statement is `ON CONFLICT`-guarded, so migrations stack.
 
-## State (2026-09-09)
+## State (2026-09-11) — round 2
+
+**All 35 targets of the 2026-09-11 selection worked through.** `495 candidate rows` over
+`24 streams` from `3 sources`, none loaded.
+
+| | streams | t/yr |
+|---|--:|--:|
+| extracted | 21 | 5.934.397 |
+| checked, no usable source | 14 | 2.223.519 |
+| **total in scope (>= 50 kt)** | **35** | **8.157.916** |
+
+**73% of the in-scope mass now has composition behind it.** The 27% that does not splits in
+two, and the split is the useful part: **six streams have no source** (potato haulm, cauliflower
+leaf, sprout stalk, leek and leek leaf, bean haulm, onion skin — all field or vegetable residue,
+and all absent from every feed and fuel database), while **four are not waiting on a search at
+all** but on a decision about what the object is (`zetmeel-reststroom`,
+`aardappel-industrieresidu`, `slachthuisstromen`, `eetbare-slachtafvallen-rood-vlees`).
+
+**The structural finding: there is no vector for a fat stream.** Every parameter in the
+catalogue describes a solid. `dierlijk-vet` (145.498 t) needs a fatty-acid profile, free fatty
+acids, iodine value and slip melting point, and the catalogue holds none of them because every
+source read so far has been a solid. INFOODS already nests fatty acids under *Fat components*,
+so it is an extension rather than a redesign — and it is the first item of round 3.
+
+## State (2026-09-09) — round 1
 
 - **Vocabulary loaded:** 28 units · 6 bases · **68 parameters** (57 chemical, 5 physical,
   6 microbiological), across two stacked migrations —

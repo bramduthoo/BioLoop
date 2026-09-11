@@ -825,6 +825,109 @@ ITEMS["varkens"] = dict(
     tables=[],
 )
 
+ITEMS["appel"] = dict(
+    status="done",
+    note="The register places Appel at PRIMARY PRODUCTION, so the object is culled fruit and the "
+         "right variant is `Apples, whole, fresh` - not apple pomace, which is a juice-pressing "
+         "residue arising at the food industry. Both sit on Feedipedia node 20703 and the "
+         "difference between them is large: crude fibre 5,5 against 20,7 percent DM, lignin 1,8 "
+         "against 15,7. Taking the pomace figures for culled apples would overstate the fibre "
+         "fourfold. The pomace table is LOCATED and not taken; if the register ever names apple "
+         "pomace as its own stream, it is on the same page. "
+         "One row was deliberately dropped: the pomace table's total-sugars line reads Avg 6,2 / "
+         "SD 6,2 / Min 6,3 / Max 2 / Nb blank, which is internally impossible.",
+    searched=["Feedipedia node 20703 (3 variants: pomace dehydrated, pomace fresh, apples whole fresh)",
+              "Feedipedia node 22381 Apple pomace fresh - the same pomace material, not taken"],
+    tables=[
+        ("feedtables-inrae-cirad-afz-fao", "Feedipedia node 20703", "Apples, whole, fresh", "dry", [
+            ("dry_matter",    "%",     "14.0", "2.0", "12.4", "16.2", "3", "", "as-fed basis"),
+            ("crude_protein", "%",     "1.5",  "0.5", "1.0",  "2.2",  "4", ""),
+            ("crude_fibre",   "%",     "5.5",  "",    "5.2",  "5.7",  "2", ""),
+            ("ndf",           "%",     "10.5", "",    "10.0", "10.9", "2", ""),
+            ("adf",           "%",     "7.4",  "",    "",     "",     "1", ""),
+            ("lignin",        "%",     "1.8",  "",    "",     "",     "1", ""),
+            ("fat_total",     "%",     "0.9",  "",    "0.2",  "1.5",  "2", ""),
+            ("ash",           "%",     "2.3",  "0.4", "1.9",  "2.7",  "3", ""),
+            ("hhv",           "MJ/kg", "17.4", "",    "",     "",     "",  "*"),
+        ]),
+    ],
+)
+
+ITEMS["bloemkool-loof"] = dict(
+    status="no-source",
+    note="CHECKED AND EMPTY. At 197.100 t this is the largest unfilled target after "
+         "aardappel-loof, and the obstacle is retrieval, not absence: De Evan et al. 2020 "
+         "(Animals 10:1247) reports cauliflower LEAVES, STEMS and FLORETS as separate fractions "
+         "- the only source found that matches BioMobi's split - and four access routes were "
+         "tried this session (PMC captcha, MDPI 403, CSIC access denied, Europe PMC no full "
+         "text). It is open access; a person with a browser gets it in one click. F-005. "
+         "Review figures were found and deliberately NOT entered: cauliflower leaf crude protein "
+         "is quoted as 19,9-33,0 percent DM in one study and 24,1 in another on solar-dried "
+         "waste. Those are different studies on differently prepared material, not one "
+         "measurement with a spread.",
+    searched=['Feedipedia - no datasheet for leek, brussels sprout, cauliflower leaf, bean haulm or onion skin', 'Phyllis2 - only a cauliflower record (#1564-1566) carrying heavy metals and no main properties', "GeNeSys (S065, the register's own source for these tonnages) - cites CVB 2007 and Souci for dry matter and carries NO composition table of its own; states only that horticultural residue DM is typically 5-20 percent", 'FAO i3273e, Utilization of fruit and vegetable wastes as livestock feed - mentions the crops but its tables are rotated images that do not extract', 'De Evan et al. 2020, Animals 10:1247 - the right paper, blocked at PMC, MDPI, CSIC and Europe PMC (flag F-005)', 'Literature review figures found but NOT recorded: cauliflower leaf crude protein is quoted as 19,9-33,0 percent DM in one study and 24,1 percent in another on solar-dried waste, and onion peel crude protein as 137-490 g/kg DM. Ranges that wide across studies are not one measurement and must not be entered as one'],
+    tables=[],
+)
+
+ITEMS["spruitstokken"] = dict(
+    status="no-source",
+    note="CHECKED AND EMPTY. Brussels sprout stems have no feed-database entry. A located "
+         "candidate exists and was not reachable: `Evaluation of Brassica Vegetables as "
+         "Potential Feed for Ruminants` (Animals 2019, doi 10.3390/ani9090588), which covers "
+         "brussels sprouts against savoy and red cabbage and reports DM 6,60-16,3 percent with "
+         "sprouts higher in DM, OM and crude protein and lower in ether extract, NDF and ADF "
+         "than the cabbages. NOTE that this describes the SPROUT, not the STEM - the object here "
+         "is the stalk left in the field, which is a woodier material and the paper does not "
+         "separate it. Even reached, it would be the wrong fraction.",
+    searched=['Feedipedia - no datasheet for leek, brussels sprout, cauliflower leaf, bean haulm or onion skin', 'Phyllis2 - only a cauliflower record (#1564-1566) carrying heavy metals and no main properties', "GeNeSys (S065, the register's own source for these tonnages) - cites CVB 2007 and Souci for dry matter and carries NO composition table of its own; states only that horticultural residue DM is typically 5-20 percent", 'FAO i3273e, Utilization of fruit and vegetable wastes as livestock feed - mentions the crops but its tables are rotated images that do not extract', 'De Evan et al. 2020, Animals 10:1247 - the right paper, blocked at PMC, MDPI, CSIC and Europe PMC (flag F-005)', 'Literature review figures found but NOT recorded: cauliflower leaf crude protein is quoted as 19,9-33,0 percent DM in one study and 24,1 percent in another on solar-dried waste, and onion peel crude protein as 137-490 g/kg DM. Ranges that wide across studies are not one measurement and must not be entered as one'],
+    tables=[],
+)
+
+ITEMS["prei"] = dict(
+    status="no-source",
+    note="CHECKED AND EMPTY. Leek has no feed-database entry in either Feedipedia or Phyllis2, "
+         "and no composition study surfaced for rejected leek. 101.746 t with nothing behind it. "
+         "The one concrete route left is the source GeNeSys itself points at for exactly these "
+         "streams: the CVB Veevoedertabel (cited as CVB 2007 for horticultural residue dry "
+         "matter). That is a Dutch feed table, it is the closest thing to a regional source for "
+         "this whole vegetable block, and it has not been tried.",
+    searched=['Feedipedia - no datasheet for leek, brussels sprout, cauliflower leaf, bean haulm or onion skin', 'Phyllis2 - only a cauliflower record (#1564-1566) carrying heavy metals and no main properties', "GeNeSys (S065, the register's own source for these tonnages) - cites CVB 2007 and Souci for dry matter and carries NO composition table of its own; states only that horticultural residue DM is typically 5-20 percent", 'FAO i3273e, Utilization of fruit and vegetable wastes as livestock feed - mentions the crops but its tables are rotated images that do not extract', 'De Evan et al. 2020, Animals 10:1247 - the right paper, blocked at PMC, MDPI, CSIC and Europe PMC (flag F-005)', 'Literature review figures found but NOT recorded: cauliflower leaf crude protein is quoted as 19,9-33,0 percent DM in one study and 24,1 percent in another on solar-dried waste, and onion peel crude protein as 137-490 g/kg DM. Ranges that wide across studies are not one measurement and must not be entered as one'],
+    tables=[],
+)
+
+ITEMS["prei-loof"] = dict(
+    status="no-source",
+    note="CHECKED AND EMPTY, same block as `prei`. This is the green leaf mass left on the "
+         "field, collapsed from GeNeSys's `bladmassa (groene deel)` and MONBIO's `loof` - two "
+         "names, one material. 70.875 t. Same route: CVB Veevoedertabel.",
+    searched=['Feedipedia - no datasheet for leek, brussels sprout, cauliflower leaf, bean haulm or onion skin', 'Phyllis2 - only a cauliflower record (#1564-1566) carrying heavy metals and no main properties', "GeNeSys (S065, the register's own source for these tonnages) - cites CVB 2007 and Souci for dry matter and carries NO composition table of its own; states only that horticultural residue DM is typically 5-20 percent", 'FAO i3273e, Utilization of fruit and vegetable wastes as livestock feed - mentions the crops but its tables are rotated images that do not extract', 'De Evan et al. 2020, Animals 10:1247 - the right paper, blocked at PMC, MDPI, CSIC and Europe PMC (flag F-005)', 'Literature review figures found but NOT recorded: cauliflower leaf crude protein is quoted as 19,9-33,0 percent DM in one study and 24,1 percent in another on solar-dried waste, and onion peel crude protein as 137-490 g/kg DM. Ranges that wide across studies are not one measurement and must not be entered as one'],
+    tables=[],
+)
+
+ITEMS["boon-loof"] = dict(
+    status="no-source",
+    note="CHECKED AND EMPTY. Bean haulm has no Feedipedia datasheet of its own - the pea "
+         "equivalent does (node 7047, pea forage), which is the near-miss worth recording, "
+         "because it shows the gap is about THIS crop rather than about crop residues in "
+         "general. Substituting pea haulm for bean haulm would be inventing a material. "
+         "68.600 t.",
+    searched=['Feedipedia - no datasheet for leek, brussels sprout, cauliflower leaf, bean haulm or onion skin', 'Phyllis2 - only a cauliflower record (#1564-1566) carrying heavy metals and no main properties', "GeNeSys (S065, the register's own source for these tonnages) - cites CVB 2007 and Souci for dry matter and carries NO composition table of its own; states only that horticultural residue DM is typically 5-20 percent", 'FAO i3273e, Utilization of fruit and vegetable wastes as livestock feed - mentions the crops but its tables are rotated images that do not extract', 'De Evan et al. 2020, Animals 10:1247 - the right paper, blocked at PMC, MDPI, CSIC and Europe PMC (flag F-005)', 'Literature review figures found but NOT recorded: cauliflower leaf crude protein is quoted as 19,9-33,0 percent DM in one study and 24,1 percent in another on solar-dried waste, and onion peel crude protein as 137-490 g/kg DM. Ranges that wide across studies are not one measurement and must not be entered as one'] + ["Feedipedia node 7047 Pea forage - the analogous PEA material, "
+                             "deliberately not substituted for bean"],
+    tables=[],
+)
+
+ITEMS["ui-schillen"] = dict(
+    status="no-source",
+    note="CHECKED AND EMPTY. No feed-database entry for onion skin. Review figures exist and "
+         "were deliberately not entered: onion peel crude protein is quoted at 137-490 g/kg DM, "
+         "a 3,6-fold range across studies that is not one measurement. Onion skin is also the "
+         "one stream in this block whose value is probably NOT nutritional - it is a quercetin "
+         "and dietary-fibre source - so the right vector for it is bioactives, and the "
+         "catalogue's `bioactive` branch currently holds three parameters. 62.032 t.",
+    searched=['Feedipedia - no datasheet for leek, brussels sprout, cauliflower leaf, bean haulm or onion skin', 'Phyllis2 - only a cauliflower record (#1564-1566) carrying heavy metals and no main properties', "GeNeSys (S065, the register's own source for these tonnages) - cites CVB 2007 and Souci for dry matter and carries NO composition table of its own; states only that horticultural residue DM is typically 5-20 percent", 'FAO i3273e, Utilization of fruit and vegetable wastes as livestock feed - mentions the crops but its tables are rotated images that do not extract', 'De Evan et al. 2020, Animals 10:1247 - the right paper, blocked at PMC, MDPI, CSIC and Europe PMC (flag F-005)', 'Literature review figures found but NOT recorded: cauliflower leaf crude protein is quoted as 19,9-33,0 percent DM in one study and 24,1 percent in another on solar-dried waste, and onion peel crude protein as 137-490 g/kg DM. Ranges that wide across studies are not one measurement and must not be entered as one'],
+    tables=[],
+)
+
 
 # ---------------------------------------------------------------------------
 

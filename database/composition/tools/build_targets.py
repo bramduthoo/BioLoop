@@ -166,6 +166,20 @@ def main() -> None:
         t["stream_code"] = code
         t["status"] = "todo" if t["tonnes"] >= THRESHOLD else "below_threshold"
 
+    # A commodity can carry a no-fraction row at two chain stages -- Prei arises at primary
+    # production AND at the food industry -- and both would slug to the same code. They are
+    # different materials, so they get different codes rather than one shared one, which would
+    # make the worklist double-count and the loader collide.
+    seen: dict[str, list] = {}
+    for t in targets:
+        seen.setdefault(t["stream_code"], []).append(t)
+    for code, group in seen.items():
+        if len(group) < 2:
+            continue
+        group.sort(key=lambda t: -t["tonnes"])
+        for t in group[1:]:
+            t["stream_code"] = f"{code}-{slug(t['chain'].split('(')[0])}"
+
     targets.sort(key=lambda t: -t["tonnes"])
 
     fields = ["stream_code", "rank", "commodity", "fraction", "geo", "tonnes", "chain",

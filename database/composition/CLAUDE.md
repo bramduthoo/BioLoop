@@ -322,6 +322,61 @@ reviewer judges them per case. **The reason: it is not black and white** — a p
 samples is a different proposition from a predicted gross energy on 2. What must never happen is a
 predicted value entering the database *silently*; the column is what prevents that.
 
+## Round 2, and what a whole pass over the list taught
+
+*Detail per stream is in `extraction/round2/<code>.json` and in `tools/round2_data.py`, which is
+the transcription of record. The rules below are what generalised out of it.*
+
+**Work the list in DESCENDING TONNAGE ORDER and write each item to its own file the moment it is
+finished.** Both halves matter. The ordering means the mass is covered first whatever the budget
+turns out to be; the per-item file means a session that stops half-way leaves every completed item
+intact, and the next one resumes on the files that do not exist. Round 2 ran 35 targets this way
+and the worklist never had to be re-derived.
+
+**A "no source" entry is a result, and it has to say WHICH KIND of no.** Fourteen of the 35
+targets came back empty and they are not one thing:
+
+- **nothing measures it** — potato haulm, cauliflower leaf, sprout stalk, leek, leek leaf, bean
+  haulm, onion skin. All field or vegetable residue, all absent from every feed and fuel database.
+- **the object is not defined yet**, so a search cannot even be scoped — `zetmeel-reststroom`
+  (G-19), `aardappel-industrieresidu`, `slachthuisstromen`, `eetbare-slachtafvallen-rood-vlees`.
+  These are register questions wearing a literature costume.
+- **the material exists but is the wrong one** — `aardappel-snippers` (Feedipedia's four potato
+  variants are pulp, peels, steamed peels and fried; none is raw cuttings), `varkens` (meat and
+  bone meal bundles species by construction, which is gap G-04 itself).
+- **the catalogue has no vector for it** — `dierlijk-vet`. See below.
+
+**The near-miss is worth as much as the hit, and must be recorded where the object is.** Round 2
+kept finding the right material one shelf over: pea forage exists where bean haulm does not, apple
+pomace sits beside culled apples, Phyllis2 files corn stalks and cobs beside corn stover, carrot
+root beside carrot tops. Each time the tempting move is to take the neighbour. **A fraction never
+inherits its commodity's composition and a crop never inherits its neighbour's** — but the
+neighbour gets written down, so the next reader knows it was seen and rejected rather than missed.
+
+**When a source's own table is internally impossible, drop the row and say so.** Apple pomace's
+total-sugars line reads Avg 6,2 / SD 6,2 / Min 6,3 / Max 2 / Nb blank. Beet tops' only mineral rows
+have a calcium minimum above their own mean. Neither was recorded. *Record what the source said*
+does not extend to recording what the source cannot have meant.
+
+**Two signatures recur across streams and both are process, not biology.** Iron with an SD near or
+above its mean is SOIL — fodder beet 3.189 mg/kg DM (SD 2.158), carrot tops 2.725 on n=1, beet pulp
+471, poultry offal meal 5.107 (SD 4.872). And beet pulp's calcium at 14,3 g/kg DM is the LIME used
+in sugar extraction. A model reading either as a mineral content of the material will be wrong, so
+both are flagged on the rows.
+
+**A rendered product is not the stream.** Three slaughter-side objects could only be matched to
+cooked, pressed and dried material — meat and bone meal, poultry offal meal. Dry-basis protein and
+ash carry across; fat does not, because pressing removes it. Recorded with the mismatch stated on
+the rows rather than left for a reader to discover.
+
+**And the structural one: the catalogue has no vector for a liquid or a fat.** Every parameter
+registered so far describes a solid biomass — proximate partitions, fibre fractions, ash, calorific
+value. On a rendered fat those read 0 or 100 and say nothing; what characterises it is a fatty-acid
+profile, free fatty acids, iodine value and slip melting point. The same shape of hole showed up on
+whey, where the only table available is for a dehydrated skimmed powder. **The catalogue grew to
+fit the sources it met, and every source so far has been a solid.** INFOODS already nests fatty
+acids under *Fat components*, so this is an extension, not a redesign.
+
 ## Where the harvest stands
 
 `SOURCE_HUNT.md` is round 1 — what supplies each of the 16 targets of the top 10 commodities, how
