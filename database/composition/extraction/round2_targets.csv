@@ -15,8 +15,8 @@ soja-schroot;10;Soja;;BE;170000;Voedingsindustrie;Plantaardig - akkerbouw;todo;;
 niet-eetbare-slachtafvallen;11;Niet-eetbare slachtafvallen;;VL;169051;Voedingsindustrie;Dierlijk - vee;todo;;;
 dierlijk-vet;12;Dierlijk vet;;VL;145498;Voedingsindustrie;Dierlijk - vee;todo;;;
 spruitstokken;13;Spruiten;stokken;VL;138000;Primaire productie;Plantaardig - tuinbouw;todo;;;two source names for one material, collapsed: stengelmassa (GeNeSys) = stokken (MONBIO)
-bostel;14;Bostel;;VL;134653;Voedingsindustrie;Plantaardig - akkerbouw;todo;;;
-zuivelnevenstroom;15;Zuivelnevenstroom;;VL;126251;Voedingsindustrie;Dierlijk - vee;todo;;;
+bostel;14;Bostel;;VL;134653;Voedingsindustrie;Plantaardig - akkerbouw;done;1;20;Feedipedia node 74, the FRESH (wet) variant, which is what leaves a Flemish brewery - a dried variant exists on the same page and is a different material by moisture, not by chemistry. Main analysis and Minerals both taken. Note crude protein 25,9 % DM and ether extract 7,0 %: bostel is the protein-richest plant stream in this round, which is why it already has a feed market and why a higher-value use has to beat that market rather than an disposal cost.
+zuivelnevenstroom;15;Zuivelnevenstroom;;VL;126251;Voedingsindustrie;Dierlijk - vee;done;1;13;Best available rather than right. Lactose at 71,1 % DM on n=18 is the figure that matters for valorisation and it is a real measurement, not a predicted one.
 voederbiet;16;Voederbiet;;VL;101780;Primaire productie;Plantaardig - akkerbouw;todo;;;
 prei;17;Prei;geen fractie benoemd;VL;101746;Primaire productie  (hele stroom bij deze schakel);Plantaardig - tuinbouw;todo;;;
 gries;18;Gries;;VL;98390;Voedingsindustrie;Plantaardig - akkerbouw;todo;;;
@@ -29,7 +29,7 @@ prei-loof;17;Prei;loof;VL;70875;Primaire productie;Plantaardig - tuinbouw;todo;;
 varkens;24;Varkens;;VL;70478;Voedingsindustrie;Dierlijk - vee;todo;;;
 boon-loof;20;Boon;loof;VL;68600;Primaire productie;Plantaardig - tuinbouw;todo;;;two source names for one material, collapsed: blad- en stengelmassa (GeNeSys) = loof (MONBIO)
 ui-schillen;25;Ui;schillen;VL;62032;Primaire productie;Plantaardig - tuinbouw;todo;;;
-zonnebloem-schroot;26;Zonnebloem;;BE;58000;Voedingsindustrie;Plantaardig - akkerbouw;todo;;;
+zonnebloem-schroot;26;Zonnebloem;;BE;58000;Voedingsindustrie;Plantaardig - akkerbouw;done;1;19;Feedipedia node 732, the solvent-extracted non-dehulled variant. Dehulled variants exist on the same page and are a different material - hulls carry most of the fibre, so crude fibre swings from ~29 % to ~15 % between them. The register's figure is a FEDIOL crush statistic for Belgium, which does not say which. Non-dehulled taken as the default and the choice recorded rather than hidden.
 melasse;27;Melasse;;VL;56806;Voedingsindustrie;Varia;todo;;;
 aardappel-industrieresidu;3;Aardappel;geen fractie benoemd;VL;56585;Voedingsindustrie  (hele stroom bij deze schakel);Plantaardig - akkerbouw;no-source;0;0;The object itself is unresolved, so there is nothing to search for yet. This is the 56.585 t the register places at the food industry under Aardappel with no fraction named - the row 2c described as `aardappel` absorbing a Prodcom 103113 processing residue because no source names a finer potato object. Now that stoomschillen and snippers ARE named separately in the 2026-09-11 selection, this residual row needs a placement decision before it can carry composition: it is either the remainder after those two, or it double-counts them. A register question, not a literature one.
 appel;28;Appel;;VL;54800;Primaire productie;Plantaardig - tuinbouw;todo;;;

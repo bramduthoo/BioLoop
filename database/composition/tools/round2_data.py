@@ -311,6 +311,115 @@ ITEMS["zetmeel-reststroom"] = dict(
     tables=[],
 )
 
+ITEMS["bostel"] = dict(
+    status="done",
+    note="Feedipedia node 74, the FRESH (wet) variant, which is what leaves a Flemish brewery - "
+         "a dried variant exists on the same page and is a different material by moisture, not "
+         "by chemistry. Main analysis and Minerals both taken. Note crude protein 25,9 % DM and "
+         "ether extract 7,0 %: bostel is the protein-richest plant stream in this round, which "
+         "is why it already has a feed market and why a higher-value use has to beat that market "
+         "rather than an disposal cost.",
+    searched=["Feedipedia node 74 (Main analysis + Minerals, fresh variant)"],
+    tables=[
+        ("feedtables-inrae-cirad-afz-fao", "Feedipedia node 74", "Brewers grains, fresh", "dry", [
+            ("dry_matter",    "%",     "24.9", "2.3",  "21.7", "28.9", "18", "",
+             "the source reports dry matter on an as-fed basis"),
+            ("crude_protein", "%",     "25.9", "2.8",  "20.3", "30.6", "29", ""),
+            ("crude_fibre",   "%",     "16.4", "3.6",  "7.8",  "21.2", "14", ""),
+            ("ndf",           "%",     "49.6", "10.7", "34.3", "62.5", "19", ""),
+            ("adf",           "%",     "20.8", "2.3",  "17.2", "24.8", "16", ""),
+            ("lignin",        "%",     "5.7",  "1.1",  "3.5",  "8.0",  "19", ""),
+            ("fat_total",     "%",     "7.0",  "0.9",  "5.8",  "9.3",  "18", ""),
+            ("ash",           "%",     "4.1",  "0.5",  "2.7",  "4.9",  "26", ""),
+            ("starch",        "%",     "5.7",  "2.7",  "3.3",  "9.6",  "6",  "",
+             "enzymatic determination"),
+            ("total_sugars",  "%",     "1.0",  "0.2",  "0.7",  "1.3",  "6",  ""),
+            ("hhv",           "MJ/kg", "20.3", "0.4",  "20.3", "21.8", "8",  ""),
+            ("calcium",       "g/kg",  "3.0",  "1.4",  "1.3",  "6.3",  "18", ""),
+            ("phosphorus",    "g/kg",  "5.8",  "1.4",  "2.7",  "7.6",  "19", ""),
+            ("potassium",     "g/kg",  "1.6",  "1.3",  "0.1",  "3.4",  "17", ""),
+            ("sodium",        "g/kg",  "0.3",  "0.2",  "0.0",  "0.9",  "17", ""),
+            ("magnesium",     "g/kg",  "2.3",  "0.6",  "1.1",  "3.2",  "18", ""),
+            ("manganese",     "mg/kg", "43",   "10",   "25",   "56",   "16", ""),
+            ("zinc",          "mg/kg", "83",   "13",   "60",   "105",  "16", ""),
+            ("copper",        "mg/kg", "14",   "7",    "7",    "31",   "16", ""),
+            ("iron",          "mg/kg", "138",  "18",   "108",  "163",  "10", ""),
+        ]),
+    ],
+)
+
+ITEMS["zuivelnevenstroom"] = dict(
+    status="done",
+    flag="TWO MISMATCHES, and neither is small. (1) The OBJECT is wider than whey: MONBIO says "
+         "the dairy sector's residuals are melkwei AND zuiveringsslib, so a whey table does not "
+         "describe the whole 126.251 t. (2) The MATERIAL is not the Flemish one: Feedipedia has "
+         "no table for liquid whey - its datasheet is explicitly pending revision, with contents "
+         "from FAO 1991-2002 - so what is taken here is DEHYDRATED, SKIMMED sweet whey. "
+         "Dehydration is only a basis question and the dry-basis figures survive it, but "
+         "SKIMMING removes fat before the analysis, so the fat figure describes a processed "
+         "product and not the stream. Treat every row as indicative until a liquid-whey analysis "
+         "replaces it.",
+    note="Best available rather than right. Lactose at 71,1 % DM on n=18 is the figure that "
+         "matters for valorisation and it is a real measurement, not a predicted one.",
+    searched=["Feedipedia node 730 (Whey) - NO liquid/fresh variant; two dehydrated skimmed "
+              "variants only, sweet and acid. Datasheet marked pending revision"],
+    tables=[
+        ("feedtables-inrae-cirad-afz-fao", "Feedipedia node 730",
+         "Whey, sweet, dehydrated, skimmed (NOT the liquid Flemish stream)", "dry", [
+            ("dry_matter",    "%",     "97.0",  "1.2",  "93.7", "98.4",  "98", "",
+             "as-fed basis, and it is a DRIED product - not the stream's own moisture"),
+            ("crude_protein", "%",     "12.5",  "0.9",  "11.1", "15.1",  "95", ""),
+            ("fat_total",     "%",     "1.3",   "0.5",  "0.6",  "2.3",   "28", "",
+             "HCl-hydrolysis extraction, and the product is SKIMMED - not the stream's fat"),
+            ("ash",           "%",     "8.2",   "0.5",  "7.2",  "9.3",   "78", ""),
+            ("lactose",       "%",     "71.06", "2.80", "65.90", "75.16", "18", ""),
+            ("hhv",           "MJ/kg", "16.1",  "1.0",  "14.3", "16.2",  "3",  "*"),
+            ("calcium",       "g/kg",  "5.1",   "0.9",  "3.7",  "7.9",   "29", ""),
+            ("phosphorus",    "g/kg",  "6.4",   "0.6",  "5.3",  "7.6",   "36", ""),
+            ("potassium",     "g/kg",  "21.0",  "1",    "",     "",      "1",  ""),
+            ("sodium",        "g/kg",  "7.0",   "1.1",  "5.5",  "9.9",   "32", ""),
+            ("magnesium",     "g/kg",  "1.0",   "",     "",     "",      "1",  ""),
+            ("copper",        "mg/kg", "7",     "",     "",     "",      "1",  ""),
+            ("iron",          "mg/kg", "7",     "",     "",     "",      "1",  ""),
+        ]),
+    ],
+)
+
+ITEMS["zonnebloem-schroot"] = dict(
+    status="done",
+    note="Feedipedia node 732, the solvent-extracted non-dehulled variant. Dehulled variants "
+         "exist on the same page and are a different material - hulls carry most of the fibre, "
+         "so crude fibre swings from ~29 % to ~15 % between them. The register's figure is a "
+         "FEDIOL crush statistic for Belgium, which does not say which. Non-dehulled taken as "
+         "the default and the choice recorded rather than hidden.",
+    searched=["Feedipedia node 732 (Main analysis + Minerals, solvent-extracted non-dehulled)"],
+    tables=[
+        ("feedtables-inrae-cirad-afz-fao", "Feedipedia node 732",
+         "Sunflower meal, solvent-extracted, non-dehulled", "dry", [
+            ("dry_matter",    "%",     "88.9", "1.3", "85.5", "93.7", "8052", "",
+             "as-fed basis"),
+            ("crude_protein", "%",     "31.3", "1.9", "24.4", "36.7", "8045", ""),
+            ("crude_fibre",   "%",     "29.1", "2.2", "22.6", "37.2", "7925", ""),
+            ("ndf",           "%",     "46.4", "3.1", "40.3", "53.2", "188",  "*"),
+            ("adf",           "%",     "33.2", "2.4", "27.9", "38.9", "189",  "*"),
+            ("lignin",        "%",     "11.2", "1.1", "8.8",  "13.5", "222",  "*"),
+            ("fat_total",     "%",     "2.3",  "0.8", "0.6",  "5.3",  "5279", ""),
+            ("ash",           "%",     "7.0",  "0.6", "5.6",  "8.9",  "3054", ""),
+            ("total_sugars",  "%",     "5.9",  "0.7", "4.4",  "7.5",  "97",   ""),
+            ("hhv",           "MJ/kg", "19.4", "0.2", "19.1", "20.2", "17",   "*"),
+            ("calcium",       "g/kg",  "4.3",  "0.6", "3.2",  "6.2",  "582",  ""),
+            ("phosphorus",    "g/kg",  "11.1", "1.3", "8.7",  "14.5", "628",  ""),
+            ("potassium",     "g/kg",  "16.0", "1.8", "12.5", "18.8", "9",    ""),
+            ("sodium",        "g/kg",  "0.1",  "0.1", "0.0",  "0.5",  "85",   ""),
+            ("magnesium",     "g/kg",  "5.3",  "1.0", "3.0",  "6.4",  "9",    ""),
+            ("manganese",     "mg/kg", "43",   "7",   "35",   "53",   "7",    ""),
+            ("zinc",          "mg/kg", "92",   "4",   "88",   "97",   "7",    ""),
+            ("copper",        "mg/kg", "30",   "3",   "25",   "33",   "8",    ""),
+            ("iron",          "mg/kg", "274",  "",    "248",  "299",  "2",    ""),
+        ]),
+    ],
+)
+
 
 # ---------------------------------------------------------------------------
 
