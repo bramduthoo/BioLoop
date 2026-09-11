@@ -513,6 +513,133 @@ ITEMS["melasse"] = dict(
     ],
 )
 
+ITEMS["tarwe-stro"] = dict(
+    status="done",
+    note="Round 1 took Phyllis2 #3161, which is a FUEL analysis - proximate, ultimate CHONS, "
+         "Cl, calorific value, on three bases. Round 2 adds the complementary half from "
+         "Feedipedia node 60: Weende, Van Soest and minerals, none of which Phyllis2 carries. "
+         "Together these two sources give tarwe-stro the widest vector in the round, and they "
+         "overlap on almost nothing - which is the argument for using both rather than picking "
+         "the better database. Six further Phyllis2 wheat-straw records (#945, #991, #1271, "
+         "#1368, #2038, #3201) remain untaken; each is its own source and its own rows.",
+    searched=["Feedipedia node 60 Straws (Main analysis + Minerals, wheat straw variant)",
+              "Phyllis2: 7 wheat straw records, 1 taken in round 1"],
+    tables=[
+        ("feedtables-inrae-cirad-afz-fao", "Feedipedia node 60", "Wheat straw", "dry", [
+            ("dry_matter",    "%",     "91.0", "1.3", "87.3", "93.8", "438", "", "as-fed basis"),
+            ("crude_protein", "%",     "4.2",  "0.7", "2.6",  "6.0",  "428", ""),
+            ("crude_fibre",   "%",     "41.5", "2.1", "36.6", "46.2", "438", ""),
+            ("ndf",           "%",     "77.5", "4.2", "65.4", "86.0", "85",  "*"),
+            ("adf",           "%",     "50.0", "3.5", "43.3", "57.0", "80",  "*"),
+            ("lignin",        "%",     "7.2",  "1.0", "5.3",  "9.7",  "203", ""),
+            ("fat_total",     "%",     "1.4",  "0.5", "0.7",  "2.8",  "53",  ""),
+            ("ash",           "%",     "6.7",  "1.2", "4.4",  "10.0", "433", ""),
+            ("starch",        "%",     "1.0",  "0.6", "0.1",  "2.6",  "114", "",
+             "polarimetric determination"),
+            ("total_sugars",  "%",     "1.2",  "0.9", "0.3",  "5.7",  "138", ""),
+            ("hhv",           "MJ/kg", "18.5", "0.6", "16.0", "18.5", "18",  "*",
+             "compare Phyllis2 #3161, which measured 18,94 MJ/kg on a dry basis - two sources, "
+             "two rows, no averaging"),
+            ("calcium",       "g/kg",  "4.8",  "1.1", "2.8",  "7.9",  "226", ""),
+            ("phosphorus",    "g/kg",  "0.7",  "0.2", "0.3",  "1.2",  "226", ""),
+            ("potassium",     "g/kg",  "11.2", "4.6", "5.4",  "21.2", "40",  ""),
+            ("sodium",        "g/kg",  "0.1",  "0.1", "0.0",  "0.4",  "143", ""),
+            ("magnesium",     "g/kg",  "1.2",  "1.2", "0.4",  "5.4",  "18",  ""),
+            ("manganese",     "mg/kg", "32",   "19",  "12",   "60",   "5",   ""),
+            ("zinc",          "mg/kg", "17",   "7",   "8",    "28",   "10",  ""),
+            ("copper",        "mg/kg", "4",    "2",   "2",    "9",    "10",  ""),
+            ("iron",          "mg/kg", "184",  "201", "52",   "643",  "8",   "",
+             "SD larger than the mean - soil contamination, not plant iron"),
+        ]),
+    ],
+)
+
+ITEMS["voederbiet"] = dict(
+    status="done",
+    flag="Iron reads 3.189 mg/kg DM with SD 2.158 over a 736-6.450 range. That is SOIL, not "
+         "beet: a root crop lifted from the ground carries earth into the sample, and the same "
+         "signature shows up on beet pulp (471) and, far worse, on poultry offal meal. Any "
+         "model that reads this as a mineral content of the material will be wrong. The same "
+         "applies to the ash range, 3,5-32,7 % DM on n=29.",
+    note="Feedipedia node 534, fresh fodder beet root. Main analysis and Minerals both taken. "
+         "Starch is printed as 0 on both determinations, which is correct and measured - a beet "
+         "stores sugar, not starch - and sits beside total sugars at 65,8 % DM.",
+    searched=["Feedipedia node 534 (Main analysis + Minerals, fresh fodder beet root)"],
+    tables=[
+        ("feedtables-inrae-cirad-afz-fao", "Feedipedia node 534",
+         "Beet root, fodder type, fresh", "dry", [
+            ("dry_matter",    "%",     "16.1", "3.2",  "7.9",  "21.4", "23", "", "as-fed basis"),
+            ("crude_protein", "%",     "7.9",  "2.5",  "4.6",  "14.6", "31", ""),
+            ("crude_fibre",   "%",     "6",    "1.5",  "4.3",  "11.6", "21", ""),
+            ("ndf",           "%",     "16",   "5.1",  "10.2", "27.2", "20", ""),
+            ("adf",           "%",     "9.5",  "3.6",  "5.4",  "17",   "19", ""),
+            ("lignin",        "%",     "0.9",  "",     "0.8",  "1",    "2",  ""),
+            ("fat_total",     "%",     "0.5",  "0.7",  "0.1",  "2.8",  "14", ""),
+            ("ash",           "%",     "10.6", "7.4",  "3.5",  "32.7", "29", "",
+             "the 32,7 % maximum is soil, not beet"),
+            ("insoluble_ash", "%",     "4",    "",     "",     "",     "",   "*"),
+            ("starch",        "%",     "0",    "",     "",     "",     "",   "",
+             "measured zero, polarimetric - a beet stores sugar, not starch"),
+            ("starch",        "%",     "0",    "",     "",     "",     "1",  "",
+             "measured zero, enzymatic determination"),
+            ("total_sugars",  "%",     "65.8", "7.4",  "54.7", "81.9", "15", ""),
+            ("hhv",           "MJ/kg", "16.2", "0.4",  "15.6", "16.6", "10", "*"),
+            ("calcium",       "g/kg",  "5.5",  "4.6",  "0.8",  "14",   "18", ""),
+            ("phosphorus",    "g/kg",  "2.4",  "1.2",  "1",    "5",    "17", ""),
+            ("potassium",     "g/kg",  "31",   "14.4", "9.7",  "46",   "8",  ""),
+            ("sodium",        "g/kg",  "6.81", "4.71", "1.1",  "15",   "12", ""),
+            ("chlorine",      "g/kg",  "0.7",  "",     "",     "",     "1",  ""),
+            ("magnesium",     "g/kg",  "3.6",  "2.9",  "1.1",  "9",    "17", ""),
+            ("sulphur",       "g/kg",  "1.5",  "",     "",     "",     "",   ""),
+            ("manganese",     "mg/kg", "209",  "83",   "115",  "312",  "6",  ""),
+            ("zinc",          "mg/kg", "59",   "7",    "53",   "70",   "6",  ""),
+            ("copper",        "mg/kg", "21",   "5",    "16",   "27",   "6",  ""),
+            ("iron",          "mg/kg", "3189", "2158", "736",  "6450", "6",  "",
+             "soil carried in with the root - not a property of the beet"),
+        ]),
+    ],
+)
+
+ITEMS["gevogelte"] = dict(
+    status="done",
+    flag="THE MATERIAL IS A RENDERED PRODUCT, NOT THE STREAM. Poultry offal meal is slaughter "
+         "by-product that has been cooked, pressed and dried; the Flemish stream at 86.856 t is "
+         "WET offal leaving the slaughterhouse. Dry-basis protein and ash carry across, fat does "
+         "not (pressing removes it: 27,9 % ether extract here against 24,4 % after HCl "
+         "hydrolysis, both on the rendered product), and the iron figure - 5.107 mg/kg DM with "
+         "SD 4.872 over 212-13.825 - is blood and process contamination, not tissue.",
+    note="Feedipedia node 214. The best available match; the mismatch is the finding. A wet "
+         "poultry-offal analysis would come from a rendering-sector source, which is exactly "
+         "what gap G-04 says the corpus does not have.",
+    searched=["Feedipedia node 214 Poultry by-product meal (Main analysis + Minerals)"],
+    tables=[
+        ("feedtables-inrae-cirad-afz-fao", "Feedipedia node 214",
+         "Poultry offal meal (RENDERED - not the wet stream)", "dry", [
+            ("dry_matter",    "%",     "92.3", "2.4",  "85.3", "97.8",  "1902", "",
+             "as-fed basis, and it is a DRIED product"),
+            ("crude_protein", "%",     "60.2", "7.3",  "47.3", "86.1",  "1929", ""),
+            ("fat_total",     "%",     "27.9", "6.9",  "8.6",  "38.7",  "1403", "",
+             "ether extraction - the rendered product is pressed, so this is not the stream's fat"),
+            ("fat_total",     "%",     "24.4", "6.4",  "12.1", "35.0",  "482",  "",
+             "HCl-hydrolysis extraction - a different determination on the same material"),
+            ("ash",           "%",     "10.6", "4.6",  "2.7",  "23.8",  "1892", ""),
+            ("hhv",           "MJ/kg", "24.4", "2.5",  "19.9", "27.4",  "23",   "*",
+             "the highest calorific value in the round - it is a fat-rich animal product"),
+            ("calcium",       "g/kg",  "20.3", "9.6",  "6.7",  "55.8",  "1481", "",
+             "bone content, and it varies with how much bone the offal carries"),
+            ("phosphorus",    "g/kg",  "10.1", "4.8",  "2.0",  "28.3",  "1489", ""),
+            ("potassium",     "g/kg",  "4.1",  "0.8",  "2.9",  "5.5",   "13",   ""),
+            ("sodium",        "g/kg",  "2.7",  "0.6",  "1.6",  "4.8",   "168",  ""),
+            ("magnesium",     "g/kg",  "0.7",  "0.2",  "0.5",  "0.9",   "7",    ""),
+            ("manganese",     "mg/kg", "18",   "9",    "11",   "34",    "7",    ""),
+            ("zinc",          "mg/kg", "67",   "41",   "10",   "126",   "7",    ""),
+            ("copper",        "mg/kg", "41",   "59",   "5",    "157",   "7",    ""),
+            ("iron",          "mg/kg", "5107", "4872", "212",  "13825", "87",   "",
+             "blood and process contamination, not tissue iron"),
+        ]),
+    ],
+)
+
 
 # ---------------------------------------------------------------------------
 
