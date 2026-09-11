@@ -1,12 +1,12 @@
 ﻿stream_code;rank;commodity;fraction;geo;tonnes;chain;branch;status;sources_found;rows_extracted;note
-mais-stro;1;Mais;;VL;1456062;Primaire productie;Plantaardig - akkerbouw;todo;;;
-raapzaad-schroot;2;Kool- en raapzaad;geen fractie benoemd;BE;852000;Voedingsindustrie  (hele stroom bij deze schakel);Plantaardig - akkerbouw;todo;;;
+mais-stro;1;Mais;;VL;1456062;Primaire productie;Plantaardig - akkerbouw;done;1;11;"Round 1 took Feedipedia's Main analysis (node 16072) and Phyllis2 #704. Round 2 adds the Minerals and Secondary metabolites tables that round 1 skipped. Only STOVER records feed this object; Phyllis2's corn stalks / corn cob / maize leaf records are fractions of it and are deliberately not used."
+raapzaad-schroot;2;Kool- en raapzaad;geen fractie benoemd;BE;852000;Voedingsindustrie  (hele stroom bij deze schakel);Plantaardig - akkerbouw;done;1;12;Round 1 took the Main analysis (node 52). Round 2 adds the Minerals table. Feedipedia prints NO secondary-metabolites table for this feed, so the glucosinolate content - the constraint that actually decides how much rapeseed meal a ration can carry - is not available from this source and stays open.
 aardappel-loof;3;Aardappel;loof;VL;800480;Primaire productie;Plantaardig - akkerbouw;todo;;;
 aardappel;3;Aardappel;geen fractie benoemd;VL;548305;Primaire productie  (hele stroom bij deze schakel);Plantaardig - akkerbouw;todo;;;
 suikerbiet-loof;4;Suikerbiet;loof;VL;463884;Primaire productie;Plantaardig - akkerbouw;todo;;;
-suikerbiet-pulp;4;Suikerbiet;pulp;VL;350000;Voedingsindustrie;Plantaardig - akkerbouw;todo;;;
+suikerbiet-pulp;4;Suikerbiet;pulp;VL;350000;Voedingsindustrie;Plantaardig - akkerbouw;done;1;10;Round 1 took the Main analysis (node 710, pressed pulp). Round 2 adds the Minerals table. Note the calcium figure: 14,3 g/kg DM with n=673 and marked PREDICTED, which is high for a plant material and reflects the lime added in sugar extraction - a process artefact, not a property of beet.
 zetmeel-reststroom;5;Zetmeel;;VL;284549;Voedingsindustrie;Varia;todo;;;
-zemelen;6;Zemelen;;VL;278865;Voedingsindustrie;Plantaardig - akkerbouw;todo;;;
+zemelen;6;Zemelen;;VL;278865;Voedingsindustrie;Plantaardig - akkerbouw;done;1;11;Round 1 took the Main analysis (node 12751). Round 2 adds Minerals and Secondary metabolites. Phosphorus at 11,1 g/kg DM is the bran-specific figure that matters: most of it is phytate-bound, which is why bran is a phosphorus source on paper and not in a monogastric gut.
 aardappel-stoomschillen;3;Aardappel;stoomschillen;BE;261740;Voedingsindustrie;Plantaardig - akkerbouw;todo;;;
 tarwe-stro;7;Tarwe;;VL;255836;Primaire productie;Plantaardig - akkerbouw;todo;;;
 lijnzaad-schroot;8;Lijnzaad;;BE;245000;Voedingsindustrie;Plantaardig - akkerbouw;todo;;;

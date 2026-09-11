@@ -60,3 +60,7 @@ volatile_matter;Volatile matter;chemical;proximate-fuel;%;Proximate-analyse - ma
 fixed_carbon;Fixed carbon;chemical;proximate-fuel;%;Proximate-analyse-restpost - 100 min vocht min as min vluchtige bestanddelen. Een verschilberekening van de bron, geen meting
 chlorine;Chlorine (total Cl);chemical;ultimate;mg/kg;Totaal chloor uit elementaire analyse. Een andere bepaling dan chloride, dat de wateroplosbare Cl-ionen meet - beide bestaan naast elkaar
 insoluble_ash;Insoluble ash;chemical;ash-solids;%;Zoutzuur-onoplosbaar asresidu, een maat voor grond- en zandinsleep. Voederwaardetabellen rapporteren dit naast ruw as
+tannins;Tannins;chemical;bioactive;g/kg;Condensed and hydrolysable tannins. Sources usually express them as a tannic acid equivalent - record the equivalent in the measurement notes. INFOODS nests Tannins under Bioactive constituents
+glucosinolates;Glucosinolates;chemical;bioactive;umol/g;Total glucosinolates. The characteristic secondary metabolite of brassica and of rapeseed meal, and a constraint on feed use - which is why it belongs in the catalogue rather than in prose
+selenium;Selenium (Se);chemical;minerals-trace;mg/kg;Selenium as element Se
+condensed_tannins;Condensed tannins;chemical;bioactive;g/kg;Condensed tannins (proanthocyanidins), usually as a catechin equivalent. A DIFFERENT FRACTION from total tannins, not another way of measuring them - so its own parameter

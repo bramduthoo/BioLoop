@@ -1,1 +1,2 @@
 ﻿citation_key;source_type;title;url;year;kind;notes
+feedtables-inrae-cirad-afz-fao;dataset;Tables of composition and nutritional values of feed materials (INRAE, CIRAD, AFZ, FAO);https://www.feedipedia.org/;2017;compilation;"Compilation of analyses from private and public feed laboratories, mostly France and Western Europe (feedtables.com, Principles and methods). Mean, SD, min, max and n on every value. An asterisk marks a value PREDICTED from a regression equation; which equation is not published, so a predicted value cannot be checked, only judged plausible."
