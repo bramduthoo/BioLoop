@@ -1,0 +1,11 @@
+{
+ "stream_code": "eetbare-slachtafvallen-rood-vlees",
+ "status": "no-source",
+ "note": "CHECKED AND EMPTY, deliberately. The object is EDIBLE red-meat offal - liver, heart, kidney, tongue - which is food, not feed, so a feed table is the wrong place to look and Feedipedia's meat and bone meal is the wrong material: it bundles edible and non-edible and then renders both. The right source is a FOOD composition table (USDA FoodData Central, NEVO) with one entry per organ, and that needs the object to say WHICH organs - which it does not. 82.576 t waiting on a definition, not on a search.",
+ "searched": [
+  "Feedipedia node 222 - wrong material (rendered, and bundles edible with non-edible)",
+  "not searched in food-composition tables: the object does not name its organs"
+ ],
+ "sources": [],
+ "rows": []
+}

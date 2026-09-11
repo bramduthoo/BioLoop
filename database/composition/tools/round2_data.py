@@ -640,6 +640,82 @@ ITEMS["gevogelte"] = dict(
     ],
 )
 
+ITEMS["niet-eetbare-slachtafvallen"] = dict(
+    status="done",
+    flag='THE MATERIAL IS RENDERED, THE STREAM IS WET. Meat and bone meal is slaughter by-product cooked, pressed and dried; the Flemish stream is wet offal leaving the slaughterhouse. Dry-basis protein and ash carry across, fat does not. Both the high-fat and low-fat variants are recorded because the difference between them IS the pressing, which is the processing step that separates this material from the stream.',
+    note="Feedipedia node 222. The nearest available material for Prodcom 101160, non-edible raw "
+         "slaughter offal. What no source gives is the SPECIES SPLIT - rund, varken, kip "
+         "separately - which is precisely what gap G-04 was rewritten to say on 2026-09-09: the "
+         "mass is covered, the species is not. Ash at ~30 percent of dry matter and calcium above "
+         "100 g/kg DM are bone, and they are what make this stream a phosphorus resource rather "
+         "than a protein one.",
+    searched=["Feedipedia node 222 Meat and bone meal (2 variants, Main analysis + Minerals each)",
+              "Feedipedia node 219 Bone meal - not taken, narrower than the object"],
+    tables=[('feedtables-inrae-cirad-afz-fao', 'Feedipedia node 222', 'Meat and bone meal, high-fat (RENDERED - not the wet stream)', 'dry', [('dry_matter', '%', '95.8', '1.5', '90.1', '98.8', '5635', '', 'as-fed basis, and it is a RENDERED, dried product'), ('crude_protein', '%', '54.9', '3.4', '45.6', '68.6', '5661', ''), ('fat_total', '%', '11.4', '1.9', '6.8', '17.2', '2688', '', 'ether extraction'), ('fat_total', '%', '12.1', '1.9', '8.0', '18.2', '2225', '', 'HCl-hydrolysis extraction - a different determination on the same material'), ('ash', '%', '30.5', '3.6', '15.7', '40.6', '5412', '', 'bone - nearly a third of the dry matter is mineral'), ('hhv', 'MJ/kg', '17.7', '0.9', '16.2', '19.7', '54', '*'), ('calcium', 'g/kg', '101.1', '16.8', '42.1', '148.2', '3883', '', 'bone calcium - two orders of magnitude above any plant stream in this round'), ('phosphorus', 'g/kg', '48.7', '7.7', '22.1', '68.9', '3967', ''), ('potassium', 'g/kg', '4.6', '0.7', '3.5', '6.1', '86', ''), ('sodium', 'g/kg', '7.5', '1.3', '5.2', '11.5', '909', ''), ('magnesium', 'g/kg', '2.2', '0.2', '1.9', '2.3', '18', ''), ('manganese', 'mg/kg', '26', '13', '8', '47', '19', ''), ('zinc', 'mg/kg', '114', '11', '98', '142', '18', ''), ('copper', 'mg/kg', '21', '11', '6', '42', '19', ''), ('iron', 'mg/kg', '615', '402', '268', '1390', '35', '')]), ('feedtables-inrae-cirad-afz-fao', 'Feedipedia node 222', 'Meat and bone meal, low-fat (RENDERED - not the wet stream)', 'dry', [('dry_matter', '%', '93.2', '2.0', '88.6', '97.6', '1546', '', 'as-fed basis'), ('crude_protein', '%', '62.0', '4.5', '50.8', '72.1', '1566', ''), ('fat_total', '%', '3.7', '1.3', '1.6', '7.5', '1213', '', 'ether extraction'), ('fat_total', '%', '5.3', '1.0', '3.5', '7.5', '293', '', 'HCl-hydrolysis extraction'), ('ash', '%', '29.8', '4.7', '18.8', '41.5', '1516', ''), ('hhv', 'MJ/kg', '16.7', '1.2', '13.3', '17.5', '18', '*'), ('calcium', 'g/kg', '94.4', '22.0', '37.6', '143.2', '1409', ''), ('phosphorus', 'g/kg', '45.8', '10.0', '19.6', '70.0', '1407', ''), ('potassium', 'g/kg', '5.1', '1.0', '2.7', '6.5', '29', ''), ('sodium', 'g/kg', '7.5', '0.9', '5.3', '10.5', '82', ''), ('magnesium', 'g/kg', '1.5', '', '', '', '1', ''), ('iron', 'mg/kg', '495', '380', '', '611', '2', '')])],
+)
+
+ITEMS["eetbare-slachtafvallen-rood-vlees"] = dict(
+    status="no-source",
+    note="CHECKED AND EMPTY, deliberately. The object is EDIBLE red-meat offal - liver, heart, "
+         "kidney, tongue - which is food, not feed, so a feed table is the wrong place to look "
+         "and Feedipedia's meat and bone meal is the wrong material: it bundles edible and "
+         "non-edible and then renders both. The right source is a FOOD composition table (USDA "
+         "FoodData Central, NEVO) with one entry per organ, and that needs the object to say "
+         "WHICH organs - which it does not. 82.576 t waiting on a definition, not on a search.",
+    searched=["Feedipedia node 222 - wrong material (rendered, and bundles edible with non-edible)",
+              "not searched in food-composition tables: the object does not name its organs"],
+    tables=[],
+)
+
+ITEMS["gries"] = dict(
+    status="done",
+    note="Feedipedia node 12756, wheat shorts / middlings / feed flour. Main analysis and "
+         "Minerals both taken. Gries sits between flour and bran and the figures show it: "
+         "starch 32,3 percent DM where bran has 23,1, crude fibre 7,5 where bran has 10,4. Two "
+         "milling fractions of one grain, and their composition is what separates them - which "
+         "is the whole reason they are two stream rows and not one.",
+    searched=["Feedipedia node 12756 (Main analysis + Minerals)"],
+    tables=[
+        ("feedtables-inrae-cirad-afz-fao", "Feedipedia node 12756",
+         "Wheat shorts, wheat middlings and feed flour", "dry", [
+            ("dry_matter",    "%",     "87.9", "1.1", "84.7", "91.2", "5186", "", "as-fed basis"),
+            ("crude_protein", "%",     "17.7", "1.2", "13.5", "21.3", "5145", ""),
+            ("crude_fibre",   "%",     "7.5",  "1.5", "2.9",  "12.1", "4058", ""),
+            ("ndf",           "%",     "33.7", "4.7", "25.3", "44.5", "92",   "*"),
+            ("adf",           "%",     "9.8",  "1.6", "7.4",  "13.6", "90",   "*"),
+            ("lignin",        "%",     "2.8",  "0.6", "1.6",  "4.1",  "125",  "*"),
+            ("fat_total",     "%",     "4.3",  "0.7", "2.2",  "5.9",  "2387", ""),
+            ("ash",           "%",     "4.3",  "0.6", "2.4",  "6.2",  "2740", ""),
+            ("starch",        "%",     "32.3", "6.3", "20.1", "59.2", "4808", "",
+             "polarimetric determination"),
+            ("total_sugars",  "%",     "8.5",  "1.8", "4.3",  "11.4", "62",   ""),
+            ("hhv",           "MJ/kg", "19.2", "0.2", "18.6", "19.4", "29",   "*"),
+            ("calcium",       "g/kg",  "1.3",  "0.3", "0.8",  "2.4",  "174",  ""),
+            ("phosphorus",    "g/kg",  "8.9",  "1.3", "6.7",  "12.4", "184",  "*"),
+            ("potassium",     "g/kg",  "11.3", "1.3", "10.0", "15.1", "41",   "*"),
+            ("sodium",        "g/kg",  "0.1",  "0.0", "0.0",  "0.1",  "55",   ""),
+            ("magnesium",     "g/kg",  "4.2",  "1.7", "2.2",  "9.6",  "40",   ""),
+            ("manganese",     "mg/kg", "98",   "27",  "58",   "150",  "15",   ""),
+            ("zinc",          "mg/kg", "104",  "22",  "72",   "143",  "15",   ""),
+            ("copper",        "mg/kg", "15",   "2",   "11",   "17",   "13",   ""),
+            ("iron",          "mg/kg", "207",  "36",  "157",  "257",  "5",    ""),
+        ]),
+    ],
+)
+
+ITEMS["slachthuisstromen"] = dict(
+    status="no-source",
+    note="THE OBJECT IS A BUNDLE, so there is nothing single to search for. `Slachthuisstromen` "
+         "at 50.000 t is a catch-all beside three named slaughter objects already in this list "
+         "(niet-eetbare slachtafvallen 169.051, dierlijk vet 145.498, eetbare slachtafvallen "
+         "82.576). Whatever it holds - blood, stomach and gut content, hides, condemned "
+         "carcasses - each has its own composition and none of them is described by an average "
+         "of the others. Extracting anything here would be inventing a material. A register "
+         "placement question, and it is the same shape as aardappel-industrieresidu.",
+    searched=["not searched - the object names a place, not a material"],
+    tables=[],
+)
+
 
 # ---------------------------------------------------------------------------
 
