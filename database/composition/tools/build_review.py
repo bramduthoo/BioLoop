@@ -31,6 +31,8 @@ SHORT = {
     "feedtables-inrae-cirad-afz-fao": "Feedipedia / feedtables",
     "phyllis2-tno": "Phyllis2 (TNO)",
     "deEvan2020Cauliflower": "De Evan et al. 2020, Animals",
+    "s2biom-d24-biomass-properties": "S2BIOM D2.4 (VTT / WUR)",
+    "foodwasteexplorer-eurofir": "FoodWasteEXplorer (EuroFIR)",
 }
 
 # Streams extracted in round 1 that the 2026-09-11 selection puts below 50 kt.
@@ -62,10 +64,14 @@ def main() -> None:
         g = groups[code]
         return groups[g["parent_code"]]["name"] if g["parent_code"] else g["name"]
 
-    meas = read(EXTRACT / "round1_measurements.csv") + read(EXTRACT / "round2_measurements.csv")
-    srcs = {s["citation_key"]: s
-            for s in read(EXTRACT / "round1_sources.csv") + read(EXTRACT / "round2_sources.csv")}
-    targets = read(EXTRACT / "round2_targets.csv")
+    meas = (read(EXTRACT / "round1_measurements.csv")
+            + read(EXTRACT / "round2_measurements.csv")
+            + read(EXTRACT / "round3_measurements.csv"))
+    srcs = {s["citation_key"]: s for s in (read(EXTRACT / "round1_sources.csv")
+                                           + read(EXTRACT / "round2_sources.csv")
+                                           + read(EXTRACT / "round3_sources.csv"))}
+    # round 3 is the scope: the 80% cumulative line, then the 50 kt fraction filter
+    targets = read(EXTRACT / "round3_targets.csv")
     legacy_nodata = read(EXTRACT / "round1_nodata.csv")
 
     unknown = sorted({m["parameter_code"] for m in meas if m["parameter_code"] not in params})
@@ -111,7 +117,7 @@ def main() -> None:
                         "name": t["commodity"] + (" / " + t["fraction"] if t["fraction"] else ""),
                         "rank": int(t["rank"]), "commodity": t["commodity"],
                         "tons": int(t["tonnes"])})
-        if t["status"] == "no-source":
+        if t["status"] in ("no-source", "todo") and t["stream_code"] not in with_rows:
             nodata.append({"stream": t["stream_code"], "state": "geen bruikbare bron",
                            "raised": "", "why": t["note"]})
     known = {s["code"] for s in streams}
