@@ -131,17 +131,14 @@ tarwe-stro;fat_total;point;1.8;;;;;%;dry;ee-diethyl;measured;foodwasteexplorer-e
 tarwe-stro;fat_total;point;1.5;;;;;%;dry;ee-diethyl;measured;foodwasteexplorer-eurofir;FoodWasteEXplorer: 2012FeedComp;;Wheat straw / Fat, crude;Wheat straw - Ammoniated;no;;machine;;Ammoniated
 zuivelnevenstroom;arsenic;point;0.09;;;;;mg/kg;dry;;measured;foodwasteexplorer-eurofir;FoodWasteEXplorer: NOSHAN;;Whey / Arsenic;Whey - Milk;no;;machine;;ppm read as mg/kg Milk
 zuivelnevenstroom;ash;point;7.22;;;;;%;dry;;measured;foodwasteexplorer-eurofir;FoodWasteEXplorer: NOSHAN;;Whey / Ash;Whey - Milk;no;;machine;;Milk
-zuivelnevenstroom;cadmium;point;;;;;;mg/kg;dry;;measured;foodwasteexplorer-eurofir;FoodWasteEXplorer: NOSHAN;;Whey / Cadmium;Whey - Milk;no;;machine;;ppm read as mg/kg Milk
 zuivelnevenstroom;calcium;point;6785;;;;;mg/kg;dry;;measured;foodwasteexplorer-eurofir;FoodWasteEXplorer: NOSHAN;;Whey / Calcium;Whey - Milk;no;;machine;;ppm read as mg/kg Milk
 zuivelnevenstroom;total_carbon;point;46.28;;;;;%;dry;;measured;foodwasteexplorer-eurofir;FoodWasteEXplorer: NOSHAN;;Whey / Carbon;Whey - Milk;no;;machine;;Milk
 zuivelnevenstroom;fixed_carbon;point;9.98;;;;;%;dry;;measured;foodwasteexplorer-eurofir;FoodWasteEXplorer: NOSHAN;;Whey / Carbon, fixed;Whey - Milk;no;;machine;;Milk
 zuivelnevenstroom;cod;point;81050;;;;;mg/L;n.a.;;measured;foodwasteexplorer-eurofir;FoodWasteEXplorer: Amelioration of lactic acid production from cheese whey using micro-aeration;;Whey / Chemical oxygen demand, total;Whey - Cheese;no;;machine;;Cheese
-zuivelnevenstroom;chromium;point;;;;;;mg/kg;dry;;measured;foodwasteexplorer-eurofir;FoodWasteEXplorer: NOSHAN;;Whey / Chromium;Whey - Milk;no;;machine;;ppm read as mg/kg Milk
 zuivelnevenstroom;copper;point;0.2;;;;;mg/kg;dry;;measured;foodwasteexplorer-eurofir;FoodWasteEXplorer: NOSHAN;;Whey / Copper;Whey - Milk;no;;machine;;ppm read as mg/kg Milk
 zuivelnevenstroom;hhv;point;17.21;;;;;MJ/kg;dry;;measured;foodwasteexplorer-eurofir;FoodWasteEXplorer: NOSHAN;;Whey / Heating value, high;Whey - Milk;no;;machine;;Milk
 zuivelnevenstroom;lhv;point;15.56;;;;;MJ/kg;dry;;measured;foodwasteexplorer-eurofir;FoodWasteEXplorer: NOSHAN;;Whey / Heating value, low;Whey - Milk;no;;machine;;Milk
 zuivelnevenstroom;hydrogen;point;7.21;;;;;%;dry;;measured;foodwasteexplorer-eurofir;FoodWasteEXplorer: NOSHAN;;Whey / Hydrogen;Whey - Milk;no;;machine;;Milk
-zuivelnevenstroom;iron;point;;;;;;mg/kg;dry;;measured;foodwasteexplorer-eurofir;FoodWasteEXplorer: NOSHAN;;Whey / Iron;Whey - Milk;no;;machine;;ppm read as mg/kg Milk
 zuivelnevenstroom;lactose;point;5;;;;;g/100g;unknown;;measured;foodwasteexplorer-eurofir;FoodWasteEXplorer: Amelioration of lactic acid production from cheese whey using micro-aeration;;Whey / Lactose;Whey - Cheese;no;;machine;;Cheese
 zuivelnevenstroom;lead;point;0.14;;;;;mg/kg;dry;;measured;foodwasteexplorer-eurofir;FoodWasteEXplorer: NOSHAN;;Whey / Lead;Whey - Milk;no;;machine;;ppm read as mg/kg Milk
 aardappel-stoomschillen;adf;point;63.0;;;;;g/kg;dry;;measured;foodwasteexplorer-eurofir;FoodWasteEXplorer: A review of the utility of potato by-products as a feed resource for smallholder pig production;;Potato peel / Acid Detergent Fibre (ADF);Potato peel - A review of different publications;no;;machine;;A review of different publications

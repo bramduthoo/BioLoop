@@ -56,7 +56,57 @@ SOURCES = {
               "Soest detergent sequence. No n per value - the spread IS the evidence."),
 }
 
+SOURCES["kaplan2018PotatoHaulm"] = dict(
+    source_type="zotero", year=2018, kind="primary", country="TR",
+    title="Kaplan, M.; Ulger, I.; Kokten, K.; Uzun, S.; Varhan Oral, E.; Ozaktan, H.; "
+          "Temizgul, R.; Kale, H. Nutritional composition of potato (Solanum tuberosum L.) "
+          "haulms. Progress in Nutrition 2018, 20(1-S), 90-95",
+    url="https://doi.org/10.23751/pn.v20i1-S.5541",
+    notes="The ONLY primary composition study found for potato haulm after three sessions of "
+          "looking, and the stream is 800.480 t - the second largest target in the round. Five "
+          "cultivars (Milva, Laura, Granola, Europrima, Jelly) grown in TURKEY. The figures are "
+          "the RANGE ACROSS CULTIVARS, not a mean with a spread, so they are recorded as ranges "
+          "with n = 5 cultivars. Geography is admissible by reviewer decision of 2026-09-12 - "
+          "composition is intrinsic to the object - but Turkish cultivars, soils and harvest "
+          "timing are not Flemish ones, and a Flemish haulm is chemically DESICCATED before "
+          "harvest, which this study's material was probably not. Treat as indicative.")
+
 ITEMS: dict[str, dict] = {}
+
+ITEMS["aardappel-loof"] = dict(
+    status="done",
+    flag="RANGE ACROSS FIVE CULTIVARS, NOT A MEAN WITH A SPREAD - and Turkish, not Flemish. "
+         "Only the abstract was reachable, so ADL, ether extract and dry matter are absent even "
+         "though the paper reports them. The single most important caveat: Flemish potato haulm "
+         "is chemically DESICCATED before harvest and this material was almost certainly not, "
+         "which changes exactly the fractions a valorisation route would care about.",
+    note="Closes three sessions of nothing. F-004 moves from 'no composition source anywhere' "
+         "to 'one primary study, non-European, abstract only' - which is progress and not a "
+         "close. What would close it: a European haulm analysis, or the full text of this paper "
+         "for its ADL and mineral table.",
+    searched=["Phyllis2 index - absent", "Feedipedia - no datasheet",
+              "FoodWasteEXplorer 'Potato haulm' - zero rows",
+              "CVB Veevoedertabel 2023 - no aardappelloof sheet (it has cichoreiloof, "
+              "erwtenloof and bietenblad, so the absence is specific to potato)",
+              "S2BIOM D2.4 - the agricultural-residue block has rice/wheat/rape straw, maize "
+              "stover, sugarbeet tops and sunflower straw, and no potato haulm",
+              "Kaplan et al. 2018, Progress in Nutrition - the one hit"],
+    tables=[],
+    ranges=[("kaplan2018PotatoHaulm", "doi:10.23751/pn.v20i1-S.5541",
+             "Potato haulm, 5 cultivars, Turkey", "dry", [
+        ("crude_protein", "%",     "10.85", "14.48", "5"),
+        ("ash",           "%",     "5.22",  "9.10",  "5"),
+        ("adf",           "%",     "22.46", "33.94", "5"),
+        ("ndf",           "%",     "47.99", "60.91", "5"),
+        ("iron",          "mg/kg", "47.35", "180.07", "5"),
+        ("manganese",     "mg/kg", "28.14", "85.15", "5"),
+        ("nickel",        "mg/kg", "3.40",  "8.60",  "5"),
+        ("copper",        "mg/kg", "10.84", "15.35", "5"),
+        ("zinc",          "mg/kg", "4.14",  "15.60", "5"),
+        ("cadmium",       "mg/kg", "1.02",  "1.55",  "5"),
+        ("lead",          "mg/kg", "6.74",  "9.80",  "5"),
+    ])],
+)
 
 # --------------------------------------------------------------------------
 # S2BIOM covers four of the nineteen targets. One table, four streams.
@@ -175,6 +225,18 @@ def expand(code: str, item: dict) -> dict:
                 source_key=src, source_ref=ref, year=str(SOURCES[src]["year"]),
                 reported_label="", variant=variant, restatement="no",
                 flag=item.get("flag", ""), transcription="machine", DECISION="", notes=note,
+            ))
+    for src, ref, variant, basis, table in item.get("ranges", []):
+        used[src] = dict(SOURCES[src], citation_key=src)
+        for param, unit, lo, hi, n in table:
+            rows.append(dict(
+                stream_code=code, parameter_code=param, value_type="range",
+                value_num="", value_min=lo, value_max=hi, sd="", n_samples=n,
+                unit_code=unit, basis_code=basis, method_code="", value_origin="measured",
+                source_key=src, source_ref=ref, year=str(SOURCES[src]["year"]),
+                reported_label="", variant=variant, restatement="no",
+                flag=item.get("flag", ""), transcription="machine", DECISION="",
+                notes="range across cultivars, not a mean with a spread",
             ))
     return dict(stream_code=code, status=item["status"], note=item.get("note", ""),
                 searched=item.get("searched", []), sources=list(used.values()), rows=rows)

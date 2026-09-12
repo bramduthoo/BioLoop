@@ -46,6 +46,22 @@ FWE_SOURCE = dict(
           "measurement. What survives is what this source actually adds.")
 
 
+CVB_SOURCE = dict(
+    citation_key="cvb-veevoedertabel-2023", source_type="dataset", year=2023,
+    kind="sector-institutional", country="NL",
+    title="CVB Veevoedertabel 2023 - Chemische samenstellingen en nutritionele waarden "
+          "van voedermiddelen (Stichting CVB)",
+    url="https://www.cvbdiervoeding.nl/bestand/10900/cvb-veevoedertabel-20232.pdf.ashx",
+    notes="The source our own source points at: GeNeSys (S065), which supplies several of "
+          "these tonnages, cites CVB for the dry matter of exactly these horticultural streams "
+          "and carries no composition table itself. Dutch rather than tropical or "
+          "Mediterranean, free, 708 pages, one sheet per material, every value in g/kg dry "
+          "matter with a standard deviation where CVB has one - and over 16.000 sample "
+          "analyses behind the 2019-2023 editions. Everything below the digestibility line "
+          "(VEM, DVE, OEB, the amino-acid and fatty-acid blocks) is deliberately NOT taken: "
+          "feed-value figures are facts about a material AND an animal.")
+
+
 def read_csv(path: Path) -> list[dict]:
     if not path.exists():
         return []
@@ -78,6 +94,11 @@ def main() -> None:
     if fwe:
         sources.setdefault(FWE_SOURCE["citation_key"], FWE_SOURCE)
         rows += fwe
+
+    cvb = read_csv(EXTRACT / "cvb_rows.csv")
+    if cvb:
+        sources.setdefault(CVB_SOURCE["citation_key"], CVB_SOURCE)
+        rows += cvb
 
     write_csv(EXTRACT / "round3_measurements.csv", ROW_FIELDS, rows)
     write_csv(EXTRACT / "round3_sources.csv", SRC_FIELDS, list(sources.values()))

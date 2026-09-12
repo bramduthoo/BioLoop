@@ -261,7 +261,7 @@ def emit_rows() -> None:
     for r in csv.DictReader(CROSSWALK.open(encoding="utf-8-sig"), delimiter=";"):
         cw[(r["fwe_component"], r["fwe_unit"])] = r
 
-    rows, dropped_dup, unmapped_files, skipped = [], 0, set(), 0
+    rows, dropped_dup, unmapped_files, skipped, empty = [], 0, set(), 0, 0
     for f in sorted(RAW.glob("*.csv")):
         code = STREAM_MAP.get(f.stem)
         if not code:
@@ -275,6 +275,12 @@ def emit_rows() -> None:
             m = cw.get((r["Component"], r["Unit"]))
             if not m or m["action"] != "take":
                 skipped += 1
+                continue
+            # the site prints an empty Value on a handful of rows; a point measurement
+            # with no number is not a measurement, and the schema's value_shape CHECK
+            # would refuse it. Dropped and counted rather than stored as a blank.
+            if not (r.get("Value") or "").strip():
+                empty += 1
                 continue
             desc = (r.get("Description") or "").strip()
             rows.append(dict(
@@ -302,6 +308,7 @@ def emit_rows() -> None:
     print(f"wrote {out}: {len(rows)} rows over {len(per)} streams")
     print(f"  {dropped_dup} rows dropped as duplicates of Feedipedia / ECN Phyllis 2")
     print(f"  {skipped} rows skipped by the crosswalk")
+    print(f"  {empty} rows dropped for an empty Value cell")
     if unmapped_files:
         print(f"  harvests not mapped to a target: {sorted(unmapped_files)}")
     for c, n in sorted(per.items(), key=lambda kv: -kv[1]):
