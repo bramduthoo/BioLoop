@@ -3,9 +3,9 @@ dry_matter;Dry matter;chemical;water;%;Mass fraction remaining after drying to c
 moisture;Moisture;chemical;water;%;Watergehalte zoals de bron het rapporteert. Apart geregistreerd van droge stof omdat bronnen het zo geven - niet afleiden, alleen vastleggen wat er staat
 ash;Ash;chemical;ash-solids;%;Mineral residue after incineration. The ashing TEMPERATURE is a method, recorded on the measurement
 organic_matter;Organic matter;chemical;ash-solids;%;Droge stof min as. Bronnen over anaerobe vergisting schrijven hier vaak VS - leg de term van de bron vast in notes
-crude_protein;Crude protein;chemical;protein;%;Total nitrogen multiplied by a protein factor, usually 6,25. INFOODS calls this PROCNT, protein calculated from total nitrogen. The FACTOR is an expression rather than a method - record it in the measurement notes until an expression axis exists
-total_nitrogen;Total nitrogen;chemical;protein;%;Kjeldahl- of Dumas-stikstof zelf, zonder eiwitfactor. Registreer dit wanneer de bron N geeft en niet het eiwit
-true_protein;True protein;chemical;protein;%;Eiwit bepaald als som van aminozuren of na aftrek van niet-eiwitstikstof. Een ander object dan ruw eiwit, niet een betere meting ervan
+crude_protein;Crude protein;chemical;protein-total;%;Total nitrogen multiplied by a protein factor, usually 6,25. INFOODS calls this PROCNT, protein calculated from total nitrogen. The FACTOR is an expression rather than a method - record it in the measurement notes until an expression axis exists
+total_nitrogen;Total nitrogen;chemical;protein-total;%;Kjeldahl- of Dumas-stikstof zelf, zonder eiwitfactor. Registreer dit wanneer de bron N geeft en niet het eiwit
+true_protein;True protein;chemical;protein-total;%;Eiwit bepaald als som van aminozuren of na aftrek van niet-eiwitstikstof. Een ander object dan ruw eiwit, niet een betere meting ervan
 fat_total;Total fat;chemical;fat;%;Total lipid. WHICH EXTRACTION was used is a METHOD, recorded on the measurement - diethyl ether (what the Weende scheme calls crude fat), petroleum ether, or acid hydrolysis, which recovers bound lipids the plain ether extract leaves behind and reads systematically higher. INFOODS separates FAT from FATCE on the same grounds
 crude_fibre;Crude fibre;chemical;dietary-fibre;%;The Weende crude-fibre fraction, and it is genuinely Weende-specific: there is no method-independent thing it could mean. It is NOT a worse measurement of fibre than NDF - it is a DIFFERENT fraction, losing most hemicellulose and part of the lignin. INFOODS carries it as FIBC
 nfe;Nitrogen-free extract;chemical;carbohydrates;%;The by-difference carbohydrate remainder of the Weende partition. A calculation by the source, not a determination - record it with value_origin = calculated. INFOODS has the same concept as CHOAVLDF
@@ -68,3 +68,22 @@ ash_melting_dt;Ash deformation temperature (DT);chemical;ash-behaviour;degC;The 
 bale_density;Bale density;physical;physical-properties;kg/m3;Density of the material as baled. A different quantity from bulk density (loose) and from particle density - a baler changes it and the material does not
 particle_density;Particle density;physical;physical-properties;kg/m3;Density of an individual particle, excluding the void space between particles
 basic_density;Basic density;physical;physical-properties;kg/m3;Oven-dry mass divided by green volume
+lysine;Lysine;chemical;amino-acids;g/kg;An essential amino acid, and the first limiting one in most cereal streams
+methionine;Methionine;chemical;amino-acids;g/kg;An essential sulphur amino acid
+cystine;Cystine;chemical;amino-acids;g/kg;Reported by feed tables as CYS, which is cystine or cysteine plus half-cystine - the source's wording goes in the measurement notes
+threonine;Threonine;chemical;amino-acids;g/kg;An essential amino acid
+tryptophan;Tryptophan;chemical;amino-acids;g/kg;An essential amino acid
+isoleucine;Isoleucine;chemical;amino-acids;g/kg;An essential branched-chain amino acid
+arginine;Arginine;chemical;amino-acids;g/kg;An essential amino acid for poultry
+phenylalanine;Phenylalanine;chemical;amino-acids;g/kg;An essential aromatic amino acid
+histidine;Histidine;chemical;amino-acids;g/kg;An essential amino acid
+leucine;Leucine;chemical;amino-acids;g/kg;An essential branched-chain amino acid
+tyrosine;Tyrosine;chemical;amino-acids;g/kg;A non-essential aromatic amino acid
+valine;Valine;chemical;amino-acids;g/kg;An essential branched-chain amino acid
+alanine;Alanine;chemical;amino-acids;g/kg;A non-essential amino acid
+aspartic_acid;Aspartic acid;chemical;amino-acids;g/kg;Reported as ASP, which in a hydrolysate is aspartic acid plus asparagine
+glutamic_acid;Glutamic acid;chemical;amino-acids;g/kg;Reported as GLU, which in a hydrolysate is glutamic acid plus glutamine
+glycine;Glycine;chemical;amino-acids;g/kg;A non-essential amino acid
+proline;Proline;chemical;amino-acids;g/kg;A non-essential amino acid
+serine;Serine;chemical;amino-acids;g/kg;A non-essential amino acid
+amino_acids_total;Total amino acids;chemical;amino-acids;g/kg;The sum of the individual amino acids as the source reports it, NOT a figure to recompute - a source's own sum reflects which amino acids it measured

@@ -160,6 +160,29 @@ def pass2(rows) -> list[dict]:
                                          f"instead of {what} - one of them is wrong, on another "
                                          f"basis, or the source's partition differs "
                                          f"({variant})")))
+        # the individual amino acids cannot exceed the source's own sum of them, and the
+        # sum cannot exceed crude protein - a hydrolysate is made OF the protein
+        AAS = ["lysine", "methionine", "cystine", "threonine", "tryptophan", "isoleucine",
+               "arginine", "phenylalanine", "histidine", "leucine", "tyrosine", "valine",
+               "alanine", "aspartic_acid", "glutamic_acid", "glycine", "proline", "serine"]
+        present = [k for k in AAS if k in d]
+        if len(present) >= 10 and "amino_acids_total" in d:
+            s_aa = sum(d[k] for k in present)
+            if abs(s_aa - d["amino_acids_total"]) > max(2.0, 0.1 * d["amino_acids_total"]):
+                out.append(dict(kind="amino-acid-sum", stream=stream,
+                                parameter="sum(amino acids) vs total", unit="%", basis=basis,
+                                value=f"{s_aa:.1f} vs {d['amino_acids_total']:.1f}", source=source,
+                                message=(f"the individual amino acids sum to {s_aa:.1f} where the "
+                                         f"source's own total says {d['amino_acids_total']:.1f} "
+                                         f"({variant})")))
+        if "amino_acids_total" in d and "crude_protein" in d and                 d["amino_acids_total"] > d["crude_protein"] * 1.15:
+            out.append(dict(kind="amino-acid-sum", stream=stream,
+                            parameter="amino acids vs crude protein", unit="%", basis=basis,
+                            value=f"{d['amino_acids_total']:.1f} vs {d['crude_protein']:.1f}",
+                            source=source,
+                            message=(f"total amino acids exceed crude protein - a hydrolysate is "
+                                     f"made OF the protein, so this cannot be right ({variant})")))
+
         for a, b in (("ndf", "adf"), ("adf", "lignin"), ("ndf", "lignin")):  # noqa: E501
             if a in d and b in d and d[a] < d[b] - 0.5:
                 out.append(dict(kind="detergent-order", stream=stream, parameter=f"{a} < {b}",

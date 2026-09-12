@@ -64,6 +64,51 @@ MINERALS = {
 TRACE = {"Fe": ("iron", "mg/kg"), "Mn": ("manganese", "mg/kg"), "Zn": ("zinc", "mg/kg"),
          "Cu": ("copper", "mg/kg"), "Se": ("selenium", "mg/kg")}
 
+# The amino-acid block sits on the FACING page of each product, laid out as
+#   NAME  <g/16g N gem>  <sdc>  <g/kg>  <VC pigs> <g/kg> <VC poultry> <g/kg>
+# Only the third number is taken. The first is an EXPRESSION relative to protein, not a
+# unit; everything from the fourth column on is standardised ileal digestibility, which is
+# a fact about a material AND an animal and belongs to the model's rule layer.
+AMINO = {
+    "LYS": "lysine", "MET": "methionine", "CYS": "cystine", "THR": "threonine",
+    "TRP": "tryptophan", "ILE": "isoleucine", "ARG": "arginine", "PHE": "phenylalanine",
+    "HIS": "histidine", "LEU": "leucine", "TYR": "tyrosine", "VAL": "valine",
+    "ALA": "alanine", "ASP": "aspartic_acid", "GLU": "glutamic_acid", "GLY": "glycine",
+    "PRO": "proline", "SER": "serine",
+}
+AMINO_NOTE = {
+    "CYS": "CVB prints CYS - cystine, or cysteine plus half-cystine; the source does not say which",
+    "ASP": "CVB prints ASP - in a hydrolysate this is aspartic acid plus asparagine",
+    "GLU": "CVB prints GLU - in a hydrolysate this is glutamic acid plus glutamine",
+}
+
+
+def parse_amino(text: str, basis: str) -> list[tuple[str, str, str, str, str]]:
+    """-> [(parameter, unit, value, sd, note), ...] from the facing page's amino-acid block."""
+    out = []
+    for line in text.split("\n"):
+        parts = line.split()
+        if len(parts) < 4 or parts[0] not in AMINO and parts[0] != "SOM":
+            continue
+        if parts[0] == "SOM" and len(parts) >= 5 and parts[1] == "AZ":
+            # SOM AZ <g/16gN> <g/kg> ...
+            val = parts[3]
+            if val not in ("-", ""):
+                out.append(("amino_acids_total", "g/kg", val, "",
+                            "CVB's own sum of the amino acids it measured - not recomputed here"))
+            continue
+        name = AMINO.get(parts[0])
+        if not name:
+            continue
+        gem, sd, absolute = parts[1], parts[2], parts[3]
+        if absolute in ("-", ""):
+            continue
+        # the sdc CVB prints belongs to the g/16g N column, not to the absolute figure,
+        # so it is NOT carried onto this value - a standard deviation in the wrong unit is
+        # worse than none
+        out.append((name, "g/kg", absolute, "", AMINO_NOTE.get(parts[0], "")))
+    return out
+
 # CVB page -> BioMobi stream code. Only the 19 in-scope targets.
 PAGES: dict[int, tuple[str, str]] = {
     561: ("zuivelnevenstroom", "Kaaswei, vers - RE 175-275 g/kg DS"),
@@ -138,11 +183,12 @@ def emit() -> None:
     with open_pdf() as pdf:
         for page, (code, variant) in sorted(PAGES.items()):
             text = pdf.pages[page - 1].extract_text() or ""
-            title, cells = parse_sheet(text)
             # everything after the digestibility block is animal-nutrition, not composition
             cut = text.find("Verteringscoefficient")
             head_text = text[:cut] if cut > 0 else text
-            _, cells = parse_sheet(head_text)
+            title, cells = parse_sheet(head_text)
+            # the Weende block's basis is the sheet's prevailing one
+            sheet_default = next((b for lbl, _, _, b in cells if lbl == "RAS"), "dry")
             for label, val, sd, sheet_basis in cells:
                 m = WEENDE.get(label) or None
                 if m:
@@ -170,6 +216,21 @@ def emit() -> None:
                     restatement="no", flag="", transcription="machine", DECISION="",
                     notes=note,
                 ))
+
+            # the amino-acid block is printed on the FACING page of the same product
+            facing = pdf.pages[page].extract_text() or "" if page < len(pdf.pages) else ""
+            if facing.startswith(text.split("\n")[0].rsplit(" ", 1)[0]):
+                for param, unit, val, sd, note in parse_amino(facing, sheet_default):
+                    rows.append(dict(
+                        stream_code=code, parameter_code=param, value_type="point",
+                        value_num=val, value_min="", value_max="", sd=sd, n_samples="",
+                        unit_code=unit, basis_code=sheet_default, method_code="",
+                        value_origin="measured", source_key="cvb-veevoedertabel-2023",
+                        source_ref=f"CVB Veevoedertabel 2023, p. {page + 1}", year="2023",
+                        reported_label=param, variant=f"{title.rsplit(' ', 1)[0]} ({variant})",
+                        restatement="no", flag="", transcription="machine", DECISION="",
+                        notes=note,
+                    ))
 
     out = ROOT / "extraction" / "cvb_rows.csv"
     buf = io.StringIO()

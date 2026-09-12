@@ -1,7 +1,7 @@
 ﻿code;name;parent_code;category;sort_order;external_ref;definition
 macronutrients-energy;Macronutrients including energy;;chemical;10;FAO/INFOODS;Top-level INFOODS family. Carries no parameters itself - a parameter attaches to the deepest group, as a stream attaches to its deepest classification term
 water;Water;macronutrients-energy;chemical;11;FAO/INFOODS;Water and its complement. Dry matter is registered here rather than under ash because INFOODS treats the water axis as one family
-protein;Protein;macronutrients-energy;chemical;12;FAO/INFOODS;Nitrogen and the protein figures derived from it
+protein;Protein;macronutrients-energy;chemical;12;FAO/INFOODS;INFOODS family. Carries no parameters itself: the nitrogen-derived figures and the individual amino acids are its two leaves, which is how INFOODS separates them
 fat;Fat components;macronutrients-energy;chemical;13;FAO/INFOODS;Total fat and lipid fractions. The extraction used is a METHOD, not a separate parameter
 carbohydrates;Carbohydrates and carbohydrate fractions;macronutrients-energy;chemical;14;FAO/INFOODS;Starch, sugars and the by-difference carbohydrate figures
 dietary-fibre;Dietary fibre and dietary fibre fractions;macronutrients-energy;chemical;15;FAO/INFOODS;Every fibre fraction, whichever tradition defined it - AOAC dietary fibre, Weende crude fibre and the Van Soest detergent fractions all live here. They are DIFFERENT FRACTIONS, not one fraction measured differently
@@ -16,3 +16,5 @@ ultimate;Ultimate (elemental) analysis;fuel-characterisation;chemical;52;ISO 172
 physical-properties;Physical properties;;physical;60;neither standard;Bulk, particle and water-relation properties. Neither INFOODS nor ISO 17225 carries these as a family, so this branch is ours and is labelled as such. Feeds the transport and handling side of the model
 miscellaneous;Miscellaneous;;chemical;70;FAO/INFOODS;INFOODS closes its list with this family and so do we. pH and the effluent-load parameters are not food components in any tradition
 ash-behaviour;Ash melting behaviour;fuel-characterisation;chemical;53;ISO 17225 / ISO 21404;Characteristic temperatures at which the ash softens and flows. Not a composition figure but a thermal property of the ash, and the one that decides whether a stream can be burnt without slagging
+protein-total;Total protein and nitrogen;protein;chemical;12;FAO/INFOODS;Nitrogen, and the protein figures derived from it
+amino-acids;Individual amino acids;protein;chemical;13;FAO/INFOODS;"INFOODS heads this ""Individual amino acids and aggregations"". Recorded as ABSOLUTE content (g/kg on the sheet basis), never as the g/16g N the feed tables lead with - that is an EXPRESSION relative to protein, not a unit, and BioMobi has no expression axis"
