@@ -1,0 +1,51 @@
+﻿Food name;Side stream;Component group;Component;Value;Unit;Description;Reference
+Wheat;Wheat bran;Proximates;Acid Detergent Fibre (ADF);14;% d.b.;;2012FeedComp
+Wheat;Wheat bran;Proximates;Acid Detergent Fibre (ADF);13.4;% d.b.;;Feedipedia
+Wheat;Wheat bran;Proximates;Alanine;4.6;% protein;;Feedipedia
+Wheat;Wheat bran;Proximates;Arabinan;8.7;wt%, dry basis;;ECN Phyllis 2
+Wheat;Wheat bran;Proximates;Arabinoxylan;30;%;;Comparison of two wheat bran extracts in the sheet extrusion process
+Wheat;Wheat bran;Proximates;Arginine;6.8;% protein;;Feedipedia
+Wheat;Wheat bran;Proximates;Ash;46;g/kg;;Chemical composition, digestible protein and energy values of some alternative feedstuffs for pigs in Brazil
+Wheat;Wheat bran;Proximates;Ash;7;% DM;;2012FeedComp
+Wheat;Wheat bran;Proximates;Ash;5.6;% DM;;Feedipedia
+Wheat;Wheat bran;Proximates;Ash;7;%;;ECN Phyllis 2
+Wheat;Wheat bran;Proximates;Aspartic acid;7;% protein;;Feedipedia
+Wheat;Wheat bran;Waste compounds;Biogas;820;LN/kg volatile solids;;Online European Feedstock Atlas basis version
+Wheat;Wheat bran;Waste compounds;Buffering capacity;320;mEinstein/kg DM;;Addition of rice straw or/and wheat bran on composition, ruminal degradability and voluntary intake of bamboo shoot shells silage fed to sheep
+Wheat;Wheat bran;Inorganics;Calcium;1.4;g/kg DM;;Feedipedia
+Wheat;Wheat bran;Inorganics;Calcium;1.1;g/kg;;Chemical composition, digestible protein and energy values of some alternative feedstuffs for pigs in Brazil
+Wheat;Wheat bran;Inorganics;Calcium;0.13;% d.b.;;2012FeedComp
+Wheat;Wheat bran;Proximates;Carbohydrate, water soluble;90;g/kg DM;;Addition of rice straw or/and wheat bran on composition, ruminal degradability and voluntary intake of bamboo shoot shells silage fed to sheep
+Wheat;Wheat bran;Proximates;Cellulose;12;% DM;;ECN Phyllis 2
+Wheat;Wheat bran;Proximates;Cellulose;13.8;% DM;;ECN Phyllis 2
+Wheat;Wheat bran;Inorganics;Chloride;0.05;% d.b.;;2012FeedComp
+Wheat;Wheat bran;Inorganics;Copper;14;mg/kg;;Chemical composition, digestible protein and energy values of some alternative feedstuffs for pigs in Brazil
+Wheat;Wheat bran;Inorganics;Copper;13;mg/kg DM;;Feedipedia
+Wheat;Wheat bran;Proximates;Cysteine;4;g/kg;;Chemical composition, digestible protein and energy values of some alternative feedstuffs for pigs in Brazil
+Wheat;Wheat bran;Proximates;Cystine;2.1;% protein;;Feedipedia
+Wheat;Wheat bran;Proximates;Dry Matter;846;g/kg FM;;Addition of rice straw or/and wheat bran on composition, ruminal degradability and voluntary intake of bamboo shoot shells silage fed to sheep
+Wheat;Wheat bran;Proximates;Dry Matter;878;g/kg FM;;Chemical composition, digestible protein and energy values of some alternative feedstuffs for pigs in Brazil
+Wheat;Wheat bran;Proximates;Dry Matter;89;% wet weight;;2012FeedComp
+Wheat;Wheat bran;Proximates;Dry Matter;885;g/kg FM;;Online European Feedstock Atlas basis version
+Wheat;Wheat bran;Proximates;Dry Matter;87;% wet weight;;Feedipedia
+Wheat;Wheat bran;Proximates;Energy (net) for growth;44;Mcal/cwt. DM;;2012FeedComp
+Wheat;Wheat bran;Proximates;Energy (net) for lactation;71;Mcal/cwt. DM;;2012FeedComp
+Wheat;Wheat bran;Proximates;Energy (net) for maintenance;73;Mcal/cwt. DM;;2012FeedComp
+Wheat;Wheat bran;Proximates;Energy (Total Digestible Nutrients);70;% DM;;2012FeedComp
+Wheat;Wheat bran;Proximates;Energy digestibility, growing pig;57.1;%;;Feedipedia
+Wheat;Wheat bran;Proximates;Energy digestibility, rabbit;62.7;%;;Feedipedia
+Wheat;Wheat bran;Proximates;Energy digestibility, ruminants;71.4;%;;Feedipedia
+Wheat;Wheat bran;Proximates;Energy, apparent metabolisable, N corrected, broiler;7.4;MJ/kg DM;;Feedipedia
+Wheat;Wheat bran;Proximates;Energy, apparent metabolisable, N corrected, cockerel;7.8;MJ/kg DM;;Feedipedia
+Wheat;Wheat bran;Proximates;Energy, digestible;2642;kcal/kg;;Chemical composition, digestible protein and energy values of some alternative feedstuffs for pigs in Brazil
+Wheat;Wheat bran;Proximates;Energy, digestible, growing pig;10.8;MJ/kg DM;;Feedipedia
+Wheat;Wheat bran;Proximates;Energy, digestible, rabbit;11.9;MJ/kg DM;;Feedipedia
+Wheat;Wheat bran;Proximates;Energy, digestible, ruminants;13.5;MJ/kg DM;;Feedipedia
+Wheat;Wheat bran;Proximates;Energy, gross;18.9;MJ/kg DM;;Feedipedia
+Wheat;Wheat bran;Proximates;Energy, metabolisable;2405;kcal/kg;;Chemical composition, digestible protein and energy values of some alternative feedstuffs for pigs in Brazil
+Wheat;Wheat bran;Proximates;Energy, metabolisable, N corrected, growing pig;10.2;MJ/kg DM;;Feedipedia
+Wheat;Wheat bran;Proximates;Energy, metabolisable, N corrected, rabbit;11.2;MJ/kg DM;;Feedipedia
+Wheat;Wheat bran;Proximates;Energy, metabolisable, ruminants;11;MJ/kg DM;;Feedipedia
+Wheat;Wheat bran;Proximates;Energy, metabolisable, ruminants (gas production);13.5;MJ/kg DM;;Feedipedia
+Wheat;Wheat bran;Proximates;Energy, net;6.2;MJ/kg as fed, pigs;;Distillery feed by-products briefing
+Wheat;Wheat bran;Proximates;Energy, net, growing pig;7.2;MJ/kg DM;;Feedipedia

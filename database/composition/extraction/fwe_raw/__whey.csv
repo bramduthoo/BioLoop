@@ -1,0 +1,51 @@
+﻿Food name;Side stream;Component group;Component;Value;Unit;Description;Reference
+Cheese;Whey;Undesirable components;Aerobic count, total;780000;cfu/g;Milk;NOSHAN
+Cheese;Whey;Undesirable components;Aflatoxin M1;;µg/kg;Milk;NOSHAN
+Cheese;Whey;Proximates;Alanine;4.04;mg/g dry matter;Milk;NOSHAN
+Cheese;Whey;Proximates;Alanine;5.27;% D AA;Milk;NOSHAN
+Cheese;Whey;Inorganics;Aluminium;4.2;ppm d.b.;Milk;NOSHAN
+Cheese;Whey;Proximates;Amino acids, total;90.2;mg/g dry matter;Milk;NOSHAN
+Cheese;Whey;Inorganics;Antimony;0.5;ppm d.b.;Milk;NOSHAN
+Cheese;Whey;Proximates;Arginine;2.75;mg/g dry matter;Milk;NOSHAN
+Cheese;Whey;Inorganics;Arsenic;0.09;ppm d.b.;Milk;NOSHAN
+Cheese;Whey;Proximates;Ash;7.22;% DM;Milk;NOSHAN
+Cheese;Whey;Proximates;Aspartic acid;6.78;% D AA;Milk;NOSHAN
+Cheese;Whey;Proximates;Aspartic acid/Asparagine;9.26;mg/g dry matter;Milk;NOSHAN
+Cheese;Whey;Undesirable components;Aspergillus spp;0;cfu/25g;Milk;NOSHAN
+Cheese;Whey;Inorganics;Barium;;ppm d.b.;Milk;NOSHAN
+Cheese;Whey;Inorganics;Beryllium;;ppm .d.b;Milk;NOSHAN
+Cheese;Whey;Inorganics;Bismuth;0.12;ppm d.b.;Milk;NOSHAN
+Cheese;Whey;Inorganics;Cadmium;;ppm d.b.;Milk;NOSHAN
+Cheese;Whey;Inorganics;Caesium;;ppm d.b.;Milk;NOSHAN
+Cheese;Whey;Inorganics;Calcium;6785;ppm d.b.;Milk;NOSHAN
+Cheese;Whey;Inorganics;Carbon;46.28;% d.b.;Milk;NOSHAN
+Cheese;Whey;Inorganics;Carbon, fixed;9.98;% d.b.;Milk;NOSHAN
+Cheese;Whey;Proximates;Casein, alfa-S1;43;%;Milk;NOSHAN
+Cheese;Whey;Proximates;Casein, beta;12;%;Milk;NOSHAN
+Cheese;Whey;Waste compounds;Chemical oxygen demand, insoluble;13000;mg/l;Cheese;Amelioration of lactic acid production from cheese whey using micro-aeration
+Cheese;Whey;Waste compounds;Chemical oxygen demand, insoluble;;%;Cheese;Amelioration of lactic acid production from cheese whey using micro-aeration
+Cheese;Whey;Waste compounds;Chemical oxygen demand, soluble;68050;mg/l;Cheese;Amelioration of lactic acid production from cheese whey using micro-aeration
+Cheese;Whey;Waste compounds;Chemical oxygen demand, soluble;85;%;Cheese;Amelioration of lactic acid production from cheese whey using micro-aeration
+Cheese;Whey;Waste compounds;Chemical oxygen demand, total;81050;mg/l;Cheese;Amelioration of lactic acid production from cheese whey using micro-aeration
+Cheese;Whey;Inorganics;Chromium;;ppm d.b.;Milk;NOSHAN
+Cheese;Whey;Undesirable components;Clostridium perfringens;0;cfu/25g;Milk;NOSHAN
+Cheese;Whey;Inorganics;Cobalt;0.27;ppm d.b.;Milk;NOSHAN
+Cheese;Whey;Inorganics;Copper;0.2;ppm d.b.;Milk;NOSHAN
+Cheese;Whey;Proximates;Cysteine;4.39;mg/g dry matter;Milk;NOSHAN
+Cheese;Whey;Inorganics;Gallium;;ppm d.b.;Milk;NOSHAN
+Cheese;Whey;Inorganics;Germanium;;ppm d.b.;Milk;NOSHAN
+Cheese;Whey;Proximates;Glutamic acid;3.16;% D AA;Milk;NOSHAN
+Cheese;Whey;Proximates;Glutamic acid/Glutamine;15.16;mg/g dry matter;Milk;NOSHAN
+Cheese;Whey;Proximates;Glycine;1.1;mg/g dry matter;Milk;NOSHAN
+Cheese;Whey;Proximates;Glycosylation-dependent cell adhesion molecule 1 (milk glyicoproteinPP3);23;%;Milk;NOSHAN
+Cheese;Whey;Inorganics;Gold;;ppm d.b.;Milk;NOSHAN
+Cheese;Whey;Waste compounds;Heating value, high;17.21;MJ/kg d.b.;Milk;NOSHAN
+Cheese;Whey;Waste compounds;Heating value, low;15.56;MJ/kg d.b.;Milk;NOSHAN
+Cheese;Whey;Proximates;Histidine;1.85;mg/g dry matter;Milk;NOSHAN
+Cheese;Whey;Inorganics;Hydrogen;7.21;% d.b.;Milk;NOSHAN
+Cheese;Whey;Inorganics;Indium;;ppm d.b.;Milk;NOSHAN
+Cheese;Whey;Inorganics;Iron;;ppm d.b.;Milk;NOSHAN
+Cheese;Whey;Proximates;Isoleucine;5.26;mg/g dry matter;Milk;NOSHAN
+Cheese;Whey;Proximates;Lactoglobulin, beta;22;%;Milk;NOSHAN
+Cheese;Whey;Proximates;Lactose;5;g/100g;Cheese;Amelioration of lactic acid production from cheese whey using micro-aeration
+Cheese;Whey;Inorganics;Lead;0.14;ppm d.b.;Milk;NOSHAN

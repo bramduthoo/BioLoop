@@ -1,0 +1,51 @@
+﻿Food name;Side stream;Component group;Component;Value;Unit;Description;Reference
+Flax/linseed;Linseed meal;Proximates;Acid Detergent Fibre (ADF);15.7;% d.b.;Solvent extraction;Feedipedia
+Flax/linseed;Linseed meal;Proximates;Acid Detergent Fibre (ADF);17;% d.b.;Mech.Ext;2012FeedComp
+Flax/linseed;Linseed meal;Proximates;Acid Detergent Fibre (ADF);15.3;% d.b.;;Feedipedia
+Flax/linseed;Linseed meal;Proximates;Acid Detergent Fibre (ADF);18;% d.b.;Solv.Ext;2012FeedComp
+Flax/linseed;Linseed meal;Proximates;Alanine;4.7;% protein;;Feedipedia
+Flax/linseed;Linseed meal;Proximates;Arginine;9.6;% protein;;Feedipedia
+Flax/linseed;Linseed meal;Proximates;Ash;6.3;% DM;;Feedipedia
+Flax/linseed;Linseed meal;Proximates;Ash;6;% DM;Solv.Ext;2012FeedComp
+Flax/linseed;Linseed meal;Proximates;Ash;6.4;% DM;Solvent extraction;Feedipedia
+Flax/linseed;Linseed meal;Proximates;Ash;6;% DM;Mech.Ext;2012FeedComp
+Flax/linseed;Linseed meal;Proximates;Aspartic acid;9.4;% protein;;Feedipedia
+Flax/linseed;Linseed meal;Inorganics;Calcium;4.4;g/kg DM;Solvent extraction;Feedipedia
+Flax/linseed;Linseed meal;Inorganics;Calcium;0.42;% d.b.;Mech.Ext;2012FeedComp
+Flax/linseed;Linseed meal;Inorganics;Calcium;4.3;g/kg DM;;Feedipedia
+Flax/linseed;Linseed meal;Inorganics;Calcium;0.43;% d.b.;Solv.Ext;2012FeedComp
+Flax/linseed;Linseed meal;Inorganics;Chloride;0.04;% d.b.;Solv.Ext;2012FeedComp
+Flax/linseed;Linseed meal;Inorganics;Chloride;0.04;% d.b.;Mech.Ext;2012FeedComp
+Flax/linseed;Linseed meal;Inorganics;Copper;19;mg/kg DM;;Feedipedia
+Flax/linseed;Linseed meal;Proximates;Cystine;2;% protein;Solvent extraction;Feedipedia
+Flax/linseed;Linseed meal;Proximates;Cystine;1.8;% protein;;Feedipedia
+Flax/linseed;Linseed meal;Proximates;Dry Matter;91;% wet weight;Mech.Ext;2012FeedComp
+Flax/linseed;Linseed meal;Proximates;Dry Matter;87.6;% wet weight;Solvent extraction;Feedipedia
+Flax/linseed;Linseed meal;Proximates;Dry Matter;91;% wet weight;Solv.Ext;2012FeedComp
+Flax/linseed;Linseed meal;Proximates;Dry Matter;90.6;% wet weight;;Feedipedia
+Flax/linseed;Linseed meal;Proximates;Energy (net) for growth;59;Mcal/cwt. DM;Mech.Ext;2012FeedComp
+Flax/linseed;Linseed meal;Proximates;Energy (net) for growth;53;Mcal/cwt. DM;Solv.Ext;2012FeedComp
+Flax/linseed;Linseed meal;Proximates;Energy (net) for lactation;79;Mcal/cwt. DM;Solv.Ext;2012FeedComp
+Flax/linseed;Linseed meal;Proximates;Energy (net) for lactation;85;Mcal/cwt. DM;Mech.Ext;2012FeedComp
+Flax/linseed;Linseed meal;Proximates;Energy (Total Digestible Nutrients);82;% DM;Mech.Ext;2012FeedComp
+Flax/linseed;Linseed meal;Proximates;Energy (Total Digestible Nutrients);77;% DM;Solv.Ext;2012FeedComp
+Flax/linseed;Linseed meal;Proximates;Energy digestibility, growing pig;74.9;%;Solvent extraction;Feedipedia
+Flax/linseed;Linseed meal;Proximates;Energy digestibility, growing pig;76;%;;Feedipedia
+Flax/linseed;Linseed meal;Proximates;Energy digestibility, rabbit;72.3;%;;Feedipedia
+Flax/linseed;Linseed meal;Proximates;Energy digestibility, ruminants;78.1;%;;Feedipedia
+Flax/linseed;Linseed meal;Proximates;Energy digestibility, ruminants;77.4;%;Solvent extraction;Feedipedia
+Flax/linseed;Linseed meal;Proximates;Energy, apparent metabolisable, N corrected, cockerel;12.6;MJ/kg DM;;Feedipedia
+Flax/linseed;Linseed meal;Proximates;Energy, digestible, growing pig;14.5;MJ/kg DM;Solvent extraction;Feedipedia
+Flax/linseed;Linseed meal;Proximates;Energy, digestible, growing pig;15.7;MJ/kg DM;;Feedipedia
+Flax/linseed;Linseed meal;Proximates;Energy, digestible, rabbit;15;MJ/kg DM;;Feedipedia
+Flax/linseed;Linseed meal;Proximates;Energy, digestible, ruminants;16.2;MJ/kg DM;;Feedipedia
+Flax/linseed;Linseed meal;Proximates;Energy, digestible, ruminants;15;MJ/kg DM;Solvent extraction;Feedipedia
+Flax/linseed;Linseed meal;Proximates;Energy, gross;20.7;MJ/kg DM;;Feedipedia
+Flax/linseed;Linseed meal;Proximates;Energy, gross;19.4;MJ/kg DM;Solvent extraction;Feedipedia
+Flax/linseed;Linseed meal;Proximates;Energy, metabolisable, N corrected, growing pig;13.3;MJ/kg DM;Solvent extraction;Feedipedia
+Flax/linseed;Linseed meal;Proximates;Energy, metabolisable, N corrected, growing pig;14.3;MJ/kg DM;;Feedipedia
+Flax/linseed;Linseed meal;Proximates;Energy, metabolisable, ruminants;11.6;MJ/kg DM;Solvent extraction;Feedipedia
+Flax/linseed;Linseed meal;Proximates;Energy, metabolisable, ruminants;12.6;MJ/kg DM;;Feedipedia
+Flax/linseed;Linseed meal;Proximates;Energy, net, growing pig;8.2;MJ/kg DM;Solvent extraction;Feedipedia
+Flax/linseed;Linseed meal;Proximates;eNeutral Detergent Fibre;23;% d.b.;Solv.Ext;2012FeedComp
+Flax/linseed;Linseed meal;Proximates;eNeutral Detergent Fibre;23;% d.b.;Mech.Ext;2012FeedComp

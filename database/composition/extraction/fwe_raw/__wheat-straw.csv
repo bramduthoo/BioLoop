@@ -1,0 +1,51 @@
+﻿Food name;Side stream;Component group;Component;Value;Unit;Description;Reference
+Wheat;Wheat straw;Proximates;Acid Detergent Fibre (ADF);55;% d.b.;Ammoniated;2012FeedComp
+Wheat;Wheat straw;Proximates;Acid Detergent Fibre (ADF);48.06;% DM;1218 fully ripe wheat straw samples collected in China;Agrocycle D1.5 Report on the main agricultural value chains in China and corresponding regulations
+Wheat;Wheat straw;Proximates;Acid Detergent Fibre (ADF);57;% d.b.;;2012FeedComp
+Wheat;Wheat straw;Proximates;Acid Detergent Fibre (ADF);50;% d.b.;;Feedipedia
+Wheat;Wheat straw;Proximates;Ash;9;% DM;Ammoniated;2012FeedComp
+Wheat;Wheat straw;Proximates;Ash;8;% DM;;2012FeedComp
+Wheat;Wheat straw;Proximates;Ash;8.95;% DM;1218 fully ripe wheat straw samples collected in China;Agrocycle D1.5 Report on the main agricultural value chains in China and corresponding regulations
+Wheat;Wheat straw;Proximates;Ash;6.7;% DM;;Feedipedia
+Wheat;Wheat straw;Waste compounds;Biogas;415;LN/kg volatile solids;;Online European Feedstock Atlas basis version
+Wheat;Wheat straw;Inorganics;Calcium;0.17;% d.b.;;2012FeedComp
+Wheat;Wheat straw;Inorganics;Calcium;0.15;% d.b.;Ammoniated;2012FeedComp
+Wheat;Wheat straw;Inorganics;Calcium;4.8;g/kg DM;;Feedipedia
+Wheat;Wheat straw;Proximates;Carbohydrate, water soluble;2.39;% DM;1218 fully ripe wheat straw samples collected in China;Agrocycle D1.5 Report on the main agricultural value chains in China and corresponding regulations
+Wheat;Wheat straw;Inorganics;Carbon;42.05;% DM;1218 fully ripe wheat straw samples collected in China;Agrocycle D1.5 Report on the main agricultural value chains in China and corresponding regulations
+Wheat;Wheat straw;Inorganics;Carbon, fixed;17.88;% DM;1218 fully ripe wheat straw samples collected in China;Agrocycle D1.5 Report on the main agricultural value chains in China and corresponding regulations
+Wheat;Wheat straw;Proximates;Cellulose;38.95;% DM;1218 fully ripe wheat straw samples collected in China;Agrocycle D1.5 Report on the main agricultural value chains in China and corresponding regulations
+Wheat;Wheat straw;Inorganics;Chloride;0.3;% d.b.;Ammoniated;2012FeedComp
+Wheat;Wheat straw;Inorganics;Chloride;0.32;% d.b.;;2012FeedComp
+Wheat;Wheat straw;Inorganics;Copper;4;mg/kg DM;;Feedipedia
+Wheat;Wheat straw;Proximates;Dry Matter;85;% wet weight;Ammoniated;2012FeedComp
+Wheat;Wheat straw;Proximates;Dry Matter;91;% wet weight;;Feedipedia
+Wheat;Wheat straw;Proximates;Dry Matter;860;g/kg FM;;Online European Feedstock Atlas basis version
+Wheat;Wheat straw;Proximates;Dry Matter;91;% wet weight;;2012FeedComp
+Wheat;Wheat straw;Proximates;Dry Matter;94.61;%;1218 fully ripe wheat straw samples collected in China;Agrocycle D1.5 Report on the main agricultural value chains in China and corresponding regulations
+Wheat;Wheat straw;Proximates;Dry Matter;90.2;% wet weight;;Cropgen database
+Wheat;Wheat straw;Proximates;Energy (net) for growth;0;Mcal/cwt. DM;;2012FeedComp
+Wheat;Wheat straw;Proximates;Energy (net) for growth;12;Mcal/cwt. DM;Ammoniated;2012FeedComp
+Wheat;Wheat straw;Proximates;Energy (net) for lactation;41;Mcal/cwt. DM;;2012FeedComp
+Wheat;Wheat straw;Proximates;Energy (net) for lactation;49;Mcal/cwt. DM;Ammoniated;2012FeedComp
+Wheat;Wheat straw;Proximates;Energy (net) for maintenance;50;Mcal/cwt. DM;Ammoniated;2012FeedComp
+Wheat;Wheat straw;Proximates;Energy (net) for maintenance;44;Mcal/cwt. DM;;2012FeedComp
+Wheat;Wheat straw;Proximates;Energy (Total Digestible Nutrients);50;% DM;Ammoniated;2012FeedComp
+Wheat;Wheat straw;Proximates;Energy (Total Digestible Nutrients);43;% DM;;2012FeedComp
+Wheat;Wheat straw;Proximates;Energy digestibility, growing pig;12.3;%;;Feedipedia
+Wheat;Wheat straw;Proximates;Energy digestibility, rabbit;18.8;%;;Feedipedia
+Wheat;Wheat straw;Proximates;Energy digestibility, ruminants;45.2;%;;Feedipedia
+Wheat;Wheat straw;Proximates;Energy, digestible, growing pig;2.3;MJ/kg DM;;Feedipedia
+Wheat;Wheat straw;Proximates;Energy, digestible, rabbit;3.5;MJ/kg DM;;Feedipedia
+Wheat;Wheat straw;Proximates;Energy, digestible, ruminants;8.3;MJ/kg DM;;Feedipedia
+Wheat;Wheat straw;Proximates;Energy, gross;18.5;MJ/kg DM;;Feedipedia
+Wheat;Wheat straw;Proximates;Energy, metabolisable, N corrected, growing pig;2;MJ/kg DM;;Feedipedia
+Wheat;Wheat straw;Proximates;Energy, metabolisable, N corrected, rabbit;3.3;MJ/kg DM;;Feedipedia
+Wheat;Wheat straw;Proximates;Energy, metabolisable, ruminants;6.8;MJ/kg DM;;Feedipedia
+Wheat;Wheat straw;Proximates;Energy, metabolisable, ruminants (gas production);5;MJ/kg DM;;Feedipedia
+Wheat;Wheat straw;Proximates;Energy, net, growing pig;1.1;MJ/kg DM;;Feedipedia
+Wheat;Wheat straw;Proximates;eNeutral Detergent Fibre;98;% d.b.;;2012FeedComp
+Wheat;Wheat straw;Proximates;eNeutral Detergent Fibre;98;% d.b.;Ammoniated;2012FeedComp
+Wheat;Wheat straw;Proximates;Fat, crude;1.8;% DM;;2012FeedComp
+Wheat;Wheat straw;Proximates;Fat, crude;1.4;% DM;;Feedipedia
+Wheat;Wheat straw;Proximates;Fat, crude;1.5;% DM;Ammoniated;2012FeedComp
