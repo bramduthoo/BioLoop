@@ -42,7 +42,7 @@ FALLBACK = Path(r"C:\Users\bduthoo\AppData\Local\Temp\claude"
 
 # CVB column label -> (parameter, unit, basis, method, note)
 WEENDE = {
-    "DS":    ("dry_matter", "g/kg", "fresh", "", "CVB gives dry matter per kg PRODUCT"),
+    "DS":    ("dry_matter", "g/kg", "fresh", "", "CVB gives dry matter per kg product"),
     "RAS":   ("ash", "g/kg", "dry", "", ""),
     "RE":    ("crude_protein", "g/kg", "dry", "", "CVB's RE, nitrogen times 6,25"),
     "RVET":  ("fat_total", "g/kg", "dry", "ee-diethyl", "CVB's RVET"),
@@ -95,13 +95,26 @@ def open_pdf():
     return pdfplumber.open(path)
 
 
-def parse_sheet(text: str) -> tuple[str, list[tuple[str, str, str]]]:
-    """-> (product title, [(label, mean, sd), ...]) for the blocks we take."""
+def parse_sheet(text: str) -> tuple[str, list[tuple[str, str, str, str]]]:
+    """-> (product title, [(label, mean, sd, basis), ...]) for the blocks we take.
+
+    THE BASIS IS NOT CONSTANT ACROSS SHEETS, and reading it off each block header is the
+    whole reason this function exists. CVB heads a block either `(g/kg DS)` or plain
+    `(g/kg)`: the first is per kg DRY MATTER, the second per kg PRODUCT. Page 301
+    (raapzaadschroot) is the second kind, and there RAS + RE + RVET + RC + OK = 882 g/kg,
+    which is exactly its own DS figure -- the Weende partition closing on the product
+    rather than on 1000. An earlier version assumed `dry` everywhere, and the
+    Weende-closure check in `qc_values.py` is what caught it.
+    """
     lines = [l.rstrip() for l in text.split("\n")]
     title = lines[0].strip() if lines else ""
-    out: list[tuple[str, str, str]] = []
+    out: list[tuple[str, str, str, str]] = []
+    basis = "dry"
     i = 0
     while i < len(lines) - 1:
+        low = lines[i].lower().replace(" ", "")
+        if "(g/kg" in low or "(mg/kg" in low:
+            basis = "dry" if "ds)" in low else "fresh"
         head = lines[i].split()
         # a header line is a run of known labels; the next line starts with gem.
         if head and lines[i + 1].startswith("gem."):
@@ -111,7 +124,7 @@ def parse_sheet(text: str) -> tuple[str, list[tuple[str, str, str]]]:
                 for j, label in enumerate(head):
                     v = vals[j] if j < len(vals) else "-"
                     sd = sds[j] if j < len(sds) else "-"
-                    out.append((label, v, sd))
+                    out.append((label, v, sd, basis))
             i += 2
             # CVB repeats the amino-acid and fatty-acid blocks lower down; stop there
             if "Verteringscoefficient" in text[:text.find(lines[i])] if lines[i:] else False:
@@ -130,16 +143,20 @@ def emit() -> None:
             cut = text.find("Verteringscoefficient")
             head_text = text[:cut] if cut > 0 else text
             _, cells = parse_sheet(head_text)
-            for label, val, sd in cells:
+            for label, val, sd, sheet_basis in cells:
                 m = WEENDE.get(label) or None
                 if m:
-                    param, unit, basis, method, note = m
+                    param, unit, _, method, note = m
                 elif label in MINERALS:
-                    param, unit = MINERALS[label]; basis, method, note = "dry", "", ""
+                    param, unit = MINERALS[label]; method, note = "", ""
                 elif label in TRACE:
-                    param, unit = TRACE[label]; basis, method, note = "dry", "", ""
+                    param, unit = TRACE[label]; method, note = "", ""
                 else:
                     continue
+                basis = sheet_basis
+                if param == "dry_matter":
+                    # dry matter is a fraction OF the product, whatever the block header says
+                    basis, note = "fresh", "CVB gives dry matter per kg product"
                 if val in ("-", "", None):
                     continue
                 rows.append(dict(

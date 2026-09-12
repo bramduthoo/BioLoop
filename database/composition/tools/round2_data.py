@@ -942,7 +942,12 @@ def expand(code: str, item: dict) -> dict:
             rows.append(dict(
                 stream_code=code, parameter_code=param, value_type="point",
                 value_num=avg, value_min=vmin, value_max=vmax, sd=sd, n_samples=n,
-                unit_code=unit, basis_code=basis, method_code="",
+                unit_code=unit,
+                # Dry matter is a fraction OF THE PRODUCT. The Feedipedia tables are headed
+                # "% DM" throughout while their dry-matter row is "% as fed"; carrying the
+                # table's basis onto that one row made it circular. qc_values.py caught it.
+                basis_code="fresh" if param == "dry_matter" else basis,
+                method_code="",
                 value_origin="predicted" if pred else "measured",
                 source_key=src, source_ref=ref, year="", reported_label="",
                 variant=variant, restatement="no", flag=item.get("flag", ""),

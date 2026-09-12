@@ -28,7 +28,7 @@
    "sd": "1",
    "n_samples": "",
    "unit_code": "%",
-   "basis_code": "dry",
+   "basis_code": "fresh",
    "method_code": "",
    "value_origin": "measured",
    "source_key": "feedtables-inrae-cirad-afz-fao",

@@ -45,6 +45,17 @@ CROSSWALK = ROOT / "crosswalks" / "fwe_components.csv"
 # sources this harvest already reads directly -- their rows here are duplicates
 ALREADY_HELD = {"feedipedia", "ecn phyllis 2", "ecn phyllis2", "phyllis"}
 
+# FoodWasteEXplorer's Description column sometimes names a TREATMENT rather than a
+# variety or an origin. Ammoniated wheat straw has had its nitrogen deliberately raised
+# and its fibre opened up; fermented potato peel has had its sugars eaten. Those are
+# processed materials, not the stream, and mixing them in is the same error as using
+# rendered meal for a wet slaughter stream. They are kept -- a treated figure is still a
+# measurement of something -- but every such row carries a flag, so the review sees it
+# and the spread check can explain itself.
+TREATMENT = re.compile(
+    r"\b(ammoniat|ammonia|fermented|ensiled|silage|treated|urea|alkali|steam[- ]explod|"
+    r"extruded|autoclav|irradiat|hydrolys)", re.I)
+
 # component -> (parameter, method, note). Unit and basis come from the unit map.
 TAKE: dict[str, tuple[str, str, str]] = {
     "Dry Matter": ("dry_matter", "", ""),
@@ -261,7 +272,7 @@ def emit_rows() -> None:
     for r in csv.DictReader(CROSSWALK.open(encoding="utf-8-sig"), delimiter=";"):
         cw[(r["fwe_component"], r["fwe_unit"])] = r
 
-    rows, dropped_dup, unmapped_files, skipped, empty = [], 0, set(), 0, 0
+    rows, dropped_dup, unmapped_files, skipped, empty, ranges, n_treated = [], 0, set(), 0, 0, 0, 0
     for f in sorted(RAW.glob("*.csv")):
         code = STREAM_MAP.get(f.stem)
         if not code:
@@ -279,19 +290,36 @@ def emit_rows() -> None:
             # the site prints an empty Value on a handful of rows; a point measurement
             # with no number is not a measurement, and the schema's value_shape CHECK
             # would refuse it. Dropped and counted rather than stored as a blank.
-            if not (r.get("Value") or "").strip():
+            raw = (r.get("Value") or "").strip()
+            if not raw:
                 empty += 1
                 continue
+            # The site prints a RANGE in the value cell on some rows ("62.2-111"). That is a
+            # range measurement, not an unparsable point -- the schema has value_type for
+            # exactly this, and storing it as a point would have stored the string.
+            rng = re.fullmatch(r"\s*([\d.,]+)\s*[-\u2013]\s*([\d.,]+)\s*", raw)
+            vtype, vnum, vmin, vmax = "point", raw, "", ""
+            if rng:
+                vtype, vnum, vmin, vmax = "range", "", rng.group(1), rng.group(2)
+                ranges += 1
             desc = (r.get("Description") or "").strip()
+            treated = bool(TREATMENT.search(desc))
+            if treated:
+                n_treated += 1
             rows.append(dict(
-                stream_code=code, parameter_code=m["parameter_code"], value_type="point",
-                value_num=r["Value"], value_min="", value_max="", sd="", n_samples="",
+                stream_code=code, parameter_code=m["parameter_code"], value_type=vtype,
+                value_num=vnum, value_min=vmin, value_max=vmax, sd="", n_samples="",
                 unit_code=m["unit_code"], basis_code=m["basis_code"],
                 method_code=m["method_code"], value_origin="measured",
                 source_key="foodwasteexplorer-eurofir", source_ref=f"FoodWasteEXplorer: {ref}",
                 year="", reported_label=f"{r['Side stream']} / {r['Component']}",
                 variant=r["Side stream"] + (f" - {desc}" if desc else ""),
-                restatement="no", flag="", transcription="machine", DECISION="",
+                restatement="no",
+                flag=(f"TREATED MATERIAL, not the untreated stream: the source describes this "
+                      f"sample as '{desc}'. A treatment changes exactly the fractions a "
+                      f"valorisation route cares about, so this row is comparable with other "
+                      f"treated samples and not with the raw stream." if treated else ""),
+                transcription="machine", DECISION="",
                 notes=" ".join(x for x in (m["reason"], desc) if x),
             ))
 
@@ -309,6 +337,8 @@ def emit_rows() -> None:
     print(f"  {dropped_dup} rows dropped as duplicates of Feedipedia / ECN Phyllis 2")
     print(f"  {skipped} rows skipped by the crosswalk")
     print(f"  {empty} rows dropped for an empty Value cell")
+    print(f"  {ranges} rows read as a RANGE rather than a point")
+    print(f"  {n_treated} rows flagged as a TREATED material")
     if unmapped_files:
         print(f"  harvests not mapped to a target: {sorted(unmapped_files)}")
     for c, n in sorted(per.items(), key=lambda kv: -kv[1]):
