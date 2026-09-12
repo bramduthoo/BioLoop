@@ -1,0 +1,423 @@
+<title>BioMobi Compositiedekking</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+:root{
+  --ground:#F6F8F4; --surface:#FFFFFF; --surface-2:#EFF2EC;
+  --ink:#1A201B; --ink-2:#4A544B; --muted:#78836F;
+  --line:#DCE2D6; --line-2:#C6CFBE;
+  --accent:#2B5F8A; --accent-soft:#E3EDF5; --accent-ink:#1E4666;
+
+  /* chart surface + roles (dataviz reference instance) */
+  --viz-surface:#FFFFFF;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --s5:#e87ba4;
+  --seq-0:#EFF2EC; --seq-1:#cde2fb; --seq-2:#9ec5f4; --seq-3:#6da7ec;
+  --seq-4:#3987e5; --seq-5:#256abf; --seq-6:#104281;
+  --good:#0ca30c; --warning:#fab219; --serious:#ec835a; --critical:#d03b3b;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#141814; --surface:#1B211C; --surface-2:#222922;
+    --ink:#E8EDE6; --ink-2:#B6C0B4; --muted:#909A8C;
+    --line:#2E362E; --line-2:#3C463C;
+    --accent:#7BB3DD; --accent-soft:#1D2C38; --accent-ink:#A9CDE8;
+    --viz-surface:#1B211C;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181;
+    --seq-0:#222922; --seq-1:#184f95; --seq-2:#1c5cab; --seq-3:#256abf;
+    --seq-4:#2a78d6; --seq-5:#5598e7; --seq-6:#9ec5f4;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#141814; --surface:#1B211C; --surface-2:#222922;
+  --ink:#E8EDE6; --ink-2:#B6C0B4; --muted:#909A8C;
+  --line:#2E362E; --line-2:#3C463C;
+  --accent:#7BB3DD; --accent-soft:#1D2C38; --accent-ink:#A9CDE8;
+  --viz-surface:#1B211C;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181;
+  --seq-0:#222922; --seq-1:#184f95; --seq-2:#1c5cab; --seq-3:#256abf;
+  --seq-4:#2a78d6; --seq-5:#5598e7; --seq-6:#9ec5f4;
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--ground); color:var(--ink);
+  font-family:"Source Sans 3",ui-sans-serif,system-ui,sans-serif; font-size:15px; line-height:1.55}
+h1,h2,h3{font-family:Archivo,ui-sans-serif,system-ui,sans-serif; text-wrap:balance; letter-spacing:-.01em}
+code,.mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+.num{font-variant-numeric:tabular-nums}
+.wrap{max-width:1400px; margin:0 auto; padding:0 24px 80px}
+header.top{border-bottom:1px solid var(--line); background:var(--surface); padding:30px 0 24px; margin-bottom:28px}
+.eyebrow{font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--muted); margin:0 0 8px}
+h1{font-size:30px; font-weight:700; margin:0 0 10px}
+.lede{max-width:70ch; color:var(--ink-2); margin:0; font-size:16.5px}
+h2{font-size:20px; margin:44px 0 6px; padding-top:22px; border-top:1px solid var(--line)}
+h2 .n{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--muted); font-weight:400; margin-left:8px}
+.sub{color:var(--ink-2); margin:0 0 18px; max-width:72ch; font-size:14.5px}
+
+.tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1px;
+  background:var(--line); border:1px solid var(--line); border-radius:8px; overflow:hidden; margin:24px 0 0}
+.tile{background:var(--surface); padding:14px 16px}
+.tile .k{font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted);
+  font-family:"IBM Plex Mono",monospace}
+.tile .v{font-family:Archivo,sans-serif; font-weight:700; font-size:26px; letter-spacing:-.02em;
+  margin-top:3px; font-variant-numeric:tabular-nums}
+.tile .v small{font-size:13px; font-weight:500; color:var(--muted)}
+
+.card{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:18px}
+.scroll{overflow-x:auto}
+
+/* ---- coverage matrix ---- */
+table.mx{border-collapse:separate; border-spacing:2px; font-size:12px}
+table.mx th{font-weight:500; color:var(--ink-2); font-size:11.5px; text-align:left; padding:2px 6px}
+table.mx th.rot{height:132px; width:26px; padding:0; vertical-align:bottom}
+table.mx th.rot > div{writing-mode:vertical-rl; transform:rotate(180deg); font-family:"IBM Plex Mono",monospace;
+  font-size:11px; white-space:nowrap; padding-bottom:6px; color:var(--ink-2)}
+table.mx th.rot > div .t{color:var(--muted); font-size:10px}
+table.mx td.c{width:26px; height:22px; border-radius:3px; text-align:center;
+  font-family:"IBM Plex Mono",monospace; font-size:10.5px; font-variant-numeric:tabular-nums}
+table.mx th.p{font-family:"IBM Plex Mono",monospace; white-space:nowrap; position:sticky; left:0;
+  background:var(--surface); z-index:1; padding-right:10px}
+table.mx tr.famhead th{font-family:Archivo,sans-serif; font-weight:700; font-size:11px;
+  letter-spacing:.06em; text-transform:uppercase; color:var(--muted); padding-top:12px}
+.legend{display:flex; gap:10px; align-items:center; font-size:12px; color:var(--ink-2); margin:14px 0 0;
+  flex-wrap:wrap}
+.legend .sw{width:20px; height:14px; border-radius:3px; display:inline-block; vertical-align:-2px; margin-right:4px}
+
+/* ---- bars ---- */
+.bars{display:grid; gap:3px}
+.barrow{display:grid; grid-template-columns:clamp(150px,17vw,230px) 1fr auto; gap:10px; align-items:center; font-size:13px}
+.barrow .lab{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink-2); white-space:nowrap;
+  overflow:hidden; text-overflow:ellipsis}
+.barrow .track{background:var(--surface-2); border-radius:4px; height:15px; position:relative}
+.barrow .fill{height:15px; border-radius:4px; background:var(--s1)}
+.barrow .val{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink-2);
+  font-variant-numeric:tabular-nums; min-width:56px; text-align:right}
+.barrow.thin .fill{background:var(--s2)}
+.barrow.none .fill{background:var(--critical)}
+
+/* ---- tables ---- */
+.tw{overflow-x:auto; border:1px solid var(--line); border-radius:8px; background:var(--surface)}
+table.t{border-collapse:collapse; width:100%; font-size:13.5px; min-width:620px}
+table.t th{text-align:left; font-family:"IBM Plex Mono",monospace; font-weight:500; font-size:10.5px;
+  letter-spacing:.09em; text-transform:uppercase; color:var(--muted); padding:9px 12px;
+  background:var(--surface-2); border-bottom:1px solid var(--line-2); white-space:nowrap}
+table.t td{padding:8px 12px; border-bottom:1px solid var(--line); vertical-align:top}
+table.t tr:last-child td{border-bottom:0}
+td.m,th.m{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; white-space:nowrap}
+td.r{text-align:right}
+.pill{display:inline-block; font-size:10.5px; letter-spacing:.05em; text-transform:uppercase;
+  font-family:"IBM Plex Mono",monospace; padding:2px 7px; border-radius:4px; white-space:nowrap}
+.pill.good{background:#0ca30c22; color:var(--good)}
+.pill.crit{background:#d03b3b22; color:var(--critical)}
+.pill.warn{background:#fab21933; color:#8a6200}
+:root[data-theme="dark"] .pill.warn, :root:not([data-theme="light"]) .pill.warn{color:var(--warning)}
+.note{border-left:3px solid var(--accent); background:var(--accent-soft); padding:12px 15px;
+  border-radius:0 6px 6px 0; margin:16px 0; font-size:14.5px}
+.note b{color:var(--accent-ink)}
+ul{max-width:72ch} li{margin-bottom:6px}
+.foot{margin-top:44px; border-top:1px solid var(--line); padding-top:18px; font-size:13px; color:var(--ink-2)}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">BioMobi &middot; fase 3 &middot; verkennende analyse &middot; 2026-09-12</p>
+    <h1>Waar de compositiedata staat, en waar ze ontbreekt</h1>
+    <p class="lede">Alles wat de oogst tot nu toe heeft opgeleverd, tegen de <strong>19 objecten binnen de
+      80%-lijn</strong>. Drie vragen: welke parameters bestaan er en hoeveel stromen dragen ze, hoeveel parameters
+      draagt elke stroom, en waar is het gat een <i>oogstgat</i> in plaats van een eigenschap van het materiaal.
+      <strong>Niets hiervan staat in de database.</strong></p>
+    <div class="tiles" id="tiles"></div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <h2>De bronnen<span class="n" id="srcn"></span></h2>
+  <p class="sub">Zeven bronnen, vier soorten. De <b>soort</b> staat erbij omdat hij de leesregel bepaalt: een
+    compilatie is geen primaire meting, en een instituuttabel met opgegeven steekproefaantallen is iets anders dan
+    een enkele studie.</p>
+  <div class="tw"><table class="t" id="srctab"></table></div>
+
+  <h2>Dekkingsmatrix<span class="n" id="mxn"></span></h2>
+  <p class="sub">Rijen zijn parameters, gegroepeerd per INFOODS-componentfamilie; kolommen zijn de 19 objecten,
+    gesorteerd op tonnage. Een cel telt het aantal waarden. <b>Dit is het beeld waar de rest uit volgt:</b> een
+    dichte band bovenaan is wat elke bron meet, een lege kolom is een stroom die niemand gemeten heeft, en een
+    lege cel midden in een dichte rij is werk dat nog te doen valt.</p>
+  <div class="card scroll"><table class="mx" id="matrix"></table></div>
+  <div class="legend" id="mxlegend"></div>
+
+  <h2>Bereik per parameter<span class="n" id="parn"></span></h2>
+  <p class="sub">Hoeveel van de 19 objecten een waarde dragen. Een parameter met &eacute;&eacute;n stroom erachter is
+    nog geen kolom van de compositievector &mdash; het is de gewoonte van &eacute;&eacute;n bron. De
+    <b>kern</b> hieronder is wat minstens de helft van de gedekte stromen draagt; dat is de lat waartegen een gat
+    een gat is.</p>
+  <div class="card"><div class="bars" id="parbars"></div></div>
+
+  <h2>Diepte per stroom<span class="n" id="stn"></span></h2>
+  <p class="sub">Aantal parameters per object, met het tonnage ernaast. <b>Waar die twee uit elkaar lopen, ligt het
+    werk:</b> een dunne vector op een grote stroom kost het meest aan bruikbaarheid.</p>
+  <div class="card"><div class="bars" id="stbars"></div></div>
+
+  <h2>Kwaliteitscontrole<span class="n" id="qcn"></span></h2>
+  <p class="sub">Elke waarde is door drie passes gehaald voordat deze analyse gemaakt werd.</p>
+  <div id="qcbox"></div>
+
+  <h2>Waar het werk ligt</h2>
+  <div id="work"></div>
+
+  <div class="foot" id="foot"></div>
+</div>
+
+<script>
+const D = __DATA__;
+const eda = D.eda, qc = D.qc;
+const $ = s => document.querySelector(s);
+const el = (t, c, x) => { const n = document.createElement(t); if (c) n.className = c; if (x != null) n.textContent = x; return n; };
+const nl = n => Number(n).toLocaleString('nl-BE');
+
+/* ---------- tiles ---------- */
+(() => {
+  const pct = Math.round(100 * eda.tonnes_covered / eda.tonnes_total);
+  const t = [
+    ['Waarden', nl(eda.n_values), ''],
+    ['Parameters gebruikt', eda.n_parameters_used, `van ${eda.n_parameters_registered}`],
+    ['Objecten gedekt', eda.n_streams_with_data, `van ${eda.n_streams_in_scope}`],
+    ['Massa gedekt', pct + '%', `${nl(Math.round(eda.tonnes_covered/1000))} kt/jr`],
+    ['Bronnen', eda.sources.filter(s => s.values).length, ''],
+    ['Kernparameters', eda.core.length, 'in ≥ helft']
+  ];
+  t.forEach(([k, v, s]) => {
+    const d = el('div', 'tile');
+    d.append(el('div', 'k', k));
+    const val = el('div', 'v', v);
+    if (s) { const sm = el('small'); sm.textContent = ' ' + s; val.append(sm); }
+    d.append(val); $('#tiles').append(d);
+  });
+})();
+
+/* ---------- sources ---------- */
+(() => {
+  const rows = eda.sources.slice().sort((a, b) => b.values - a.values);
+  $('#srcn').textContent = `${rows.filter(r => r.values).length} met waarden`;
+  const tb = $('#srctab');
+  const h = el('tr'); ['Bron', 'Soort', 'Land', 'Jaar', 'Waarden'].forEach((x, i) => {
+    const th = el('th', i === 4 ? 'm' : '', x); tb.append; h.append(th);
+  });
+  tb.append(el('thead')).append; tb.querySelector('thead') || tb.append(document.createElement('thead'));
+  tb.querySelector('thead').append(h);
+  const body = el('tbody');
+  rows.forEach(r => {
+    const tr = el('tr');
+    tr.append(el('td', 'm', r.key));
+    tr.append(el('td', '', r.kind || '—'));
+    tr.append(el('td', 'm', r.country || '—'));
+    tr.append(el('td', 'm', r.year || '—'));
+    const v = el('td', 'm r', nl(r.values)); tr.append(v);
+    body.append(tr);
+  });
+  tb.append(body);
+})();
+
+/* ---------- coverage matrix ---------- */
+(() => {
+  const pars = eda.parameters.filter(p => p.values);
+  const streams = eda.streams;
+  $('#mxn').textContent = `${pars.length} × ${streams.length}`;
+  const counts = {};
+  streams.forEach(s => s.parameter_list.forEach(p => { counts[p + '|' + s.code] = 1; }));
+  // value counts
+  pars.forEach(p => p.stream_list.forEach(s => { counts[p.code + '|' + s] = 1; }));
+
+  const tbl = $('#matrix');
+  const thead = el('thead'); const hr = el('tr');
+  hr.append(el('th', 'p', ''));
+  streams.forEach(s => {
+    const th = el('th', 'rot');
+    const dv = el('div');
+    dv.append(document.createTextNode(s.code));
+    const t = el('span', 't', '  ' + nl(Math.round(s.tonnes / 1000)) + ' kt');
+    dv.append(t); th.append(dv); hr.append(th);
+  });
+  hr.append(el('th', 'p', ''));
+  thead.append(hr); tbl.append(thead);
+
+  const body = el('tbody');
+  let fam = null;
+  pars.forEach(p => {
+    if (p.family !== fam) {
+      fam = p.family;
+      const tr = el('tr', 'famhead');
+      const th = el('th', 'p', fam); th.colSpan = streams.length + 2; tr.append(th); body.append(tr);
+    }
+    const tr = el('tr');
+    const th = el('th', 'p'); th.append(document.createTextNode(p.code));
+    tr.append(th);
+    streams.forEach(s => {
+      const has = p.stream_list.includes(s.code);
+      const td = el('td', 'c');
+      td.style.background = has ? 'var(--seq-4)' : 'var(--seq-0)';
+      if (has) { td.style.color = '#fff'; td.textContent = '•'; }
+      td.title = `${p.code} · ${s.code} · ${has ? 'gemeten' : 'geen waarde'}`;
+      tr.append(td);
+    });
+    const n = el('th', 'p'); n.style.position = 'static';
+    n.append(document.createTextNode(p.streams + '/' + streams.length));
+    tr.append(n);
+    body.append(tr);
+  });
+  tbl.append(body);
+
+  const lg = $('#mxlegend');
+  [['var(--seq-4)', 'minstens één waarde'], ['var(--seq-0)', 'geen waarde']].forEach(([c, t]) => {
+    const s = el('span');
+    const sw = el('span', 'sw'); sw.style.background = c; s.append(sw);
+    s.append(document.createTextNode(t)); lg.append(s);
+  });
+})();
+
+/* ---------- parameter reach ---------- */
+(() => {
+  const pars = eda.parameters.filter(p => p.values).slice(0, 60);
+  $('#parn').textContent = `${eda.parameters.filter(p => p.values).length} in gebruik`;
+  const max = Math.max(...pars.map(p => p.streams));
+  const box = $('#parbars');
+  let fam = null;
+  pars.forEach(p => {
+    if (p.family !== fam) {
+      fam = p.family;
+      const h = el('div'); h.style.cssText = 'font-family:Archivo,sans-serif;font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:14px 0 4px';
+      h.textContent = fam; box.append(h);
+    }
+    const r = el('div', 'barrow' + (eda.core.includes(p.code) ? '' : ' thin'));
+    r.append(el('div', 'lab', p.code));
+    const tr = el('div', 'track'); const f = el('div', 'fill');
+    f.style.width = Math.max(2, 100 * p.streams / max) + '%'; tr.append(f); r.append(tr);
+    r.append(el('div', 'val', `${p.streams} str · ${p.values} w`));
+    box.append(r);
+  });
+})();
+
+/* ---------- stream depth ---------- */
+(() => {
+  const st = eda.streams;
+  $('#stn').textContent = `${st.length} objecten`;
+  const max = Math.max(...st.map(s => s.parameters));
+  const box = $('#stbars');
+  st.forEach(s => {
+    const cls = s.parameters === 0 ? ' none' : (s.parameters < 20 ? ' thin' : '');
+    const r = el('div', 'barrow' + cls);
+    r.append(el('div', 'lab', s.code));
+    const tr = el('div', 'track'); const f = el('div', 'fill');
+    f.style.width = Math.max(1.5, 100 * s.parameters / max) + '%'; tr.append(f); r.append(tr);
+    r.append(el('div', 'val', `${s.parameters} par · ${nl(Math.round(s.tonnes / 1000))} kt`));
+    box.append(r);
+  });
+})();
+
+/* ---------- QC ---------- */
+(() => {
+  const causes = {};
+  qc.spreads.forEach(s => causes[s.cause] = (causes[s.cause] || 0) + 1);
+  $('#qcn').textContent = `${qc.spreads.length} spreidingen`;
+  const box = $('#qcbox');
+
+  const tw = el('div', 'tw'); const t = el('table', 't');
+  const th = el('thead'); const hr = el('tr');
+  ['Pass', 'Wat het toetst', 'Bevindingen'].forEach(x => hr.append(el('th', '', x)));
+  th.append(hr); t.append(th);
+  const tb = el('tbody');
+  const passes = [
+    ['1 · welgevormd', 'eenheid past bij de parameter, basis past bij de parameter, waarde is mogelijk en leesbaar', qc.wellformed],
+    ['2 · structurele identiteiten', 'Weende sluit op 100% DS of op de eigen droge stof · NDF ≥ ADF ≥ lignine · aminozuren sommeren op het eigen totaal en blijven onder ruw eiwit', qc.identities],
+  ];
+  passes.forEach(([a, b, n]) => {
+    const tr = el('tr');
+    tr.append(el('td', 'm', a));
+    tr.append(el('td', '', b));
+    const td = el('td');
+    const p = el('span', 'pill ' + (n ? 'crit' : 'good'), n ? n + ' bevindingen' : 'nul bevindingen');
+    td.append(p); tr.append(td); tb.append(tr);
+  });
+  const tr3 = el('tr');
+  tr3.append(el('td', 'm', '3 · spreiding'));
+  tr3.append(el('td', '', 'verschillen binnen één stroom en parameter, geclassificeerd naar oorzaak'));
+  const td3 = el('td');
+  Object.entries(causes).sort((a, b) => b[1] - a[1]).forEach(([c, n]) => {
+    const p = el('span', 'pill ' + (c === 'source' ? 'warn' : ''), `${c} ${n}`);
+    p.style.marginRight = '5px';
+    if (c !== 'source') { p.style.background = 'var(--surface-2)'; p.style.color = 'var(--muted)'; }
+    td3.append(p);
+  });
+  tr3.append(td3); tb.append(tr3);
+  t.append(tb); tw.append(t); box.append(tw);
+
+  const n = el('div', 'note');
+  n.innerHTML = '<b>Alleen de klasse <i>source</i> vraagt een menselijk oog.</b> ' +
+    'De andere vier verklaren zichzelf: <i>variant</i> is één bron met meerdere productklassen, ' +
+    '<i>method</i> is twee bepalingen van één analiet (CVB drukt zetmeel polarimetrisch én enzymatisch af, ' +
+    'en dat scheelt een factor acht), <i>trade-form</i> is droge stof over de handelsvormen die het object ' +
+    'bundelt, en <i>treatment</i> is een behandeld monster naast een onbehandeld — geammoniakeerd stro, ' +
+    'gefermenteerde schil.';
+  box.append(n);
+
+  const top = qc.spreads.filter(s => s.cause === 'source').slice(0, 12);
+  const tw2 = el('div', 'tw'); tw2.style.marginTop = '14px';
+  const t2 = el('table', 't');
+  const h2 = el('thead'); const hr2 = el('tr');
+  ['Stroom', 'Parameter', 'Bereik', 'Factor', 'Laag ↔ hoog'].forEach(x => hr2.append(el('th', '', x)));
+  h2.append(hr2); t2.append(h2);
+  const b2 = el('tbody');
+  top.forEach(s => {
+    const tr = el('tr');
+    tr.append(el('td', 'm', s.stream));
+    tr.append(el('td', 'm', s.parameter));
+    tr.append(el('td', 'm', `${s.value} ${s.unit} ${s.basis}`));
+    tr.append(el('td', 'm r', s.ratio + '×'));
+    const td = el('td'); td.style.fontSize = '12.5px'; td.style.color = 'var(--ink-2)';
+    td.append(el('div', '', s.low));
+    td.append(el('div', '', s.high));
+    tr.append(td); b2.append(tr);
+  });
+  t2.append(b2); tw2.append(t2); box.append(tw2);
+})();
+
+/* ---------- where the work is ---------- */
+(() => {
+  const box = $('#work');
+  const empty = eda.streams.filter(s => s.parameters === 0);
+  const thin = eda.streams.filter(s => s.parameters > 0 && s.parameters < 20);
+  const deep = eda.streams.filter(s => s.parameters >= 40);
+  const unused = eda.parameters.filter(p => !p.values);
+
+  const ul = el('ul');
+  const li = (h, t) => { const l = el('li'); l.innerHTML = `<b>${h}</b> ${t}`; ul.append(l); };
+
+  li(`${empty.length} objecten zonder enige waarde`,
+     `(${empty.map(s => s.code).join(', ')}) — samen ${nl(Math.round(empty.reduce((a, s) => a + s.tonnes, 0) / 1000))} kt/jr. ` +
+     `Elk om een andere reden, en maar één daarvan is een zoekprobleem.`);
+  li(`${thin.length} objecten met een dunne vector`,
+     `(${thin.map(s => `${s.code} — ${s.parameters} par, ${nl(Math.round(s.tonnes / 1000))} kt`).join('; ')}). ` +
+     `Dit is waar de volgende ronde het meeste oplevert: grote stromen met weinig achter zich.`);
+  li(`${deep.length} objecten zijn goed gedekt`,
+     `(${deep.map(s => s.code).join(', ')}) — 40 parameters of meer, uit drie of meer bronnen. ` +
+     `Daar is de vraag niet meer of er data is maar of ze klopt.`);
+  li(`${unused.length} geregistreerde parameters dragen nog geen waarde`,
+     `(<code>${unused.map(p => p.code).join('</code>, <code>')}</code>). ` +
+     `Dat is geen fout: de catalogus is met opzet ruimer dan de oogst, en een lege parameter kost niets. ` +
+     `Maar <code>ph</code>, <code>water_holding_capacity</code> en de fysische set zijn precies wat een ` +
+     `transport- en verwerkingslaag nodig heeft, en geen enkele bron in deze oogst meet ze.`);
+  box.append(ul);
+
+  const n = el('div', 'note');
+  n.innerHTML = '<b>De scherpste conclusie uit de matrix:</b> de dichte band is de Weende-analyse plus de ' +
+    'mineralen — wat een <i>voedertabel</i> meet. De lege banden zijn de fysische eigenschappen en de ' +
+    'bioactieven. BioMobi erft daarmee de vorm van de bronnen die bestaan, en dat is precies wat de ' +
+    'modellaag straks niet genoeg zal vinden: een transportlaag vraagt bulkdichtheid en deeltjesgrootte, ' +
+    'en die staan in één bron voor drie stromen.';
+  box.append(n);
+})();
+
+$('#foot').textContent =
+  'Gegenereerd uit database/composition/extraction/*.csv met tools/eda.py en tools/qc_values.py. ' +
+  'Een zuivere functie van de data: na een volgende oogstronde volstaat tools/build_analysis.py om dit beeld bij te werken.';
+</script>
