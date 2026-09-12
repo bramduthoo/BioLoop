@@ -16,3 +16,5 @@ starch-enzymatic;Starch by enzymatic assay;Enzymatic determination
 kjeldahl;Kjeldahl nitrogen;Wet digestion nitrogen determination
 dumas;Dumas combustion nitrogen;Combustion nitrogen determination
 prediction-equation;Predicted from a regression equation;NOT A MEASUREMENT. The value is the output of an equation fitted to other constituents. Record it on value_origin as predicted - this method row exists for the case where the source names the equation
+ash-dt-oxidising;Ash deformation temperature, oxidising conditions;Ash melting determined in an oxidising atmosphere. The reducing-atmosphere value differs and is a separate determination of the same analyte
+ash-dt-reducing;Ash deformation temperature, reducing conditions;Ash melting determined in a reducing atmosphere

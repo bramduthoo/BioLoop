@@ -64,3 +64,7 @@ tannins;Tannins;chemical;bioactive;g/kg;Condensed and hydrolysable tannins. Sour
 glucosinolates;Glucosinolates;chemical;bioactive;umol/g;Total glucosinolates. The characteristic secondary metabolite of brassica and of rapeseed meal, and a constraint on feed use - which is why it belongs in the catalogue rather than in prose
 selenium;Selenium (Se);chemical;minerals-trace;mg/kg;Selenium as element Se
 condensed_tannins;Condensed tannins;chemical;bioactive;g/kg;Condensed tannins (proanthocyanidins), usually as a catechin equivalent. A DIFFERENT FRACTION from total tannins, not another way of measuring them - so its own parameter
+ash_melting_dt;Ash deformation temperature (DT);chemical;ash-behaviour;degC;The first characteristic temperature of the ash melting sequence (deformation). Determined under oxidising or reducing conditions and the two differ - the condition is a METHOD, recorded on the measurement
+bale_density;Bale density;physical;physical-properties;kg/m3;Density of the material as baled. A different quantity from bulk density (loose) and from particle density - a baler changes it and the material does not
+particle_density;Particle density;physical;physical-properties;kg/m3;Density of an individual particle, excluding the void space between particles
+basic_density;Basic density;physical;physical-properties;kg/m3;Oven-dry mass divided by green volume
