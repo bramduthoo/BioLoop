@@ -175,8 +175,26 @@ const $ = s => document.querySelector(s);
 const el = (t, c, x) => { const n = document.createElement(t); if (c) n.className = c; if (x != null) n.textContent = x; return n; };
 const nl = n => Number(n).toLocaleString('nl-BE');
 
+/* Each block renders independently. An earlier version built one table head wrongly and
+   the resulting throw took every section after it down with it, so the page arrived
+   empty rather than partly wrong - the worst way for a generated page to fail. Now a
+   broken block says so in place and the rest still renders. */
+function section(name, fn) {
+  try { fn(); }
+  catch (e) {
+    const box = document.createElement('div');
+    box.className = 'note';
+    box.style.borderLeftColor = 'var(--critical)';
+    box.style.background = '#d03b3b18';
+    box.textContent = `Sectie “${name}” kon niet worden opgebouwd: ${e && e.message}. `
+      + `De rest van de pagina is niet beïnvloed.`;
+    (document.querySelector('.wrap') || document.body).append(box);
+    if (typeof console !== 'undefined') console.error(name, e);
+  }
+}
+
 /* ---------- tiles ---------- */
-(() => {
+section('tiles', () => {
   const pct = Math.round(100 * eda.tonnes_covered / eda.tonnes_total);
   const t = [
     ['Waarden', nl(eda.n_values), ''],
@@ -193,18 +211,20 @@ const nl = n => Number(n).toLocaleString('nl-BE');
     if (s) { const sm = el('small'); sm.textContent = ' ' + s; val.append(sm); }
     d.append(val); $('#tiles').append(d);
   });
-})();
+});
 
 /* ---------- sources ---------- */
-(() => {
+section('sources', () => {
   const rows = eda.sources.slice().sort((a, b) => b.values - a.values);
   $('#srcn').textContent = `${rows.filter(r => r.values).length} met waarden`;
   const tb = $('#srctab');
-  const h = el('tr'); ['Bron', 'Soort', 'Land', 'Jaar', 'Waarden'].forEach((x, i) => {
-    const th = el('th', i === 4 ? 'm' : '', x); tb.append; h.append(th);
+  const thead = el('thead');
+  const hr = el('tr');
+  ['Bron', 'Soort', 'Land', 'Jaar', 'Waarden'].forEach((x, i) => {
+    hr.append(el('th', i === 4 ? 'm' : '', x));
   });
-  tb.append(el('thead')).append; tb.querySelector('thead') || tb.append(document.createElement('thead'));
-  tb.querySelector('thead').append(h);
+  thead.append(hr);
+  tb.append(thead);
   const body = el('tbody');
   rows.forEach(r => {
     const tr = el('tr');
@@ -212,14 +232,14 @@ const nl = n => Number(n).toLocaleString('nl-BE');
     tr.append(el('td', '', r.kind || '—'));
     tr.append(el('td', 'm', r.country || '—'));
     tr.append(el('td', 'm', r.year || '—'));
-    const v = el('td', 'm r', nl(r.values)); tr.append(v);
+    tr.append(el('td', 'm r', nl(r.values)));
     body.append(tr);
   });
   tb.append(body);
-})();
+});
 
 /* ---------- coverage matrix ---------- */
-(() => {
+section('matrix', () => {
   const pars = eda.parameters.filter(p => p.values);
   const streams = eda.streams;
   $('#mxn').textContent = `${pars.length} × ${streams.length}`;
@@ -273,10 +293,10 @@ const nl = n => Number(n).toLocaleString('nl-BE');
     const sw = el('span', 'sw'); sw.style.background = c; s.append(sw);
     s.append(document.createTextNode(t)); lg.append(s);
   });
-})();
+});
 
 /* ---------- parameter reach ---------- */
-(() => {
+section('parameter reach', () => {
   const pars = eda.parameters.filter(p => p.values).slice(0, 60);
   $('#parn').textContent = `${eda.parameters.filter(p => p.values).length} in gebruik`;
   const max = Math.max(...pars.map(p => p.streams));
@@ -295,10 +315,10 @@ const nl = n => Number(n).toLocaleString('nl-BE');
     r.append(el('div', 'val', `${p.streams} str · ${p.values} w`));
     box.append(r);
   });
-})();
+});
 
 /* ---------- stream depth ---------- */
-(() => {
+section('stream depth', () => {
   const st = eda.streams;
   $('#stn').textContent = `${st.length} objecten`;
   const max = Math.max(...st.map(s => s.parameters));
@@ -312,10 +332,10 @@ const nl = n => Number(n).toLocaleString('nl-BE');
     r.append(el('div', 'val', `${s.parameters} par · ${nl(Math.round(s.tonnes / 1000))} kt`));
     box.append(r);
   });
-})();
+});
 
 /* ---------- QC ---------- */
-(() => {
+section('QC', () => {
   const causes = {};
   qc.spreads.forEach(s => causes[s.cause] = (causes[s.cause] || 0) + 1);
   $('#qcn').textContent = `${qc.spreads.length} spreidingen`;
@@ -379,10 +399,10 @@ const nl = n => Number(n).toLocaleString('nl-BE');
     tr.append(td); b2.append(tr);
   });
   t2.append(b2); tw2.append(t2); box.append(tw2);
-})();
+});
 
 /* ---------- where the work is ---------- */
-(() => {
+section('where the work is', () => {
   const box = $('#work');
   const empty = eda.streams.filter(s => s.parameters === 0);
   const thin = eda.streams.filter(s => s.parameters > 0 && s.parameters < 20);
@@ -415,7 +435,7 @@ const nl = n => Number(n).toLocaleString('nl-BE');
     'modellaag straks niet genoeg zal vinden: een transportlaag vraagt bulkdichtheid en deeltjesgrootte, ' +
     'en die staan in één bron voor drie stromen.';
   box.append(n);
-})();
+});
 
 $('#foot').textContent =
   'Gegenereerd uit database/composition/extraction/*.csv met tools/eda.py en tools/qc_values.py. ' +

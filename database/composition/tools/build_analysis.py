@@ -64,6 +64,18 @@ def main() -> None:
     (BUILD / "analysis.html").write_text(
         tpl.replace("__DATA__", json.dumps(payload, ensure_ascii=False, separators=(",", ":"))),
         encoding="utf-8")
+    # render-check before anyone publishes it: node tools/check_page.js on the extracted
+    # script. A page that throws in its first section arrives EMPTY, which reads as a data
+    # problem when it is a code problem.
+    import re
+    m = re.search(r"<script>(.*)</script>", (BUILD / "analysis.html").read_text(encoding="utf-8"), re.S)
+    (BUILD / "analysis.js").write_text(m.group(1), encoding="utf-8")
+    chk = subprocess.run(["node", str(HERE / "check_page.js"), str(BUILD / "analysis.js")],
+                         capture_output=True, text=True, encoding="utf-8")
+    print(chk.stdout.rstrip())
+    if "THREW" in chk.stdout or "reported a build error" in chk.stdout:
+        sys.exit("FAIL: the page does not render - fix it before publishing")
+
     print(f"wrote {BUILD / 'analysis.html'} "
           f"({(BUILD / 'analysis.html').stat().st_size / 1024:.0f} KB)")
     print(f"  {d['n_values']} values, {len(pars)} parameters used, "
