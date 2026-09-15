@@ -167,6 +167,11 @@ PAGES: dict[int, tuple[str, str]] = {
     559: ("zuivelnevenstroom", "Kaaswei, vers - RE < 175 g/kg DS"),
     419: ("dierlijk-vet", "Vet/olie, Dierlijk - 6% linolzuur"),
     421: ("dierlijk-vet", "Vet/olie, Dierlijk - 9% linolzuur"),
+    # `kop+stengels` is head AND STEMS -- the stalk material, not the sprout. CVB keeps the
+    # two apart on facing sheets (p. 657 is `spruitkool`, the sprout as a vegetable), which
+    # is exactly the split BioMobi's objects need and which no other source made.
+    658: ("spruitstokken", "Kool (spruitkool, kop+stengels)"),
+    596: ("suikerbiet-loof", "Bietenblad, kuil"),
 }
 
 

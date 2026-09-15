@@ -134,8 +134,19 @@ ITEMS["aardappel-snippers"] = dict(
 )
 
 ITEMS["spruitstokken"] = dict(
-    status="no-source",
-    note="STILL EMPTY after a fourth pass, and the near-misses are what make it worth recording. "
+    status="done",
+    note="FOUND, in the source that was already open. CVB p. 658 is `Kool (spruitkool, "
+         "kop+stengels)` - head AND STEMS - and p. 657 beside it is `Kool (spruitkool)`, the "
+         "sprout as a vegetable. CVB keeps the two apart on facing sheets, which is exactly the "
+         "split BioMobi's objects need and which no other source made. "
+         "IT WAS MISSED BECAUSE OF HOW I LOOKED: the scan that mapped CVB walked every SECOND "
+         "page, so it saw 657 and stepped over 658. A sampling stride is not a search, and three "
+         "sessions of `no source anywhere` for this stream rested on that. "
+         "The rows come through the CVB extractor rather than this file; what stays here is the "
+         "account of the near-misses, because they are still the right decisions. "
+         "REJECTED, and still rejected: Phyllis2 `kale, stalk` (#1559) is a different crop, and "
+         "`Brussels sprouts` (#1560, #1561) is six heavy metals from a 1993 household-waste "
+         "survey with the plant part unstated. Neither is this object. "
          "Phyllis2 DOES hold brassica stalk material - `kale, stalk` (#1559) - and it holds "
          "`Brussels sprouts` (#1560, #1561). Neither is this object. The kale stalk is a "
          "different crop, and the Brussels sprouts record is the SPROUT: it carries six heavy "
@@ -151,7 +162,8 @@ ITEMS["spruitstokken"] = dict(
               "FoodWasteEXplorer `Brussels sprouts` - 13 rows, all from ECN Phyllis 2, so the "
               "same record twice",
               "CVB Veevoedertabel 2023 - `Kool (spruitkool)` p. 657 is the sprout as a vegetable",
-              "literature search on brussels sprout stem/stalk composition - nothing with a table"],
+              "literature search on brussels sprout stem/stalk composition - nothing with a table",
+              "CVB Veevoedertabel 2023 p. 658 `Kool (spruitkool, kop+stengels)` - THE MATCH"],
     tables=[],
 )
 

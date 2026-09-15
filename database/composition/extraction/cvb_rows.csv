@@ -645,6 +645,25 @@ suikerbiet-loof;crude_fibre;point;100;;;;;g/kg;dry;;measured;cvb-veevoedertabel-
 suikerbiet-loof;nfe;point;529;;;;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 595;2023;OK;Bietenblad met koppen, vers (Bietenblad met koppen, vers);no;;machine;;CVB's OK, the Weende by-difference remainder
 suikerbiet-loof;phosphorus;point;2.3;;;;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 595;2023;P;Bietenblad met koppen, vers (Bietenblad met koppen, vers);no;;machine;;
 suikerbiet-loof;potassium;point;31.0;;;;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 595;2023;K;Bietenblad met koppen, vers (Bietenblad met koppen, vers);no;;machine;;
+suikerbiet-loof;dry_matter;point;182;;;24;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 596;2023;DS;Bietenblad, kuil (Bietenblad, kuil);no;;machine;;CVB gives dry matter per kg product
+suikerbiet-loof;ash;point;313;;;88;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 596;2023;RAS;Bietenblad, kuil (Bietenblad, kuil);no;;machine;;
+suikerbiet-loof;crude_protein;point;116;;;31;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 596;2023;RE;Bietenblad, kuil (Bietenblad, kuil);no;;machine;;CVB's RE, nitrogen times 6,25
+suikerbiet-loof;fat_total;point;20;;;;;g/kg;dry;ee-diethyl;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 596;2023;RVET;Bietenblad, kuil (Bietenblad, kuil);no;;machine;;CVB's RVET
+suikerbiet-loof;crude_fibre;point;137;;;16;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 596;2023;RC;Bietenblad, kuil (Bietenblad, kuil);no;;machine;;
+suikerbiet-loof;nfe;point;415;;;;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 596;2023;OK;Bietenblad, kuil (Bietenblad, kuil);no;;machine;;CVB's OK, the Weende by-difference remainder
+suikerbiet-loof;starch;point;2;;;;;g/kg;dry;starch-enzymatic;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 596;2023;ZETam;Bietenblad, kuil (Bietenblad, kuil);no;;machine;;CVB's ZETam, amyloglucosidase
+suikerbiet-loof;total_sugars;point;1;;;;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 596;2023;SUI;Bietenblad, kuil (Bietenblad, kuil);no;;machine;;
+suikerbiet-loof;ndf;point;298;;;;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 596;2023;NDF;Bietenblad, kuil (Bietenblad, kuil);no;;machine;;
+suikerbiet-loof;calcium;point;13.9;;;;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 596;2023;Ca;Bietenblad, kuil (Bietenblad, kuil);no;;machine;;
+suikerbiet-loof;phosphorus;point;3.1;;;;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 596;2023;P;Bietenblad, kuil (Bietenblad, kuil);no;;machine;;
+suikerbiet-loof;magnesium;point;4.5;;;;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 596;2023;Mg;Bietenblad, kuil (Bietenblad, kuil);no;;machine;;
+suikerbiet-loof;potassium;point;39.3;;;;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 596;2023;K;Bietenblad, kuil (Bietenblad, kuil);no;;machine;;
+suikerbiet-loof;sodium;point;7.6;;;;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 596;2023;Na;Bietenblad, kuil (Bietenblad, kuil);no;;machine;;
+suikerbiet-loof;sulphur;point;2.5;;;;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 596;2023;S;Bietenblad, kuil (Bietenblad, kuil);no;;machine;;
+suikerbiet-loof;iron;point;1177;;;;;mg/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 596;2023;Fe;Bietenblad, kuil (Bietenblad, kuil);no;;machine;;
+suikerbiet-loof;manganese;point;183;;;;;mg/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 596;2023;Mn;Bietenblad, kuil (Bietenblad, kuil);no;;machine;;
+suikerbiet-loof;zinc;point;189;;;;;mg/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 596;2023;Zn;Bietenblad, kuil (Bietenblad, kuil);no;;machine;;
+suikerbiet-loof;copper;point;10;;;;;mg/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 596;2023;Cu;Bietenblad, kuil (Bietenblad, kuil);no;;machine;;
 suikerbiet-loof;dry_matter;point;115;;;;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 597;2023;DS;Bietenblad, vers (Bietenblad, vers);no;;machine;;CVB gives dry matter per kg product
 suikerbiet-loof;ash;point;200;;;;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 597;2023;RAS;Bietenblad, vers (Bietenblad, vers);no;;machine;;
 suikerbiet-loof;crude_protein;point;182;;;;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 597;2023;RE;Bietenblad, vers (Bietenblad, vers);no;;machine;;CVB's RE, nitrogen times 6,25
@@ -653,6 +672,14 @@ suikerbiet-loof;crude_fibre;point;110;;;;;g/kg;dry;;measured;cvb-veevoedertabel-
 suikerbiet-loof;nfe;point;488;;;;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 597;2023;OK;Bietenblad, vers (Bietenblad, vers);no;;machine;;CVB's OK, the Weende by-difference remainder
 suikerbiet-loof;phosphorus;point;2.3;;;;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 597;2023;P;Bietenblad, vers (Bietenblad, vers);no;;machine;;
 suikerbiet-loof;potassium;point;35.0;;;;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 597;2023;K;Bietenblad, vers (Bietenblad, vers);no;;machine;;
+spruitstokken;dry_matter;point;180;;;;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 658;2023;DS;Kool (spruitkool, kop+stengels) (Kool (spruitkool, kop+stengels));no;;machine;;CVB gives dry matter per kg product
+spruitstokken;ash;point;110;;;;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 658;2023;RAS;Kool (spruitkool, kop+stengels) (Kool (spruitkool, kop+stengels));no;;machine;;
+spruitstokken;crude_protein;point;187;;;;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 658;2023;RE;Kool (spruitkool, kop+stengels) (Kool (spruitkool, kop+stengels));no;;machine;;CVB's RE, nitrogen times 6,25
+spruitstokken;fat_total;point;35;;;;;g/kg;dry;ee-diethyl;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 658;2023;RVET;Kool (spruitkool, kop+stengels) (Kool (spruitkool, kop+stengels));no;;machine;;CVB's RVET
+spruitstokken;crude_fibre;point;180;;;;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 658;2023;RC;Kool (spruitkool, kop+stengels) (Kool (spruitkool, kop+stengels));no;;machine;;
+spruitstokken;nfe;point;488;;;;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 658;2023;OK;Kool (spruitkool, kop+stengels) (Kool (spruitkool, kop+stengels));no;;machine;;CVB's OK, the Weende by-difference remainder
+spruitstokken;phosphorus;point;3.7;;;;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 658;2023;P;Kool (spruitkool, kop+stengels) (Kool (spruitkool, kop+stengels));no;;machine;;
+spruitstokken;potassium;point;26.3;;;;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 658;2023;K;Kool (spruitkool, kop+stengels) (Kool (spruitkool, kop+stengels));no;;machine;;
 tarwe-stro;dry_matter;point;878;;;58;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 687;2023;DS;Tarwestro (Tarwestro);no;;machine;;CVB gives dry matter per kg product
 tarwe-stro;ash;point;84;;;24;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 687;2023;RAS;Tarwestro (Tarwestro);no;;machine;;
 tarwe-stro;crude_protein;point;41;;;15;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 687;2023;RE;Tarwestro (Tarwestro);no;;machine;;CVB's RE, nitrogen times 6,25
