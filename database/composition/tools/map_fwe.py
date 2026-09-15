@@ -45,6 +45,17 @@ CROSSWALK = ROOT / "crosswalks" / "fwe_components.csv"
 # sources this harvest already reads directly -- their rows here are duplicates
 ALREADY_HELD = {"feedipedia", "ecn phyllis 2", "ecn phyllis2", "phyllis"}
 
+# ...EXCEPT WHERE WE DEMONSTRABLY DO NOT HOLD THEM, and this is the exception the rule
+# needed. The deduplication above assumes that a row citing Feedipedia is a row we already
+# read off Feedipedia directly. For potato haulm that assumption is FALSE and it is
+# checked, not asserted: Feedipedia's complete feed index (779 datasheets) was pulled and
+# grepped, and it carries no potato haulm, vine or leaf entry of any kind -- its only
+# `haulm` is Bambara groundnut. feedtables.com's 324-entry index has none either. So these
+# rows are not duplicates of anything in this harvest, and dropping them would have thrown
+# away calcium, phosphorus, gross energy and crude fibre on the single worst-covered large
+# stream in the selection. A deduplication rule has to be able to be wrong about a case.
+HELD_EXCEPTIONS = {"__potato-aerial-part", "__potato-leaves-dried"}
+
 # FoodWasteEXplorer's Description column sometimes names a TREATMENT rather than a
 # variety or an origin. Ammoniated wheat straw has had its nitrogen deliberately raised
 # and its fibre opened up; fermented potato peel has had its sugars eaten. Those are
@@ -231,12 +242,16 @@ def emit_crosswalk() -> None:
 def main() -> None:
     if "--emit-crosswalk" in sys.argv:
         emit_crosswalk()
+    elif "--emit-rows" in sys.argv:
+        # The docstring has documented this flag since the file was written, but main()
+        # never wired it up: `--emit-rows` fell through to the else and printed the
+        # docstring. Round 3's fwe_rows.csv was produced by calling emit_rows() by hand,
+        # so the committed file was right and the committed COMMAND was not.
+        emit_rows()
     else:
         sys.exit(__doc__)
 
 
-if __name__ == "__main__":
-    main()
 
 
 # ---------------------------------------------------------------------------
@@ -261,6 +276,22 @@ STREAM_MAP = {
     "__offal-meal": "niet-eetbare-slachtafvallen",
     "__animal-fats": "dierlijk-vet",
     "__brussels-sprouts": "spruitstokken",
+    # THE POTATO HAULM STREAMS, and finding them is the whole lesson of this round.
+    # Rounds 2 and 3 searched this database for `Potato haulm`, got nothing, and wrote
+    # aardappel-loof down as having no source here. FoodWasteEXplorer does not use that
+    # word. Its 634-entry SIDE-STREAM VOCABULARY was pulled and read, and the material is
+    # in it four times over: `Potato vines`, `Potato, aerial part`, `Potato leaves, dried`
+    # and `Potato vine silage`. Three rounds of "absent" rested on a word choice.
+    "__potato-vines": "aardappel-loof",
+    "__potato-aerial-part": "aardappel-loof",
+    "__potato-leaves-dried": "aardappel-loof",
+    "__potato-vine-silage": "aardappel-loof",
+    # `Soft offal` and `Offals` are harvested and deliberately UNMAPPED. Soft offal is
+    # cattle-specific (the site files it under food name `Beef`), and
+    # niet-eetbare-slachtafvallen is the BUNDLED object. Hanging a single species' figures
+    # on the bundle is the potato-on-potato-peel error running the other way. It is,
+    # however, exactly the material gap G-04 asks for, so it is located and waiting.
+    # `Cabbage leaves` likewise: 50 rows, and BioMobi has no cabbage-leaf object.
     # potato pulp is a STARCH-industry residue, not one of the 19 objects; harvested
     # and deliberately unmapped -- it is where `zetmeel-reststroom` would look if G-19
     # ever names that material.
@@ -280,7 +311,7 @@ def emit_rows() -> None:
             continue
         for r in csv.DictReader(f.open(encoding="utf-8-sig"), delimiter=";"):
             ref = (r.get("Reference") or "").strip()
-            if ref.lower() in ALREADY_HELD:
+            if ref.lower() in ALREADY_HELD and f.stem not in HELD_EXCEPTIONS:
                 dropped_dup += 1
                 continue
             m = cw.get((r["Component"], r["Unit"]))
@@ -343,3 +374,7 @@ def emit_rows() -> None:
         print(f"  harvests not mapped to a target: {sorted(unmapped_files)}")
     for c, n in sorted(per.items(), key=lambda kv: -kv[1]):
         print(f"    {n:>4}  {c}")
+
+
+if __name__ == "__main__":
+    main()

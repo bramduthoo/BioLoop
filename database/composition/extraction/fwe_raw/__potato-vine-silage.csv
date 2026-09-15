@@ -1,0 +1,14 @@
+﻿Food name;Side stream;Component group;Component;Value;Unit;Description;Reference
+Potato;Potato vine silage;Proximates;Ash;19;% DM;;2012FeedComp
+Potato;Potato vine silage;Inorganics;Calcium;2.1;% d.b.;;2012FeedComp
+Potato;Potato vine silage;Proximates;Dry Matter;15;% wet weight;;2012FeedComp
+Potato;Potato vine silage;Proximates;Energy (net) for growth;28;Mcal/cwt. DM;;2012FeedComp
+Potato;Potato vine silage;Proximates;Energy (net) for lactation;59;Mcal/cwt. DM;;2012FeedComp
+Potato;Potato vine silage;Proximates;Energy (net) for maintenance;59;Mcal/cwt. DM;;2012FeedComp
+Potato;Potato vine silage;Proximates;Energy (Total Digestible Nutrients);59;% DM;;2012FeedComp
+Potato;Potato vine silage;Proximates;Fat, crude;3.7;% DM;;2012FeedComp
+Potato;Potato vine silage;Proximates;Fibre, crude;26;% d.b.;;2012FeedComp
+Potato;Potato vine silage;Inorganics;Phosphorus;0.29;% d.b.;;2012FeedComp
+Potato;Potato vine silage;Inorganics;Potassium;4;% d.b.;;2012FeedComp
+Potato;Potato vine silage;Proximates;Protein, crude;15;% d.b.;;2012FeedComp
+Potato;Potato vine silage;Inorganics;Sulphur;0.37;% DM;;2012FeedComp
