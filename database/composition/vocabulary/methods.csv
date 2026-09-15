@@ -25,3 +25,4 @@ fibre-sugar-analysis;Cellulose and hemicellulose from monomeric sugar analysis;T
 extr-etoh-toluene;Extractives, ethanol/toluene;The classic wood-chemistry extraction
 extr-etoh-95;Extractives, 95% ethanol;A less exhaustive extraction than ethanol/toluene
 extr-hot-water;Extractives, hot water;Water-soluble matter. Recovers a different set of compounds again, which is why the solvent is a method on one analyte and not three analytes
+nfe-vs-hydrolysed-fat;Weende remainder computed against acid-hydrolysis fat;CVB prints the nitrogen-free extract twice: OK is 1000 - (RAS + RE + RVET + RC) and OKh is the same subtraction with RVETh, the fat after acid hydrolysis, in place of RVET. One fraction, two determinations, differing only in how the fat that was subtracted was measured - which is the method axis exactly

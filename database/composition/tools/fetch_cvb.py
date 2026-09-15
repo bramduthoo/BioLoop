@@ -55,14 +55,32 @@ WEENDE = {
     "NDF":   ("ndf", "g/kg", "dry", "", ""),
     "ADF":   ("adf", "g/kg", "dry", "", ""),
     "ADL":   ("lignin", "g/kg", "dry", "lignin-adl", ""),
+    # Added after reading CVB's OWN definitions rather than guessing at the abbreviations.
+    # `REin` is deliberately NOT here: section 3 says it equals RE except for roughages and
+    # moist concentrates, so mapping it would register one determination twice.
+    "OKh":   ("nfe", "g/kg", "dry", "nfe-vs-hydrolysed-fat",
+              "CVB's OKh - the same by-difference remainder as OK, but subtracting RVETh"),
+    "GOS":   ("oligosaccharides", "g/kg", "dry", "", "CVB's GOS, the raffinose family"),
+    "NSPh":  ("nsp", "g/kg", "dry", "",
+              "CVB section 4.2.2.5: NOT determined, computed as OS - RE - RVETh - ZETam - GOS "
+              "- CF_DI*SUI. CVB warns the result can be negative"),
+    "RNSP":  ("nsp_residual", "g/kg", "dry", "",
+              "CVB section 3.4.2.7: rest-NSP = NSP - NDF. Computed, not determined"),
 }
+
+# CVB computes these rather than determining them, and says so in its own methodology
+# chapter. Recording them as `measured` would be the quiet fabrication value_origin exists
+# to prevent.
+CVB_CALCULATED = {"nfe", "nsp", "nsp_residual"}
 MINERALS = {
     "Ca": ("calcium", "g/kg"), "P": ("phosphorus", "g/kg"), "Mg": ("magnesium", "g/kg"),
     "K": ("potassium", "g/kg"), "Na": ("sodium", "g/kg"), "Cl": ("chloride", "g/kg"),
-    "S": ("sulphur", "g/kg"),
+    "S": ("sulphur", "g/kg"), "IP": ("phytate_phosphorus", "g/kg"),
 }
 TRACE = {"Fe": ("iron", "mg/kg"), "Mn": ("manganese", "mg/kg"), "Zn": ("zinc", "mg/kg"),
-         "Cu": ("copper", "mg/kg"), "Se": ("selenium", "mg/kg")}
+         "Cu": ("copper", "mg/kg"), "Se": ("selenium", "mg/kg"),
+         "Mo": ("molybdenum", "mg/kg"), "J": ("iodine", "mg/kg"),
+         "Co": ("cobalt", "mg/kg")}
 
 # The amino-acid block sits on the FACING page of each product, laid out as
 #   NAME  <g/16g N gem>  <sdc>  <g/kg>  <VC pigs> <g/kg> <VC poultry> <g/kg>
@@ -254,7 +272,8 @@ def emit() -> None:
                     value_num=val, value_min="", value_max="",
                     sd="" if sd in ("-", "") else sd, n_samples="",
                     unit_code=unit, basis_code=basis, method_code=method,
-                    value_origin="measured", source_key="cvb-veevoedertabel-2023",
+                    value_origin=("calculated" if param in CVB_CALCULATED else "measured"),
+                    source_key="cvb-veevoedertabel-2023",
                     source_ref=f"CVB Veevoedertabel 2023, p. {page}", year="2023",
                     reported_label=label, variant=f"{title.rsplit(' ', 1)[0]} ({variant})",
                     restatement="no", flag="", transcription="machine", DECISION="",

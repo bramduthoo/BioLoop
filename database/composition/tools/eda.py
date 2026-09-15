@@ -93,12 +93,14 @@ def build() -> dict:
         ))
     st_rows.sort(key=lambda d: -d["tonnes"])
 
-    # the core: parameters at least half the covered streams have. A stream missing one of
-    # these is a harvesting hole, not a property of the material.
+    # the core: parameters at least half the covered streams have.
     covered = [s for s in st_rows if s["parameters"]]
     core = [p["code"] for p in par_rows if p["streams"] >= max(2, len(covered) // 2)]
     for s in st_rows:
-        s["core_missing"] = [c for c in core if c not in s["parameter_list"]] if s["parameters"] else core
+        absent = [c for c in core if c not in s["parameter_list"]] if s["parameters"] else list(core)
+        na = NOT_APPLICABLE.get(s["code"], set())
+        s["core_missing"] = [c for c in absent if c not in na]
+        s["core_na"] = [c for c in absent if c in na]
 
     return dict(
         n_values=len(rows), n_streams_in_scope=len(targets),
@@ -113,6 +115,38 @@ def build() -> dict:
                  for k, v in srcs.items()],
         parameters=par_rows, streams=st_rows,
     )
+
+
+# WHY THIS LIST EXISTS, AND WHY IT IS NOT DATA.
+#
+# This analysis used to report that dierlijk-vet was missing its detergent-fibre
+# analysis. That is not a gap, it is a CATEGORY ERROR: a rendered animal fat has no cell
+# wall, so no laboratory anywhere reports its NDF. Counting it as missing overstated the
+# work left on three streams and, worse, pointed the next harvest at values that cannot
+# be found because they do not exist.
+#
+# So the two kinds of absence are separated here, exactly as `unknown` and `n.a.` are
+# separated on a unit: NOT MEASURED is a hole to go and fill, NOT APPLICABLE is a
+# property of the material. This lives in the ANALYSIS and never becomes a row -- BioMobi
+# stays sparse and nothing is written to say a fraction is zero.
+#
+# Everything here is the absence of a CELL WALL or of plant carbohydrate in a material
+# that is rendered fat, whey, or meat and bone meal. Nothing is listed on judgement about
+# how likely a value is to be found; if a laboratory could report it, it stays missing.
+NOT_APPLICABLE: dict[str, set[str]] = {
+    "dierlijk-vet": {
+        "crude_fibre", "ndf", "adf", "lignin", "cellulose", "hemicellulose", "nsp",
+        "nsp_residual", "starch", "total_sugars", "nfe", "organic_matter",
+    },
+    "zuivelnevenstroom": {
+        "crude_fibre", "ndf", "adf", "lignin", "cellulose", "hemicellulose", "nsp",
+        "nsp_residual",
+    },
+    "niet-eetbare-slachtafvallen": {
+        "crude_fibre", "ndf", "adf", "lignin", "cellulose", "hemicellulose", "nsp",
+        "nsp_residual", "starch", "total_sugars",
+    },
+}
 
 
 def main() -> None:
@@ -142,13 +176,19 @@ def main() -> None:
               f"{p['code']:<22} {p['name'][:36]}")
 
     print("\nSTREAMS BY TONNAGE")
-    print(f"  {'t/yr':>10}  {'stream':<28} {'par':>4} {'val':>5} {'src':>4}  missing from the core")
+    print(f"  {'t/yr':>10}  {'stream':<28} {'par':>4} {'val':>5} {'src':>4} {'n.a.':>5}  "
+          f"NOT MEASURED, from the core")
     for s in d["streams"]:
         miss = ", ".join(s["core_missing"][:6])
         if len(s["core_missing"]) > 6:
             miss += f" (+{len(s['core_missing']) - 6})"
+        na = f"{len(s['core_na']):>5}" if s["core_na"] else "    -"
         print(f"  {s['tonnes']:>10,}  {s['code']:<28} {s['parameters']:>4} {s['values']:>5} "
-              f"{s['sources']:>4}  {miss}")
+              f"{s['sources']:>4} {na}  {miss}")
+    print("  n.a. = core parameters this material CANNOT have (no cell wall in a fat, a whey "
+          "or a meat meal),")
+    print("         separated from the harvest's real holes. "
+          "See NOT_APPLICABLE in tools/eda.py.")
 
     unused = [p for p in d["parameters"] if not p["values"]]
     print(f"\n{len(unused)} registered parameters carry no value yet:")
