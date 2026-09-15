@@ -63,6 +63,20 @@ CVB_SOURCE = dict(
           "feed-value figures are facts about a material AND an animal.")
 
 
+PHY_SOURCE = dict(
+    citation_key="phyllis2-tno", source_type="dataset", year=2026,
+    kind="primary-indexed", country="NL",
+    title="Phyllis2 - database for the physico-chemical composition of (treated) "
+          "lignocellulosic biomass (TNO)",
+    url="https://phyllis.nl/",
+    notes="Each record cites its own literature reference or its own laboratory and method "
+          "set, so provenance resolves BELOW the database and the record's quality can be "
+          "judged one at a time -- which is why some records here are taken and fourteen are "
+          "refused in writing (see REJECTED in tools/fetch_phyllis.py). Harvested through the "
+          "site's own /Browse/PlainList index rather than its search box, after three rounds "
+          "in which typing words into that box missed records that were sitting there.")
+
+
 def read_csv(path: Path) -> list[dict]:
     if not path.exists():
         return []
@@ -101,6 +115,25 @@ def main() -> None:
     if cvb:
         sources.setdefault(CVB_SOURCE["citation_key"], CVB_SOURCE)
         rows += cvb
+
+    phy = read_csv(EXTRACT / "phyllis_rows.csv")
+    if phy:
+        sources.setdefault(PHY_SOURCE["citation_key"], PHY_SOURCE)
+        # Round 4 hand-transcribed Phyllis #3491, #3492 and #1066 off the page before the
+        # harvester existed. The harvester now reads the same records and reads them BETTER:
+        # it found trace elements on both animal records that the hand pass skipped, and it
+        # refuses the below-detection-limit cells by rule instead of by remembering to. Two
+        # rows for one determination would be a fabricated second measurement, so the hand
+        # rows lose. THIS GUARD IS THE ENFORCEMENT, not a note to a future reader -- the
+        # duplicate cannot survive a merge even if someone forgets to delete it upstream.
+        harvested = {r["source_ref"] for r in phy}
+        keep = [r for r in rows
+                if not (r.get("source_key") == PHY_SOURCE["citation_key"]
+                        and r.get("source_ref") in harvested)]
+        if len(keep) != len(rows):
+            print(f"superseded {len(rows) - len(keep)} hand-transcribed Phyllis rows "
+                  f"with the harvester's {len(phy)}")
+        rows = keep + phy
 
     write_csv(EXTRACT / "round3_measurements.csv", ROW_FIELDS, rows)
     write_csv(EXTRACT / "round3_sources.csv", SRC_FIELDS, list(sources.values()))

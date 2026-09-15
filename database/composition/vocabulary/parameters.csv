@@ -8,7 +8,7 @@ total_nitrogen;Total nitrogen;chemical;protein-total;%;Kjeldahl- of Dumas-stikst
 true_protein;True protein;chemical;protein-total;%;Eiwit bepaald als som van aminozuren of na aftrek van niet-eiwitstikstof. Een ander object dan ruw eiwit, niet een betere meting ervan
 fat_total;Total fat;chemical;fat-total;%;Total lipid. WHICH EXTRACTION was used is a METHOD, recorded on the measurement - diethyl ether (what the Weende scheme calls crude fat), petroleum ether, or acid hydrolysis, which recovers bound lipids the plain ether extract leaves behind and reads systematically higher. INFOODS separates FAT from FATCE on the same grounds
 crude_fibre;Crude fibre;chemical;dietary-fibre;%;The Weende crude-fibre fraction, and it is genuinely Weende-specific: there is no method-independent thing it could mean. It is NOT a worse measurement of fibre than NDF - it is a DIFFERENT fraction, losing most hemicellulose and part of the lignin. INFOODS carries it as FIBC
-nfe;Nitrogen-free extract;chemical;carbohydrates;%;The by-difference carbohydrate remainder of the Weende partition. A calculation by the source, not a determination - record it with value_origin = calculated. INFOODS has the same concept as CHOAVLDF
+nfe;Nitrogen-free extract;chemical;carbohydrates-total;%;The by-difference carbohydrate remainder of the Weende partition. A calculation by the source, not a determination - record it with value_origin = calculated. INFOODS has the same concept as CHOAVLDF
 ndf;Neutral detergent fibre (NDF);chemical;dietary-fibre;%;Van Soest-celwand - cellulose plus hemicellulose plus lignine. Vermeld in notes of de bron aNDF of aNDFom bedoelt
 adf;Acid detergent fibre (ADF);chemical;dietary-fibre;%;Van Soest - cellulose plus lignine
 cellulose;Cellulose;chemical;dietary-fibre;%;Alleen wanneer de bron cellulose zelf rapporteert. Niet afleiden uit ADF min ADL - dat is een berekening en hoort in de modellaag
@@ -16,12 +16,12 @@ hemicellulose;Hemicellulose;chemical;dietary-fibre;%;Alleen wanneer de bron hemi
 lignin;Lignin;chemical;dietary-fibre;%;Lignin. WHICH DETERMINATION was used is a METHOD, recorded on the measurement - acid detergent lignin (Van Soest), Klason, or permanganate. They give different numbers for the same analyte, so a value from a table headed only Lignin is recorded with method unknown rather than assigned to one
 pectin;Pectin;chemical;dietary-fibre;%;Pectinegehalte zoals de bron het bepaalt
 total_dietary_fibre;Total dietary fibre;chemical;dietary-fibre;%;AOAC-voedingsvezel. Niet uitwisselbaar met NDF of ruwe celstof
-starch;Starch;chemical;carbohydrates;%;Zetmeelgehalte zoals de bron het bepaalt
-total_sugars;Total sugars;chemical;carbohydrates;%;Som van vrije mono- en disachariden zoals de bron ze bepaalt
-glucose;Glucose;chemical;carbohydrates;%;Vrije glucose
-fructose;Fructose;chemical;carbohydrates;%;Vrije fructose
-sucrose;Sucrose;chemical;carbohydrates;%;Sacharose
-lactose;Lactose;chemical;carbohydrates;%;Lactose - relevant voor zuivel- en weistromen
+starch;Starch;chemical;carbohydrates-total;%;Zetmeelgehalte zoals de bron het bepaalt
+total_sugars;Total sugars;chemical;carbohydrates-total;%;Som van vrije mono- en disachariden zoals de bron ze bepaalt
+glucose;Glucose;chemical;carbohydrates-total;%;Vrije glucose
+fructose;Fructose;chemical;carbohydrates-total;%;Vrije fructose
+sucrose;Sucrose;chemical;carbohydrates-total;%;Sacharose
+lactose;Lactose;chemical;carbohydrates-total;%;Lactose - relevant voor zuivel- en weistromen
 hhv;Gross calorific value (HHV);chemical;energy;MJ/kg;Higher heating value (HHV), ook bruto-energie (GE) in voederwaardebronnen
 lhv;Net calorific value (LHV);chemical;energy;MJ/kg;Lower heating value (LHV), netto verbrandingswaarde
 total_carbon;Total carbon (C);chemical;ultimate;%;Totale koolstof, doorgaans elementair bepaald
@@ -100,3 +100,19 @@ fa_c18_2;Linoleic acid (C18:2);chemical;fatty-acids;g/kg;Polyunsaturated, and th
 fa_c18_3;Linolenic acid (C18:3);chemical;fatty-acids;g/kg;Polyunsaturated, three double bonds
 fa_c20_or_more;Fatty acids, C20 and longer;chemical;fatty-acids;g/kg;The long-chain fraction, reported as a single lumped figure
 fatty_acids_total;Total fatty acids;chemical;fatty-acids;g/kg;The source's own sum of the fatty acids it measured. NOT to be recomputed - a sum reflects which acids that source looked for
+ash_melting_sh;Ash shrinkage temperature;chemical;ash-behaviour;degC;The first contraction of the test cone. EUROPEAN STANDARD ONLY - the American method has no counterpart, which is why it is its own parameter and not a method variant of deformation
+ash_melting_st;Ash softening temperature;chemical;ash-behaviour;degC;The cone has slumped to a sphere (height = base width). ASTM calls it softening or spherical. Distinct from the hemispherical point, where height is half the width
+ash_melting_ht;Ash hemispherical temperature;chemical;ash-behaviour;degC;Cone height is half its base width. ASTM HT and CEN HE are the same point under two standards, so they are one parameter measured two ways
+ash_melting_ft;Ash flow temperature;chemical;ash-behaviour;degC;The ash has spread to a flat layer. ASTM fluid temperature (FT) and CEN flow temperature (FL) are the same point
+acid_insoluble_lignin;Acid insoluble lignin (Klason);chemical;dietary-fibre;%;The residue after acid hydrolysis. A DIFFERENT FRACTION from acid soluble lignin, not a better measurement of it: the two sum to total lignin and a source reporting both reports two numbers
+acid_soluble_lignin;Acid soluble lignin;chemical;dietary-fibre;%;The lignin that dissolves during acid hydrolysis, measured on the hydrolysate by UV. Lost entirely by a Klason determination that reports only the residue
+extractives;Extractives;chemical;dietary-fibre;%;Matter removed by a solvent before the wall is analysed. THE SOLVENT IS A METHOD: hot water, 95% ethanol and ethanol/toluene recover different and overlapping sets from one material, and a source may report all three. Registering a parameter per solvent would make every new solvent a catalogue edit - the same trade dry_matter settled for drying temperature
+arabinan;Arabinan;chemical;structural-carbohydrates;%;Anhydro-arabinose in the wall. A C5 sugar
+xylan;Xylan;chemical;structural-carbohydrates;%;Anhydro-xylose, the dominant hemicellulose backbone in cereal walls. A C5 sugar
+mannan;Mannan;chemical;structural-carbohydrates;%;Anhydro-mannose. A C6 sugar
+galactan;Galactan;chemical;structural-carbohydrates;%;Anhydro-galactose. A C6 sugar
+glucan;Glucan;chemical;structural-carbohydrates;%;Anhydro-glucose. CAUTION, and it is why this is not cellulose: on a starchy material the glucan figure includes the starch, which is how potato mash reads 86,40 wt% dry glucan against 3,09 cellulose
+rhamnan;Rhamnan;chemical;structural-carbohydrates;%;Anhydro-rhamnose, a pectin-associated sugar
+c5_sugars_total;Total C5 sugars;chemical;structural-carbohydrates;%;The source's own sum of its five-carbon monomers. Not recomputed here - a sum reflects which sugars that laboratory looked for
+c6_sugars_total;Total C6 sugars;chemical;structural-carbohydrates;%;The source's own sum of its six-carbon monomers
+tnc;Total non-structural carbohydrates;chemical;carbohydrates-total;%;"Sugars, starch and fructans together - the carbohydrate that is not cell wall. A forage-science determination; distinct from total_sugars, which excludes starch"
