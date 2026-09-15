@@ -1,0 +1,13 @@
+{
+ "stream_code": "spruitstokken",
+ "status": "no-source",
+ "note": "STILL EMPTY after a fourth pass, and the near-misses are what make it worth recording. Phyllis2 DOES hold brassica stalk material - `kale, stalk` (#1559) - and it holds `Brussels sprouts` (#1560, #1561). Neither is this object. The kale stalk is a different crop, and the Brussels sprouts record is the SPROUT: it carries six heavy metals and nothing else, comes from a 1993 literature survey of household organic waste, and does not say which plant part it is. Putting either on the field stalk would break the rule this folder opens with. The one located candidate remains out of reach: `Evaluation of Brassica Vegetables as Potential Feed for Ruminants` (Animals 2019, doi 10.3390/ani9090588) compares sprouts with savoy and red cabbage - and describes the SPROUT, not the stalk, so even reached it would be the wrong fraction. 138.000 t and nothing behind it.",
+ "searched": [
+  "Phyllis2 index - `kale, stalk` #1559 (wrong crop), `Brussels sprouts` #1560/#1561 (the sprout, heavy metals only, plant part unstated) - both located and rejected",
+  "FoodWasteEXplorer `Brussels sprouts` - 13 rows, all from ECN Phyllis 2, so the same record twice",
+  "CVB Veevoedertabel 2023 - `Kool (spruitkool)` p. 657 is the sprout as a vegetable",
+  "literature search on brussels sprout stem/stalk composition - nothing with a table"
+ ],
+ "sources": [],
+ "rows": []
+}

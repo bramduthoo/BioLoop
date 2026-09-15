@@ -87,3 +87,5 @@ glycine;Glycine;chemical;amino-acids;g/kg;A non-essential amino acid
 proline;Proline;chemical;amino-acids;g/kg;A non-essential amino acid
 serine;Serine;chemical;amino-acids;g/kg;A non-essential amino acid
 amino_acids_total;Total amino acids;chemical;amino-acids;g/kg;The sum of the individual amino acids as the source reports it, NOT a figure to recompute - a source's own sum reflects which amino acids it measured
+bromine;Bromine (Br);chemical;ultimate;mg/kg;Total bromine from elemental analysis. Reported by solid-biofuel characterisation beside chlorine and fluorine - the halogen set that decides corrosion and flue-gas treatment
+fluorine;Fluorine (F);chemical;ultimate;mg/kg;Total fluorine from elemental analysis. Often reported as below a detection limit rather than as a number - a censored value BioMobi has no way to store, so those are left out and noted

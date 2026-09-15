@@ -25,6 +25,7 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 EXTRACT = ROOT / "extraction"
 ITEMS = EXTRACT / "round3"
+ITEMS4 = EXTRACT / "round4"
 
 ROW_FIELDS = ["stream_code", "parameter_code", "value_type", "value_num", "value_min",
               "value_max", "sd", "n_samples", "unit_code", "basis_code", "method_code",
@@ -84,7 +85,8 @@ def main() -> None:
     rows: list[dict] = []
     sources: dict[str, dict] = {}
 
-    for path in sorted(ITEMS.glob("*.json")):
+    ITEMS4.mkdir(parents=True, exist_ok=True)
+    for path in sorted(ITEMS.glob("*.json")) + sorted(ITEMS4.glob("*.json")):
         item = json.loads(path.read_text(encoding="utf-8"))
         for s in item.get("sources", []):
             sources.setdefault(s["citation_key"], s)
@@ -106,7 +108,7 @@ def main() -> None:
     per: dict[str, int] = {}
     for r in rows:
         per[r["stream_code"]] = per.get(r["stream_code"], 0) + 1
-    print(f"round 3: {len(rows)} rows over {len(per)} streams, {len(sources)} sources")
+    print(f"rounds 3+4: {len(rows)} rows over {len(per)} streams, {len(sources)} sources")
     for c, n in sorted(per.items(), key=lambda kv: -kv[1]):
         print(f"  {n:>4}  {c}")
 
