@@ -165,6 +165,33 @@ def parse_amino(text: str, basis: str) -> list[tuple[str, str, str, str, str]]:
     return out
 
 # CVB page -> BioMobi stream code. Only the 19 in-scope targets.
+# SHEETS READ AND REFUSED. Each is the right commodity and the wrong object, and each is
+# written down so the next session does not re-find it and take it.
+#
+#  653  `Kool (bloemkool)` - DS 72, RE 295, RAS 138, SUI 150, K 42,5 g/kg DS. The PLANT
+#       PART IS UNSTATED, and CVB's own naming settles what that means: its sibling sheet
+#       p. 658 says `kop+stengels` explicitly, so CVB qualifies the part when it means a
+#       part. Unqualified `bloemkool` is the vegetable, and bloemkool-loof is the leaf.
+#       Same ground as the Phyllis2 cauliflower records and the Brussels sprouts ones.
+#  590  `Aardappelen, schillenkuil` - ensiled potato PEEL. BioMobi has no peel object
+#       until G-10 closes. Located, not lost: DS 220, RAS 80, RE 93, RC 188, ZETew 500.
+#  499  `Aardappelsnippers, voorgebakken` (and 501, 503) - PRE-FRIED cuttings, graded by
+#       their fat. A processed product, not the raw side stream. p. 497 is the raw one.
+#  664  `Maiskolvensilage` and 673-679 `Snijmais, kuil` - cob silage and whole-plant
+#       silage. mais-stro is STOVER, the residue after the grain comes off. CVB HAS NO
+#       MAIZE STOVER SHEET, checked over all 708 pages - which is why the largest stream
+#       in the selection still has no CVB row.
+#  449  `Vet/olie, Visolie` - fish oil is a different chain from rendered slaughter fat.
+#  599, 600, 605, 607, 645, 668, 669  bean, pea, barley, oat, rape and rye straw. All
+#       real sheets, none of them an object inside the 80% line.
+#
+# LOCATED AND HELD, BLOCKED ON G-19. The starch side streams are all here and they are
+# the strongest argument yet for closing that gap: 513-527 potato starch in four
+# concentration grades, 577-583 WHEAT starch in four, 493/495 potato press fibres,
+# 491 potato juice. composition/CLAUDE.md warns that Flanders' starch industry is mostly
+# WHEAT starch and that the potato-pulp literature is probably the wrong material -- CVB
+# carries both, separately, so the moment the object is named the data is already found.
+
 PAGES: dict[int, tuple[str, str]] = {
     561: ("zuivelnevenstroom", "Kaaswei, vers - RE 175-275 g/kg DS"),
     563: ("zuivelnevenstroom", "Kaaswei, vers - RE > 275 g/kg DS"),
@@ -190,6 +217,13 @@ PAGES: dict[int, tuple[str, str]] = {
     # is exactly the split BioMobi's objects need and which no other source made.
     658: ("spruitstokken", "Kool (spruitkool, kop+stengels)"),
     596: ("suikerbiet-loof", "Bietenblad, kuil"),
+    # Found by reading EVERY sheet title in the PDF rather than a sample of them. The
+    # same discipline that turned up p. 658; three of these four were sitting in a source
+    # that had already been opened four times.
+    497: ("aardappel-snippers", "Aardappelsnippers, rauw"),
+    447: ("dierlijk-vet", "Vet/olie, Varkensvet"),
+    589: ("aardappel", "Aardappelen, rauw, kuil"),
+    465: ("zuivelnevenstroom", "Weipoeder"),
 }
 
 
