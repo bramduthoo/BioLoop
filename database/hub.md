@@ -501,4 +501,32 @@ Source keys are renameable to real Zotero BBT keys later — all source FKs are 
 - ~~**Commit raw source data?**~~ — resolved 2026-07-28: **no.** `**/data/raw/` is gitignored.
 - ~~**80/20 ranking basis**~~ — resolved 2026-07-28: **not applicable to already-collected data.** The 80/20 is a rule for *prospective* harvesting. This dataset is small and already collected, so selection is manual, per stream, checking (a) the name, to exclude manure/OFMSW, and (b) the source, to validate the entry. Hence the manifest gate.
 
-*Last updated: 2026-09-09.*
+## Composition harvest — state at 2026-09-15
+
+**1.282 values over 18 of the 19 objects inside the 80% line, from 7 sources. Nothing is
+loaded.** QC pass 1 (well-formedness) and pass 2 (structural identities — Weende closure, the
+detergent-fibre order, the amino-acid and fatty-acid sums) are both at zero findings; pass 3
+reports 227 spreads, classified by cause, of which only the `source` class needs a human.
+
+Review page: `https://claude.ai/code/artifact/b7b1fe21-df01-41fe-9e68-8579e72bcbd1`
+Coverage analysis: `https://claude.ai/code/artifact/e0d943d3-909c-4dcd-bdf6-085e7a6a780a`
+
+**Nine streams now have no core parameter missing at all.** What is left, in order:
+`zetmeel-reststroom` (0 values, and it stays at 0 — blocked on register gap **G-19**, a naming
+decision rather than a search), `spruitstokken` (9), `aardappel-loof` (18, see F-004),
+`bloemkool-loof` (18), `mais-stro` (37 on the largest tonnage in the selection, and CVB has no
+maize-stover sheet — checked over all 708).
+
+**The one thing a next session must carry over:** *a search box is not an index*. Four separate
+"this source has nothing" conclusions were wrong this round, every one of them about a source
+already opened. Full indexes are now cached and grepped by the tools themselves; see
+`composition/CLAUDE.md`. **G-19 is worth closing on this evidence** — CVB carries potato starch
+in four grades and WHEAT starch in four, separately, so the day the object is named the data is
+already located.
+
+**Two reviewer decisions are open and neither is mine to take:** whether biogas/methane yield
+is a fact about the material or about a process applied to it (located, not taken), and whether
+a below-detection-limit value (`< 1 mg/kg`, 11 of them on the animal streams) should be stored
+as `value_max` with no `value_min`. Both are named where the data is, not only here.
+
+*Last updated: 2026-09-15.*

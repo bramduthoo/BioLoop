@@ -386,10 +386,64 @@ eight of the sixteen). `crosswalks/SOURCE_CANDIDATES.csv` is its machine-readabl
 
 Two results from it bind this folder:
 
-- **`aardappel-loof` has no composition source at all** — absent from Phyllis2's index, no
-  Feedipedia datasheet. At 744.945 t it is the largest component of the #3 commodity. That is a
-  **composition gap**, and it is a different kind of thing from the volume gaps on F-003.
+- **`aardappel-loof` is the thinnest large stream, and the reason changed on 2026-09-15.**
+  Round 1 recorded it as having *no composition source at all*; that was true of the databases
+  and false of the literature and of FoodWasteEXplorer, which files it under `Potato vines` and
+  three other names (see *A search box is not an index*). It now carries 18 parameters over 3
+  sources. What has **not** changed is the substance of the gap: Feedipedia's complete
+  779-datasheet index and Phyllis2's complete 3289-record index both genuinely hold nothing for
+  it, so 800 kt/yr of material has never been analysed by a feed or fuel database — and every
+  source that does describe it describes *green or ensiled* haulm, where Flemish haulm is
+  **chemically desiccated before lifting**. The stream is covered on paper and not in fact.
 - **`zetmeel-reststroom` is blocked and must stay blocked.** Starch-industry side-stream
   composition is well described in the literature and would have been easy to attach — and wrong
   twice: it names a material no source named (**G-19**), and Flanders' starch industry is mostly
   *wheat* starch, so the potato-pulp literature is probably the wrong material as well.
+
+## A SEARCH BOX IS NOT AN INDEX (2026-09-15)
+
+**The single most expensive mistake this folder has made, and it made it four times before
+anyone noticed the pattern.** Every one of these was a source that had already been opened,
+sometimes four times, with the material sitting in it:
+
+| what was concluded | how it was searched | what was actually there |
+|---|---|---|
+| `spruitstokken` has no source anywhere, after four passes | a CVB page scan stepping `range(560, 708, 2)` | p. **658** `Kool (spruitkool, kop+stengels)` — the scan saw 657 and stepped over it |
+| Phyllis2 has nothing for the animal streams | words typed into its search box | `animal fat` #3491, `meat and bone meal` #3492, `potato shreds` #1066 |
+| `aardappel-loof` has no FoodWasteEXplorer rows | searched for **`Potato haulm`** | `Potato vines`, `Potato, aerial part`, `Potato leaves, dried`, `Potato vine silage` — the site does not use the word *haulm* |
+| CVB has no sheet for `aardappel-snippers` | the pages already mapped | p. **497** `Aardappelsnippers, rauw` — 40 parameters where the stream had 3 |
+
+**The rule: before writing "source X has nothing for Y", pull X's complete index and grep
+it.** Every source in this harvest now has one, and the tools hold it rather than a session's
+memory:
+
+- `tools/fetch_phyllis.py --index` caches `/Browse/PlainList` — all 3289 records — and
+  `--grep` searches it.
+- `tools/fetch_fwe.py --list` reads the site's own 634-entry side-stream vocabulary.
+- Feedipedia's 779-datasheet feed list and feedtables.com's 324-entry list were both pulled.
+- `tools/fetch_cvb.py` names every sheet it refused, and its page map was rebuilt by reading
+  **all 708 sheet titles**, not a sample.
+
+**A checked-and-empty is worth as much as a hit, and it is a different claim from a failed
+search.** "Feedipedia has no potato haulm" is now a *fact about Feedipedia* — its only
+`haulm` is Bambara groundnut — and it is what licenses the conclusion that 800 kt/yr of
+material has never been analysed by a feed or fuel database. "I searched and found nothing"
+licenses nothing at all.
+
+**And a deduplication rule has to be able to be wrong about a case.** The FoodWasteEXplorer
+harvest drops rows citing Feedipedia or ECN Phyllis 2, because this harvest reads both
+directly and two rows citing one study are one measurement. For potato haulm that assumption
+is false *and it was checkable*: we do not hold Feedipedia haulm data because Feedipedia has
+none. `HELD_EXCEPTIONS` in `tools/map_fwe.py` names the case and the evidence rather than
+letting a sound general rule quietly delete the best data on the thinnest stream.
+
+## Not measured and not applicable are different, in the analysis too (2026-09-15)
+
+The coverage analysis used to report `dierlijk-vet` as missing its detergent-fibre analysis.
+That is not a gap, it is a **category error**: a rendered animal fat has no cell wall, so no
+laboratory anywhere reports its NDF. Counting it as missing overstated the work left on three
+streams and pointed the next harvest at values that cannot be found.
+
+`NOT_APPLICABLE` in `tools/eda.py` separates the two, with the reasoning beside it — the same
+distinction `unknown` and `n.a.` already make on a unit. **It lives in the analysis and never
+becomes a row.** BioMobi stays sparse; nothing is written to say a fraction is zero.
