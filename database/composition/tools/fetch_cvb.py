@@ -83,6 +83,43 @@ AMINO_NOTE = {
 }
 
 
+# The FATTY-ACID block sits on the same facing page as the amino acids, laid out as
+#   LABEL  <% of total fatty acids>  <g/kg>
+# Only the second is taken. A percentage OF THE FATTY ACIDS is a share of a sum, not a
+# content: it cannot be compared across materials and it changes when the fat content
+# does. `RVET(h)` heads the block with the fat itself and is already captured from the
+# Weende block, so it is skipped here rather than recorded twice.
+FATTY = {
+    "<=C10": "fa_c10_or_less", "C12:0": "fa_c12_0", "C14:0": "fa_c14_0",
+    "C16:0": "fa_c16_0", "C16:1": "fa_c16_1", "C18:0": "fa_c18_0",
+    "C18:1": "fa_c18_1", "C18:2": "fa_c18_2", "C18:3": "fa_c18_3",
+    ">=C20": "fa_c20_or_more",
+}
+
+
+def parse_fatty(text: str) -> list[tuple[str, str, str, str, str]]:
+    """-> [(parameter, unit, value, sd, note), ...] from the facing page's Vetzuren block."""
+    out = []
+    for line in text.split("\n"):
+        parts = line.split()
+        if len(parts) < 3:
+            continue
+        if parts[0] == "Som" and parts[1] == "VZ":
+            val = parts[3] if len(parts) > 3 else "-"
+            if val not in ("-", ""):
+                out.append(("fatty_acids_total", "g/kg", val, "",
+                            "CVB's own sum of the fatty acids it measured - not recomputed here"))
+            continue
+        name = FATTY.get(parts[0])
+        if not name:
+            continue
+        absolute = parts[2]
+        if absolute in ("-", ""):
+            continue
+        out.append((name, "g/kg", absolute, "", ""))
+    return out
+
+
 def parse_amino(text: str, basis: str) -> list[tuple[str, str, str, str, str]]:
     """-> [(parameter, unit, value, sd, note), ...] from the facing page's amino-acid block."""
     out = []
@@ -128,6 +165,8 @@ PAGES: dict[int, tuple[str, str]] = {
     505: ("aardappel-stoomschillen", "Aardappelstoomschillen, vers en kuil - ZETam < 350 g/kg DS"),
     511: ("aardappel-stoomschillen", "Aardappelstoomschillen, vers en kuil - ZETam > 600 g/kg DS"),
     559: ("zuivelnevenstroom", "Kaaswei, vers - RE < 175 g/kg DS"),
+    419: ("dierlijk-vet", "Vet/olie, Dierlijk - 6% linolzuur"),
+    421: ("dierlijk-vet", "Vet/olie, Dierlijk - 9% linolzuur"),
 }
 
 
@@ -220,7 +259,8 @@ def emit() -> None:
             # the amino-acid block is printed on the FACING page of the same product
             facing = pdf.pages[page].extract_text() or "" if page < len(pdf.pages) else ""
             if facing.startswith(text.split("\n")[0].rsplit(" ", 1)[0]):
-                for param, unit, val, sd, note in parse_amino(facing, sheet_default):
+                for param, unit, val, sd, note in (parse_amino(facing, sheet_default)
+                                                   + parse_fatty(facing)):
                     rows.append(dict(
                         stream_code=code, parameter_code=param, value_type="point",
                         value_num=val, value_min="", value_max="", sd=sd, n_samples="",

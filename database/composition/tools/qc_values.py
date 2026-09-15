@@ -183,6 +183,28 @@ def pass2(rows) -> list[dict]:
                             message=(f"total amino acids exceed crude protein - a hydrolysate is "
                                      f"made OF the protein, so this cannot be right ({variant})")))
 
+        # the individual fatty acids cannot exceed the source's own sum of them, and that
+        # sum cannot exceed the fat - the acids are what the fat is made of
+        FAS = ["fa_c10_or_less", "fa_c12_0", "fa_c14_0", "fa_c16_0", "fa_c16_1", "fa_c18_0",
+               "fa_c18_1", "fa_c18_2", "fa_c18_3", "fa_c20_or_more"]
+        fa_present = [k for k in FAS if k in d]
+        if len(fa_present) >= 6 and "fatty_acids_total" in d:
+            s_fa = sum(d[k] for k in fa_present)
+            if abs(s_fa - d["fatty_acids_total"]) > max(1.0, 0.1 * d["fatty_acids_total"]):
+                out.append(dict(kind="fatty-acid-sum", stream=stream,
+                                parameter="sum(fatty acids) vs total", unit="%", basis=basis,
+                                value=f"{s_fa:.1f} vs {d['fatty_acids_total']:.1f}", source=source,
+                                message=(f"the individual fatty acids sum to {s_fa:.1f} where the "
+                                         f"source's own total says {d['fatty_acids_total']:.1f} "
+                                         f"({variant})")))
+        if "fatty_acids_total" in d and "fat_total" in d and                 d["fatty_acids_total"] > d["fat_total"] * 1.05:
+            out.append(dict(kind="fatty-acid-sum", stream=stream,
+                            parameter="fatty acids vs total fat", unit="%", basis=basis,
+                            value=f"{d['fatty_acids_total']:.1f} vs {d['fat_total']:.1f}",
+                            source=source,
+                            message=(f"total fatty acids exceed total fat - the acids are what "
+                                     f"the fat is made OF, so this cannot be right ({variant})")))
+
         for a, b in (("ndf", "adf"), ("adf", "lignin"), ("ndf", "lignin")):  # noqa: E501
             if a in d and b in d and d[a] < d[b] - 0.5:
                 out.append(dict(kind="detergent-order", stream=stream, parameter=f"{a} < {b}",

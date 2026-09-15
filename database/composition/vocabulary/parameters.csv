@@ -6,7 +6,7 @@ organic_matter;Organic matter;chemical;ash-solids;%;Droge stof min as. Bronnen o
 crude_protein;Crude protein;chemical;protein-total;%;Total nitrogen multiplied by a protein factor, usually 6,25. INFOODS calls this PROCNT, protein calculated from total nitrogen. The FACTOR is an expression rather than a method - record it in the measurement notes until an expression axis exists
 total_nitrogen;Total nitrogen;chemical;protein-total;%;Kjeldahl- of Dumas-stikstof zelf, zonder eiwitfactor. Registreer dit wanneer de bron N geeft en niet het eiwit
 true_protein;True protein;chemical;protein-total;%;Eiwit bepaald als som van aminozuren of na aftrek van niet-eiwitstikstof. Een ander object dan ruw eiwit, niet een betere meting ervan
-fat_total;Total fat;chemical;fat;%;Total lipid. WHICH EXTRACTION was used is a METHOD, recorded on the measurement - diethyl ether (what the Weende scheme calls crude fat), petroleum ether, or acid hydrolysis, which recovers bound lipids the plain ether extract leaves behind and reads systematically higher. INFOODS separates FAT from FATCE on the same grounds
+fat_total;Total fat;chemical;fat-total;%;Total lipid. WHICH EXTRACTION was used is a METHOD, recorded on the measurement - diethyl ether (what the Weende scheme calls crude fat), petroleum ether, or acid hydrolysis, which recovers bound lipids the plain ether extract leaves behind and reads systematically higher. INFOODS separates FAT from FATCE on the same grounds
 crude_fibre;Crude fibre;chemical;dietary-fibre;%;The Weende crude-fibre fraction, and it is genuinely Weende-specific: there is no method-independent thing it could mean. It is NOT a worse measurement of fibre than NDF - it is a DIFFERENT fraction, losing most hemicellulose and part of the lignin. INFOODS carries it as FIBC
 nfe;Nitrogen-free extract;chemical;carbohydrates;%;The by-difference carbohydrate remainder of the Weende partition. A calculation by the source, not a determination - record it with value_origin = calculated. INFOODS has the same concept as CHOAVLDF
 ndf;Neutral detergent fibre (NDF);chemical;dietary-fibre;%;Van Soest-celwand - cellulose plus hemicellulose plus lignine. Vermeld in notes of de bron aNDF of aNDFom bedoelt
@@ -89,3 +89,14 @@ serine;Serine;chemical;amino-acids;g/kg;A non-essential amino acid
 amino_acids_total;Total amino acids;chemical;amino-acids;g/kg;The sum of the individual amino acids as the source reports it, NOT a figure to recompute - a source's own sum reflects which amino acids it measured
 bromine;Bromine (Br);chemical;ultimate;mg/kg;Total bromine from elemental analysis. Reported by solid-biofuel characterisation beside chlorine and fluorine - the halogen set that decides corrosion and flue-gas treatment
 fluorine;Fluorine (F);chemical;ultimate;mg/kg;Total fluorine from elemental analysis. Often reported as below a detection limit rather than as a number - a censored value BioMobi has no way to store, so those are left out and noted
+fa_c10_or_less;Fatty acids, C10 and shorter;chemical;fatty-acids;g/kg;The short-chain fraction, reported by feed tables as a single lumped figure
+fa_c12_0;Lauric acid (C12:0);chemical;fatty-acids;g/kg;Saturated, twelve carbons
+fa_c14_0;Myristic acid (C14:0);chemical;fatty-acids;g/kg;Saturated, fourteen carbons
+fa_c16_0;Palmitic acid (C16:0);chemical;fatty-acids;g/kg;Saturated, sixteen carbons - the dominant saturated fatty acid in animal fat
+fa_c16_1;Palmitoleic acid (C16:1);chemical;fatty-acids;g/kg;Monounsaturated, sixteen carbons
+fa_c18_0;Stearic acid (C18:0);chemical;fatty-acids;g/kg;Saturated, eighteen carbons
+fa_c18_1;Oleic acid (C18:1);chemical;fatty-acids;g/kg;Monounsaturated, eighteen carbons - usually the largest single fatty acid present
+fa_c18_2;Linoleic acid (C18:2);chemical;fatty-acids;g/kg;Polyunsaturated, and the one CVB grades animal fat by: its 6% and 9% linoleic variants are two products, not two measurements
+fa_c18_3;Linolenic acid (C18:3);chemical;fatty-acids;g/kg;Polyunsaturated, three double bonds
+fa_c20_or_more;Fatty acids, C20 and longer;chemical;fatty-acids;g/kg;The long-chain fraction, reported as a single lumped figure
+fatty_acids_total;Total fatty acids;chemical;fatty-acids;g/kg;The source's own sum of the fatty acids it measured. NOT to be recomputed - a sum reflects which acids that source looked for
