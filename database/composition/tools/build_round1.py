@@ -150,16 +150,16 @@ FEEDIPEDIA = {
         ("Neutral detergent fibre",   "34.7", "",    "34.5", "34.8", "2",    ""),
         ("Acid detergent fibre",      "21.0", "",    "18.0", "23.9", "2",    ""),
         ("Lignin",                    "5.5",  "",    "4.6",  "6.4",  "2",    ""),
-        ("Ether extract",             "1.3",  "0.9", "",     "1.6",  "2",    ""),
-        ("Ash",                       "14.1", "5.1", "",     "23.1", "2",    ""),
+        ("Ether extract",             "1.3",  "",    "0.9",  "1.6",  "2",    ""),
+        ("Ash",                       "14.1", "",    "5.1",  "23.1", "2",    ""),
         ("Gross energy",              "16.1", "",    "",     "",     "",     "*"),
     ]),
     "suikerbiet": ("535", "Beet root, sugar type, fresh", [
         ("Dry matter",                "18.8", "4.2", "14.5", "24.1", "4",    ""),
         ("Crude protein",             "7.8",  "1.5", "6.2",  "9.9",  "5",    ""),
         ("Crude fibre",               "8.1",  "4.4", "5.6",  "14.7", "4",    ""),
-        ("Neutral detergent fibre",   "20.4", "10.8","",     "30.0", "2",    ""),
-        ("Acid detergent fibre",      "12.7", "5.5", "",     "19.8", "2",    ""),
+        ("Neutral detergent fibre",   "20.4", "",    "10.8", "30.0", "2",    ""),
+        ("Acid detergent fibre",      "12.7", "",    "5.5",  "19.8", "2",    ""),
         ("Lignin",                    "1.9",  "",    "",     "",     "1",    ""),
         ("Ether extract",             "0.5",  "0.2", "0.2",  "0.6",  "3",    ""),
         ("Ash",                       "6.9",  "4.2", "3.5",  "13.0", "4",    ""),
@@ -222,82 +222,25 @@ FEED_MAP = {
 }
 
 # --------------------------------------------------------------------------
-# Phyllis2 records, transcribed 2026-09-09
+# Phyllis2 records: NO LONGER TRANSCRIBED HERE.
 # --------------------------------------------------------------------------
-# row = (phyllis label, unit, ar, dry, daf)
-
-PHYLLIS = {
-    "tarwe-stro": ("3161", "Wheat straw",
-                   "C. Wilen, A. Moilanen and E. Kurkula: Biomass feedstock analyses, "
-                   "VTT publications 282, Espoo 1996.", "Denmark", "1996", "", [
-        ("Moisture content",           "%",     "10.25", "",      ""),
-        ("Ash content at 550 C",       "%",     "4.23",  "4.71",  ""),
-        ("Volatile matter",            "%",     "69.74", "77.70", "81.54"),
-        ("Fixed carbon",               "%",     "15.79", "17.59", "18.46"),
-        ("Carbon",                     "%",     "42.45", "47.30", "49.64"),
-        ("Hydrogen",                   "%",     "5.27",  "5.87",  "6.16"),
-        ("Oxygen",                     "%",     "37.24", "41.49", "43.54"),
-        ("Nitrogen",                   "%",     "0.52",  "0.58",  "0.61"),
-        ("Sulphur",                    "%",     "0.06",  "0.07",  "0.07"),
-        ("Chlorine (Cl)",              "mg/kg", "1534.7","1710.0","1794.5"),
-        ("Net calorific value (LHV)",  "MJ/kg", "15.59", "17.65", "18.52"),
-        ("Gross calorific value (HHV)","MJ/kg", "17.00", "18.94", "19.88"),
-    ]),
-    "mais-stro": ("704", "Corn stover",
-                  "Record cites a 1998 NREL biomass resource link that is now obsolete "
-                  "(redirects to nrel.gov/rredc/biomass_resource.html).", "", "",
-                  "REFERENCE IS A DEAD LINK - provenance does not resolve to a document. Also note "
-                  "that Phyllis2 holds 6 corn stalks, 11 corn cob and 2 maize leaf/shoot records "
-                  "beside this one: FRACTIONS of the same crop, deliberately excluded here because "
-                  "`mais-stro` is the whole above-ground residue. Six further corn stover records "
-                  "exist and each is its own source - only one was taken to build an example", [
-        ("Moisture content",           "%",     "6.06",  "",      ""),
-        ("Ash content at 550 C",       "%",     "4.75",  "5.06",  ""),
-        ("Volatile matter",            "%",     "75.96", "80.86", "85.17"),
-        ("Fixed carbon",               "%",     "13.23", "14.08", "14.83"),
-        ("Carbon",                     "%",     "43.98", "46.82", "49.31"),
-        ("Hydrogen",                   "%",     "5.39",  "5.74",  "6.04"),
-        ("Oxygen",                     "%",     "38.85", "41.36", "43.56"),
-        ("Nitrogen",                   "%",     "0.62",  "0.66",  "0.70"),
-        ("Sulphur",                    "%",     "0.10",  "0.11",  "0.11"),
-        ("Chlorine (Cl)",              "mg/kg", "2500.0","2661.3","2803.0"),
-        ("Net calorific value (LHV)",  "MJ/kg", "15.68", "16.85", "17.75"),
-        ("Gross calorific value (HHV)","MJ/kg", "17.00", "18.10", "19.06"),
-    ]),
-    "raapzaad-stro": ("3131", "Rapestraw",
-                      "No literature reference on the record; analytical standards only "
-                      "(CEN/TS 14775, 15289, 14918, 15290). Producer: OFI, Austria.",
-                      "Austria", "2002",
-                      "PARTIAL TRANSCRIPTION - several proximate and ultimate cells were not "
-                      "returned legibly, and the 'Total (with halides)' pair reads as 5.62 dry / "
-                      "0.51 daf, which cannot both be right. Re-read the record before loading.", [
-        ("Ash content at 550 C",       "%",     "",      "5.14",  ""),
-        ("Sulphur",                    "%",     "",      "0.21",  "0.22"),
-        ("Chlorine (Cl)",              "mg/kg", "",      "2768.0","2918.0"),
-        ("Gross calorific value (HHV)","MJ/kg", "17.71", "18.67", ""),
-    ]),
-    "suikerbiet-loof": ("1053", "Beet tail and beet green",
-                        "R. J. Leemhuis and R. M. de Jong: Biomassa: biochemische samenstelling "
-                        "en conversiemethoden (confidential report, in Dutch), Petten, ECN, "
-                        "ECN 7.2072-GR 2, 16 p. (1997).", "", "1997",
-                        "LOW CONFIDENCE - every value is a round number (10.00, 10.00, 5.00, 5.00) "
-                        "from a 1997 confidential report. Reads as an estimate, not a measurement. "
-                        "Record remark: 'sugars 5%'.", [
-        ("Ash content at 550 C",       "%",     "",      "5.00",  ""),
-        ("Cellulose",                  "%",     "",      "10.00", ""),
-        ("Hemicellulose",              "%",     "",      "10.00", ""),
-        ("Lignin",                     "%",     "",      "5.00",  ""),
-    ]),
-    "bloemkool": ("1564", "Cauliflower",
-                  "J. D. de Rijk and M. J. Zegwaard: Literature survey quality organic domestic "
-                  "waste components (Literatuuronderzoek kwaliteit GFT-componenten), "
-                  "Publicatiereeks afvalstoffen VROM, Delft, 1993/7 (1993).", "", "1993",
-                  "The record holds ONLY heavy metals - no main biomass properties at all. "
-                  "Record remark: 'Average of 35 samples'.", [
-        ("Cadmium (Cd)",               "mg/kg", "",      "0.1",   ""),
-        ("Lead (Pb)",                  "mg/kg", "",      "0.1",   ""),
-    ]),
-}
+# The five records this file used to carry by hand (#704, #1053, #1564, #3131, #3161) moved
+# to tools/fetch_phyllis.py on 2026-09-16, after a transcription-fidelity audit found this
+# block held the ONLY wrong stored numbers in the whole corpus - 7 of its 79 values had a
+# wrong basis and one had a wrong number, all from one mechanism: Phyllis leaves the `ar`
+# cell EMPTY when the page computes it, and reading the row by eye then shifts every
+# remaining number one column left.
+#
+# Two things follow, and the second is the one worth keeping.
+# 1. The fix is re-extraction, not correction. A parser reads the column by its class and
+#    cannot slip; a person reading a three-column table with a hole in it can, and did,
+#    three separate times.
+# 2. IT ALSO COSTS 20 ROWS, ON PURPOSE. #704 and #3161 had 20 values taken from `ar` cells
+#    that Phyllis COMPUTES from the stored dry figure. Round 1 was honest about them
+#    (`restatement=yes`), but fetch_phyllis.py refuses a computed cell by design, and that
+#    rule already governs 93 rows. Applying it to 93 rows and not to these 20 was the
+#    inconsistency. The numbers are not lost - they are the source's own arithmetic on
+#    values we still hold.
 
 # Phyllis2 label -> (parameter_code, method_code, value_origin, note)
 PHYL_MAP = {
@@ -373,28 +316,6 @@ def build():
                 restatement="no", flag="", transcription="machine", DECISION="",
                 notes=note,
             ))
-
-    for stream, (rec, name, ref, loc, year, flag, table) in PHYLLIS.items():
-        for label, unit, ar, dry, daf in table:
-            code, method, origin, note = PHYL_MAP[label]
-            for col, value in (("ar", ar), ("dry", dry), ("daf", daf)):
-                if not value:
-                    continue
-                rows.append(dict(
-                    stream_code=stream, parameter_code=code, value_type="point",
-                    value_num=value, value_min="", value_max="", sd="", n_samples="",
-                    unit_code=unit, basis_code=BASIS_COL[col], method_code=method,
-                    value_origin=origin,
-                    source_key="phyllis2-tno",
-                    source_ref=f"Phyllis2 record #{rec}", year=year,
-                    reported_label=label, variant=f"{name} ({loc})" if loc else name,
-                    predicted="no",
-                    # the dry column is the one to keep by default; ar and daf are the
-                    # source's own arithmetic restatements of the same determination
-                    restatement="no" if col == "dry" or (col == "ar" and code == "moisture") else "yes",
-                    flag=flag, transcription="machine",
-                    DECISION="", notes=note,
-                ))
 
     fields = ["stream_code", "parameter_code", "value_type", "value_num", "value_min",
               "value_max", "sd", "n_samples", "unit_code", "basis_code", "method_code",

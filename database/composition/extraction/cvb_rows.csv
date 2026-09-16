@@ -21,6 +21,8 @@ bostel;magnesium;point;1.8;;;;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB 
 bostel;potassium;point;0.5;;;;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 105;2023;K;Bierbostel, gedroogd (Bierbostel, gedroogd);no;;machine;;
 bostel;sodium;point;0.1;;;;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 105;2023;Na;Bierbostel, gedroogd (Bierbostel, gedroogd);no;;machine;;
 bostel;chloride;point;0.1;;;;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 105;2023;Cl;Bierbostel, gedroogd (Bierbostel, gedroogd);no;;machine;;
+bostel;sulphur_inorganic;point;0.2;;;;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 105;2023;S-a;Bierbostel, gedroogd (Bierbostel, gedroogd);no;;machine;;
+bostel;sulphur_organic;point;2.3;;;;;g/kg;fresh;;calculated;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 105;2023;S-o;Bierbostel, gedroogd (Bierbostel, gedroogd);no;;machine;;
 bostel;iron;point;253;;;;;mg/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 105;2023;Fe;Bierbostel, gedroogd (Bierbostel, gedroogd);no;;machine;;
 bostel;manganese;point;39;;;;;mg/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 105;2023;Mn;Bierbostel, gedroogd (Bierbostel, gedroogd);no;;machine;;
 bostel;zinc;point;66;;;33;;mg/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 105;2023;Zn;Bierbostel, gedroogd (Bierbostel, gedroogd);no;;machine;;
@@ -67,6 +69,8 @@ suikerbiet-pulp;magnesium;point;2.4;;;0.6;;g/kg;fresh;;measured;cvb-veevoedertab
 suikerbiet-pulp;potassium;point;4.0;;;1.4;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 109;2023;K;Bietenpulp, gedroogd-SUI < 100 g/kg (Bietenpulp, gedroogd - SUI < 100 g/kg);no;;machine;;
 suikerbiet-pulp;sodium;point;0.5;;;0.3;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 109;2023;Na;Bietenpulp, gedroogd-SUI < 100 g/kg (Bietenpulp, gedroogd - SUI < 100 g/kg);no;;machine;;
 suikerbiet-pulp;chloride;point;0.4;;;0.3;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 109;2023;Cl;Bietenpulp, gedroogd-SUI < 100 g/kg (Bietenpulp, gedroogd - SUI < 100 g/kg);no;;machine;;
+suikerbiet-pulp;sulphur_inorganic;point;1.4;;;;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 109;2023;S-a;Bietenpulp, gedroogd-SUI < 100 g/kg (Bietenpulp, gedroogd - SUI < 100 g/kg);no;;machine;;
+suikerbiet-pulp;sulphur_organic;point;0.5;;;;;g/kg;fresh;;calculated;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 109;2023;S-o;Bietenpulp, gedroogd-SUI < 100 g/kg (Bietenpulp, gedroogd - SUI < 100 g/kg);no;;machine;;
 suikerbiet-pulp;iron;point;475;;;182;;mg/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 109;2023;Fe;Bietenpulp, gedroogd-SUI < 100 g/kg (Bietenpulp, gedroogd - SUI < 100 g/kg);no;;machine;;
 suikerbiet-pulp;manganese;point;57;;;10;;mg/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 109;2023;Mn;Bietenpulp, gedroogd-SUI < 100 g/kg (Bietenpulp, gedroogd - SUI < 100 g/kg);no;;machine;;
 suikerbiet-pulp;zinc;point;17;;;8;;mg/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 109;2023;Zn;Bietenpulp, gedroogd-SUI < 100 g/kg (Bietenpulp, gedroogd - SUI < 100 g/kg);no;;machine;;
@@ -115,6 +119,8 @@ lijnzaad-schroot;magnesium;point;4.5;;;;;g/kg;fresh;;measured;cvb-veevoedertabel
 lijnzaad-schroot;potassium;point;10.9;;;;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 213;2023;K;Lijnzaadschroot (Lijnzaadschroot);no;;machine;;
 lijnzaad-schroot;sodium;point;0.8;;;;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 213;2023;Na;Lijnzaadschroot (Lijnzaadschroot);no;;machine;;
 lijnzaad-schroot;chloride;point;1.1;;;;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 213;2023;Cl;Lijnzaadschroot (Lijnzaadschroot);no;;machine;;
+lijnzaad-schroot;sulphur_inorganic;point;0.8;;;;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 213;2023;S-a;Lijnzaadschroot (Lijnzaadschroot);no;;machine;;
+lijnzaad-schroot;sulphur_organic;point;2.8;;;;;g/kg;fresh;;calculated;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 213;2023;S-o;Lijnzaadschroot (Lijnzaadschroot);no;;machine;;
 lijnzaad-schroot;iron;point;195;;;;;mg/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 213;2023;Fe;Lijnzaadschroot (Lijnzaadschroot);no;;machine;;
 lijnzaad-schroot;manganese;point;42;;;;;mg/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 213;2023;Mn;Lijnzaadschroot (Lijnzaadschroot);no;;machine;;
 lijnzaad-schroot;zinc;point;63;;;;;mg/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 213;2023;Zn;Lijnzaadschroot (Lijnzaadschroot);no;;machine;;
@@ -175,6 +181,8 @@ raapzaad-schroot;magnesium;point;4.1;;;0.3;;g/kg;fresh;;measured;cvb-veevoederta
 raapzaad-schroot;potassium;point;12.2;;;0.7;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 301;2023;K;Raapzaadschroot-RE < 370 g/kg (Raapzaadschroot - RE < 370 g/kg);no;;machine;;
 raapzaad-schroot;sodium;point;0.8;;;0.6;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 301;2023;Na;Raapzaadschroot-RE < 370 g/kg (Raapzaadschroot - RE < 370 g/kg);no;;machine;;
 raapzaad-schroot;chloride;point;0.4;;;0.3;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 301;2023;Cl;Raapzaadschroot-RE < 370 g/kg (Raapzaadschroot - RE < 370 g/kg);no;;machine;;
+raapzaad-schroot;sulphur_inorganic;point;0.7;;;;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 301;2023;S-a;Raapzaadschroot-RE < 370 g/kg (Raapzaadschroot - RE < 370 g/kg);no;;machine;;
+raapzaad-schroot;sulphur_organic;point;3.7;;;;;g/kg;fresh;;calculated;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 301;2023;S-o;Raapzaadschroot-RE < 370 g/kg (Raapzaadschroot - RE < 370 g/kg);no;;machine;;
 raapzaad-schroot;iron;point;355;;;326;;mg/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 301;2023;Fe;Raapzaadschroot-RE < 370 g/kg (Raapzaadschroot - RE < 370 g/kg);no;;machine;;
 raapzaad-schroot;manganese;point;70;;;10;;mg/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 301;2023;Mn;Raapzaadschroot-RE < 370 g/kg (Raapzaadschroot - RE < 370 g/kg);no;;machine;;
 raapzaad-schroot;zinc;point;60;;;5;;mg/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 301;2023;Zn;Raapzaadschroot-RE < 370 g/kg (Raapzaadschroot - RE < 370 g/kg);no;;machine;;
@@ -234,6 +242,8 @@ raapzaad-schroot;magnesium;point;4.0;;;;;g/kg;fresh;;measured;cvb-veevoedertabel
 raapzaad-schroot;potassium;point;12.5;;;;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 303;2023;K;Raapzaadschroot-RE > 370 g/kg (Raapzaadschroot - RE > 370 g/kg);no;;machine;;
 raapzaad-schroot;sodium;point;0.1;;;;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 303;2023;Na;Raapzaadschroot-RE > 370 g/kg (Raapzaadschroot - RE > 370 g/kg);no;;machine;;
 raapzaad-schroot;chloride;point;0.4;;;;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 303;2023;Cl;Raapzaadschroot-RE > 370 g/kg (Raapzaadschroot - RE > 370 g/kg);no;;machine;;
+raapzaad-schroot;sulphur_inorganic;point;0.7;;;;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 303;2023;S-a;Raapzaadschroot-RE > 370 g/kg (Raapzaadschroot - RE > 370 g/kg);no;;machine;;
+raapzaad-schroot;sulphur_organic;point;4.2;;;;;g/kg;fresh;;calculated;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 303;2023;S-o;Raapzaadschroot-RE > 370 g/kg (Raapzaadschroot - RE > 370 g/kg);no;;machine;;
 raapzaad-schroot;iron;point;373;;;;;mg/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 303;2023;Fe;Raapzaadschroot-RE > 370 g/kg (Raapzaadschroot - RE > 370 g/kg);no;;machine;;
 raapzaad-schroot;manganese;point;72;;;;;mg/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 303;2023;Mn;Raapzaadschroot-RE > 370 g/kg (Raapzaadschroot - RE > 370 g/kg);no;;machine;;
 raapzaad-schroot;zinc;point;76;;;;;mg/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 303;2023;Zn;Raapzaadschroot-RE > 370 g/kg (Raapzaadschroot - RE > 370 g/kg);no;;machine;;
@@ -293,6 +303,8 @@ soja-schroot;magnesium;point;3.0;;;0.4;;g/kg;fresh;;measured;cvb-veevoedertabel-
 soja-schroot;potassium;point;22.1;;;1.2;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 343;2023;K;Sojaschroot-HiPro RC < 45 g/kg-RE < 485 g/kg (Sojaschroot - HiPro, RC < 45, RE < 485 g/kg);no;;machine;;
 soja-schroot;sodium;point;0.1;;;0.1;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 343;2023;Na;Sojaschroot-HiPro RC < 45 g/kg-RE < 485 g/kg (Sojaschroot - HiPro, RC < 45, RE < 485 g/kg);no;;machine;;
 soja-schroot;chloride;point;0.4;;;0.2;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 343;2023;Cl;Sojaschroot-HiPro RC < 45 g/kg-RE < 485 g/kg (Sojaschroot - HiPro, RC < 45, RE < 485 g/kg);no;;machine;;
+soja-schroot;sulphur_inorganic;point;0.4;;;;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 343;2023;S-a;Sojaschroot-HiPro RC < 45 g/kg-RE < 485 g/kg (Sojaschroot - HiPro, RC < 45, RE < 485 g/kg);no;;machine;;
+soja-schroot;sulphur_organic;point;3.3;;;;;g/kg;fresh;;calculated;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 343;2023;S-o;Sojaschroot-HiPro RC < 45 g/kg-RE < 485 g/kg (Sojaschroot - HiPro, RC < 45, RE < 485 g/kg);no;;machine;;
 soja-schroot;iron;point;130;;;32;;mg/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 343;2023;Fe;Sojaschroot-HiPro RC < 45 g/kg-RE < 485 g/kg (Sojaschroot - HiPro, RC < 45, RE < 485 g/kg);no;;machine;;
 soja-schroot;manganese;point;37;;;3;;mg/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 343;2023;Mn;Sojaschroot-HiPro RC < 45 g/kg-RE < 485 g/kg (Sojaschroot - HiPro, RC < 45, RE < 485 g/kg);no;;machine;;
 soja-schroot;zinc;point;49;;;4;;mg/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 343;2023;Zn;Sojaschroot-HiPro RC < 45 g/kg-RE < 485 g/kg (Sojaschroot - HiPro, RC < 45, RE < 485 g/kg);no;;machine;;
@@ -353,6 +365,8 @@ soja-schroot;magnesium;point;3.0;;;0.4;;g/kg;fresh;;measured;cvb-veevoedertabel-
 soja-schroot;potassium;point;22.0;;;1.2;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 351;2023;K;Sojaschroot-RC > 70 g/kg (Sojaschroot - RC > 70 g/kg);no;;machine;;
 soja-schroot;sodium;point;0.1;;;0.1;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 351;2023;Na;Sojaschroot-RC > 70 g/kg (Sojaschroot - RC > 70 g/kg);no;;machine;;
 soja-schroot;chloride;point;0.4;;;0.2;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 351;2023;Cl;Sojaschroot-RC > 70 g/kg (Sojaschroot - RC > 70 g/kg);no;;machine;;
+soja-schroot;sulphur_inorganic;point;3.9;;;;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 351;2023;S-a;Sojaschroot-RC > 70 g/kg (Sojaschroot - RC > 70 g/kg);no;;machine;;
+soja-schroot;sulphur_organic;point;3.0;;;;;g/kg;fresh;;calculated;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 351;2023;S-o;Sojaschroot-RC > 70 g/kg (Sojaschroot - RC > 70 g/kg);no;;machine;;
 soja-schroot;iron;point;129;;;32;;mg/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 351;2023;Fe;Sojaschroot-RC > 70 g/kg (Sojaschroot - RC > 70 g/kg);no;;machine;;
 soja-schroot;manganese;point;37;;;3;;mg/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 351;2023;Mn;Sojaschroot-RC > 70 g/kg (Sojaschroot - RC > 70 g/kg);no;;machine;;
 soja-schroot;zinc;point;48;;;4;;mg/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 351;2023;Zn;Sojaschroot-RC > 70 g/kg (Sojaschroot - RC > 70 g/kg);no;;machine;;
@@ -413,6 +427,8 @@ zemelen;magnesium;point;5.2;;;;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB
 zemelen;potassium;point;15.1;;;;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 397;2023;K;Tarwemaalderijproducten-Tarwezemelen (Tarwemaalderijproducten - Tarwezemelen);no;;machine;;
 zemelen;sodium;point;0.2;;;;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 397;2023;Na;Tarwemaalderijproducten-Tarwezemelen (Tarwemaalderijproducten - Tarwezemelen);no;;machine;;
 zemelen;chloride;point;0.7;;;;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 397;2023;Cl;Tarwemaalderijproducten-Tarwezemelen (Tarwemaalderijproducten - Tarwezemelen);no;;machine;;
+zemelen;sulphur_inorganic;point;0.1;;;;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 397;2023;S-a;Tarwemaalderijproducten-Tarwezemelen (Tarwemaalderijproducten - Tarwezemelen);no;;machine;;
+zemelen;sulphur_organic;point;1.3;;;;;g/kg;fresh;;calculated;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 397;2023;S-o;Tarwemaalderijproducten-Tarwezemelen (Tarwemaalderijproducten - Tarwezemelen);no;;machine;;
 zemelen;iron;point;158;;;;;mg/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 397;2023;Fe;Tarwemaalderijproducten-Tarwezemelen (Tarwemaalderijproducten - Tarwezemelen);no;;machine;;
 zemelen;manganese;point;161;;;;;mg/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 397;2023;Mn;Tarwemaalderijproducten-Tarwezemelen (Tarwemaalderijproducten - Tarwezemelen);no;;machine;;
 zemelen;zinc;point;111;;;;;mg/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 397;2023;Zn;Tarwemaalderijproducten-Tarwezemelen (Tarwemaalderijproducten - Tarwezemelen);no;;machine;;
@@ -533,6 +549,8 @@ zuivelnevenstroom;magnesium;point;1.2;;;0.2;;g/kg;fresh;;measured;cvb-veevoedert
 zuivelnevenstroom;potassium;point;23.6;;;1.7;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 465;2023;K;Weipoeder (Weipoeder);no;;machine;;
 zuivelnevenstroom;sodium;point;6.8;;;0.8;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 465;2023;Na;Weipoeder (Weipoeder);no;;machine;;
 zuivelnevenstroom;chloride;point;18.5;;;1.0;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 465;2023;Cl;Weipoeder (Weipoeder);no;;machine;;
+zuivelnevenstroom;sulphur_inorganic;point;0.7;;;;;g/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 465;2023;S-a;Weipoeder (Weipoeder);no;;machine;;
+zuivelnevenstroom;sulphur_organic;point;1.1;;;;;g/kg;fresh;;calculated;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 465;2023;S-o;Weipoeder (Weipoeder);no;;machine;;
 zuivelnevenstroom;iron;point;9;;;4;;mg/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 465;2023;Fe;Weipoeder (Weipoeder);no;;machine;;
 zuivelnevenstroom;manganese;point;1;;;0;;mg/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 465;2023;Mn;Weipoeder (Weipoeder);no;;machine;;
 zuivelnevenstroom;zinc;point;8;;;8;;mg/kg;fresh;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 465;2023;Zn;Weipoeder (Weipoeder);no;;machine;;
@@ -575,6 +593,7 @@ aardappel-snippers;magnesium;point;0.6;;;0.2;;g/kg;dry;;measured;cvb-veevoederta
 aardappel-snippers;potassium;point;12.9;;;3.9;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 497;2023;K;Aardappelsnippers, rauw (Aardappelsnippers, rauw);no;;machine;;
 aardappel-snippers;sodium;point;0.4;;;0.3;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 497;2023;Na;Aardappelsnippers, rauw (Aardappelsnippers, rauw);no;;machine;;
 aardappel-snippers;chloride;point;1.4;;;0.5;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 497;2023;Cl;Aardappelsnippers, rauw (Aardappelsnippers, rauw);no;;machine;;
+aardappel-snippers;sulphur_organic;point;0.5;;;;;g/kg;dry;;calculated;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 497;2023;S-o;Aardappelsnippers, rauw (Aardappelsnippers, rauw);no;;machine;;
 aardappel-snippers;iron;point;75;;;70;;mg/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 497;2023;Fe;Aardappelsnippers, rauw (Aardappelsnippers, rauw);no;;machine;;
 aardappel-snippers;manganese;point;6;;;3;;mg/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 497;2023;Mn;Aardappelsnippers, rauw (Aardappelsnippers, rauw);no;;machine;;
 aardappel-snippers;zinc;point;14;;;8;;mg/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 497;2023;Zn;Aardappelsnippers, rauw (Aardappelsnippers, rauw);no;;machine;;
@@ -619,6 +638,7 @@ aardappel-stoomschillen;magnesium;point;1.3;;;0.2;;g/kg;dry;;measured;cvb-veevoe
 aardappel-stoomschillen;potassium;point;31.3;;;4.6;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 505;2023;K;Aardappelstoomschillen, vers en kuil-ZETam < 350 g/kg DS (Aardappelstoomschillen, vers en kuil - ZETam < 350 g/kg DS);no;;machine;;
 aardappel-stoomschillen;sodium;point;0.8;;;1.1;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 505;2023;Na;Aardappelstoomschillen, vers en kuil-ZETam < 350 g/kg DS (Aardappelstoomschillen, vers en kuil - ZETam < 350 g/kg DS);no;;machine;;
 aardappel-stoomschillen;chloride;point;4.6;;;2.3;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 505;2023;Cl;Aardappelstoomschillen, vers en kuil-ZETam < 350 g/kg DS (Aardappelstoomschillen, vers en kuil - ZETam < 350 g/kg DS);no;;machine;;
+aardappel-stoomschillen;sulphur_organic;point;1.0;;;;;g/kg;dry;;calculated;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 505;2023;S-o;Aardappelstoomschillen, vers en kuil-ZETam < 350 g/kg DS (Aardappelstoomschillen, vers en kuil - ZETam < 350 g/kg DS);no;;machine;;
 aardappel-stoomschillen;iron;point;985;;;736;;mg/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 505;2023;Fe;Aardappelstoomschillen, vers en kuil-ZETam < 350 g/kg DS (Aardappelstoomschillen, vers en kuil - ZETam < 350 g/kg DS);no;;machine;;
 aardappel-stoomschillen;manganese;point;55;;;36;;mg/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 505;2023;Mn;Aardappelstoomschillen, vers en kuil-ZETam < 350 g/kg DS (Aardappelstoomschillen, vers en kuil - ZETam < 350 g/kg DS);no;;machine;;
 aardappel-stoomschillen;zinc;point;54;;;36;;mg/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 505;2023;Zn;Aardappelstoomschillen, vers en kuil-ZETam < 350 g/kg DS (Aardappelstoomschillen, vers en kuil - ZETam < 350 g/kg DS);no;;machine;;
@@ -666,6 +686,7 @@ aardappel-stoomschillen;magnesium;point;0.9;;;0.1;;g/kg;dry;;measured;cvb-veevoe
 aardappel-stoomschillen;potassium;point;22.9;;;3.5;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 511;2023;K;Aardappelstoomschillen, vers en kuil-ZETam > 600 g/kg DS (Aardappelstoomschillen, vers en kuil - ZETam > 600 g/kg DS);no;;machine;;
 aardappel-stoomschillen;sodium;point;0.4;;;0.3;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 511;2023;Na;Aardappelstoomschillen, vers en kuil-ZETam > 600 g/kg DS (Aardappelstoomschillen, vers en kuil - ZETam > 600 g/kg DS);no;;machine;;
 aardappel-stoomschillen;chloride;point;2.5;;;0.6;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 511;2023;Cl;Aardappelstoomschillen, vers en kuil-ZETam > 600 g/kg DS (Aardappelstoomschillen, vers en kuil - ZETam > 600 g/kg DS);no;;machine;;
+aardappel-stoomschillen;sulphur_organic;point;0.6;;;;;g/kg;dry;;calculated;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 511;2023;S-o;Aardappelstoomschillen, vers en kuil-ZETam > 600 g/kg DS (Aardappelstoomschillen, vers en kuil - ZETam > 600 g/kg DS);no;;machine;;
 aardappel-stoomschillen;iron;point;261;;;327;;mg/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 511;2023;Fe;Aardappelstoomschillen, vers en kuil-ZETam > 600 g/kg DS (Aardappelstoomschillen, vers en kuil - ZETam > 600 g/kg DS);no;;machine;;
 aardappel-stoomschillen;manganese;point;24;;;8;;mg/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 511;2023;Mn;Aardappelstoomschillen, vers en kuil-ZETam > 600 g/kg DS (Aardappelstoomschillen, vers en kuil - ZETam > 600 g/kg DS);no;;machine;;
 aardappel-stoomschillen;zinc;point;24;;;19;;mg/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 511;2023;Zn;Aardappelstoomschillen, vers en kuil-ZETam > 600 g/kg DS (Aardappelstoomschillen, vers en kuil - ZETam > 600 g/kg DS);no;;machine;;
@@ -706,6 +727,7 @@ zuivelnevenstroom;magnesium;point;2.0;;;1.1;;g/kg;dry;;measured;cvb-veevoedertab
 zuivelnevenstroom;potassium;point;26.1;;;3.0;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 559;2023;K;Kaaswei, vers-RE < 175 g/kg DS (Kaaswei, vers - RE < 175 g/kg DS);no;;machine;;
 zuivelnevenstroom;sodium;point;8.2;;;1.8;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 559;2023;Na;Kaaswei, vers-RE < 175 g/kg DS (Kaaswei, vers - RE < 175 g/kg DS);no;;machine;;
 zuivelnevenstroom;chloride;point;20.8;;;3.1;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 559;2023;Cl;Kaaswei, vers-RE < 175 g/kg DS (Kaaswei, vers - RE < 175 g/kg DS);no;;machine;;
+zuivelnevenstroom;sulphur_organic;point;1.3;;;;;g/kg;dry;;calculated;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 559;2023;S-o;Kaaswei, vers-RE < 175 g/kg DS (Kaaswei, vers - RE < 175 g/kg DS);no;;machine;;
 zuivelnevenstroom;iron;point;66;;;53;;mg/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 559;2023;Fe;Kaaswei, vers-RE < 175 g/kg DS (Kaaswei, vers - RE < 175 g/kg DS);no;;machine;;
 zuivelnevenstroom;manganese;point;8;;;11;;mg/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 559;2023;Mn;Kaaswei, vers-RE < 175 g/kg DS (Kaaswei, vers - RE < 175 g/kg DS);no;;machine;;
 zuivelnevenstroom;zinc;point;15;;;12;;mg/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 559;2023;Zn;Kaaswei, vers-RE < 175 g/kg DS (Kaaswei, vers - RE < 175 g/kg DS);no;;machine;;
@@ -743,6 +765,7 @@ zuivelnevenstroom;magnesium;point;2.1;;;0.4;;g/kg;dry;;measured;cvb-veevoedertab
 zuivelnevenstroom;potassium;point;27.9;;;4.3;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 561;2023;K;Kaaswei, vers-RE 175 - 275 g/kg DS (Kaaswei, vers - RE 175-275 g/kg DS);no;;machine;;
 zuivelnevenstroom;sodium;point;10.2;;;2.7;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 561;2023;Na;Kaaswei, vers-RE 175 - 275 g/kg DS (Kaaswei, vers - RE 175-275 g/kg DS);no;;machine;;
 zuivelnevenstroom;chloride;point;21.1;;;4.6;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 561;2023;Cl;Kaaswei, vers-RE 175 - 275 g/kg DS (Kaaswei, vers - RE 175-275 g/kg DS);no;;machine;;
+zuivelnevenstroom;sulphur_organic;point;1.7;;;;;g/kg;dry;;calculated;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 561;2023;S-o;Kaaswei, vers-RE 175 - 275 g/kg DS (Kaaswei, vers - RE 175-275 g/kg DS);no;;machine;;
 zuivelnevenstroom;iron;point;60;;;;;mg/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 561;2023;Fe;Kaaswei, vers-RE 175 - 275 g/kg DS (Kaaswei, vers - RE 175-275 g/kg DS);no;;machine;;
 zuivelnevenstroom;manganese;point;20;;;16;;mg/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 561;2023;Mn;Kaaswei, vers-RE 175 - 275 g/kg DS (Kaaswei, vers - RE 175-275 g/kg DS);no;;machine;;
 zuivelnevenstroom;zinc;point;24;;;14;;mg/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 561;2023;Zn;Kaaswei, vers-RE 175 - 275 g/kg DS (Kaaswei, vers - RE 175-275 g/kg DS);no;;machine;;
@@ -780,6 +803,7 @@ zuivelnevenstroom;magnesium;point;3.6;;;0.6;;g/kg;dry;;measured;cvb-veevoedertab
 zuivelnevenstroom;potassium;point;36.1;;;13.2;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 563;2023;K;Kaaswei, vers-RE > 275 g/kg DS (Kaaswei, vers - RE > 275 g/kg DS);no;;machine;;
 zuivelnevenstroom;sodium;point;11.8;;;5.9;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 563;2023;Na;Kaaswei, vers-RE > 275 g/kg DS (Kaaswei, vers - RE > 275 g/kg DS);no;;machine;;
 zuivelnevenstroom;chloride;point;27.7;;;14.6;;g/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 563;2023;Cl;Kaaswei, vers-RE > 275 g/kg DS (Kaaswei, vers - RE > 275 g/kg DS);no;;machine;;
+zuivelnevenstroom;sulphur_organic;point;2.7;;;;;g/kg;dry;;calculated;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 563;2023;S-o;Kaaswei, vers-RE > 275 g/kg DS (Kaaswei, vers - RE > 275 g/kg DS);no;;machine;;
 zuivelnevenstroom;iron;point;51;;;29;;mg/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 563;2023;Fe;Kaaswei, vers-RE > 275 g/kg DS (Kaaswei, vers - RE > 275 g/kg DS);no;;machine;;
 zuivelnevenstroom;manganese;point;26;;;8;;mg/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 563;2023;Mn;Kaaswei, vers-RE > 275 g/kg DS (Kaaswei, vers - RE > 275 g/kg DS);no;;machine;;
 zuivelnevenstroom;zinc;point;34;;;11;;mg/kg;dry;;measured;cvb-veevoedertabel-2023;CVB Veevoedertabel 2023, p. 563;2023;Zn;Kaaswei, vers-RE > 275 g/kg DS (Kaaswei, vers - RE > 275 g/kg DS);no;;machine;;

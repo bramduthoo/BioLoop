@@ -72,6 +72,19 @@ RECORDS: dict[int, tuple[str, str]] = {
     3491: ("dierlijk-vet", "Animal fat, Rotterdam NL"),             # taken in round 4
     3492: ("niet-eetbare-slachtafvallen", "Meat and bone meal, Rotterdam NL"),
     3578: ("bostel", "Brewery spent grains, Biofficiency, untreated"),
+    # MOVED HERE FROM build_round1.py's hand-transcribed PHYLLIS block, 2026-09-16, after a
+    # fidelity audit found that block carried the only WRONG STORED NUMBERS in the corpus.
+    # One mechanism, three times over: where the source's `ar` cell is empty because the page
+    # COMPUTES it, the hand transcription shifted the remaining numbers one column left, so a
+    # `dry` figure was recorded as `fresh` and a `daf` figure as `dry`. On #3131 that made the
+    # dry heating value 18,67 MJ/kg when the source says 17,71 - the daf figure. On #1053 three
+    # fibre fractions stored in the `ar` column were recorded as `dry`.
+    # The parser cannot make that mistake: it reads the column by class, and skips any cell
+    # carrying `data-phyllis-expression`. Re-extracting is the fix, not patching five cells.
+    704:  ("mais-stro", "Corn stover"),
+    1053: ("suikerbiet-loof", "Beet tail and beet green"),
+    3131: ("raapzaad-stro", "Rapestraw"),
+    3161: ("tarwe-stro", "Wheat straw, VTT Espoo"),
 }
 
 REJECTED: dict[int, str] = {
@@ -90,7 +103,12 @@ REJECTED: dict[int, str] = {
     3579: "the same Biofficiency spent grains as #3578 but HTC-treated at 280 degC for 4 h. That "
           "is a CONVERSION PRODUCT, not the stream -- LHV 30,93 against 19,94 MJ/kg dry. A "
           "process output is not a composition of the input.",
-    1564: "`cauliflower`, but the plant part is unstated and the literature is the 1993 Dutch "
+    1564: "ROUND 1 TOOK THIS ONE AND IT SHOULD NOT HAVE. Two heavy metals were recorded against "
+          "`bloemkool`; the same record is refused here for `bloemkool-loof`, and one record "
+          "cannot be both. The objection is the plant part, and that objection does not get "
+          "weaker by moving the rows to the whole vegetable: GFT household cauliflower waste is "
+          "trimmings, which is mostly leaf and stalk. Both rows are dropped. "
+          "`cauliflower`, but the plant part is unstated and the literature is the 1993 Dutch "
           "GFT household-waste survey. bloemkool-loof is specifically the LEAF. Same ground as "
           "the Brussels sprouts rejection in round 4.",
     1565: "as #1564.",

@@ -71,11 +71,22 @@ WEENDE = {
 # CVB computes these rather than determining them, and says so in its own methodology
 # chapter. Recording them as `measured` would be the quiet fabrication value_origin exists
 # to prevent.
-CVB_CALCULATED = {"nfe", "nsp", "nsp_residual"}
+CVB_CALCULATED = {"nfe", "nsp", "nsp_residual", "sulphur_organic"}
 MINERALS = {
     "Ca": ("calcium", "g/kg"), "P": ("phosphorus", "g/kg"), "Mg": ("magnesium", "g/kg"),
     "K": ("potassium", "g/kg"), "Na": ("sodium", "g/kg"), "Cl": ("chloride", "g/kg"),
     "S": ("sulphur", "g/kg"), "IP": ("phytate_phosphorus", "g/kg"),
+    # CVB heads the sulphur column THREE different ways and the audit found we read only one
+    # of them: 7 of the 26 mapped sheets print a single `S`, the other 18 print `S-a` and
+    # `S-o`. Column alignment never broke (an unmapped label is skipped by position), so
+    # sulphur was simply invisible on 18 sheets - 24 values.
+    # They are TWO FRACTIONS, not a synonym for total S, and CVB's own p. 19 says so:
+    #   S-a  inorganic (sulphate) sulphur, DETERMINED
+    #   S-o  organic sulphur, NOT determined but computed as 32/149*MET + 32/120*CYS
+    # so S-o is `calculated` and it misses sulphur in any other organic compound, which CVB
+    # states outright. Mapping both onto `sulphur` would have invented two total-sulphur
+    # readings out of one material.
+    "S-a": ("sulphur_inorganic", "g/kg"), "S-o": ("sulphur_organic", "g/kg"),
 }
 TRACE = {"Fe": ("iron", "mg/kg"), "Mn": ("manganese", "mg/kg"), "Zn": ("zinc", "mg/kg"),
          "Cu": ("copper", "mg/kg"), "Se": ("selenium", "mg/kg"),

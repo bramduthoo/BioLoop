@@ -89,6 +89,7 @@ def load() -> list[dict]:
 
 def pass1(rows) -> list[dict]:
     out = []
+    SOURCES_WITH_N = {r["source_key"] for r in rows if (r.get("n_samples") or "").strip()}
     for i, r in enumerate(rows):
         p, u, b = r["parameter_code"], r["unit_code"], r["basis_code"]
         v = num(r["value_num"]) if r.get("value_type", "point") == "point" else None
@@ -98,6 +99,35 @@ def pass1(rows) -> list[dict]:
             out.append(dict(kind=kind, stream=r["stream_code"], parameter=p, unit=u, basis=b,
                             value=r["value_num"] or f"{r['value_min']}-{r['value_max']}",
                             source=r["source_ref"], message=msg))
+
+
+        # A COLUMN SHIFT IN A HAND-TRANSCRIBED TABLE, which is what a fidelity audit found
+        # on 2026-09-16: seven feedtables rows where the source left the SD cell empty and
+        # the transcriber's eye slid one column left, so `sd` held the minimum and the
+        # minimum was blank. It is undetectable by reading the row, and decisive by
+        # arithmetic - with n = 2 the mean IS the midpoint of min and max, so if the mean
+        # sits at the midpoint of (sd, max) instead, the sd column is holding the minimum.
+        # The other tell is an sd that is exactly a small integer with no n: that is the
+        # sample count, one column left of where it belongs.
+        sd, n = num(r.get("sd")), num(r.get("n_samples"))
+        if lo is None and hi is not None and sd is not None and v is not None:
+            if abs((sd + hi) / 2 - v) <= 0.06 * max(abs(v), 1.0):
+                flag("column-shift",
+                     f"blank min beside a populated max, and the mean {v:g} is the midpoint "
+                     f"of sd={sd:g} and max={hi:g} - the sd column is holding the MINIMUM")
+            else:
+                flag("column-shift",
+                     f"a populated max ({hi:g}) with a blank min is not a shape a source "
+                     f"prints; check the transcription")
+        # ...but ONLY for a source that publishes a sample count at all. CVB prints `sdc`
+        # and no n anywhere in its 708 pages, so a blank n there is the source's shape, not
+        # a shift. Restricting this to sources that do carry n took the check from 53
+        # findings to 2 - the first version would have trained the reader to ignore it.
+        if (sd is not None and n is None and float(sd).is_integer() and 0 < sd <= 5
+                and r["source_key"] in SOURCES_WITH_N):
+            flag("column-shift",
+                 f"sd={sd:g} with no sample count, from a source that does report n - "
+                 f"an sd that is a small whole number with no n is usually the COUNT")
 
         if r.get("value_type", "point") == "point" and v is None:
             flag("unparsable", "the value does not parse as a number")

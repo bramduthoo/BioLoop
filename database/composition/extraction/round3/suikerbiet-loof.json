@@ -52,7 +52,7 @@
    "sd": "",
    "n_samples": "",
    "unit_code": "kg/m3",
-   "basis_code": "dry",
+   "basis_code": "fresh",
    "method_code": "",
    "value_origin": "measured",
    "source_key": "s2biom-d24-biomass-properties",
@@ -136,7 +136,7 @@
    "flag": "S2BIOM prints a TYPICAL value with a minimum and a maximum and NO sample count. The spread is the evidence, so the min/max columns matter more here than on a source that reports n. Its ash-oxide block (Na2O, P2O5, K2O, Fe2O3, CaO, MgO) is NOT taken: the unit column says `w-% dry` while the values run to 46, which can only be percent OF ASH. Same treatment as the apple-pomace sugars row - an internally impossible unit is not recorded under either reading.",
    "transcription": "machine",
    "DECISION": "",
-   "notes": "S2BIOM gives lignin, cellulose and hemicellulose as a measured triple, NOT as a Van Soest detergent sequence - which is why it is `lignin` here and not ADL"
+   "notes": ""
   },
   {
    "stream_code": "suikerbiet-loof",

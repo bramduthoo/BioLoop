@@ -173,6 +173,21 @@ _S2_COLS = {
 _S2_NOTE = {
     "moisture": "S2BIOM reports moisture as received, so this row is on the FRESH basis while "
                 "every other row from this source is on dry",
+}
+
+# S2BIOM'S UNIT ROW SAYS `ar` FOR MORE THAN MOISTURE, and a fidelity audit on 2026-09-16
+# found we had read only the moisture case. The table is printed ROTATED, so the unit and
+# basis run as two vertical strips of characters; recovering them from the character
+# coordinates gives, in order, `w-% ar` for moisture and then `kg/m3 ar` for EVERY density
+# column - `Bulk density, BD`, `Particle density, DE` and `Basic density`. They were stored
+# as `dry`.
+# It matters more than a label: a bulk density is a property of the material AS IT IS
+# HANDLED, straw at its field moisture in a bale. There is no such thing as the bulk
+# density of a notional bone-dry version of it, so `dry` was not merely mislabelled, it
+# described something that does not exist.
+S2BIOM_AS_RECEIVED = {"moisture", "bulk_density", "particle_density", "basic_density"}
+
+_UNUSED = {
     "ash_melting_dt": "oxidising conditions; the reducing-atmosphere value is a different "
                       "determination and S2BIOM does not print it",
     "lignin": "S2BIOM gives lignin, cellulose and hemicellulose as a measured triple, NOT as a "
@@ -219,7 +234,7 @@ def expand(code: str, item: dict) -> dict:
                 stream_code=code, parameter_code=param, value_type="point",
                 value_num=val, value_min=vmin, value_max=vmax, sd=sd, n_samples=n,
                 unit_code=unit,
-                basis_code="fresh" if param == "moisture" else basis,
+                basis_code="fresh" if param in S2BIOM_AS_RECEIVED else basis,
                 method_code="ash-dt-oxidising" if param == "ash_melting_dt" else "",
                 value_origin="predicted" if pred else "measured",
                 source_key=src, source_ref=ref, year=str(SOURCES[src]["year"]),
