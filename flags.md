@@ -2,7 +2,7 @@
 
 *The shared ledger. The single place cross-workstream items are born, tracked, and closed. A flag is a stateful object with a lifecycle, not a note — see `protocol.md` §5 for the full schema.*
 *No workstream reaches into another; it leaves a flag here, and the ledger routes it.*
-*Last updated: 2026-09-11.*
+*Last updated: 2026-09-28 — header reconciled with the ledger below; the F-005 row itself was resolved 2026-09-15.*
 
 ## How to use this file
 - **Raise** a flag when your session produces something *another specific workstream* must act on. Append a row; take the next free `id`.
@@ -11,7 +11,7 @@
 
 Routing shorthand: `lit` = literature, `db` = database, `mod` = modelling.
 
-**Five open, none blocking** (F-002, F-003, F-004, F-005, F-006); F-001 withdrawn 2026-09-07.
+**Four open, none blocking** (F-002, F-003, F-004, F-006); F-001 withdrawn 2026-09-07, **F-005 resolved 2026-09-15**.
 
 ## Ledger
 
