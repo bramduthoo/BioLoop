@@ -1,0 +1,480 @@
+{
+ "min": 50000,
+ "generated": "2026-09-11",
+ "families": [
+  {
+   "name": "productieresidu-school",
+   "editions": [
+    "GeNeSys ILVO 165",
+    "MONBIO 3.0",
+    "MONBIO 4.0",
+    "Starch4Feed (UGent TETRA)",
+    "Statbel slachtstatistiek",
+    "TransBio D3.4A"
+   ],
+   "stages": []
+  },
+  {
+   "name": "voedselverlies-school",
+   "editions": [
+    "ILVO 239 tuinbouw",
+    "OVAM Monitor voedselverlies 2020",
+    "OVAM Monitor voedselverlies 2023"
+   ],
+   "stages": [
+    {
+     "stage": "Primaire productie",
+     "asserted": 931935,
+     "reached": 585822,
+     "gap": 346113,
+     "claims": [
+      {
+       "id": "C-050",
+       "name": "AGGREGAAT - voedselreststromen landbouw totaal (incl. niet-geoogste aardappelen)",
+       "v": 931935
+      },
+      {
+       "id": "C-073",
+       "name": "AGGREGAAT - voedselverliezen landbouw totaal (incl. niet-geoogste aardappelen)",
+       "v": 716874
+      },
+      {
+       "id": "C-077",
+       "name": "AGGREGAAT - nevenstromen landbouw",
+       "v": 215060
+      }
+     ]
+    },
+    {
+     "stage": "Retail & grootdistributie",
+     "asserted": 132082,
+     "reached": 0,
+     "gap": 132082,
+     "claims": [
+      {
+       "id": "C-105",
+       "name": "AGGREGAAT - totale voedselreststromen voedingsretail en grootdistributie",
+       "v": 132082
+      },
+      {
+       "id": "C-103",
+       "name": "AGGREGAAT - Voedselreststromen grootdistributie en supermarkten",
+       "v": 115862
+      },
+      {
+       "id": "C-104",
+       "name": "AGGREGAAT - Voedselreststromen detailhandel voeding",
+       "v": 16220
+      },
+      {
+       "id": "C-108",
+       "name": "AGGREGAAT - totale voedselverliezen voedingsretail en grootdistributie",
+       "v": 59849
+      },
+      {
+       "id": "C-110",
+       "name": "AGGREGAAT - totale voedselverliezen voedingsretail en grootdistributie (variant)",
+       "v": 58849
+      },
+      {
+       "id": "C-106",
+       "name": "AGGREGAAT - Voedselverliezen grootdistributie en supermarkten",
+       "v": 53330
+      },
+      {
+       "id": "C-107",
+       "name": "AGGREGAAT - Voedselverliezen detailhandel voeding",
+       "v": 6519
+      },
+      {
+       "id": "C-109",
+       "name": "AGGREGAAT - totale nevenstromen voedingsretail en grootdistributie",
+       "v": 72233
+      }
+     ]
+    },
+    {
+     "stage": "Voedingsindustrie",
+     "asserted": 2017748,
+     "reached": 127215,
+     "gap": 1890533,
+     "claims": [
+      {
+       "id": "C-090",
+       "name": "AGGREGAAT - voedselverlies voedingsindustrie",
+       "v": 472557
+      },
+      {
+       "id": "C-091",
+       "name": "AGGREGAAT - niet-eetbare nevenstromen voedingsindustrie",
+       "v": 1545191
+      },
+      {
+       "id": "C-092",
+       "name": "AGGREGAAT - totale voedselreststromen voedingsindustrie",
+       "v": 2017748
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "findings": [
+  {
+   "id": "S1",
+   "kind": "nested",
+   "family": "voedselverlies-school",
+   "stage": "Voedingsindustrie",
+   "under": "Reststroom",
+   "t": 621063,
+   "claims": "C-094 (2023), C-195 (2020)",
+   "place": "Aardappel-, groente- en fruitverwerking",
+   "what": "Van het onverklaarde deel van deze schakel is dit het grootste benoemde stuk. Aardappelverwerking heeft in deze school geen enkele reststroom - de twee MONBIO-rijen zijn Prodcom-cijfers voor gedroogde-aardappelmeel, een product en een andere school. FRUITVERWERKING heeft nul rijen in het hele register. ILVO 239 helpt niet: die monitor heeft geen enkele rij op de voedingsindustrie-schakel.",
+   "close": "een aardappelverwerkingsbron die per processtroom snijdt (schil, stoomschil, vezel, eiwit) en een fruitverwerkingsbron (perskoek, schillen, pitten)"
+  }
+ ],
+ "rows": [
+  {
+   "family": "voedselverlies-school",
+   "key": "Reststroom @@ Voedingsindustrie",
+   "parentKey": null,
+   "stage": "Voedingsindustrie",
+   "place": "(geen commoditytak)",
+   "path": "Reststroom",
+   "depth": 1,
+   "asserted": 2017748,
+   "reached": 127215,
+   "gap": 1890533,
+   "ownGap": 1293823,
+   "assertedEd": "OVAM Monitor voedselverlies 2023",
+   "reachedEd": "OVAM Monitor voedselverlies 2023",
+   "hybrid": false,
+   "sameSourceGap": 1890533,
+   "sameSourceEd": "OVAM Monitor voedselverlies 2023",
+   "claims": [
+    {
+     "id": "C-090",
+     "name": "AGGREGAAT - voedselverlies voedingsindustrie",
+     "v": 472557
+    },
+    {
+     "id": "C-091",
+     "name": "AGGREGAAT - niet-eetbare nevenstromen voedingsindustrie",
+     "v": 1545191
+    },
+    {
+     "id": "C-092",
+     "name": "AGGREGAAT - totale voedselreststromen voedingsindustrie",
+     "v": 2017748
+    }
+   ],
+   "unplaced": [
+    {
+     "parallel": false,
+     "stage": "Voedingsindustrie",
+     "name": "Voedselreststromen Aardappelen, groenten en fruit (voedingsindustrie)",
+     "v": 621063,
+     "id": "C-094",
+     "ed": "OVAM Monitor voedselverlies 2023",
+     "qt": "agri-food waste",
+     "structural": true,
+     "why": "totals 3 L3 entries under 2 different L2 parents - unallocatable by design"
+    },
+    {
+     "parallel": false,
+     "stage": "Voedingsindustrie",
+     "name": "Voedselreststromen Vlees, vis en gevogelte (voedingsindustrie)",
+     "v": 364233,
+     "id": "C-098",
+     "ed": "OVAM Monitor voedselverlies 2023",
+     "qt": "agri-food waste",
+     "structural": true,
+     "why": "totals meat + fish, which sit under 2 different L2 parents - unallocatable by design"
+    },
+    {
+     "parallel": false,
+     "stage": "Voedingsindustrie",
+     "name": "Voedselreststromen Suiker, chocolade, bereide maaltijden, enz. (voedingsindustrie)",
+     "v": 191054,
+     "id": "C-097",
+     "ed": "OVAM Monitor voedselverlies 2023",
+     "qt": "agri-food waste",
+     "structural": true,
+     "why": "\"OVAM subsector lump"
+    },
+    {
+     "parallel": false,
+     "stage": "Voedingsindustrie",
+     "name": "Voedselreststromen Deegwaren, dieetvoeding, zetmeel, maalderijen (voedingsindustrie)",
+     "v": 167446,
+     "id": "C-099",
+     "ed": "OVAM Monitor voedselverlies 2023",
+     "qt": "agri-food waste",
+     "structural": true,
+     "why": "\"OVAM subsector lump"
+    }
+   ],
+   "note": null,
+   "what": "de bron rapporteert deze schakel als totaal; 127.215 t is elders in de boom bereikbaar, de rest hangt aan geen enkel gewas. De sectorrijen die de bron er wél voor geeft zijn structureel onplaatsbaar (mengen een L4 met L3's over twee L2-groepen), dus hun cijfers zijn context en geen meting van dit gat",
+   "close": "een bron die deze schakel per productgroep rapporteert in plaats van als sectortotaal"
+  },
+  {
+   "family": "voedselverlies-school",
+   "key": "Reststroom ¦ Varia ¦ Dranken @@ Voedingsindustrie",
+   "parentKey": "Reststroom @@ Voedingsindustrie",
+   "stage": "Voedingsindustrie",
+   "place": "Varia ¦ Dranken",
+   "path": "Reststroom ¦ Varia ¦ Dranken",
+   "depth": 3,
+   "asserted": 378539,
+   "reached": 0,
+   "gap": 378539,
+   "ownGap": 378539,
+   "assertedEd": "OVAM Monitor voedselverlies 2023",
+   "reachedEd": "",
+   "hybrid": false,
+   "sameSourceGap": 378539,
+   "sameSourceEd": "OVAM Monitor voedselverlies 2023",
+   "claims": [],
+   "unplaced": [],
+   "note": "Bostel is de enige benoemde drankenreststroom in het corpus: 134.653 t (MONBIO 4.0) / 113.637 t (3.0), oftewel 36% van dit cijfer. Het staat in de andere school, dus het verkleint dit gat niet rekenkundig - maar het is wel verreweg het grootste identificeerbare deel ervan, en plausibel naast 1,7-1,8 Mt Vlaamse bierproductie. De overige ~244.000 t heeft geen enkele benoemde stroom: sapperskoek, koffiedik, gist en trub, frisdrankresidu. Appelsap (34.219 t) en koffie (36.953 t) staan wel als productie in het register, hun residu niet.",
+   "what": "de sector heeft geen enkele benoemde stroom - het totaal is alles wat er is",
+   "close": "een sectorbron die per PROCES snijdt in plaats van per productcode (screeningsregel F-003)"
+  },
+  {
+   "family": "voedselverlies-school",
+   "key": "Reststroom @@ Primaire productie",
+   "parentKey": null,
+   "stage": "Primaire productie",
+   "place": "(geen commoditytak)",
+   "path": "Reststroom",
+   "depth": 1,
+   "asserted": 931935,
+   "reached": 585822,
+   "gap": 346113,
+   "ownGap": 256888,
+   "assertedEd": "OVAM Monitor voedselverlies 2023",
+   "reachedEd": "OVAM Monitor voedselverlies 2023",
+   "hybrid": false,
+   "sameSourceGap": 346113,
+   "sameSourceEd": "OVAM Monitor voedselverlies 2023",
+   "claims": [
+    {
+     "id": "C-050",
+     "name": "AGGREGAAT - voedselreststromen landbouw totaal (incl. niet-geoogste aardappelen)",
+     "v": 931935
+    },
+    {
+     "id": "C-073",
+     "name": "AGGREGAAT - voedselverliezen landbouw totaal (incl. niet-geoogste aardappelen)",
+     "v": 716874
+    },
+    {
+     "id": "C-077",
+     "name": "AGGREGAAT - nevenstromen landbouw",
+     "v": 215060
+    }
+   ],
+   "unplaced": [],
+   "note": null,
+   "what": "de bron rapporteert deze schakel als totaal; 585.822 t is elders in de boom bereikbaar, de rest hangt aan geen enkel gewas. De sectorrijen die de bron er wél voor geeft zijn structureel onplaatsbaar (mengen een L4 met L3's over twee L2-groepen), dus hun cijfers zijn context en geen meting van dit gat",
+   "close": "een bron die deze schakel per productgroep rapporteert in plaats van als sectortotaal"
+  },
+  {
+   "family": "productieresidu-school",
+   "key": "Reststroom ¦ Dierlijk - vee ¦ Vlees @@ Voedingsindustrie",
+   "parentKey": "Reststroom @@ Voedingsindustrie",
+   "stage": "Voedingsindustrie",
+   "place": "Dierlijk - vee ¦ Vlees",
+   "path": "Reststroom ¦ Dierlijk - vee ¦ Vlees",
+   "depth": 3,
+   "asserted": 631000,
+   "reached": 481266,
+   "gap": 149734,
+   "ownGap": 149734,
+   "assertedEd": "MONBIO 4.0",
+   "reachedEd": "MONBIO 4.0",
+   "hybrid": false,
+   "sameSourceGap": 153885,
+   "sameSourceEd": "MONBIO 3.0",
+   "claims": [
+    {
+     "id": "C-277",
+     "name": "AGGREGAAT - Vlees- en gevogelteverwerking, productie nevenstromen en productieresiduen (incl. 100.000 'stuks' huiden die de bron als ton meetelt: 531.159 + 100.000)",
+     "v": 631000
+    },
+    {
+     "id": "C-308",
+     "name": "AGGREGAAT - Eetbare slachtafvallen, totaal (grootste nevenstroom van de vlees- en gevogeltesector)",
+     "v": 217672
+    }
+   ],
+   "unplaced": [],
+   "note": null,
+   "what": "7 tak(ken) eronder leveren samen 481.266 t; het verschil hangt aan geen benoemde stroom",
+   "close": "een bron die Dierlijk - vee ¦ Vlees per gewas of per materiaal uitsplitst"
+  },
+  {
+   "family": "productieresidu-school",
+   "key": "Reststroom ¦ Plantaardig - tuinbouw ¦ Groenten @@ Primaire productie",
+   "parentKey": "Reststroom @@ Primaire productie",
+   "stage": "Primaire productie",
+   "place": "Plantaardig - tuinbouw ¦ Groenten",
+   "path": "Reststroom ¦ Plantaardig - tuinbouw ¦ Groenten",
+   "depth": 3,
+   "asserted": 602856,
+   "reached": 460636,
+   "gap": 142220,
+   "ownGap": 142220,
+   "assertedEd": "MONBIO 4.0",
+   "reachedEd": "MONBIO 4.0",
+   "hybrid": false,
+   "sameSourceGap": 142220,
+   "sameSourceEd": "MONBIO 4.0",
+   "claims": [
+    {
+     "id": "C-241",
+     "name": "AGGREGAAT - Nevenstromen en productieresiduen Groenten (plantaardige landbouw)",
+     "v": 602856
+    }
+   ],
+   "unplaced": [],
+   "note": null,
+   "what": "5 tak(ken) eronder leveren samen 460.636 t; het verschil hangt aan geen benoemde stroom",
+   "close": "een bron die Plantaardig - tuinbouw ¦ Groenten per gewas of per materiaal uitsplitst"
+  },
+  {
+   "family": "voedselverlies-school",
+   "key": "Reststroom @@ Retail & grootdistributie",
+   "parentKey": null,
+   "stage": "Retail & grootdistributie",
+   "place": "(geen commoditytak)",
+   "path": "Reststroom",
+   "depth": 1,
+   "asserted": 132082,
+   "reached": 0,
+   "gap": 132082,
+   "ownGap": 132082,
+   "assertedEd": "OVAM Monitor voedselverlies 2023",
+   "reachedEd": "",
+   "hybrid": false,
+   "sameSourceGap": 132082,
+   "sameSourceEd": "OVAM Monitor voedselverlies 2023",
+   "claims": [
+    {
+     "id": "C-105",
+     "name": "AGGREGAAT - totale voedselreststromen voedingsretail en grootdistributie",
+     "v": 132082
+    },
+    {
+     "id": "C-103",
+     "name": "AGGREGAAT - Voedselreststromen grootdistributie en supermarkten",
+     "v": 115862
+    },
+    {
+     "id": "C-104",
+     "name": "AGGREGAAT - Voedselreststromen detailhandel voeding",
+     "v": 16220
+    },
+    {
+     "id": "C-108",
+     "name": "AGGREGAAT - totale voedselverliezen voedingsretail en grootdistributie",
+     "v": 59849
+    },
+    {
+     "id": "C-110",
+     "name": "AGGREGAAT - totale voedselverliezen voedingsretail en grootdistributie (variant)",
+     "v": 58849
+    },
+    {
+     "id": "C-106",
+     "name": "AGGREGAAT - Voedselverliezen grootdistributie en supermarkten",
+     "v": 53330
+    },
+    {
+     "id": "C-107",
+     "name": "AGGREGAAT - Voedselverliezen detailhandel voeding",
+     "v": 6519
+    },
+    {
+     "id": "C-109",
+     "name": "AGGREGAAT - totale nevenstromen voedingsretail en grootdistributie",
+     "v": 72233
+    }
+   ],
+   "unplaced": [],
+   "note": null,
+   "what": "de bron rapporteert deze schakel als totaal; 0 t is elders in de boom bereikbaar, de rest hangt aan geen enkel gewas. De sectorrijen die de bron er wél voor geeft zijn structureel onplaatsbaar (mengen een L4 met L3's over twee L2-groepen), dus hun cijfers zijn context en geen meting van dit gat",
+   "close": "een bron die deze schakel per productgroep rapporteert in plaats van als sectortotaal"
+  },
+  {
+   "family": "voedselverlies-school",
+   "key": "Reststroom ¦ Varia ¦ Bakkerij @@ Voedingsindustrie",
+   "parentKey": "Reststroom @@ Voedingsindustrie",
+   "stage": "Voedingsindustrie",
+   "place": "Varia ¦ Bakkerij",
+   "path": "Reststroom ¦ Varia ¦ Bakkerij",
+   "depth": 3,
+   "asserted": 122276,
+   "reached": 0,
+   "gap": 122276,
+   "ownGap": 122276,
+   "assertedEd": "OVAM Monitor voedselverlies 2023",
+   "reachedEd": "",
+   "hybrid": false,
+   "sameSourceGap": 122276,
+   "sameSourceEd": "OVAM Monitor voedselverlies 2023",
+   "claims": [],
+   "unplaced": [],
+   "note": null,
+   "what": "de sector heeft geen enkele benoemde stroom - het totaal is alles wat er is",
+   "close": "een sectorbron die per PROCES snijdt in plaats van per productcode (screeningsregel F-003)"
+  },
+  {
+   "family": "voedselverlies-school",
+   "key": "Reststroom ¦ Varia ¦ Olien, vetten @@ Voedingsindustrie",
+   "parentKey": "Reststroom @@ Voedingsindustrie",
+   "stage": "Voedingsindustrie",
+   "place": "Varia ¦ Olien, vetten",
+   "path": "Reststroom ¦ Varia ¦ Olien, vetten",
+   "depth": 3,
+   "asserted": 95895,
+   "reached": 0,
+   "gap": 95895,
+   "ownGap": 95895,
+   "assertedEd": "OVAM Monitor voedselverlies 2023",
+   "reachedEd": "",
+   "hybrid": false,
+   "sameSourceGap": 95895,
+   "sameSourceEd": "OVAM Monitor voedselverlies 2023",
+   "claims": [],
+   "unplaced": [],
+   "note": null,
+   "what": "de sector heeft geen enkele benoemde stroom - het totaal is alles wat er is",
+   "close": "een sectorbron die per PROCES snijdt in plaats van per productcode (screeningsregel F-003)"
+  },
+  {
+   "family": "voedselverlies-school",
+   "key": "Reststroom ¦ Plantaardig - tuinbouw ¦ Groenten openlucht @@ Primaire productie",
+   "parentKey": "Reststroom @@ Primaire productie",
+   "stage": "Primaire productie",
+   "place": "Plantaardig - tuinbouw ¦ Groenten openlucht",
+   "path": "Reststroom ¦ Plantaardig - tuinbouw ¦ Groenten openlucht",
+   "depth": 3,
+   "asserted": 291180,
+   "reached": 205471,
+   "gap": 85709,
+   "ownGap": 85709,
+   "assertedEd": "OVAM Monitor voedselverlies 2023",
+   "reachedEd": "ILVO 239 tuinbouw",
+   "hybrid": true,
+   "sameSourceGap": 291180,
+   "sameSourceEd": "OVAM Monitor voedselverlies 2023",
+   "claims": [],
+   "unplaced": [],
+   "note": null,
+   "what": "9 tak(ken) eronder leveren samen 205.471 t; het verschil hangt aan geen benoemde stroom",
+   "close": "een bron die Plantaardig - tuinbouw ¦ Groenten openlucht per gewas of per materiaal uitsplitst"
+  }
+ ]
+}

@@ -1,0 +1,7408 @@
+{
+ "EDS": [
+  "GeNeSys ILVO 165",
+  "ILVO 239 tuinbouw",
+  "MONBIO 3.0",
+  "MONBIO 4.0",
+  "OVAM Monitor voedselverlies 2020",
+  "OVAM Monitor voedselverlies 2023",
+  "Starch4Feed (UGent TETRA)",
+  "Statbel slachtstatistiek",
+  "TransBio D3.4A"
+ ],
+ "src": {
+  "GeNeSys ILVO 165": {
+   "L1": 990129.667,
+   "pool": 990107.6669999999,
+   "n": 29,
+   "groups": [
+    {
+     "label": "Plantaardig - tuinbouw",
+     "total": 990129.667,
+     "pool": 990107.6669999999,
+     "n": 29
+    }
+   ]
+  },
+  "ILVO 239 tuinbouw": {
+   "L1": 282821,
+   "pool": 256888,
+   "n": 16,
+   "groups": [
+    {
+     "label": "Plantaardig - tuinbouw",
+     "total": 282821,
+     "pool": 256888,
+     "n": 16
+    }
+   ]
+  },
+  "MONBIO 3.0": {
+   "L1": 6880629,
+   "pool": 6549592,
+   "n": 29,
+   "groups": [
+    {
+     "label": "Plantaardig - akkerbouw",
+     "total": 5221907,
+     "pool": 5153906,
+     "n": 11
+    },
+    {
+     "label": "Plantaardig - tuinbouw",
+     "total": 569201,
+     "pool": 427706,
+     "n": 6
+    },
+    {
+     "label": "Dierlijk - vee",
+     "total": 740251,
+     "pool": 586366,
+     "n": 6
+    },
+    {
+     "label": "Dierlijk - vis",
+     "total": 7915,
+     "pool": 208,
+     "n": 3
+    },
+    {
+     "label": "Varia",
+     "total": 341355,
+     "pool": 381406,
+     "n": 3
+    }
+   ]
+  },
+  "MONBIO 4.0": {
+   "L1": 6407625,
+   "pool": 6041171,
+   "n": 27,
+   "groups": [
+    {
+     "label": "Plantaardig - akkerbouw",
+     "total": 4958992,
+     "pool": 4891992,
+     "n": 12
+    },
+    {
+     "label": "Plantaardig - tuinbouw",
+     "total": 616856,
+     "pool": 474636,
+     "n": 6
+    },
+    {
+     "label": "Dierlijk - vee",
+     "total": 776251,
+     "pool": 626517,
+     "n": 6
+    },
+    {
+     "label": "Dierlijk - vis",
+     "total": 7721,
+     "pool": 221,
+     "n": 2
+    },
+    {
+     "label": "Varia",
+     "total": 47805,
+     "pool": 47805,
+     "n": 1
+    }
+   ]
+  },
+  "OVAM Monitor voedselverlies 2020": {
+   "L1": 2583632.6,
+   "pool": 287794.6,
+   "n": 18,
+   "groups": [
+    {
+     "label": "Dierlijk - vis",
+     "total": 207.6,
+     "pool": 207.60000000000002,
+     "n": 13
+    },
+    {
+     "label": "Plantaardig - akkerbouw",
+     "total": 155162,
+     "pool": 151379,
+     "n": 2
+    },
+    {
+     "label": "Dierlijk - vee",
+     "total": 136208,
+     "pool": 136208,
+     "n": 3
+    },
+    {
+     "label": "Plantaardig - tuinbouw",
+     "total": 330089,
+     "pool": 0,
+     "n": 0
+    },
+    {
+     "label": "Varia",
+     "total": 438644,
+     "pool": 0,
+     "n": 0
+    }
+   ]
+  },
+  "OVAM Monitor voedselverlies 2023": {
+   "L1": 3097157,
+   "pool": 713239,
+   "n": 17,
+   "groups": [
+    {
+     "label": "Plantaardig - akkerbouw",
+     "total": 577389,
+     "pool": 572162,
+     "n": 2
+    },
+    {
+     "label": "Dierlijk - vis",
+     "total": 203,
+     "pool": 202,
+     "n": 11
+    },
+    {
+     "label": "Plantaardig - tuinbouw",
+     "total": 356075,
+     "pool": 0,
+     "n": 0
+    },
+    {
+     "label": "Dierlijk - vee",
+     "total": 90875,
+     "pool": 140875,
+     "n": 4
+    },
+    {
+     "label": "Varia",
+     "total": 596710,
+     "pool": 0,
+     "n": 0
+    }
+   ]
+  },
+  "Starch4Feed (UGent TETRA)": {
+   "L1": 390316,
+   "pool": 390316,
+   "n": 1,
+   "groups": [
+    {
+     "label": "Plantaardig - akkerbouw",
+     "total": 390316,
+     "pool": 390316,
+     "n": 1
+    }
+   ]
+  },
+  "Statbel slachtstatistiek": {
+   "L1": 82576,
+   "pool": 82576,
+   "n": 3,
+   "groups": [
+    {
+     "label": "Dierlijk - vee",
+     "total": 82576,
+     "pool": 82576,
+     "n": 3
+    }
+   ]
+  },
+  "TransBio D3.4A": {
+   "L1": 114087,
+   "pool": 114087,
+   "n": 9,
+   "groups": [
+    {
+     "label": "Plantaardig - tuinbouw",
+     "total": 114087,
+     "pool": 114087,
+     "n": 9
+    }
+   ]
+  }
+ },
+ "TOT": 7547546.496,
+ "n80": 15,
+ "N": 69,
+ "cov": [
+  {
+   "e": "GeNeSys ILVO 165",
+   "got": 990107.6669999999,
+   "pool": 990107.6669999999,
+   "L1": 990129.667
+  },
+  {
+   "e": "ILVO 239 tuinbouw",
+   "got": 256888,
+   "pool": 256888,
+   "L1": 282821
+  },
+  {
+   "e": "MONBIO 3.0",
+   "got": 6549583,
+   "pool": 6549592,
+   "L1": 6880629
+  },
+  {
+   "e": "MONBIO 4.0",
+   "got": 6041171,
+   "pool": 6041171,
+   "L1": 6407625
+  },
+  {
+   "e": "OVAM Monitor voedselverlies 2020",
+   "got": 287784.3,
+   "pool": 287794.6,
+   "L1": 2583632.6
+  },
+  {
+   "e": "OVAM Monitor voedselverlies 2023",
+   "got": 713232,
+   "pool": 713239,
+   "L1": 3097157
+  },
+  {
+   "e": "Starch4Feed (UGent TETRA)",
+   "got": 390316,
+   "pool": 390316,
+   "L1": 390316
+  },
+  {
+   "e": "Statbel slachtstatistiek",
+   "got": 82576,
+   "pool": 82576,
+   "L1": 82576
+  },
+  {
+   "e": "TransBio D3.4A",
+   "got": 114087,
+   "pool": 114087,
+   "L1": 114087
+  }
+ ],
+ "items": [
+  {
+   "key": "Plantaardig - akkerbouw | Mais",
+   "l2": "Plantaardig - akkerbouw",
+   "l4": "Mais",
+   "by": {
+    "MONBIO 3.0": {
+     "v": 1456062,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-427"
+     ],
+     "parts": [
+      {
+       "label": "stro",
+       "v": 1456062,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "MONBIO 4.0": {
+     "v": 1335083,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-246"
+     ],
+     "parts": [
+      {
+       "label": "stro",
+       "v": 1335083,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 1456062,
+   "min": 1335083,
+   "nSrc": 2,
+   "spread": 1.0906153400200587,
+   "stages": [
+    "Primaire productie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.19291858629445666,
+   "fracRows": [
+    {
+     "label": "stro",
+     "by": {
+      "MONBIO 3.0": 1456062,
+      "MONBIO 4.0": 1335083
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 1456062,
+     "min": 1335083,
+     "spread": 1.0906153400200587
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - akkerbouw | Kool- en raapzaad",
+   "l2": "Plantaardig - akkerbouw",
+   "l4": "Kool- en raapzaad",
+   "by": {
+    "MONBIO 3.0": {
+     "v": 857931,
+     "stages": [
+      "Voedingsindustrie",
+      "Primaire productie"
+     ],
+     "geo": [
+      "Belgie",
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-520",
+      "C-431"
+     ],
+     "parts": [
+      {
+       "label": "stro",
+       "v": 5931,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      },
+      {
+       "label": "(zonder fractie)",
+       "v": 852000,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Belgie"
+       ]
+      }
+     ]
+    },
+    "MONBIO 4.0": {
+     "v": 688818,
+     "stages": [
+      "Voedingsindustrie",
+      "Primaire productie"
+     ],
+     "geo": [
+      "Belgie",
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-331",
+      "C-256"
+     ],
+     "parts": [
+      {
+       "label": "stro",
+       "v": 7818,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      },
+      {
+       "label": "(zonder fractie)",
+       "v": 681000,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Belgie"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 857931,
+   "min": 688818,
+   "nSrc": 2,
+   "spread": 1.2455118768673292,
+   "stages": [
+    "Voedingsindustrie",
+    "Primaire productie"
+   ],
+   "geo": [
+    "Belgie",
+    "Vlaanderen"
+   ],
+   "cum": 0.30658877043372373,
+   "fracRows": [
+    {
+     "label": "stro",
+     "by": {
+      "MONBIO 3.0": 5931,
+      "MONBIO 4.0": 7818
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 7818,
+     "min": 5931,
+     "spread": 1.3181588265048052
+    },
+    {
+     "label": "— Voedingsindustrie",
+     "by": {
+      "MONBIO 3.0": 852000,
+      "MONBIO 4.0": 681000
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Belgie"
+     ],
+     "M": 852000,
+     "min": 681000,
+     "spread": 1.251101321585903
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - akkerbouw | Aardappel",
+   "l2": "Plantaardig - akkerbouw",
+   "l4": "Aardappel",
+   "by": {
+    "MONBIO 3.0": {
+     "v": 855393,
+     "stages": [
+      "Voedingsindustrie",
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-501",
+      "C-428"
+     ],
+     "parts": [
+      {
+       "label": "loof",
+       "v": 800480,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      },
+      {
+       "label": "(zonder fractie)",
+       "v": 54913,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "MONBIO 4.0": {
+     "v": 801530,
+     "stages": [
+      "Voedingsindustrie",
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-314",
+      "C-247"
+     ],
+     "parts": [
+      {
+       "label": "loof",
+       "v": 744945,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      },
+      {
+       "label": "(zonder fractie)",
+       "v": 56585,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "OVAM Monitor voedselverlies 2020": {
+     "v": 102717,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-167",
+      "C-179"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 102717,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "OVAM Monitor voedselverlies 2023": {
+     "v": 548305,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-005",
+      "C-042",
+      "C-057",
+      "C-068"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 548305,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "Starch4Feed (UGent TETRA)": {
+     "v": 390316,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Belgie"
+     ],
+     "claims": [
+      "C-816",
+      "C-817",
+      "C-818",
+      "C-819"
+     ],
+     "parts": [
+      {
+       "label": "stoomschillen",
+       "v": 261740,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Belgie"
+       ]
+      },
+      {
+       "label": "snippers",
+       "v": 95000,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Belgie"
+       ]
+      },
+      {
+       "label": "voerzetmeel",
+       "v": 23905,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Belgie"
+       ]
+      },
+      {
+       "label": "gebakken nevenstroom",
+       "v": 9671,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Belgie"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 855393,
+   "min": 102717,
+   "nSrc": 5,
+   "spread": 8.327667280002336,
+   "stages": [
+    "Voedingsindustrie",
+    "Primaire productie"
+   ],
+   "geo": [
+    "Vlaanderen",
+    "Belgie"
+   ],
+   "cum": 0.4199226863563796,
+   "fracRows": [
+    {
+     "label": "loof",
+     "by": {
+      "MONBIO 3.0": 800480,
+      "MONBIO 4.0": 744945
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 800480,
+     "min": 744945,
+     "spread": 1.0745491277879575
+    },
+    {
+     "label": "— Voedingsindustrie",
+     "by": {
+      "MONBIO 3.0": 54913,
+      "MONBIO 4.0": 56585
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 56585,
+     "min": 54913,
+     "spread": 1.0304481634585618
+    },
+    {
+     "label": "— Primaire productie",
+     "by": {
+      "OVAM Monitor voedselverlies 2020": 102717,
+      "OVAM Monitor voedselverlies 2023": 548305
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 548305,
+     "min": 102717,
+     "spread": 5.338016102495205
+    },
+    {
+     "label": "stoomschillen",
+     "by": {
+      "Starch4Feed (UGent TETRA)": 261740
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Belgie"
+     ],
+     "M": 261740,
+     "min": 261740,
+     "spread": null
+    },
+    {
+     "label": "snippers",
+     "by": {
+      "Starch4Feed (UGent TETRA)": 95000
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Belgie"
+     ],
+     "M": 95000,
+     "min": 95000,
+     "spread": null
+    },
+    {
+     "label": "voerzetmeel",
+     "by": {
+      "Starch4Feed (UGent TETRA)": 23905
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Belgie"
+     ],
+     "M": 23905,
+     "min": 23905,
+     "spread": null
+    },
+    {
+     "label": "gebakken nevenstroom",
+     "by": {
+      "Starch4Feed (UGent TETRA)": 9671
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Belgie"
+     ],
+     "M": 9671,
+     "min": 9671,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - akkerbouw | Suikerbiet",
+   "l2": "Plantaardig - akkerbouw",
+   "l4": "Suikerbiet",
+   "by": {
+    "MONBIO 3.0": {
+     "v": 801533,
+     "stages": [
+      "Primaire productie",
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-429",
+      "C-575"
+     ],
+     "parts": [
+      {
+       "label": "loof",
+       "v": 463884,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      },
+      {
+       "label": "pulp",
+       "v": 337649,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "MONBIO 4.0": {
+     "v": 812224,
+     "stages": [
+      "Primaire productie",
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-248",
+      "C-382"
+     ],
+     "parts": [
+      {
+       "label": "loof",
+       "v": 462224,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      },
+      {
+       "label": "pulp",
+       "v": 350000,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "OVAM Monitor voedselverlies 2020": {
+     "v": 48662,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-154",
+      "C-166",
+      "C-178"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 48662,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "OVAM Monitor voedselverlies 2023": {
+     "v": 23857,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-041",
+      "C-056",
+      "C-067"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 23857,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 812224,
+   "min": 23857,
+   "nSrc": 4,
+   "spread": 34.045521230666054,
+   "stages": [
+    "Primaire productie",
+    "Voedingsindustrie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.5275369952487404,
+   "fracRows": [
+    {
+     "label": "loof",
+     "by": {
+      "MONBIO 3.0": 463884,
+      "MONBIO 4.0": 462224
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 463884,
+     "min": 462224,
+     "spread": 1.0035913323410295
+    },
+    {
+     "label": "pulp",
+     "by": {
+      "MONBIO 3.0": 337649,
+      "MONBIO 4.0": 350000
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 350000,
+     "min": 337649,
+     "spread": 1.0365794064250153
+    },
+    {
+     "label": "— Primaire productie",
+     "by": {
+      "OVAM Monitor voedselverlies 2020": 48662,
+      "OVAM Monitor voedselverlies 2023": 23857
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 48662,
+     "min": 23857,
+     "spread": 2.0397367648908076
+    }
+   ]
+  },
+  {
+   "key": "Varia | Zetmeel",
+   "l2": "Varia",
+   "l4": "Zetmeel",
+   "by": {
+    "MONBIO 3.0": {
+     "v": 284549,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-550"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 284549,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 284549,
+   "min": 284549,
+   "nSrc": 1,
+   "spread": 1,
+   "stages": [
+    "Voedingsindustrie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.5652378560716322,
+   "fracRows": [
+    {
+     "label": "— Voedingsindustrie",
+     "by": {
+      "MONBIO 3.0": 284549
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 284549,
+     "min": 284549,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - akkerbouw | Zemelen",
+   "l2": "Plantaardig - akkerbouw",
+   "l4": "Zemelen",
+   "by": {
+    "MONBIO 3.0": {
+     "v": 278865,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-549"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 278865,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "MONBIO 4.0": {
+     "v": 275849,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-358"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 275849,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 278865,
+   "min": 275849,
+   "nSrc": 2,
+   "spread": 1.010933517975414,
+   "stages": [
+    "Voedingsindustrie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.6021856244819085,
+   "fracRows": [
+    {
+     "label": "— Voedingsindustrie",
+     "by": {
+      "MONBIO 3.0": 278865,
+      "MONBIO 4.0": 275849
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 278865,
+     "min": 275849,
+     "spread": 1.010933517975414
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - akkerbouw | Tarwe",
+   "l2": "Plantaardig - akkerbouw",
+   "l4": "Tarwe",
+   "by": {
+    "MONBIO 3.0": {
+     "v": 236095,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-430"
+     ],
+     "parts": [
+      {
+       "label": "stro",
+       "v": 236095,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "MONBIO 4.0": {
+     "v": 255836,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-249"
+     ],
+     "parts": [
+      {
+       "label": "stro",
+       "v": 255836,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 255836,
+   "min": 236095,
+   "nSrc": 2,
+   "spread": 1.083614646646477,
+   "stages": [
+    "Primaire productie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.6360822026792851,
+   "fracRows": [
+    {
+     "label": "stro",
+     "by": {
+      "MONBIO 3.0": 236095,
+      "MONBIO 4.0": 255836
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 255836,
+     "min": 236095,
+     "spread": 1.083614646646477
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - akkerbouw | Lijnzaad",
+   "l2": "Plantaardig - akkerbouw",
+   "l4": "Lijnzaad",
+   "by": {
+    "MONBIO 3.0": {
+     "v": 237000,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Belgie"
+     ],
+     "claims": [
+      "C-522"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 237000,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Belgie"
+       ]
+      }
+     ]
+    },
+    "MONBIO 4.0": {
+     "v": 245000,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Belgie"
+     ],
+     "claims": [
+      "C-333"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 245000,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Belgie"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 245000,
+   "min": 237000,
+   "nSrc": 2,
+   "spread": 1.0337552742616034,
+   "stages": [
+    "Voedingsindustrie"
+   ],
+   "geo": [
+    "Belgie"
+   ],
+   "cum": 0.6685430825333997,
+   "fracRows": [
+    {
+     "label": "— Voedingsindustrie",
+     "by": {
+      "MONBIO 3.0": 237000,
+      "MONBIO 4.0": 245000
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Belgie"
+     ],
+     "M": 245000,
+     "min": 237000,
+     "spread": 1.0337552742616034
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Bloemkool",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Bloemkool",
+   "by": {
+    "GeNeSys ILVO 165": {
+     "v": 201311.001,
+     "stages": [
+      "Producentenorganisaties/veilingen",
+      "Voedingsindustrie",
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen",
+      "Belgie"
+     ],
+     "claims": [
+      "C-769",
+      "C-778",
+      "C-706"
+     ],
+     "parts": [
+      {
+       "label": "blad- en stengelmassa",
+       "v": 197100,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      },
+      {
+       "label": "(zonder fractie)",
+       "v": 4211.000999999989,
+       "st": [
+        "Producentenorganisaties/veilingen",
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen",
+        "Belgie"
+       ]
+      }
+     ]
+    },
+    "ILVO 239 tuinbouw": {
+     "v": 16388,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-610",
+      "C-611",
+      "C-612"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 16388,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "MONBIO 3.0": {
+     "v": 165644,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-432",
+      "C-437"
+     ],
+     "parts": [
+      {
+       "label": "loof",
+       "v": 148846,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      },
+      {
+       "label": "harten",
+       "v": 16798,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "MONBIO 4.0": {
+     "v": 180125,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-250",
+      "C-255"
+     ],
+     "parts": [
+      {
+       "label": "loof",
+       "v": 161730,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      },
+      {
+       "label": "harten",
+       "v": 18395,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 201311.001,
+   "min": 16388,
+   "nSrc": 4,
+   "spread": 12.28404936538931,
+   "stages": [
+    "Producentenorganisaties/veilingen",
+    "Voedingsindustrie",
+    "Primaire productie"
+   ],
+   "geo": [
+    "Vlaanderen",
+    "Belgie"
+   ],
+   "cum": 0.6952154589283898,
+   "fracRows": [
+    {
+     "label": "blad- en stengelmassa",
+     "by": {
+      "GeNeSys ILVO 165": 197100
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 197100,
+     "min": 197100,
+     "spread": null
+    },
+    {
+     "label": "— Producentenorganisaties/veilingen/Voedingsindustrie",
+     "by": {
+      "GeNeSys ILVO 165": 4211.000999999989
+     },
+     "st": [
+      "Producentenorganisaties/veilingen",
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen",
+      "Belgie"
+     ],
+     "M": 4211.000999999989,
+     "min": 4211.000999999989,
+     "spread": null
+    },
+    {
+     "label": "— Primaire productie",
+     "by": {
+      "ILVO 239 tuinbouw": 16388
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 16388,
+     "min": 16388,
+     "spread": null
+    },
+    {
+     "label": "loof",
+     "by": {
+      "MONBIO 3.0": 148846,
+      "MONBIO 4.0": 161730
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 161730,
+     "min": 148846,
+     "spread": 1.0865592625935532
+    },
+    {
+     "label": "harten",
+     "by": {
+      "MONBIO 3.0": 16798,
+      "MONBIO 4.0": 18395
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 18395,
+     "min": 16798,
+     "spread": 1.095070841766877
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - akkerbouw | Soja",
+   "l2": "Plantaardig - akkerbouw",
+   "l4": "Soja",
+   "by": {
+    "MONBIO 3.0": {
+     "v": 170000,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Belgie"
+     ],
+     "claims": [
+      "C-519"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 170000,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Belgie"
+       ]
+      }
+     ]
+    },
+    "MONBIO 4.0": {
+     "v": 98000,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Belgie"
+     ],
+     "claims": [
+      "C-330"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 98000,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Belgie"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 170000,
+   "min": 98000,
+   "nSrc": 2,
+   "spread": 1.7346938775510203,
+   "stages": [
+    "Voedingsindustrie"
+   ],
+   "geo": [
+    "Belgie"
+   ],
+   "cum": 0.7177393347455305,
+   "fracRows": [
+    {
+     "label": "— Voedingsindustrie",
+     "by": {
+      "MONBIO 3.0": 170000,
+      "MONBIO 4.0": 98000
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Belgie"
+     ],
+     "M": 170000,
+     "min": 98000,
+     "spread": 1.7346938775510203
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vee | Niet-eetbare slachtafvallen",
+   "l2": "Dierlijk - vee",
+   "l4": "Niet-eetbare slachtafvallen",
+   "by": {
+    "MONBIO 3.0": {
+     "v": 142405,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-483"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 142405,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "MONBIO 4.0": {
+     "v": 169051,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-298"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 169051,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 169051,
+   "min": 142405,
+   "nSrc": 2,
+   "spread": 1.1871142164952073,
+   "stages": [
+    "Voedingsindustrie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.7401374743382568,
+   "fracRows": [
+    {
+     "label": "— Voedingsindustrie",
+     "by": {
+      "MONBIO 3.0": 142405,
+      "MONBIO 4.0": 169051
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 169051,
+     "min": 142405,
+     "spread": 1.1871142164952073
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vee | Dierlijk vet",
+   "l2": "Dierlijk - vee",
+   "l4": "Dierlijk vet",
+   "by": {
+    "MONBIO 3.0": {
+     "v": 136457,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-482"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 136457,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "MONBIO 4.0": {
+     "v": 145498,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-297"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 145498,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 145498,
+   "min": 136457,
+   "nSrc": 2,
+   "spread": 1.066255303868618,
+   "stages": [
+    "Voedingsindustrie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.7594149971832118,
+   "fracRows": [
+    {
+     "label": "— Voedingsindustrie",
+     "by": {
+      "MONBIO 3.0": 136457,
+      "MONBIO 4.0": 145498
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 145498,
+     "min": 136457,
+     "spread": 1.066255303868618
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Spruiten",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Spruiten",
+   "by": {
+    "GeNeSys ILVO 165": {
+     "v": 138000,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-735"
+     ],
+     "parts": [
+      {
+       "label": "stengelmassa",
+       "v": 138000,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "ILVO 239 tuinbouw": {
+     "v": 5452,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-618",
+      "C-619",
+      "C-620"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 5452,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "MONBIO 3.0": {
+     "v": 65509,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-434"
+     ],
+     "parts": [
+      {
+       "label": "stokken",
+       "v": 65509,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "MONBIO 4.0": {
+     "v": 75983,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-251"
+     ],
+     "parts": [
+      {
+       "label": "stokken",
+       "v": 75983,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 138000,
+   "min": 5452,
+   "nSrc": 4,
+   "spread": 25.311812179016876,
+   "stages": [
+    "Primaire productie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.7776990846112437,
+   "fracRows": [
+    {
+     "label": "stengelmassa",
+     "by": {
+      "GeNeSys ILVO 165": 138000
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 138000,
+     "min": 138000,
+     "spread": null
+    },
+    {
+     "label": "— Primaire productie",
+     "by": {
+      "ILVO 239 tuinbouw": 5452
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 5452,
+     "min": 5452,
+     "spread": null
+    },
+    {
+     "label": "stokken",
+     "by": {
+      "MONBIO 3.0": 65509,
+      "MONBIO 4.0": 75983
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 75983,
+     "min": 65509,
+     "spread": 1.1598864278190784
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - akkerbouw | Bostel",
+   "l2": "Plantaardig - akkerbouw",
+   "l4": "Bostel",
+   "by": {
+    "MONBIO 3.0": {
+     "v": 113637,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-590"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 113637,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "MONBIO 4.0": {
+     "v": 134653,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-397"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 134653,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 134653,
+   "min": 113637,
+   "nSrc": 2,
+   "spread": 1.1849397643373196,
+   "stages": [
+    "Voedingsindustrie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.7955397166724523,
+   "fracRows": [
+    {
+     "label": "— Voedingsindustrie",
+     "by": {
+      "MONBIO 3.0": 113637,
+      "MONBIO 4.0": 134653
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 134653,
+     "min": 113637,
+     "spread": 1.1849397643373196
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vee | Zuivelnevenstroom",
+   "l2": "Dierlijk - vee",
+   "l4": "Zuivelnevenstroom",
+   "by": {
+    "MONBIO 3.0": {
+     "v": 126251,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-803",
+      "C-805"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 126251,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "MONBIO 4.0": {
+     "v": 126251,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-802",
+      "C-804"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 126251,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "OVAM Monitor voedselverlies 2020": {
+     "v": 123219,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-200"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 123219,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "OVAM Monitor voedselverlies 2023": {
+     "v": 77215,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-100"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 77215,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 126251,
+   "min": 77215,
+   "nSrc": 4,
+   "spread": 1.6350579550605453,
+   "stages": [
+    "Voedingsindustrie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.8122671392947455,
+   "fracRows": [
+    {
+     "label": "— Voedingsindustrie",
+     "by": {
+      "MONBIO 3.0": 126251,
+      "MONBIO 4.0": 126251,
+      "OVAM Monitor voedselverlies 2020": 123219,
+      "OVAM Monitor voedselverlies 2023": 77215
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 126251,
+     "min": 77215,
+     "spread": 1.6350579550605453
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - akkerbouw | Voederbiet",
+   "l2": "Plantaardig - akkerbouw",
+   "l4": "Voederbiet",
+   "by": {
+    "MONBIO 4.0": {
+     "v": 101780,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-806"
+     ],
+     "parts": [
+      {
+       "label": "loof",
+       "v": 101780,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 101780,
+   "min": 101780,
+   "nSrc": 1,
+   "spread": 1,
+   "stages": [
+    "Primaire productie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.8257523162398548,
+   "fracRows": [
+    {
+     "label": "loof",
+     "by": {
+      "MONBIO 4.0": 101780
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 101780,
+     "min": 101780,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Prei",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Prei",
+   "by": {
+    "GeNeSys ILVO 165": {
+     "v": 72579,
+     "stages": [
+      "Voedingsindustrie",
+      "Primaire productie"
+     ],
+     "geo": [
+      "Belgie",
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-790",
+      "C-721"
+     ],
+     "parts": [
+      {
+       "label": "bladmassa (groene deel)",
+       "v": 70875,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      },
+      {
+       "label": "(zonder fractie)",
+       "v": 1704,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Belgie"
+       ]
+      }
+     ]
+    },
+    "ILVO 239 tuinbouw": {
+     "v": 101746,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-614",
+      "C-615",
+      "C-616",
+      "C-638",
+      "C-639",
+      "C-640"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 101746,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "MONBIO 3.0": {
+     "v": 62857,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-435"
+     ],
+     "parts": [
+      {
+       "label": "loof",
+       "v": 62857,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "MONBIO 4.0": {
+     "v": 69778,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-253"
+     ],
+     "parts": [
+      {
+       "label": "loof",
+       "v": 69778,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 101746,
+   "min": 62857,
+   "nSrc": 4,
+   "spread": 1.6186900424773694,
+   "stages": [
+    "Voedingsindustrie",
+    "Primaire productie"
+   ],
+   "geo": [
+    "Belgie",
+    "Vlaanderen"
+   ],
+   "cum": 0.8392329884098007,
+   "fracRows": [
+    {
+     "label": "bladmassa (groene deel)",
+     "by": {
+      "GeNeSys ILVO 165": 70875
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 70875,
+     "min": 70875,
+     "spread": null
+    },
+    {
+     "label": "— Voedingsindustrie",
+     "by": {
+      "GeNeSys ILVO 165": 1704
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Belgie"
+     ],
+     "M": 1704,
+     "min": 1704,
+     "spread": null
+    },
+    {
+     "label": "— Primaire productie",
+     "by": {
+      "ILVO 239 tuinbouw": 101746
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 101746,
+     "min": 101746,
+     "spread": null
+    },
+    {
+     "label": "loof",
+     "by": {
+      "MONBIO 3.0": 62857,
+      "MONBIO 4.0": 69778
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 69778,
+     "min": 62857,
+     "spread": 1.1101070684251555
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - akkerbouw | Gries",
+   "l2": "Plantaardig - akkerbouw",
+   "l4": "Gries",
+   "by": {
+    "MONBIO 3.0": {
+     "v": 98390,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-548"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 98390,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "MONBIO 4.0": {
+     "v": 85219,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-357"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 85219,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 98390,
+   "min": 85219,
+   "nSrc": 2,
+   "spread": 1.1545547354463206,
+   "stages": [
+    "Voedingsindustrie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.8522690127724388,
+   "fracRows": [
+    {
+     "label": "— Voedingsindustrie",
+     "by": {
+      "MONBIO 3.0": 98390,
+      "MONBIO 4.0": 85219
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 98390,
+     "min": 85219,
+     "spread": 1.1545547354463206
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Erwt",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Erwt",
+   "by": {
+    "GeNeSys ILVO 165": {
+     "v": 93400,
+     "stages": [
+      "Primaire productie",
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen",
+      "Belgie"
+     ],
+     "claims": [
+      "C-715",
+      "C-787"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 93400,
+       "st": [
+        "Primaire productie",
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen",
+        "Belgie"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 93400,
+   "min": 93400,
+   "nSrc": 1,
+   "spread": 1,
+   "stages": [
+    "Primaire productie",
+    "Voedingsindustrie"
+   ],
+   "geo": [
+    "Vlaanderen",
+    "Belgie"
+   ],
+   "cum": 0.8646438951331503,
+   "fracRows": [
+    {
+     "label": "— Primaire productie/Voedingsindustrie",
+     "by": {
+      "GeNeSys ILVO 165": 93400
+     },
+     "st": [
+      "Primaire productie",
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen",
+      "Belgie"
+     ],
+     "M": 93400,
+     "min": 93400,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Boon",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Boon",
+   "by": {
+    "GeNeSys ILVO 165": {
+     "v": 90000,
+     "stages": [
+      "Voedingsindustrie",
+      "Primaire productie"
+     ],
+     "geo": [
+      "Belgie",
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-781",
+      "C-708"
+     ],
+     "parts": [
+      {
+       "label": "blad- en stengelmassa",
+       "v": 68600,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      },
+      {
+       "label": "(zonder fractie)",
+       "v": 21400,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Belgie"
+       ]
+      }
+     ]
+    },
+    "ILVO 239 tuinbouw": {
+     "v": 1783,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-594",
+      "C-595",
+      "C-596"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 1783,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 90000,
+   "min": 1783,
+   "nSrc": 2,
+   "spread": 50.476724621424566,
+   "stages": [
+    "Voedingsindustrie",
+    "Primaire productie"
+   ],
+   "geo": [
+    "Belgie",
+    "Vlaanderen"
+   ],
+   "cum": 0.876568299977519,
+   "fracRows": [
+    {
+     "label": "blad- en stengelmassa",
+     "by": {
+      "GeNeSys ILVO 165": 68600
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 68600,
+     "min": 68600,
+     "spread": null
+    },
+    {
+     "label": "— Voedingsindustrie",
+     "by": {
+      "GeNeSys ILVO 165": 21400
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Belgie"
+     ],
+     "M": 21400,
+     "min": 21400,
+     "spread": null
+    },
+    {
+     "label": "— Primaire productie",
+     "by": {
+      "ILVO 239 tuinbouw": 1783
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 1783,
+     "min": 1783,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vee | Gevogelte",
+   "l2": "Dierlijk - vee",
+   "l4": "Gevogelte",
+   "by": {
+    "MONBIO 3.0": {
+     "v": 86856,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-484"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 86856,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "MONBIO 4.0": {
+     "v": 84141,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-299"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 84141,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 86856,
+   "min": 84141,
+   "nSrc": 2,
+   "spread": 1.0322672656612115,
+   "stages": [
+    "Voedingsindustrie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.8880761456126577,
+   "fracRows": [
+    {
+     "label": "— Voedingsindustrie",
+     "by": {
+      "MONBIO 3.0": 86856,
+      "MONBIO 4.0": 84141
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 86856,
+     "min": 84141,
+     "spread": 1.0322672656612115
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Wortel",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Wortel",
+   "by": {
+    "GeNeSys ILVO 165": {
+     "v": 84800,
+     "stages": [
+      "Voedingsindustrie",
+      "Primaire productie"
+     ],
+     "geo": [
+      "Belgie",
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-799",
+      "C-745"
+     ],
+     "parts": [
+      {
+       "label": "bladmassa",
+       "v": 69500,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      },
+      {
+       "label": "(zonder fractie)",
+       "v": 15300,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Belgie"
+       ]
+      }
+     ]
+    },
+    "ILVO 239 tuinbouw": {
+     "v": 16966,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-598",
+      "C-599",
+      "C-600",
+      "C-630",
+      "C-631",
+      "C-632"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 16966,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "MONBIO 3.0": {
+     "v": 69001,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-433"
+     ],
+     "parts": [
+      {
+       "label": "loof",
+       "v": 69001,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "MONBIO 4.0": {
+     "v": 72718,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-252"
+     ],
+     "parts": [
+      {
+       "label": "loof",
+       "v": 72718,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 84800,
+   "min": 16966,
+   "nSrc": 4,
+   "spread": 4.9982317576329125,
+   "stages": [
+    "Voedingsindustrie",
+    "Primaire productie"
+   ],
+   "geo": [
+    "Belgie",
+    "Vlaanderen"
+   ],
+   "cum": 0.8993115848437961,
+   "fracRows": [
+    {
+     "label": "bladmassa",
+     "by": {
+      "GeNeSys ILVO 165": 69500
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 69500,
+     "min": 69500,
+     "spread": null
+    },
+    {
+     "label": "— Voedingsindustrie",
+     "by": {
+      "GeNeSys ILVO 165": 15300
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Belgie"
+     ],
+     "M": 15300,
+     "min": 15300,
+     "spread": null
+    },
+    {
+     "label": "— Primaire productie",
+     "by": {
+      "ILVO 239 tuinbouw": 16966
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 16966,
+     "min": 16966,
+     "spread": null
+    },
+    {
+     "label": "loof",
+     "by": {
+      "MONBIO 3.0": 69001,
+      "MONBIO 4.0": 72718
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 72718,
+     "min": 69001,
+     "spread": 1.0538687845103694
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vee | Eetbare slachtafvallen (rood vlees)",
+   "l2": "Dierlijk - vee",
+   "l4": "Eetbare slachtafvallen (rood vlees)",
+   "by": {
+    "MONBIO 3.0": {
+     "v": 75397,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-480"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 75397,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "MONBIO 4.0": {
+     "v": 82576,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-295"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 82576,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 82576,
+   "min": 75397,
+   "nSrc": 2,
+   "spread": 1.0952159900261285,
+   "stages": [
+    "Voedingsindustrie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9102523587818915,
+   "fracRows": [
+    {
+     "label": "— Voedingsindustrie",
+     "by": {
+      "MONBIO 3.0": 75397,
+      "MONBIO 4.0": 82576
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 82576,
+     "min": 75397,
+     "spread": 1.0952159900261285
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vee | Varkens",
+   "l2": "Dierlijk - vee",
+   "l4": "Varkens",
+   "by": {
+    "Statbel slachtstatistiek": {
+     "v": 70478,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-820"
+     ],
+     "parts": [
+      {
+       "label": "eetbare slachtafvallen",
+       "v": 70478,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 70478,
+   "min": 70478,
+   "nSrc": 1,
+   "spread": 1,
+   "stages": [
+    "Voedingsindustrie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9195902277221294,
+   "fracRows": [
+    {
+     "label": "eetbare slachtafvallen",
+     "by": {
+      "Statbel slachtstatistiek": 70478
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 70478,
+     "min": 70478,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Ui",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Ui",
+   "by": {
+    "GeNeSys ILVO 165": {
+     "v": 33080,
+     "stages": [
+      "Primaire productie",
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen",
+      "Belgie"
+     ],
+     "claims": [
+      "C-737",
+      "C-796"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 33080,
+       "st": [
+        "Primaire productie",
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen",
+        "Belgie"
+       ]
+      }
+     ]
+    },
+    "ILVO 239 tuinbouw": {
+     "v": 33411,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-606",
+      "C-607",
+      "C-608"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 33411,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "MONBIO 3.0": {
+     "v": 50695,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-436"
+     ],
+     "parts": [
+      {
+       "label": "schillen",
+       "v": 50695,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "MONBIO 4.0": {
+     "v": 62032,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-254"
+     ],
+     "parts": [
+      {
+       "label": "schillen",
+       "v": 62032,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 62032,
+   "min": 33080,
+   "nSrc": 4,
+   "spread": 1.875211608222491,
+   "stages": [
+    "Primaire productie",
+    "Voedingsindustrie"
+   ],
+   "geo": [
+    "Vlaanderen",
+    "Belgie"
+   ],
+   "cum": 0.9278090575144169,
+   "fracRows": [
+    {
+     "label": "— Primaire productie/Voedingsindustrie",
+     "by": {
+      "GeNeSys ILVO 165": 33080
+     },
+     "st": [
+      "Primaire productie",
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen",
+      "Belgie"
+     ],
+     "M": 33080,
+     "min": 33080,
+     "spread": null
+    },
+    {
+     "label": "— Primaire productie",
+     "by": {
+      "ILVO 239 tuinbouw": 33411
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 33411,
+     "min": 33411,
+     "spread": null
+    },
+    {
+     "label": "schillen",
+     "by": {
+      "MONBIO 3.0": 50695,
+      "MONBIO 4.0": 62032
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 62032,
+     "min": 50695,
+     "spread": 1.2236315218463358
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - akkerbouw | Zonnebloem",
+   "l2": "Plantaardig - akkerbouw",
+   "l4": "Zonnebloem",
+   "by": {
+    "MONBIO 3.0": {
+     "v": 49000,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Belgie"
+     ],
+     "claims": [
+      "C-521"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 49000,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Belgie"
+       ]
+      }
+     ]
+    },
+    "MONBIO 4.0": {
+     "v": 58000,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Belgie"
+     ],
+     "claims": [
+      "C-332"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 58000,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Belgie"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 58000,
+   "min": 49000,
+   "nSrc": 2,
+   "spread": 1.183673469387755,
+   "stages": [
+    "Voedingsindustrie"
+   ],
+   "geo": [
+    "Belgie"
+   ],
+   "cum": 0.9354936739696768,
+   "fracRows": [
+    {
+     "label": "— Voedingsindustrie",
+     "by": {
+      "MONBIO 3.0": 49000,
+      "MONBIO 4.0": 58000
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Belgie"
+     ],
+     "M": 58000,
+     "min": 49000,
+     "spread": 1.183673469387755
+    }
+   ]
+  },
+  {
+   "key": "Varia | Melasse",
+   "l2": "Varia",
+   "l4": "Melasse",
+   "by": {
+    "MONBIO 3.0": {
+     "v": 56806,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-574"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 56806,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "MONBIO 4.0": {
+     "v": 47805,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-381"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 47805,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 56806,
+   "min": 47805,
+   "nSrc": 2,
+   "spread": 1.18828574416902,
+   "stages": [
+    "Voedingsindustrie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9430200933206679,
+   "fracRows": [
+    {
+     "label": "— Voedingsindustrie",
+     "by": {
+      "MONBIO 3.0": 56806,
+      "MONBIO 4.0": 47805
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 56806,
+     "min": 47805,
+     "spread": 1.18828574416902
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Appel",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Appel",
+   "by": {
+    "GeNeSys ILVO 165": {
+     "v": 54800,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-757"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 54800,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "ILVO 239 tuinbouw": {
+     "v": 13913,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-670",
+      "C-671",
+      "C-672"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 13913,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "MONBIO 3.0": {
+     "v": 14000,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-438"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 14000,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "MONBIO 4.0": {
+     "v": 14000,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-257"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 14000,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 54800,
+   "min": 13913,
+   "nSrc": 4,
+   "spread": 3.9387623086322145,
+   "stages": [
+    "Primaire productie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9502807309370168,
+   "fracRows": [
+    {
+     "label": "— Primaire productie",
+     "by": {
+      "GeNeSys ILVO 165": 54800,
+      "ILVO 239 tuinbouw": 13913,
+      "MONBIO 3.0": 14000,
+      "MONBIO 4.0": 14000
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 54800,
+     "min": 13913,
+     "spread": 3.9387623086322145
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vee | Slachthuisstromen",
+   "l2": "Dierlijk - vee",
+   "l4": "Slachthuisstromen",
+   "by": {
+    "OVAM Monitor voedselverlies 2023": {
+     "v": 50000,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-102"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 50000,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 50000,
+   "min": 50000,
+   "nSrc": 1,
+   "spread": 1,
+   "stages": [
+    "Voedingsindustrie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9569054002949994,
+   "fracRows": [
+    {
+     "label": "— Voedingsindustrie",
+     "by": {
+      "OVAM Monitor voedselverlies 2023": 50000
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 50000,
+     "min": 50000,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Varia | Mout",
+   "l2": "Varia",
+   "l4": "Mout",
+   "by": {
+    "MONBIO 3.0": {
+     "v": 40051,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-823"
+     ],
+     "parts": [
+      {
+       "label": "moutscheuten",
+       "v": 40051,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 40051,
+   "min": 40051,
+   "nSrc": 1,
+   "spread": 1,
+   "stages": [
+    "Voedingsindustrie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9622118929441306,
+   "fracRows": [
+    {
+     "label": "moutscheuten",
+     "by": {
+      "MONBIO 3.0": 40051
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 40051,
+     "min": 40051,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Aardbei",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Aardbei",
+   "by": {
+    "GeNeSys ILVO 165": {
+     "v": 22500,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-761"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 22500,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "ILVO 239 tuinbouw": {
+     "v": 1836,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-678",
+      "C-679",
+      "C-680"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 1836,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 22500,
+   "min": 1836,
+   "nSrc": 2,
+   "spread": 12.254901960784315,
+   "stages": [
+    "Primaire productie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9651929941552227,
+   "fracRows": [
+    {
+     "label": "— Primaire productie",
+     "by": {
+      "GeNeSys ILVO 165": 22500,
+      "ILVO 239 tuinbouw": 1836
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 22500,
+     "min": 1836,
+     "spread": 12.254901960784315
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Witloof",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Witloof",
+   "by": {
+    "GeNeSys ILVO 165": {
+     "v": 22275,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-739",
+      "C-741"
+     ],
+     "parts": [
+      {
+       "label": "wortelmassa na forcerie",
+       "v": 19300,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      },
+      {
+       "label": "blaadjes",
+       "v": 2975,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "ILVO 239 tuinbouw": {
+     "v": 10277,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-634",
+      "C-635",
+      "C-636"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 10277,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 22275,
+   "min": 10277,
+   "nSrc": 2,
+   "spread": 2.167461321397295,
+   "stages": [
+    "Primaire productie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.968144284354204,
+   "fracRows": [
+    {
+     "label": "wortelmassa na forcerie",
+     "by": {
+      "GeNeSys ILVO 165": 19300
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 19300,
+     "min": 19300,
+     "spread": null
+    },
+    {
+     "label": "blaadjes",
+     "by": {
+      "GeNeSys ILVO 165": 2975
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 2975,
+     "min": 2975,
+     "spread": null
+    },
+    {
+     "label": "— Primaire productie",
+     "by": {
+      "ILVO 239 tuinbouw": 10277
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 10277,
+     "min": 10277,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Spinazie",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Spinazie",
+   "by": {
+    "GeNeSys ILVO 165": {
+     "v": 22020,
+     "stages": [
+      "Primaire productie",
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen",
+      "Belgie"
+     ],
+     "claims": [
+      "C-733",
+      "C-793"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 22020,
+       "st": [
+        "Primaire productie",
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen",
+        "Belgie"
+       ]
+      }
+     ]
+    },
+    "ILVO 239 tuinbouw": {
+     "v": 19305,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-602",
+      "C-603",
+      "C-604"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 19305,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "TransBio D3.4A": {
+     "v": 21225,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-807"
+     ],
+     "parts": [
+      {
+       "label": "loof",
+       "v": 21225,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 22020,
+   "min": 19305,
+   "nSrc": 3,
+   "spread": 1.1406371406371407,
+   "stages": [
+    "Primaire productie",
+    "Voedingsindustrie"
+   ],
+   "geo": [
+    "Vlaanderen",
+    "Belgie"
+   ],
+   "cum": 0.9710617887394595,
+   "fracRows": [
+    {
+     "label": "— Primaire productie/Voedingsindustrie",
+     "by": {
+      "GeNeSys ILVO 165": 22020
+     },
+     "st": [
+      "Primaire productie",
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen",
+      "Belgie"
+     ],
+     "M": 22020,
+     "min": 22020,
+     "spread": null
+    },
+    {
+     "label": "— Primaire productie",
+     "by": {
+      "ILVO 239 tuinbouw": 19305
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 19305,
+     "min": 19305,
+     "spread": null
+    },
+    {
+     "label": "loof",
+     "by": {
+      "TransBio D3.4A": 21225
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 21225,
+     "min": 21225,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Witte kool",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Witte kool",
+   "by": {
+    "GeNeSys ILVO 165": {
+     "v": 20000,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-743"
+     ],
+     "parts": [
+      {
+       "label": "buitenste bladeren",
+       "v": 20000,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "TransBio D3.4A": {
+     "v": 13072,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-810"
+     ],
+     "parts": [
+      {
+       "label": "blad",
+       "v": 13072,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 20000,
+   "min": 13072,
+   "nSrc": 2,
+   "spread": 1.5299877600979193,
+   "stages": [
+    "Primaire productie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9737116564826526,
+   "fracRows": [
+    {
+     "label": "buitenste bladeren",
+     "by": {
+      "GeNeSys ILVO 165": 20000
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 20000,
+     "min": 20000,
+     "spread": null
+    },
+    {
+     "label": "blad",
+     "by": {
+      "TransBio D3.4A": 13072
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 13072,
+     "min": 13072,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Selder",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Selder",
+   "by": {
+    "GeNeSys ILVO 165": {
+     "v": 19250,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-731"
+     ],
+     "parts": [
+      {
+       "label": "blad- en stengelmassa",
+       "v": 19250,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "TransBio D3.4A": {
+     "v": 16681,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-809"
+     ],
+     "parts": [
+      {
+       "label": "loof",
+       "v": 16681,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 19250,
+   "min": 16681,
+   "nSrc": 2,
+   "spread": 1.1540075535039866,
+   "stages": [
+    "Primaire productie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9762621541854758,
+   "fracRows": [
+    {
+     "label": "blad- en stengelmassa",
+     "by": {
+      "GeNeSys ILVO 165": 19250
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 19250,
+     "min": 19250,
+     "spread": null
+    },
+    {
+     "label": "loof",
+     "by": {
+      "TransBio D3.4A": 16681
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 16681,
+     "min": 16681,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vee | Melk",
+   "l2": "Dierlijk - vee",
+   "l4": "Melk",
+   "by": {
+    "MONBIO 3.0": {
+     "v": 19000,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-449"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 19000,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "MONBIO 4.0": {
+     "v": 19000,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-268"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 19000,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "OVAM Monitor voedselverlies 2020": {
+     "v": 12007,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-157",
+      "C-169",
+      "C-181"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 12007,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "OVAM Monitor voedselverlies 2023": {
+     "v": 12378,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-046",
+      "C-059",
+      "C-070"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 12378,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 19000,
+   "min": 12007,
+   "nSrc": 4,
+   "spread": 1.5824102606812693,
+   "stages": [
+    "Primaire productie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9787795285415092,
+   "fracRows": [
+    {
+     "label": "— Primaire productie",
+     "by": {
+      "MONBIO 3.0": 19000,
+      "MONBIO 4.0": 19000,
+      "OVAM Monitor voedselverlies 2020": 12007,
+      "OVAM Monitor voedselverlies 2023": 12378
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 19000,
+     "min": 12007,
+     "spread": 1.5824102606812693
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Witloofwortelen",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Witloofwortelen",
+   "by": {
+    "TransBio D3.4A": {
+     "v": 18850,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-808"
+     ],
+     "parts": [
+      {
+       "label": "loof",
+       "v": 18850,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 18850,
+   "min": 18850,
+   "nSrc": 1,
+   "spread": 1,
+   "stages": [
+    "Primaire productie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9812770288894687,
+   "fracRows": [
+    {
+     "label": "loof",
+     "by": {
+      "TransBio D3.4A": 18850
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 18850,
+     "min": 18850,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Peer",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Peer",
+   "by": {
+    "GeNeSys ILVO 165": {
+     "v": 8545,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-759"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 8545,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "ILVO 239 tuinbouw": {
+     "v": 16945,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-674",
+      "C-675",
+      "C-676"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 16945,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 16945,
+   "min": 8545,
+   "nSrc": 2,
+   "spread": 1.9830310122878876,
+   "stages": [
+    "Primaire productie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9835221293348889,
+   "fracRows": [
+    {
+     "label": "— Primaire productie",
+     "by": {
+      "GeNeSys ILVO 165": 8545,
+      "ILVO 239 tuinbouw": 16945
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 16945,
+     "min": 8545,
+     "spread": 1.9830310122878876
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Rode kool",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Rode kool",
+   "by": {
+    "GeNeSys ILVO 165": {
+     "v": 15000,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-725"
+     ],
+     "parts": [
+      {
+       "label": "buitenste bladeren",
+       "v": 15000,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "TransBio D3.4A": {
+     "v": 8966,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-813"
+     ],
+     "parts": [
+      {
+       "label": "blad",
+       "v": 8966,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 15000,
+   "min": 8966,
+   "nSrc": 2,
+   "spread": 1.6729868391701985,
+   "stages": [
+    "Primaire productie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9855095301422837,
+   "fracRows": [
+    {
+     "label": "buitenste bladeren",
+     "by": {
+      "GeNeSys ILVO 165": 15000
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 15000,
+     "min": 15000,
+     "spread": null
+    },
+    {
+     "label": "blad",
+     "by": {
+      "TransBio D3.4A": 8966
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 8966,
+     "min": 8966,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Savooikool",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Savooikool",
+   "by": {
+    "GeNeSys ILVO 165": {
+     "v": 15000,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-727"
+     ],
+     "parts": [
+      {
+       "label": "buitenste bladeren",
+       "v": 15000,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "TransBio D3.4A": {
+     "v": 11592,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-811"
+     ],
+     "parts": [
+      {
+       "label": "blad",
+       "v": 11592,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 15000,
+   "min": 11592,
+   "nSrc": 2,
+   "spread": 1.2939958592132506,
+   "stages": [
+    "Primaire productie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9874969309496785,
+   "fracRows": [
+    {
+     "label": "buitenste bladeren",
+     "by": {
+      "GeNeSys ILVO 165": 15000
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 15000,
+     "min": 15000,
+     "spread": null
+    },
+    {
+     "label": "blad",
+     "by": {
+      "TransBio D3.4A": 11592
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 11592,
+     "min": 11592,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Tomaat",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Tomaat",
+   "by": {
+    "GeNeSys ILVO 165": {
+     "v": 14931.222,
+     "stages": [
+      "Primaire productie",
+      "Producentenorganisaties/veilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-754",
+      "C-775"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 14931.222,
+       "st": [
+        "Primaire productie",
+        "Producentenorganisaties/veilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "ILVO 239 tuinbouw": {
+     "v": 5050,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-650",
+      "C-651",
+      "C-652"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 5050,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 14931.222,
+   "min": 5050,
+   "nSrc": 2,
+   "spread": 2.956677623762376,
+   "stages": [
+    "Primaire productie",
+    "Producentenorganisaties/veilingen"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9894752191268912,
+   "fracRows": [
+    {
+     "label": "— Primaire productie/Producentenorganisaties/veilingen",
+     "by": {
+      "GeNeSys ILVO 165": 14931.222
+     },
+     "st": [
+      "Primaire productie",
+      "Producentenorganisaties/veilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 14931.222,
+     "min": 14931.222,
+     "spread": null
+    },
+    {
+     "label": "— Primaire productie",
+     "by": {
+      "ILVO 239 tuinbouw": 5050
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 5050,
+     "min": 5050,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vee | Runderen",
+   "l2": "Dierlijk - vee",
+   "l4": "Runderen",
+   "by": {
+    "Statbel slachtstatistiek": {
+     "v": 11934,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-821"
+     ],
+     "parts": [
+      {
+       "label": "eetbare slachtafvallen",
+       "v": 11934,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 11934,
+   "min": 11934,
+   "nSrc": 1,
+   "spread": 1,
+   "stages": [
+    "Voedingsindustrie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9910563952092545,
+   "fracRows": [
+    {
+     "label": "eetbare slachtafvallen",
+     "by": {
+      "Statbel slachtstatistiek": 11934
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 11934,
+     "min": 11934,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Sla en andijvie",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Sla en andijvie",
+   "by": {
+    "GeNeSys ILVO 165": {
+     "v": 10443.571,
+     "stages": [
+      "Primaire productie",
+      "Producentenorganisaties/veilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-750",
+      "C-774"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 10443.571,
+       "st": [
+        "Primaire productie",
+        "Producentenorganisaties/veilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "ILVO 239 tuinbouw": {
+     "v": 10519,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-654",
+      "C-655",
+      "C-656"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 10519,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 10519,
+   "min": 10443.571,
+   "nSrc": 2,
+   "spread": 1.0072225295351562,
+   "stages": [
+    "Primaire productie",
+    "Producentenorganisaties/veilingen"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9924500931487868,
+   "fracRows": [
+    {
+     "label": "— Primaire productie/Producentenorganisaties/veilingen",
+     "by": {
+      "GeNeSys ILVO 165": 10443.571
+     },
+     "st": [
+      "Primaire productie",
+      "Producentenorganisaties/veilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 10443.571,
+     "min": 10443.571,
+     "spread": null
+    },
+    {
+     "label": "— Primaire productie",
+     "by": {
+      "ILVO 239 tuinbouw": 10519
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 10519,
+     "min": 10519,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Broccoli",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Broccoli",
+   "by": {
+    "GeNeSys ILVO 165": {
+     "v": 10000,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-710"
+     ],
+     "parts": [
+      {
+       "label": "blad- en stengelmassa",
+       "v": 10000,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "TransBio D3.4A": {
+     "v": 9146,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-812"
+     ],
+     "parts": [
+      {
+       "label": "loof",
+       "v": 9146,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 10000,
+   "min": 9146,
+   "nSrc": 2,
+   "spread": 1.0933741526350318,
+   "stages": [
+    "Primaire productie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9937750270203833,
+   "fracRows": [
+    {
+     "label": "blad- en stengelmassa",
+     "by": {
+      "GeNeSys ILVO 165": 10000
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 10000,
+     "min": 10000,
+     "spread": null
+    },
+    {
+     "label": "loof",
+     "by": {
+      "TransBio D3.4A": 9146
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 9146,
+     "min": 9146,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Knolselder",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Knolselder",
+   "by": {
+    "GeNeSys ILVO 165": {
+     "v": 9000,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-717"
+     ],
+     "parts": [
+      {
+       "label": "bladmassa",
+       "v": 9000,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "TransBio D3.4A": {
+     "v": 8250,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-814"
+     ],
+     "parts": [
+      {
+       "label": "loof",
+       "v": 8250,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 9000,
+   "min": 8250,
+   "nSrc": 2,
+   "spread": 1.0909090909090908,
+   "stages": [
+    "Primaire productie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9949674675048202,
+   "fracRows": [
+    {
+     "label": "bladmassa",
+     "by": {
+      "GeNeSys ILVO 165": 9000
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 9000,
+     "min": 9000,
+     "spread": null
+    },
+    {
+     "label": "loof",
+     "by": {
+      "TransBio D3.4A": 8250
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 8250,
+     "min": 8250,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Cichorei",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Cichorei",
+   "by": {
+    "GeNeSys ILVO 165": {
+     "v": 8250,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Belgie"
+     ],
+     "claims": [
+      "C-784"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 8250,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Belgie"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 8250,
+   "min": 8250,
+   "nSrc": 1,
+   "spread": 1,
+   "stages": [
+    "Voedingsindustrie"
+   ],
+   "geo": [
+    "Belgie"
+   ],
+   "cum": 0.9960605379488874,
+   "fracRows": [
+    {
+     "label": "— Voedingsindustrie",
+     "by": {
+      "GeNeSys ILVO 165": 8250
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Belgie"
+     ],
+     "M": 8250,
+     "min": 8250,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Courgette",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Courgette",
+   "by": {
+    "GeNeSys ILVO 165": {
+     "v": 7350.534,
+     "stages": [
+      "Primaire productie",
+      "Producentenorganisaties/veilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-713",
+      "C-771"
+     ],
+     "parts": [
+      {
+       "label": "blad- en stengelmassa",
+       "v": 6200,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      },
+      {
+       "label": "(zonder fractie)",
+       "v": 1150.534,
+       "st": [
+        "Producentenorganisaties/veilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "TransBio D3.4A": {
+     "v": 6305,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-815"
+     ],
+     "parts": [
+      {
+       "label": "loof",
+       "v": 6305,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 7350.534,
+   "min": 6305,
+   "nSrc": 2,
+   "spread": 1.165826169706582,
+   "stages": [
+    "Primaire productie",
+    "Producentenorganisaties/veilingen"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9970344350959796,
+   "fracRows": [
+    {
+     "label": "blad- en stengelmassa",
+     "by": {
+      "GeNeSys ILVO 165": 6200
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 6200,
+     "min": 6200,
+     "spread": null
+    },
+    {
+     "label": "— Producentenorganisaties/veilingen",
+     "by": {
+      "GeNeSys ILVO 165": 1150.534
+     },
+     "st": [
+      "Producentenorganisaties/veilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 1150.534,
+     "min": 1150.534,
+     "spread": null
+    },
+    {
+     "label": "loof",
+     "by": {
+      "TransBio D3.4A": 6305
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 6305,
+     "min": 6305,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Schorseneer",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Schorseneer",
+   "by": {
+    "GeNeSys ILVO 165": {
+     "v": 7000,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-729"
+     ],
+     "parts": [
+      {
+       "label": "blad- en stengelmassa",
+       "v": 7000,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 7000,
+   "min": 7000,
+   "nSrc": 1,
+   "spread": 1,
+   "stages": [
+    "Primaire productie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9979618888060972,
+   "fracRows": [
+    {
+     "label": "blad- en stengelmassa",
+     "by": {
+      "GeNeSys ILVO 165": 7000
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 7000,
+     "min": 7000,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Raap",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Raap",
+   "by": {
+    "GeNeSys ILVO 165": {
+     "v": 3700,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-723"
+     ],
+     "parts": [
+      {
+       "label": "blad- en stengelmassa",
+       "v": 3700,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 3700,
+   "min": 3700,
+   "nSrc": 1,
+   "spread": 1,
+   "stages": [
+    "Primaire productie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9984521143385878,
+   "fracRows": [
+    {
+     "label": "blad- en stengelmassa",
+     "by": {
+      "GeNeSys ILVO 165": 3700
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 3700,
+     "min": 3700,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Paprika",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Paprika",
+   "by": {
+    "GeNeSys ILVO 165": {
+     "v": 3638.518,
+     "stages": [
+      "Primaire productie",
+      "Producentenorganisaties/veilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-752",
+      "C-773"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 3638.518,
+       "st": [
+        "Primaire productie",
+        "Producentenorganisaties/veilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "ILVO 239 tuinbouw": {
+     "v": 511,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-658",
+      "C-659",
+      "C-660"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 511,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 3638.518,
+   "min": 511,
+   "nSrc": 2,
+   "spread": 7.120387475538161,
+   "stages": [
+    "Primaire productie",
+    "Producentenorganisaties/veilingen"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9989341939126493,
+   "fracRows": [
+    {
+     "label": "— Primaire productie/Producentenorganisaties/veilingen",
+     "by": {
+      "GeNeSys ILVO 165": 3638.518
+     },
+     "st": [
+      "Primaire productie",
+      "Producentenorganisaties/veilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 3638.518,
+     "min": 3638.518,
+     "spread": null
+    },
+    {
+     "label": "— Primaire productie",
+     "by": {
+      "ILVO 239 tuinbouw": 511
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 511,
+     "min": 511,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Champignon",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Champignon",
+   "by": {
+    "ILVO 239 tuinbouw": {
+     "v": 2643,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-662",
+      "C-663",
+      "C-664"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 2643,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 2643,
+   "min": 2643,
+   "nSrc": 1,
+   "spread": 1,
+   "stages": [
+    "Primaire productie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9992843739349122,
+   "fracRows": [
+    {
+     "label": "— Primaire productie",
+     "by": {
+      "ILVO 239 tuinbouw": 2643
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 2643,
+     "min": 2643,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Komkommer",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Komkommer",
+   "by": {
+    "GeNeSys ILVO 165": {
+     "v": 2087.421,
+     "stages": [
+      "Primaire productie",
+      "Producentenorganisaties/veilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-748",
+      "C-772"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 2087.421,
+       "st": [
+        "Primaire productie",
+        "Producentenorganisaties/veilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 2087.421,
+   "min": 2087.421,
+   "nSrc": 1,
+   "spread": 1,
+   "stages": [
+    "Primaire productie",
+    "Producentenorganisaties/veilingen"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9995609434136303,
+   "fracRows": [
+    {
+     "label": "— Primaire productie/Producentenorganisaties/veilingen",
+     "by": {
+      "GeNeSys ILVO 165": 2087.421
+     },
+     "st": [
+      "Primaire productie",
+      "Producentenorganisaties/veilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 2087.421,
+     "min": 2087.421,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vee | Eieren",
+   "l2": "Dierlijk - vee",
+   "l4": "Eieren",
+   "by": {
+    "OVAM Monitor voedselverlies 2020": {
+     "v": 982,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-158",
+      "C-170",
+      "C-182"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 982,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "OVAM Monitor voedselverlies 2023": {
+     "v": 1282,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-047",
+      "C-060",
+      "C-071"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 1282,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 1282,
+   "min": 982,
+   "nSrc": 2,
+   "spread": 1.305498981670061,
+   "stages": [
+    "Primaire productie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.999730799935969,
+   "fracRows": [
+    {
+     "label": "— Primaire productie",
+     "by": {
+      "OVAM Monitor voedselverlies 2020": 982,
+      "OVAM Monitor voedselverlies 2023": 1282
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 1282,
+     "min": 982,
+     "spread": 1.305498981670061
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Kers",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Kers",
+   "by": {
+    "GeNeSys ILVO 165": {
+     "v": 1133,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-763"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 1133,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 1133,
+   "min": 1133,
+   "nSrc": 1,
+   "spread": 1,
+   "stages": [
+    "Primaire productie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.999880914943621,
+   "fracRows": [
+    {
+     "label": "— Primaire productie",
+     "by": {
+      "GeNeSys ILVO 165": 1133
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 1133,
+     "min": 1133,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vis | Vis (alle soorten)",
+   "l2": "Dierlijk - vis",
+   "l4": "Vis (alle soorten)",
+   "by": {
+    "MONBIO 3.0": {
+     "v": 199,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-458"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 199,
+       "st": [
+        "Visveilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "MONBIO 4.0": {
+     "v": 214,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-274"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 214,
+       "st": [
+        "Visveilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 214,
+   "min": 199,
+   "nSrc": 2,
+   "spread": 1.0753768844221105,
+   "stages": [
+    "Visveilingen"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9999092685284731,
+   "fracRows": [
+    {
+     "label": "— Visveilingen",
+     "by": {
+      "MONBIO 3.0": 199,
+      "MONBIO 4.0": 214
+     },
+     "st": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 214,
+     "min": 199,
+     "spread": 1.0753768844221105
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vee | Schapen, geiten en paarden",
+   "l2": "Dierlijk - vee",
+   "l4": "Schapen, geiten en paarden",
+   "by": {
+    "Statbel slachtstatistiek": {
+     "v": 164,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-822"
+     ],
+     "parts": [
+      {
+       "label": "eetbare slachtafvallen",
+       "v": 164,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 164,
+   "min": 164,
+   "nSrc": 1,
+   "spread": 1,
+   "stages": [
+    "Voedingsindustrie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9999309974439673,
+   "fracRows": [
+    {
+     "label": "eetbare slachtafvallen",
+     "by": {
+      "Statbel slachtstatistiek": 164
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 164,
+     "min": 164,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Kool",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Kool",
+   "by": {
+    "ILVO 239 tuinbouw": {
+     "v": 143,
+     "stages": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-622",
+      "C-623",
+      "C-624",
+      "C-642",
+      "C-643",
+      "C-644"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 143,
+       "st": [
+        "Primaire productie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 143,
+   "min": 143,
+   "nSrc": 1,
+   "spread": 1,
+   "stages": [
+    "Primaire productie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9999499439983311,
+   "fracRows": [
+    {
+     "label": "— Primaire productie",
+     "by": {
+      "ILVO 239 tuinbouw": 143
+     },
+     "st": [
+      "Primaire productie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 143,
+     "min": 143,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vis | Andere demersale soorten",
+   "l2": "Dierlijk - vis",
+   "l4": "Andere demersale soorten",
+   "by": {
+    "OVAM Monitor voedselverlies 2020": {
+     "v": 94.1,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-141"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 94.1,
+       "st": [
+        "Visveilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "OVAM Monitor voedselverlies 2023": {
+     "v": 27,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-032"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 27,
+       "st": [
+        "Visveilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 94.1,
+   "min": 27,
+   "nSrc": 2,
+   "spread": 3.485185185185185,
+   "stages": [
+    "Visveilingen"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9999624116260628,
+   "fracRows": [
+    {
+     "label": "— Visveilingen",
+     "by": {
+      "OVAM Monitor voedselverlies 2020": 94.1,
+      "OVAM Monitor voedselverlies 2023": 27
+     },
+     "st": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 94.1,
+     "min": 27,
+     "spread": 3.485185185185185
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vis | Haaien",
+   "l2": "Dierlijk - vis",
+   "l4": "Haaien",
+   "by": {
+    "OVAM Monitor voedselverlies 2023": {
+     "v": 61,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-031"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 61,
+       "st": [
+        "Visveilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 61,
+   "min": 61,
+   "nSrc": 1,
+   "spread": 1,
+   "stages": [
+    "Visveilingen"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9999704937226795,
+   "fracRows": [
+    {
+     "label": "— Visveilingen",
+     "by": {
+      "OVAM Monitor voedselverlies 2023": 61
+     },
+     "st": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 61,
+     "min": 61,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vis | Ponen",
+   "l2": "Dierlijk - vis",
+   "l4": "Ponen",
+   "by": {
+    "OVAM Monitor voedselverlies 2020": {
+     "v": 4.9,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-138"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 4.9,
+       "st": [
+        "Visveilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "OVAM Monitor voedselverlies 2023": {
+     "v": 55,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-030"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 55,
+       "st": [
+        "Visveilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 55,
+   "min": 4.9,
+   "nSrc": 2,
+   "spread": 11.224489795918366,
+   "stages": [
+    "Visveilingen"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9999777808589733,
+   "fracRows": [
+    {
+     "label": "— Visveilingen",
+     "by": {
+      "OVAM Monitor voedselverlies 2020": 4.9,
+      "OVAM Monitor voedselverlies 2023": 55
+     },
+     "st": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 55,
+     "min": 4.9,
+     "spread": 11.224489795918366
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vis | Roggen",
+   "l2": "Dierlijk - vis",
+   "l4": "Roggen",
+   "by": {
+    "OVAM Monitor voedselverlies 2020": {
+     "v": 35.9,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-137"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 35.9,
+       "st": [
+        "Visveilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "OVAM Monitor voedselverlies 2023": {
+     "v": 5,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-029"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 5,
+       "st": [
+        "Visveilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 35.9,
+   "min": 5,
+   "nSrc": 2,
+   "spread": 7.18,
+   "stages": [
+    "Visveilingen"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9999825373715724,
+   "fracRows": [
+    {
+     "label": "— Visveilingen",
+     "by": {
+      "OVAM Monitor voedselverlies 2020": 35.9,
+      "OVAM Monitor voedselverlies 2023": 5
+     },
+     "st": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 35.9,
+     "min": 5,
+     "spread": 7.18
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vis | Wijting",
+   "l2": "Dierlijk - vis",
+   "l4": "Wijting",
+   "by": {
+    "OVAM Monitor voedselverlies 2020": {
+     "v": 3.3,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-131"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 3.3,
+       "st": [
+        "Visveilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "OVAM Monitor voedselverlies 2023": {
+     "v": 23,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-023"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 23,
+       "st": [
+        "Visveilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 23,
+   "min": 3.3,
+   "nSrc": 2,
+   "spread": 6.96969696969697,
+   "stages": [
+    "Visveilingen"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9999855847194771,
+   "fracRows": [
+    {
+     "label": "— Visveilingen",
+     "by": {
+      "OVAM Monitor voedselverlies 2020": 3.3,
+      "OVAM Monitor voedselverlies 2023": 23
+     },
+     "st": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 23,
+     "min": 3.3,
+     "spread": 6.96969696969697
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vis | Schar",
+   "l2": "Dierlijk - vis",
+   "l4": "Schar",
+   "by": {
+    "OVAM Monitor voedselverlies 2020": {
+     "v": 16.3,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-136"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 16.3,
+       "st": [
+        "Visveilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "OVAM Monitor voedselverlies 2023": {
+     "v": 2,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-028"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 2,
+       "st": [
+        "Visveilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 16.3,
+   "min": 2,
+   "nSrc": 2,
+   "spread": 8.15,
+   "stages": [
+    "Visveilingen"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9999877443616877,
+   "fracRows": [
+    {
+     "label": "— Visveilingen",
+     "by": {
+      "OVAM Monitor voedselverlies 2020": 16.3,
+      "OVAM Monitor voedselverlies 2023": 2
+     },
+     "st": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 16.3,
+     "min": 2,
+     "spread": 8.15
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vis | Pelagische soorten",
+   "l2": "Dierlijk - vis",
+   "l4": "Pelagische soorten",
+   "by": {
+    "OVAM Monitor voedselverlies 2023": {
+     "v": 16,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-033"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 16,
+       "st": [
+        "Visveilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 16,
+   "min": 16,
+   "nSrc": 1,
+   "spread": 1,
+   "stages": [
+    "Visveilingen"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9999898642558823,
+   "fracRows": [
+    {
+     "label": "— Visveilingen",
+     "by": {
+      "OVAM Monitor voedselverlies 2023": 16
+     },
+     "st": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 16,
+     "min": 16,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vis | Steenbolk",
+   "l2": "Dierlijk - vis",
+   "l4": "Steenbolk",
+   "by": {
+    "OVAM Monitor voedselverlies 2020": {
+     "v": 15.6,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-133"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 15.6,
+       "st": [
+        "Visveilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "OVAM Monitor voedselverlies 2023": {
+     "v": 3,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-025"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 3,
+       "st": [
+        "Visveilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 15.6,
+   "min": 3,
+   "nSrc": 2,
+   "spread": 5.2,
+   "stages": [
+    "Visveilingen"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9999919311527219,
+   "fracRows": [
+    {
+     "label": "— Visveilingen",
+     "by": {
+      "OVAM Monitor voedselverlies 2020": 15.6,
+      "OVAM Monitor voedselverlies 2023": 3
+     },
+     "st": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 15.6,
+     "min": 3,
+     "spread": 5.2
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - tuinbouw | Aubergine",
+   "l2": "Plantaardig - tuinbouw",
+   "l4": "Aubergine",
+   "by": {
+    "GeNeSys ILVO 165": {
+     "v": 13.4,
+     "stages": [
+      "Producentenorganisaties/veilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-770"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 13.4,
+       "st": [
+        "Producentenorganisaties/veilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 13.4,
+   "min": 13.4,
+   "nSrc": 1,
+   "spread": 1,
+   "stages": [
+    "Producentenorganisaties/veilingen"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9999937065641099,
+   "fracRows": [
+    {
+     "label": "— Producentenorganisaties/veilingen",
+     "by": {
+      "GeNeSys ILVO 165": 13.4
+     },
+     "st": [
+      "Producentenorganisaties/veilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 13.4,
+     "min": 13.4,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vis | Heek",
+   "l2": "Dierlijk - vis",
+   "l4": "Heek",
+   "by": {
+    "OVAM Monitor voedselverlies 2020": {
+     "v": 10,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-132"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 10,
+       "st": [
+        "Visveilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "OVAM Monitor voedselverlies 2023": {
+     "v": 2,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-024"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 2,
+       "st": [
+        "Visveilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 10,
+   "min": 2,
+   "nSrc": 2,
+   "spread": 5,
+   "stages": [
+    "Visveilingen"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9999950314979815,
+   "fracRows": [
+    {
+     "label": "— Visveilingen",
+     "by": {
+      "OVAM Monitor voedselverlies 2020": 10,
+      "OVAM Monitor voedselverlies 2023": 2
+     },
+     "st": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 10,
+     "min": 2,
+     "spread": 5
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vis | Kongeraal",
+   "l2": "Dierlijk - vis",
+   "l4": "Kongeraal",
+   "by": {
+    "OVAM Monitor voedselverlies 2020": {
+     "v": 8.7,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-139"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 8.7,
+       "st": [
+        "Visveilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 8.7,
+   "min": 8.7,
+   "nSrc": 1,
+   "spread": 1,
+   "stages": [
+    "Visveilingen"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9999961841904498,
+   "fracRows": [
+    {
+     "label": "— Visveilingen",
+     "by": {
+      "OVAM Monitor voedselverlies 2020": 8.7
+     },
+     "st": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 8.7,
+     "min": 8.7,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vis | Schaal- en weekdieren",
+   "l2": "Dierlijk - vis",
+   "l4": "Schaal- en weekdieren",
+   "by": {
+    "MONBIO 4.0": {
+     "v": 7,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-275"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 7,
+       "st": [
+        "Visveilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "OVAM Monitor voedselverlies 2020": {
+     "v": 8.5,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-143"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 8.5,
+       "st": [
+        "Visveilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "OVAM Monitor voedselverlies 2023": {
+     "v": 1,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-034"
+     ],
+     "parts": []
+    }
+   },
+   "M": 8.5,
+   "min": 1,
+   "nSrc": 3,
+   "spread": 8.5,
+   "stages": [
+    "Visveilingen"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9999973103842407,
+   "fracRows": [
+    {
+     "label": "— Visveilingen",
+     "by": {
+      "MONBIO 4.0": 7,
+      "OVAM Monitor voedselverlies 2020": 8.5
+     },
+     "st": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 8.5,
+     "min": 7,
+     "spread": 1.2142857142857142
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vis | Weekdieren",
+   "l2": "Dierlijk - vis",
+   "l4": "Weekdieren",
+   "by": {
+    "MONBIO 3.0": {
+     "v": 7,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-459"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 7,
+       "st": [
+        "Visveilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 7,
+   "min": 7,
+   "nSrc": 1,
+   "spread": 1,
+   "stages": [
+    "Visveilingen"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9999982378379508,
+   "fracRows": [
+    {
+     "label": "— Visveilingen",
+     "by": {
+      "MONBIO 3.0": 7
+     },
+     "st": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 7,
+     "min": 7,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vis | Schelvis",
+   "l2": "Dierlijk - vis",
+   "l4": "Schelvis",
+   "by": {
+    "OVAM Monitor voedselverlies 2020": {
+     "v": 6,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-130"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 6,
+       "st": [
+        "Visveilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "OVAM Monitor voedselverlies 2023": {
+     "v": 7,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-022"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 7,
+       "st": [
+        "Visveilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 7,
+   "min": 6,
+   "nSrc": 2,
+   "spread": 1.1666666666666667,
+   "stages": [
+    "Visveilingen"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9999991652916609,
+   "fracRows": [
+    {
+     "label": "— Visveilingen",
+     "by": {
+      "OVAM Monitor voedselverlies 2020": 6,
+      "OVAM Monitor voedselverlies 2023": 7
+     },
+     "st": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 7,
+     "min": 6,
+     "spread": 1.1666666666666667
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vis | Schaaldieren",
+   "l2": "Dierlijk - vis",
+   "l4": "Schaaldieren",
+   "by": {
+    "MONBIO 3.0": {
+     "v": 2,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-460"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 2,
+       "st": [
+        "Visveilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 2,
+   "min": 2,
+   "nSrc": 1,
+   "spread": 1,
+   "stages": [
+    "Visveilingen"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9999994302784352,
+   "fracRows": [
+    {
+     "label": "— Visveilingen",
+     "by": {
+      "MONBIO 3.0": 2
+     },
+     "st": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 2,
+     "min": 2,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vis | Schol",
+   "l2": "Dierlijk - vis",
+   "l4": "Schol",
+   "by": {
+    "OVAM Monitor voedselverlies 2020": {
+     "v": 1.8,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-134"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 1.8,
+       "st": [
+        "Visveilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 1.8,
+   "min": 1.8,
+   "nSrc": 1,
+   "spread": 1,
+   "stages": [
+    "Visveilingen"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9999996687665321,
+   "fracRows": [
+    {
+     "label": "— Visveilingen",
+     "by": {
+      "OVAM Monitor voedselverlies 2020": 1.8
+     },
+     "st": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 1.8,
+     "min": 1.8,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vis | Bot",
+   "l2": "Dierlijk - vis",
+   "l4": "Bot",
+   "by": {
+    "OVAM Monitor voedselverlies 2020": {
+     "v": 1.6,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-135"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 1.6,
+       "st": [
+        "Visveilingen"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 1.6,
+   "min": 1.6,
+   "nSrc": 1,
+   "spread": 1,
+   "stages": [
+    "Visveilingen"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.9999998807559515,
+   "fracRows": [
+    {
+     "label": "— Visveilingen",
+     "by": {
+      "OVAM Monitor voedselverlies 2020": 1.6
+     },
+     "st": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 1.6,
+     "min": 1.6,
+     "spread": null
+    }
+   ]
+  },
+  {
+   "key": "Dierlijk - vis | Haaien alg.",
+   "l2": "Dierlijk - vis",
+   "l4": "Haaien alg.",
+   "by": {
+    "OVAM Monitor voedselverlies 2020": {
+     "v": 0.9,
+     "stages": [
+      "Visveilingen"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-140"
+     ],
+     "parts": []
+    }
+   },
+   "M": 0.9,
+   "min": 0.9,
+   "nSrc": 1,
+   "spread": 1,
+   "stages": [
+    "Visveilingen"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 1,
+   "fracRows": []
+  }
+ ]
+}

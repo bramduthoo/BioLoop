@@ -108,7 +108,8 @@ const coverage = sel => {
   const S = new Set(sel.map(s => s.key));
   return EDS.map(e => {
     const got = items.filter(s => S.has(s.key) && s.by[e]).reduce((a, s) => a + s.by[e].v, 0);
-    return { e, got, pool: src[e].pool, L1: src[e].L1 };
+    const S0 = src[e] || { pool: 0, L1: 0, n: 0 };
+    return { e, got, pool: S0.pool, L1: S0.L1 };
   });
 };
 
@@ -118,9 +119,19 @@ const N = Number(argN || n80);
 console.log("=".repeat(108));
 console.log("PER SOURCE - reported residual total (L1), selectable L4 ceiling (pool), items");
 console.log("=".repeat(108));
-EDS.forEach(e => console.log("  " + e.padEnd(36) + "L1 " + fmt(src[e].L1).padStart(11) +
-  "   pool " + fmt(src[e].pool).padStart(11) + " = " + pct(src[e].pool / src[e].L1).padStart(7) +
-  "   items " + String(src[e].n).padStart(3)));
+// Een bron hoeft geen topniveautotaal te rapporteren. S058/S092/S093 leveren alleen
+// L4/L5-rijen; dan is er geen L1 om een dekkingspercentage tegen af te zetten (2026-09-11).
+EDS.forEach(e => {
+  const S0 = src[e];
+  if (!S0) return;
+  const noL1 = !S0.L1;
+  console.log("  " + e.padEnd(36) +
+    (noL1 ? "L1           -" : "L1 " + fmt(S0.L1).padStart(11)) +
+    "   pool " + fmt(S0.pool).padStart(11) +
+    " = " + (noL1 ? "      -" : pct(S0.pool / S0.L1).padStart(7)) +
+    "   items " + String(S0.n).padStart(3) +
+    (noL1 ? "   (geen L1-totaal - bron rapporteert alleen benoemde stromen)" : ""));
+});
 
 console.log("\n" + "=".repeat(108));
 console.log("RANKED STREAMS   envelope = " + fmt(TOT) + " t over " + items.length + " streams");

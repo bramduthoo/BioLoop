@@ -71,9 +71,31 @@ const SHORT = e => e.replace("OVAM Monitor voedselverlies ", "OVAM ")
 //   voedselverlies    - food-linked losses only        OVAM monitors + ILVO 239
 //   productieresidu   - everything that arises         MONBIO + GeNeSys (straw, leaf, oogstresten)
 // Cross-family cancellation stays forbidden; within a family it is the same measurement twice.
-const FAMILY = e => (e.startsWith("OVAM") || e.startsWith("ILVO 239")) ? "voedselverlies-school"
-  : (e.startsWith("MONBIO") || e.startsWith("GeNeSys")) ? "productieresidu-school"
-  : e;
+// Keyed on the exact source_short, never on a name prefix. A prefix guess is what would file the
+// OVAM *Marktanalyse Biomassareststromen* - which counts declared waste (IMJV/MATIS), a third way
+// of counting - into the voedselverlies school, where "largest reach wins" would let it cancel a
+// monitor figure at the same node and silently shorten this list (2026-09-10).
+const SCHOOL = {
+  "OVAM Monitor voedselverlies 2020": "voedselverlies-school",
+  "OVAM Monitor voedselverlies 2023": "voedselverlies-school",
+  "ILVO 239 tuinbouw":                "voedselverlies-school",
+  "MONBIO 3.0":                       "productieresidu-school",
+  "MONBIO 4.0":                       "productieresidu-school",
+  "GeNeSys ILVO 165":                 "productieresidu-school",
+  // Toegevoegd 2026-09-11. Alle drie meten wat er FYSIEK ontstaat, niet wat er als voedsel
+  // verloren gaat: TransBio rekent oogstresten op het veld, Starch4Feed meet de nevenstromen
+  // die uit de aardappelverwerking komen ongeacht eetbaarheid, en de Statbel-rijen verdelen
+  // C-295 (MONBIO) en erven dus de school van de claim die ze splitsen.
+  "TransBio D3.4A":                   "productieresidu-school",
+  "Starch4Feed (UGent TETRA)":        "productieresidu-school",
+  "Statbel slachtstatistiek":         "productieresidu-school",
+};
+const FAMILY = e => {
+  const s = SCHOOL[e];
+  if (!s) throw new Error(
+    `Onbekende bron "${e}" - zet ze in SCHOOL met de school die ze meet. Niet raden op de naam.`);
+  return s;
+};
 
 // the registry's own words about each aggregate - why a row is unplaceable travels with it
 const REGNOTE = (() => {
@@ -126,17 +148,12 @@ const FINDINGS = [
         + "heeft geen enkele rij op de voedingsindustrie-schakel.",
     close: "een aardappelverwerkingsbron die per processtroom snijdt (schil, stoomschil, vezel, "
          + "eiwit) en een fruitverwerkingsbron (perskoek, schillen, pitten)" },
-  { id: "S2", kind: "additive", family: "productieresidu-school", stage: "Primaire productie",
-    t: 101780, claims: "C-242 (MONBIO 4.0), C-423 (MONBIO 3.0)",
-    place: "Plantaardig - akkerbouw ¦ Voedergewassen",
-    what: "MONBIO stelt 101.780 t nevenstromen en productieresiduen van voedergewassen, en er "
-        + "staat GEEN ENKELE reststroomrij onder, in geen enkele bron. De gewassen zelf zijn "
-        + "groot: voedermais 5.395.992, gras en hooi 3.939.458, voederbiet 360.547 t productie. "
-        + "Onzichtbaar voor de rekensom omdat het aggregaat niet plaatsbaar is - er bestaat geen "
-        + "Voedergewassen-knoop aan de reststroomkant om iets tegen af te rekenen.",
-    close: "een bron die de residuen van voedermais, gras en voederbiet apart rapporteert; let op "
-         + "dat deze gewassen als hele plant geoogst worden, dus het residu wordt zelden apart "
-         + "gemeten" },
+  // S2 RETIRED 2026-09-11. Figuur 14 van MONBIO 4.0 (p.48) toont voor de rij Voedergewassen
+  // een enkele balk over de volle breedte, gelabeld "Voederbietenloof": het aggregaat IS een
+  // benoemde stroom. TransBio D3.4A Tabel 17 geeft 16.518 ton DS voor dezelfde stroom, wat op
+  // 101.780 t vers neerkomt bij 16,2% droge stof - de twee bronnen bevestigen elkaar in plaats
+  // van elkaar tegen te spreken. C-806 legt de rij eronder; het gat is gesloten.
+  // (was: additive, 101.780 t, "er staat GEEN ENKELE reststroomrij onder")
 ];
 
 /* Annotations that a reviewer asked for on a specific place: what the corpus DOES know about a
