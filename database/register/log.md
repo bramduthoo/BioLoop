@@ -57,6 +57,77 @@ clean v2 re-run and supersedes it entirely.*
 
 ## Tooling & model sessions (no source extracted)
 
+### 2026-09-29 — the 80/20 selection at fraction grain; OVAM's potato figure traced to its definition
+
+*Claude Code session `12428e72-e2fc-4915-8910-a9728d3d55de` (resume with `claude --resume <id>`).
+No claim added or changed; the workbook was not opened for writing.*
+
+**Why.** The reviewer found the *laagste / hoogste* columns of the 2026-09-11 selection misleading
+for a product with several entries (Kool- en raapzaad, Aardappel, Bloemkool, Spruiten). Cause:
+`select_streams.js` ranks **one L4 product per row**, valued per source as the **sum of that
+source's fractions**, then min/max over sources. So *hoogste* is one source's bundle (MONBIO 3.0's
+Aardappel = loof 800.480 + VI 54.913) and *laagste* is often a narrower definition from the other
+school (OVAM 2020's 102.717 t food loss), not a lower estimate of the same thing. The reviewer
+decided: **for the 80/20 selection each fraction row is a stream**, and where a source names no
+fraction, **each chain stage** is (the stream-grain rule of 2026-09-08 applied to the ranking).
+
+**What was built.** `tools/select_fractions.py` (+ `tools/template_fractions.html`) renders
+`deliverables/BIOLOOP_stream_selection_per_fractie_<date>.html`: table only, no remarks column,
+self-contained so it can be embedded in a slide deck. It reads the per-source fraction values from
+`build/sel_raw.json` (no second derivation) and applies `crosswalks/fraction_selection_decisions.csv`.
+Eight GeNeSys unfractioned parts that added two chain stages (Erwt, Ui, Spinazie, Bloemkool, Tomaat,
+Sla en andijvie, Paprika, Komkommer) are split back per stage from their own claims — all single
+`agri-food waste` claims, so the split is exact. `build/sel_raw.json` was regenerated first: the
+corpus had moved since 2026-09-11 (76 L4 streams, 8.896.817 t, 80% at 14).
+
+**Reviewer decisions (FS-01…FS-10, `DECISION = approved`).**
+- *Not selectable:* Perskoeken en vaste afvallen van plantaardige oliën (umbrella over all
+  oilseeds, Prodcom 104141); Bloemkool *blad- en stengelmassa* (GeNeSys — a collection of loof +
+  stengel, not a synonym; loof and harten remain); Spruiten *stokken* (MONBIO — only GeNeSys'
+  stengelmassa counts); Eetbare slachtafvallen (rood vlees) (the general term — C-820…C-822,
+  the Statbel per-species rows, are derived from it and sum to it exactly).
+- *Synonyms merged:* Wortel loof = bladmassa; Prei loof = bladmassa (groene deel).
+- *Aardappel, primaire productie (OVAM):* **240.305 t as OVAM 2023's value** (C-042), not
+  548.305 (C-043), and it is a different object from aardappelloof — see below.
+- FS-11…FS-24 are **proposals, not applied** (koolsoorten *buitenste bladeren = blad*; Selder,
+  Broccoli, Knolselder, Courgette *blad- en stengelmassa / bladmassa = loof*). Open question on
+  them: does the Bloemkool finding (blad- en stengelmassa is a collection) hold for every GeNeSys
+  row with that name — Boon (68.600 t, near the 90% line) included?
+
+**Result:** 112 rows, 8.411.786 t/yr, **80% at 20 rows, 90% at 32** (was 14 / 22 L4 products).
+
+**OVAM's potato figure, traced to its definition.** The 548.305 t (S080 Tabel 12) = **240.305 t**
+regular post-harvest residual + **308.000 t** unharvested potatoes of the wet autumn of 2023, which
+S080 itself places outside its scope (p.16). What the 240.305 t measures is defined in the 2015
+nulmeting (**S004**, ch. 4.2.2, p.45–46): the system starts when a crop is *oogstklaar* (pre-harvest
+losses and misoogsten are out), ends at entry into processing, covers only the human-food share
+(potatoes **excl. pootaardappelen**), and **explicitly excludes haulm**: *"bladeren en stengels van
+bepaalde gewassen die standaard niet mee geoogst worden en op het veld achterblijven"* are *"niet aan
+voedsel gelinkte biomassareststromen"* that can never become a voedselreststroom. Figuur 8 states the
+scope as B + D against GeNeSys/OVAM-biomassa's A…F. Method: loss percentages from Roels & Van
+Gijseghem (2011) and the SALV update (OVAM 2012a), expert and grower estimates, × production; the
+edible/inedible split rests on assumptions. **So OVAM's knollen and MONBIO's loof are disjoint.**
+(The "loof net voor de oogst gedood" passage the reviewer remembered is MONBIO 4.0 p.47, not OVAM.)
+
+**A correction to the analysis given in-session.** It was first read from Tabel 14 that the
+inedible potato share jumped 5,3× (22.187 → 118.434 t) while the edible share rose 1,5×. **Wrong.**
+The nevenstroom share is 21,6 % of the total in all three editions — 20.110/93.103,
+22.187/102.717 and 118.434/**548.305** — so OVAM applied its fixed split to the total *including*
+the 308.000 t, although Tabel 14's footnote (*"incl. 308.000 ton niet-geoogste aardappelen"*) sits
+on the voedselverlies column only. About 66.500 t of unharvested potatoes is in the nevenstroom
+column. Excluding them, 2023 is ≈188.000 t edible / 52.000 t inedible: both fractions rose 2,3×
+against 2020, which points to an updated potato loss percentage (S080 gives no reason; S003 names
+the Food Heroes project, ILVO + WUR, which built a loss-measurement method for the potato sector —
+a lead, not a finding). **Register consequence, not applied:** **C-068** (*Nevenstromen aardappelen*,
+118.434 t) should say in its name that it contains a share of the unharvested potatoes (rule v2.3).
+
+**Sources found.** **S003** (Monitoring Vlaanderen 2017, Vlaams Ketenplatform Voedselverlies 2019)
+— recorded above (R-09) as *"no retrievable PDF"* — is on OVAM's site and is now in `inbox/`. It
+carries **no landbouw figures** (p.12: no interim data for landbouw, horeca, catering), so it cannot
+fill the agricultural 2017 gap. **S004** was already in `inbox/`; the copy downloaded from OVAM is
+byte-identical and was discarded. Links: OVAM *Kostwinners → publicaties*
+(`https://ovam.vlaanderen.be/web/kostwinners/publicaties1`); the voedselverlies.be link returns 403.
+
 ### 2026-09-10 — the dairy waste half captured, and every stranded skip swept
 
 **Objective (reviewer):** capture the 76.529 t that the 2026-09-08 exception left behind, and then

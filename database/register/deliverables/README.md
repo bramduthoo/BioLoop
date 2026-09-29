@@ -174,3 +174,26 @@ the last column, which resolves in `streams_export.csv`. Screened findings keep 
 > **retired** (`migrations/GAP_LIST_retired_2026-09-09.csv`) and those G-numbers are no longer a
 > reference — a gap list that is edited rather than derived silently preserves whatever the last
 > edition happened to say.
+
+---
+
+## THE SELECTION PER FRACTION (2026-09-29) — the 80/20 list the reviewer asked for
+
+`BIOLOOP_stream_selection_per_fractie_<date>.html` ranks **every fraction row, and every chain stage
+of a product that names no fraction, as its own stream**. The list above ranks L4 products. A product
+is not an object: its value per source is the sum of that source's fractions, so its *laagste* and
+*hoogste* compare one source's bundle with another's. Per fraction, both columns describe one object.
+
+```bash
+node tools/select_streams.js 69 --json build/sel_raw.json
+../.venv/Scripts/python tools/select_fractions.py
+```
+
+The values come from `build/sel_raw.json`. Nothing is re-derived. The reviewer's decisions live in
+`crosswalks/fraction_selection_decisions.csv`, which has four actions: `exclude`, `merge`,
+`override_value` and `note`. Only rows with `DECISION = approved` are applied. The tool lists the
+proposals that are still blank. Sources are still never summed: a merged row sums fractions *within*
+one source, then takes the max over sources.
+
+State on 2026-09-29: **112 rows, 8.411.786 t/yr, 80% at 20, 90% at 32.** Rationale and the decisions
+themselves: `log.md`, entry 2026-09-29.

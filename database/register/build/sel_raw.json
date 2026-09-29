@@ -39,14 +39,14 @@
   },
   "MONBIO 3.0": {
    "L1": 6880629,
-   "pool": 6549592,
-   "n": 29,
+   "pool": 7898863,
+   "n": 30,
    "groups": [
     {
      "label": "Plantaardig - akkerbouw",
      "total": 5221907,
-     "pool": 5153906,
-     "n": 11
+     "pool": 6503177,
+     "n": 12
     },
     {
      "label": "Plantaardig - tuinbouw",
@@ -76,14 +76,14 @@
   },
   "MONBIO 4.0": {
    "L1": 6407625,
-   "pool": 6041171,
-   "n": 27,
+   "pool": 7060534,
+   "n": 28,
    "groups": [
     {
      "label": "Plantaardig - akkerbouw",
      "total": 4958992,
-     "pool": 4891992,
-     "n": 12
+     "pool": 5911355,
+     "n": 13
     },
     {
      "label": "Plantaardig - tuinbouw",
@@ -225,8 +225,8 @@
    ]
   }
  },
- "TOT": 7547546.496,
- "n80": 15,
+ "TOT": 8896817.496,
+ "n80": 14,
  "N": 69,
  "cov": [
   {
@@ -243,25 +243,25 @@
   },
   {
    "e": "MONBIO 3.0",
-   "got": 6549583,
-   "pool": 6549592,
+   "got": 7898854,
+   "pool": 7898863,
    "L1": 6880629
   },
   {
    "e": "MONBIO 4.0",
-   "got": 6041171,
-   "pool": 6041171,
+   "got": 7060527,
+   "pool": 7060534,
    "L1": 6407625
   },
   {
    "e": "OVAM Monitor voedselverlies 2020",
-   "got": 287784.3,
+   "got": 287775.8,
    "pool": 287794.6,
    "L1": 2583632.6
   },
   {
    "e": "OVAM Monitor voedselverlies 2023",
-   "got": 713232,
+   "got": 713231,
    "pool": 713239,
    "L1": 3097157
   },
@@ -349,7 +349,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.19291858629445666,
+   "cum": 0.1636609945808874,
    "fracRows": [
     {
      "label": "stro",
@@ -366,6 +366,90 @@
      "M": 1456062,
      "min": 1335083,
      "spread": 1.0906153400200587
+    }
+   ]
+  },
+  {
+   "key": "Plantaardig - akkerbouw | Perskoeken en vaste afvallen van plantaardige olien",
+   "l2": "Plantaardig - akkerbouw",
+   "l4": "Perskoeken en vaste afvallen van plantaardige olien",
+   "by": {
+    "MONBIO 3.0": {
+     "v": 1349271,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-532"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 1349271,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    },
+    "MONBIO 4.0": {
+     "v": 1019363,
+     "stages": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "claims": [
+      "C-342"
+     ],
+     "parts": [
+      {
+       "label": "(zonder fractie)",
+       "v": 1019363,
+       "st": [
+        "Voedingsindustrie"
+       ],
+       "geo": [
+        "Vlaanderen"
+       ]
+      }
+     ]
+    }
+   },
+   "M": 1349271,
+   "min": 1019363,
+   "nSrc": 2,
+   "spread": 1.323641332871607,
+   "stages": [
+    "Voedingsindustrie"
+   ],
+   "geo": [
+    "Vlaanderen"
+   ],
+   "cum": 0.31531870820788166,
+   "fracRows": [
+    {
+     "label": "— Voedingsindustrie",
+     "by": {
+      "MONBIO 3.0": 1349271,
+      "MONBIO 4.0": 1019363
+     },
+     "st": [
+      "Voedingsindustrie"
+     ],
+     "geo": [
+      "Vlaanderen"
+     ],
+     "M": 1349271,
+     "min": 1019363,
+     "spread": 1.323641332871607
     }
    ]
   },
@@ -461,7 +545,7 @@
     "Belgie",
     "Vlaanderen"
    ],
-   "cum": 0.30658877043372373,
+   "cum": 0.41174993211302807,
    "fracRows": [
     {
      "label": "stro",
@@ -696,7 +780,7 @@
     "Vlaanderen",
     "Belgie"
    ],
-   "cum": 0.4199226863563796,
+   "cum": 0.5078958854704599,
    "fracRows": [
     {
      "label": "loof",
@@ -949,7 +1033,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.5275369952487404,
+   "cum": 0.5991896543226563,
    "fracRows": [
     {
      "label": "loof",
@@ -1041,7 +1125,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.5652378560716322,
+   "cum": 0.6311728887913787,
    "fracRows": [
     {
      "label": "— Voedingsindustrie",
@@ -1124,7 +1208,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.6021856244819085,
+   "cum": 0.6625172431209327,
    "fracRows": [
     {
      "label": "— Voedingsindustrie",
@@ -1208,7 +1292,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.6360822026792851,
+   "cum": 0.6912731437691166,
    "fracRows": [
     {
      "label": "stro",
@@ -1292,7 +1376,7 @@
    "geo": [
     "Belgie"
    ],
-   "cum": 0.6685430825333997,
+   "cum": 0.7188110808022358,
    "fracRows": [
     {
      "label": "— Voedingsindustrie",
@@ -1468,7 +1552,7 @@
     "Vlaanderen",
     "Belgie"
    ],
-   "cum": 0.6952154589283898,
+   "cum": 0.7414383855761629,
    "fracRows": [
     {
      "label": "blad- en stengelmassa",
@@ -1615,7 +1699,7 @@
    "geo": [
     "Belgie"
    ],
-   "cum": 0.7177393347455305,
+   "cum": 0.7605463418848578,
    "fracRows": [
     {
      "label": "— Voedingsindustrie",
@@ -1699,7 +1783,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.7401374743382568,
+   "cum": 0.7795476308374529,
    "fracRows": [
     {
      "label": "— Voedingsindustrie",
@@ -1783,7 +1867,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.7594149971832118,
+   "cum": 0.7959015686433499,
    "fracRows": [
     {
      "label": "— Voedingsindustrie",
@@ -1917,7 +2001,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.7776990846112437,
+   "cum": 0.8114127331762905,
    "fracRows": [
     {
      "label": "stengelmassa",
@@ -2031,7 +2115,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.7955397166724523,
+   "cum": 0.8265476957694357,
    "fracRows": [
     {
      "label": "— Voedingsindustrie",
@@ -2165,7 +2249,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.8122671392947455,
+   "cum": 0.8407382757219595,
    "fracRows": [
     {
      "label": "— Voedingsindustrie",
@@ -2227,7 +2311,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.8257523162398548,
+   "cum": 0.8521783215637181,
    "fracRows": [
     {
      "label": "loof",
@@ -2378,7 +2462,7 @@
     "Belgie",
     "Vlaanderen"
    ],
-   "cum": 0.8392329884098007,
+   "cum": 0.8636145458142149,
    "fracRows": [
     {
      "label": "bladmassa (groene deel)",
@@ -2507,7 +2591,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.8522690127724388,
+   "cum": 0.8746735565272296,
    "fracRows": [
     {
      "label": "— Voedingsindustrie",
@@ -2574,7 +2658,7 @@
     "Vlaanderen",
     "Belgie"
    ],
-   "cum": 0.8646438951331503,
+   "cum": 0.8851716925227124,
    "fracRows": [
     {
      "label": "— Primaire productie/Voedingsindustrie",
@@ -2676,7 +2760,7 @@
     "Belgie",
     "Vlaanderen"
    ],
-   "cum": 0.876568299977519,
+   "cum": 0.8952876693920215,
    "fracRows": [
     {
      "label": "blad- en stengelmassa",
@@ -2789,7 +2873,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.8880761456126577,
+   "cum": 0.9050502614693627,
    "fracRows": [
     {
      "label": "— Voedingsindustrie",
@@ -2941,7 +3025,7 @@
     "Belgie",
     "Vlaanderen"
    ],
-   "cum": 0.8993115848437961,
+   "cum": 0.9145817596751117,
    "fracRows": [
     {
      "label": "bladmassa",
@@ -3070,7 +3154,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9102523587818915,
+   "cum": 0.9238632808524457,
    "fracRows": [
     {
      "label": "— Voedingsindustrie",
@@ -3130,7 +3214,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9195902277221294,
+   "cum": 0.9317849899390587,
    "fracRows": [
     {
      "label": "eetbare slachtafvallen",
@@ -3270,7 +3354,7 @@
     "Vlaanderen",
     "Belgie"
    ],
-   "cum": 0.9278090575144169,
+   "cum": 0.9387573707963583,
    "fracRows": [
     {
      "label": "— Primaire productie/Voedingsindustrie",
@@ -3386,7 +3470,7 @@
    "geo": [
     "Belgie"
    ],
-   "cum": 0.9354936739696768,
+   "cum": 0.9452765558899131,
    "fracRows": [
     {
      "label": "— Voedingsindustrie",
@@ -3470,7 +3554,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9430200933206679,
+   "cum": 0.951661535690335,
    "fracRows": [
     {
      "label": "— Voedingsindustrie",
@@ -3604,7 +3688,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9502807309370168,
+   "cum": 0.9578210416063143,
    "fracRows": [
     {
      "label": "— Primaire productie",
@@ -3666,7 +3750,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9569054002949994,
+   "cum": 0.9634410287559304,
    "fracRows": [
     {
      "label": "— Voedingsindustrie",
@@ -3725,7 +3809,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9622118929441306,
+   "cum": 0.9679427508625159,
    "fracRows": [
     {
      "label": "moutscheuten",
@@ -3810,7 +3894,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9651929941552227,
+   "cum": 0.9704717450798432,
    "fracRows": [
     {
      "label": "— Primaire productie",
@@ -3907,7 +3991,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.968144284354204,
+   "cum": 0.9729754493549971,
    "fracRows": [
     {
      "label": "wortelmassa na forcerie",
@@ -4053,7 +4137,7 @@
     "Vlaanderen",
     "Belgie"
    ],
-   "cum": 0.9710617887394595,
+   "cum": 0.9754504916956881,
    "fracRows": [
     {
      "label": "— Primaire productie/Voedingsindustrie",
@@ -4168,7 +4252,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9737116564826526,
+   "cum": 0.9776984865555346,
    "fracRows": [
     {
      "label": "buitenste bladeren",
@@ -4266,7 +4350,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9762621541854758,
+   "cum": 0.9798621816081368,
    "fracRows": [
     {
      "label": "blad- en stengelmassa",
@@ -4416,7 +4500,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9787795285415092,
+   "cum": 0.9819977767249909,
    "fracRows": [
     {
      "label": "— Primaire productie",
@@ -4478,7 +4562,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9812770288894687,
+   "cum": 0.9841165118803962,
    "fracRows": [
     {
      "label": "loof",
@@ -4563,7 +4647,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9835221293348889,
+   "cum": 0.9860211255254011,
    "fracRows": [
     {
      "label": "— Primaire productie",
@@ -4647,7 +4731,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9855095301422837,
+   "cum": 0.987707121670286,
    "fracRows": [
     {
      "label": "buitenste bladeren",
@@ -4745,7 +4829,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9874969309496785,
+   "cum": 0.9893931178151708,
    "fracRows": [
     {
      "label": "buitenste bladeren",
@@ -4849,7 +4933,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9894752191268912,
+   "cum": 0.991071383330532,
    "fracRows": [
     {
      "label": "— Primaire productie/Producentenorganisaties/veilingen",
@@ -4924,7 +5008,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9910563952092545,
+   "cum": 0.9924127618634024,
    "fracRows": [
     {
      "label": "eetbare slachtafvallen",
@@ -5013,7 +5097,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9924500931487868,
+   "cum": 0.9935950947599387,
    "fracRows": [
     {
      "label": "— Primaire productie/Producentenorganisaties/veilingen",
@@ -5112,7 +5196,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9937750270203833,
+   "cum": 0.9947190921898619,
    "fracRows": [
     {
      "label": "blad- en stengelmassa",
@@ -5210,7 +5294,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9949674675048202,
+   "cum": 0.9957306898767928,
    "fracRows": [
     {
      "label": "bladmassa",
@@ -5284,7 +5368,7 @@
    "geo": [
     "Belgie"
    ],
-   "cum": 0.9960605379488874,
+   "cum": 0.9966579877564794,
    "fracRows": [
     {
      "label": "— Voedingsindustrie",
@@ -5380,7 +5464,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9970344350959796,
+   "cum": 0.9974841858889357,
    "fracRows": [
     {
      "label": "blad- en stengelmassa",
@@ -5469,7 +5553,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9979618888060972,
+   "cum": 0.998270984089882,
    "fracRows": [
     {
      "label": "blad- en stengelmassa",
@@ -5528,7 +5612,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9984521143385878,
+   "cum": 0.9986868631389536,
    "fracRows": [
     {
      "label": "blad- en stengelmassa",
@@ -5617,7 +5701,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9989341939126493,
+   "cum": 0.9990958316270264,
    "fracRows": [
     {
      "label": "— Primaire productie/Producentenorganisaties/veilingen",
@@ -5694,7 +5778,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9992843739349122,
+   "cum": 0.9993929041477552,
    "fracRows": [
     {
      "label": "— Primaire productie",
@@ -5757,7 +5841,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9995609434136303,
+   "cum": 0.9996275297316719,
    "fracRows": [
     {
      "label": "— Primaire productie/Producentenorganisaties/veilingen",
@@ -5845,7 +5929,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.999730799935969,
+   "cum": 0.9997716262021881,
    "fracRows": [
     {
      "label": "— Primaire productie",
@@ -5905,7 +5989,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.999880914943621,
+   "cum": 0.9998989751109985,
    "fracRows": [
     {
      "label": "— Primaire productie",
@@ -5988,7 +6072,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9999092685284731,
+   "cum": 0.9999230286559988,
    "fracRows": [
     {
      "label": "— Visveilingen",
@@ -6048,7 +6132,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9999309974439673,
+   "cum": 0.9999414622138495,
    "fracRows": [
     {
      "label": "eetbare slachtafvallen",
@@ -6112,7 +6196,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9999499439983311,
+   "cum": 0.9999575353770974,
    "fracRows": [
     {
      "label": "— Primaire productie",
@@ -6195,7 +6279,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9999624116260628,
+   "cum": 0.9999681121929129,
    "fracRows": [
     {
      "label": "— Visveilingen",
@@ -6255,7 +6339,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9999704937226795,
+   "cum": 0.9999749685772354,
    "fracRows": [
     {
      "label": "— Visveilingen",
@@ -6338,7 +6422,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9999777808589733,
+   "cum": 0.9999811505631001,
    "fracRows": [
     {
      "label": "— Visveilingen",
@@ -6422,7 +6506,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9999825373715724,
+   "cum": 0.9999851857138735,
    "fracRows": [
     {
      "label": "— Visveilingen",
@@ -6506,7 +6590,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9999855847194771,
+   "cum": 0.9999877709079623,
    "fracRows": [
     {
      "label": "— Visveilingen",
@@ -6590,7 +6674,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9999877443616877,
+   "cum": 0.9999896030237732,
    "fracRows": [
     {
      "label": "— Visveilingen",
@@ -6650,7 +6734,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9999898642558823,
+   "cum": 0.9999914014196611,
    "fracRows": [
     {
      "label": "— Visveilingen",
@@ -6733,7 +6817,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9999919311527219,
+   "cum": 0.9999931548556518,
    "fracRows": [
     {
      "label": "— Visveilingen",
@@ -6793,7 +6877,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9999937065641099,
+   "cum": 0.9999946610122079,
    "fracRows": [
     {
      "label": "— Producentenorganisaties/veilingen",
@@ -6876,7 +6960,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9999950314979815,
+   "cum": 0.9999957850096378,
    "fracRows": [
     {
      "label": "— Visveilingen",
@@ -6936,7 +7020,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9999961841904498,
+   "cum": 0.9999967628874017,
    "fracRows": [
     {
      "label": "— Visveilingen",
@@ -7032,7 +7116,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9999973103842407,
+   "cum": 0.9999977182852172,
    "fracRows": [
     {
      "label": "— Visveilingen",
@@ -7092,7 +7176,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9999982378379508,
+   "cum": 0.9999985050834181,
    "fracRows": [
     {
      "label": "— Visveilingen",
@@ -7175,7 +7259,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9999991652916609,
+   "cum": 0.9999992918816191,
    "fracRows": [
     {
      "label": "— Visveilingen",
@@ -7235,7 +7319,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9999994302784352,
+   "cum": 0.9999995166811051,
    "fracRows": [
     {
      "label": "— Visveilingen",
@@ -7294,7 +7378,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9999996687665321,
+   "cum": 0.9999997190006426,
    "fracRows": [
     {
      "label": "— Visveilingen",
@@ -7353,7 +7437,7 @@
    "geo": [
     "Vlaanderen"
    ],
-   "cum": 0.9999998807559515,
+   "cum": 0.9999998988402312,
    "fracRows": [
     {
      "label": "— Visveilingen",

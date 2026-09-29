@@ -1,0 +1,25 @@
+﻿id;L4;fraction;chain_stage;source;action;value_t;merge_group;reason;DECISION;decided_on
+FS-01;Perskoeken en vaste afvallen van plantaardige olien;;Voedingsindustrie;;exclude;;;Overkoepelende term (Prodcom 104141) voor de perskoeken van alle oliezaden (kool- en raapzaad, lijnzaad, soja, ...). Niet selecteerbaar.;approved;2026-09-29
+FS-02;Bloemkool;blad- en stengelmassa;Primaire productie;GeNeSys ILVO 165;exclude;;;Verzameling (loof + stengel), geen synoniem van loof. Loof en harten (MONBIO) blijven selecteerbaar, de restpost stengel is te klein en wordt genegeerd.;approved;2026-09-29
+FS-03;Spruiten;stokken;Primaire productie;MONBIO;exclude;;;Zo goed als hetzelfde object als stengelmassa, maar vermoedelijk ruimer. Alleen GeNeSys' stengelmassa telt.;approved;2026-09-29
+FS-04;Eetbare slachtafvallen (rood vlees);;Voedingsindustrie;MONBIO;exclude;;;Algemene term (C-295/C-480). Al per diersoort opgedeeld via de Statbel-conversie (C-820..C-822), de varkensrij telt.;approved;2026-09-29
+FS-05;Wortel;loof;Primaire productie;MONBIO;merge;;Wortel-blad;Wortelloof = bladmassa (GeNeSys).;approved;2026-09-29
+FS-06;Wortel;bladmassa;Primaire productie;GeNeSys ILVO 165;merge;;Wortel-blad;Wortelloof = bladmassa (GeNeSys).;approved;2026-09-29
+FS-07;Prei;loof;Primaire productie;MONBIO;merge;;Prei-blad;Preiloof = bladmassa (groene deel) (GeNeSys).;approved;2026-09-29
+FS-08;Prei;bladmassa (groene deel);Primaire productie;GeNeSys ILVO 165;merge;;Prei-blad;Preiloof = bladmassa (groene deel) (GeNeSys).;approved;2026-09-29
+FS-09;Aardappel;;Primaire productie;OVAM Monitor voedselverlies 2023;override_value;240305;;OVAM 2023 zonder de 308.000 t niet-geoogste aardappelen (C-042 i.p.v. C-043 = 548.305). De 308.000 t is een eenmalig weerincident dat de bron zelf buiten haar scope plaatst (S080 p.16).;approved;2026-09-29
+FS-10;Aardappel;;Primaire productie;OVAM;note;;;Knollen: oogst-, sorteer- en bewaarverlies na oogstklaar, excl. loof (nulmeting 2015 p.45). Een ander object dan aardappelloof (MONBIO), geen overlap.;approved;2026-09-29
+FS-11;Witte kool;buitenste bladeren;Primaire productie;GeNeSys ILVO 165;merge;;Wittekool-blad;Voorstel: buitenste bladeren (GeNeSys) = blad (TransBio).;;
+FS-12;Witte kool;blad;Primaire productie;TransBio D3.4A;merge;;Wittekool-blad;Voorstel: buitenste bladeren (GeNeSys) = blad (TransBio).;;
+FS-13;Rode kool;buitenste bladeren;Primaire productie;GeNeSys ILVO 165;merge;;Rodekool-blad;Voorstel: buitenste bladeren (GeNeSys) = blad (TransBio).;;
+FS-14;Rode kool;blad;Primaire productie;TransBio D3.4A;merge;;Rodekool-blad;Voorstel: buitenste bladeren (GeNeSys) = blad (TransBio).;;
+FS-15;Savooikool;buitenste bladeren;Primaire productie;GeNeSys ILVO 165;merge;;Savooikool-blad;Voorstel: buitenste bladeren (GeNeSys) = blad (TransBio).;;
+FS-16;Savooikool;blad;Primaire productie;TransBio D3.4A;merge;;Savooikool-blad;Voorstel: buitenste bladeren (GeNeSys) = blad (TransBio).;;
+FS-17;Selder;blad- en stengelmassa;Primaire productie;GeNeSys ILVO 165;merge;;Selder-blad;Voorstel. Let op: bij bloemkool bleek blad- en stengelmassa een verzameling (FS-02) - misschien geldt dat hier ook.;;
+FS-18;Selder;loof;Primaire productie;TransBio D3.4A;merge;;Selder-blad;Voorstel, zie FS-17.;;
+FS-19;Broccoli;blad- en stengelmassa;Primaire productie;GeNeSys ILVO 165;merge;;Broccoli-blad;Voorstel, zie FS-17.;;
+FS-20;Broccoli;loof;Primaire productie;TransBio D3.4A;merge;;Broccoli-blad;Voorstel, zie FS-17.;;
+FS-21;Knolselder;bladmassa;Primaire productie;GeNeSys ILVO 165;merge;;Knolselder-blad;Voorstel: bladmassa (GeNeSys) = loof (TransBio).;;
+FS-22;Knolselder;loof;Primaire productie;TransBio D3.4A;merge;;Knolselder-blad;Voorstel: bladmassa (GeNeSys) = loof (TransBio).;;
+FS-23;Courgette;blad- en stengelmassa;Primaire productie;GeNeSys ILVO 165;merge;;Courgette-blad;Voorstel, zie FS-17.;;
+FS-24;Courgette;loof;Primaire productie;TransBio D3.4A;merge;;Courgette-blad;Voorstel, zie FS-17.;;

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BIOLOOP selectie per fractie</title>
+<style>
+:root{--bg:#F4F5F0;--surface:#FFFFFF;--ink:#1A1E18;--muted:#6B7265;--line:#D9DCD2;--head:#3D4A38;--headink:#FFFFFF;
+--b80:#E3EDE4;--b90:#F6EEDC;--cut:#3D6B4E;--tag-bg:#E8E2F0;--tag-ink:#5A4478}
+@media (prefers-color-scheme: dark){:root{color-scheme:dark;--bg:#151814;--surface:#1D211B;--ink:#E6E9E1;--muted:#9AA193;
+--line:#353B31;--head:#2C3528;--headink:#E6E9E1;--b80:#22332A;--b90:#352F22;--cut:#7FB38F;--tag-bg:#2C2538;--tag-ink:#C7B4E3}}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 "Segoe UI",Calibri,system-ui,-apple-system,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:22px;margin:0 0 4px} .sub{color:var(--muted);margin:0 0 16px;font-variant-numeric:tabular-nums}
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+table{border-collapse:collapse;width:100%;min-width:760px;font-variant-numeric:tabular-nums}
+th{position:sticky;top:0;background:var(--head);color:var(--headink);font-size:12px;letter-spacing:.04em;text-transform:uppercase;
+font-weight:600;text-align:left;padding:8px 10px;white-space:nowrap}
+td{padding:6px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th.n,td.n{text-align:right} td.s{font-weight:700}
+tr.b80 td{background:var(--b80)} tr.b90 td{background:var(--b90)} tr.cut td{border-bottom:2px solid var(--cut)}
+.stage{color:var(--muted);font-style:italic} .src{display:block;color:var(--muted);font-size:12px}
+.tag{font-size:11px;font-weight:600;padding:1px 6px;border-radius:9px;background:var(--tag-bg);color:var(--tag-ink);white-space:nowrap}
+.cutlabel td{background:transparent!important;border:0;padding:4px 10px;font-size:12px;font-weight:700;color:var(--cut);
+letter-spacing:.05em;text-transform:uppercase}
+</style></head><body><div class="wrap">
+<h1>BIOLOOP — 80/20-stroomselectie per fractie en ketenschakel</h1>
+<p class="sub">{{SUB}}</p>
+<div class="tbl"><table>
+<thead><tr><th class="n">#</th><th>stroom</th><th>fractie / ketenschakel</th><th class="n">hoogste</th><th class="n">laagste</th>
+<th class="n">bronnen</th><th class="n">cum. %</th><th class="n">rang per product</th></tr></thead>
+<tbody>
+{{ROWS}}
+</tbody></table></div></div></body></html>
